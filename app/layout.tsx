@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tangerooo.github.io/ui-style-lab/"),
   title: "UI Language Lab",
   description:
-    "일곱 디자인 층위를 조합하고 compact component lab과 실제 chart에서 결과를 확인하는 인터랙티브 레퍼런스.",
+    "Mix eight compatible design layers and inspect the result across a complete interface, navigation system, and live charts.",
   icons: { icon: "/favicon.svg" },
   openGraph: {
     title: "UI Language Lab",
-    description: "같은 UI, 다른 디자인 언어. 미학적으로 검증된 8,332개 조합을 직접 비교하세요.",
+    description: "One interface, many design languages. Explore 20,804 aesthetically compatible full-page combinations.",
     type: "website",
     url: "https://tangerooo.github.io/ui-style-lab/",
     images: [{ url: "/ui-style-lab/og.png", width: 1732, height: 908, alt: "UI Language Lab — the same component kit in Glass, Brutal, Editorial, and Terminal styles" }],
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "UI Language Lab",
-    description: "같은 UI, 다른 디자인 언어. 미학적으로 검증된 8,332개 조합을 직접 비교하세요.",
+    description: "One interface, many design languages. Explore 20,804 aesthetically compatible full-page combinations.",
     images: ["/ui-style-lab/og.png"],
   },
 };
@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

@@ -3,6 +3,7 @@ export type AxisKey =
   | "surface"
   | "layout"
   | "nav"
+  | "navStyle"
   | "type"
   | "palette"
   | "motion";
@@ -16,6 +17,7 @@ export type Option = {
 
 export type Selection = Record<AxisKey, string>;
 export type DependentAxis = Exclude<AxisKey, "aesthetic">;
+export type Language = "en" | "ko";
 
 export const axes: Record<AxisKey, Option[]> = {
   aesthetic: [
@@ -56,6 +58,11 @@ export const axes: Record<AxisKey, Option[]> = {
     { id: "top", ko: "상단 메뉴", en: "Top Navigation", note: "콘텐츠 위의 horizontal navigation" },
     { id: "left", ko: "좌측 메뉴", en: "Left Navigation", note: "페이지 전체를 관통하는 vertical rail" },
   ],
+  navStyle: [
+    { id: "text", ko: "텍스트", en: "Text", note: "명확한 텍스트 label 중심의 메뉴" },
+    { id: "icon", ko: "아이콘", en: "Icon", note: "공간을 절약하는 symbol 중심의 메뉴" },
+    { id: "both", ko: "아이콘 + 텍스트", en: "Icon + Text", note: "symbol과 label을 함께 제공하는 메뉴" },
+  ],
   type: [
     { id: "grotesk", ko: "네오 그로테스크", en: "Neo-grotesk", note: "중립적이고 정돈된 sans" },
     { id: "humanist", ko: "휴머니스트 산스", en: "Humanist Sans", note: "친근하고 읽기 쉬운 sans" },
@@ -90,9 +97,10 @@ export const axisMeta: Record<AxisKey, { index: string; ko: string; en: string }
   surface: { index: "02", ko: "표면", en: "Surface" },
   layout: { index: "03", ko: "구성", en: "Layout" },
   nav: { index: "04", ko: "메뉴 위치", en: "Navigation" },
-  type: { index: "05", ko: "서체", en: "Typography" },
-  palette: { index: "06", ko: "색상", en: "Palette" },
-  motion: { index: "07", ko: "움직임", en: "Motion" },
+  navStyle: { index: "05", ko: "메뉴 표현", en: "Menu Style" },
+  type: { index: "06", ko: "서체", en: "Typography" },
+  palette: { index: "07", ko: "색상", en: "Palette" },
+  motion: { index: "08", ko: "움직임", en: "Motion" },
 };
 
 export const defaultSelection: Selection = {
@@ -100,6 +108,7 @@ export const defaultSelection: Selection = {
   surface: "glass",
   layout: "dense",
   nav: "top",
+  navStyle: "text",
   type: "grotesk",
   palette: "cobalt",
   motion: "subtle",
@@ -114,6 +123,7 @@ export const dependentAxisKeys: DependentAxis[] = [
   "surface",
   "layout",
   "nav",
+  "navStyle",
   "type",
   "palette",
   "motion",
@@ -125,132 +135,144 @@ export const dependentAxisKeys: DependentAxis[] = [
  */
 export const aestheticRules: Record<string, AestheticRule> = {
   minimal: {
-    defaults: { surface: "glass", layout: "dense", nav: "top", type: "grotesk", palette: "cobalt", motion: "subtle" },
+    defaults: { surface: "glass", layout: "dense", nav: "top", navStyle: "text", type: "grotesk", palette: "cobalt", motion: "subtle" },
     allowed: {
       surface: ["flat", "glass", "neumo", "material", "liquid"],
       layout: ["landing", "bento", "cards", "split", "dense"],
       nav: ["top", "left"],
+      navStyle: ["text", "icon", "both"],
       type: ["grotesk", "humanist", "serif", "mono"],
       palette: ["cobalt", "mono", "noir", "forest", "aurora", "aqua"],
       motion: ["quiet", "subtle"],
     },
   },
   swiss: {
-    defaults: { surface: "flat", layout: "dense", nav: "left", type: "grotesk", palette: "mono", motion: "quiet" },
+    defaults: { surface: "flat", layout: "dense", nav: "left", navStyle: "text", type: "grotesk", palette: "mono", motion: "quiet" },
     allowed: {
       surface: ["flat", "paper", "material"],
       layout: ["landing", "editorial", "split", "dense"],
       nav: ["top", "left"],
+      navStyle: ["text", "both"],
       type: ["grotesk", "mono", "condensed"],
       palette: ["mono", "primary", "cobalt", "citrus"],
       motion: ["quiet", "subtle"],
     },
   },
   brutalist: {
-    defaults: { surface: "flat", layout: "landing", nav: "left", type: "condensed", palette: "primary", motion: "kinetic" },
+    defaults: { surface: "flat", layout: "landing", nav: "left", navStyle: "both", type: "condensed", palette: "primary", motion: "kinetic" },
     allowed: {
       surface: ["flat", "paper"],
       layout: ["landing", "bento", "cards", "dense", "poster"],
       nav: ["top", "left"],
+      navStyle: ["text", "icon", "both"],
       type: ["grotesk", "mono", "condensed", "slab"],
       palette: ["primary", "mono", "cobalt", "citrus"],
       motion: ["quiet", "subtle", "kinetic"],
     },
   },
   editorial: {
-    defaults: { surface: "paper", layout: "editorial", nav: "top", type: "serif", palette: "sunset", motion: "quiet" },
+    defaults: { surface: "paper", layout: "editorial", nav: "top", navStyle: "text", type: "serif", palette: "sunset", motion: "quiet" },
     allowed: {
       surface: ["flat", "paper"],
       layout: ["landing", "editorial", "split", "dense"],
       nav: ["top", "left"],
+      navStyle: ["text", "both"],
       type: ["grotesk", "serif"],
       palette: ["mono", "forest", "sunset", "noir"],
       motion: ["quiet", "subtle"],
     },
   },
   memphis: {
-    defaults: { surface: "flat", layout: "bento", nav: "left", type: "slab", palette: "primary", motion: "kinetic" },
+    defaults: { surface: "flat", layout: "bento", nav: "left", navStyle: "both", type: "slab", palette: "primary", motion: "kinetic" },
     allowed: {
       surface: ["flat", "clay", "glossy"],
       layout: ["landing", "bento", "cards", "poster"],
       nav: ["top", "left"],
+      navStyle: ["text", "icon", "both"],
       type: ["grotesk", "rounded", "condensed", "slab"],
       palette: ["cobalt", "primary", "citrus", "candy"],
       motion: ["subtle", "kinetic"],
     },
   },
   y2k: {
-    defaults: { surface: "chrome", layout: "poster", nav: "top", type: "rounded", palette: "aurora", motion: "kinetic" },
+    defaults: { surface: "chrome", layout: "poster", nav: "top", navStyle: "both", type: "rounded", palette: "aurora", motion: "kinetic" },
     allowed: {
       surface: ["glass", "liquid", "chrome", "glossy"],
       layout: ["landing", "bento", "cards", "split", "poster"],
       nav: ["top", "left"],
+      navStyle: ["icon", "both"],
       type: ["grotesk", "mono", "rounded", "pixel"],
       palette: ["cobalt", "candy", "aurora", "aqua"],
       motion: ["subtle", "kinetic"],
     },
   },
   cyberpunk: {
-    defaults: { surface: "glass", layout: "dense", nav: "left", type: "mono", palette: "aurora", motion: "kinetic" },
+    defaults: { surface: "glass", layout: "dense", nav: "left", navStyle: "both", type: "mono", palette: "aurora", motion: "kinetic" },
     allowed: {
       surface: ["flat", "glass", "chrome"],
       layout: ["cards", "split", "dense", "poster"],
       nav: ["top", "left"],
+      navStyle: ["icon", "both"],
       type: ["grotesk", "mono", "condensed", "pixel"],
       palette: ["cobalt", "noir", "aurora"],
       motion: ["subtle", "kinetic"],
     },
   },
   frutiger: {
-    defaults: { surface: "glossy", layout: "landing", nav: "top", type: "humanist", palette: "aqua", motion: "subtle" },
+    defaults: { surface: "glossy", layout: "landing", nav: "top", navStyle: "both", type: "humanist", palette: "aqua", motion: "subtle" },
     allowed: {
       surface: ["glass", "material", "glossy"],
       layout: ["landing", "bento", "cards"],
       nav: ["top", "left"],
+      navStyle: ["text", "icon", "both"],
       type: ["grotesk", "humanist", "rounded"],
       palette: ["aqua"],
       motion: ["subtle", "kinetic"],
     },
   },
   terminal: {
-    defaults: { surface: "flat", layout: "dense", nav: "left", type: "pixel", palette: "forest", motion: "quiet" },
+    defaults: { surface: "flat", layout: "dense", nav: "left", navStyle: "both", type: "pixel", palette: "forest", motion: "quiet" },
     allowed: {
       surface: ["flat"],
       layout: ["cards", "dense"],
       nav: ["top", "left"],
+      navStyle: ["text", "both"],
       type: ["mono", "pixel"],
       palette: ["forest"],
       motion: ["quiet", "subtle"],
     },
   },
   luxury: {
-    defaults: { surface: "paper", layout: "editorial", nav: "top", type: "serif", palette: "noir", motion: "quiet" },
+    defaults: { surface: "paper", layout: "editorial", nav: "top", navStyle: "text", type: "serif", palette: "noir", motion: "quiet" },
     allowed: {
       surface: ["flat", "material", "paper"],
       layout: ["landing", "cards", "editorial", "split"],
       nav: ["top", "left"],
+      navStyle: ["text"],
       type: ["grotesk", "serif"],
       palette: ["noir"],
       motion: ["quiet", "subtle"],
     },
   },
   organic: {
-    defaults: { surface: "paper", layout: "bento", nav: "left", type: "humanist", palette: "forest", motion: "quiet" },
+    defaults: { surface: "paper", layout: "bento", nav: "left", navStyle: "both", type: "humanist", palette: "forest", motion: "quiet" },
     allowed: {
       surface: ["flat", "clay", "material", "paper"],
       layout: ["landing", "bento", "cards", "split"],
       nav: ["top", "left"],
+      navStyle: ["text", "both"],
       type: ["humanist", "serif", "rounded"],
       palette: ["citrus", "candy", "forest", "aqua"],
       motion: ["quiet", "subtle", "kinetic"],
     },
   },
   vaporwave: {
-    defaults: { surface: "glass", layout: "poster", nav: "top", type: "mono", palette: "candy", motion: "kinetic" },
+    defaults: { surface: "glass", layout: "poster", nav: "top", navStyle: "icon", type: "mono", palette: "candy", motion: "kinetic" },
     allowed: {
       surface: ["glass", "chrome", "glossy"],
       layout: ["cards", "split", "dense", "poster"],
       nav: ["top", "left"],
+      navStyle: ["icon", "both"],
       type: ["serif", "mono", "pixel"],
       palette: ["candy"],
       motion: ["subtle", "kinetic"],
@@ -268,29 +290,107 @@ export type Preset = {
 
 export const presets: Preset[] = [
   { id: "glass-bento", name: "Glass Field", label: "투명한 여행 저널", category: "Contemporary", selection: defaultSelection },
-  { id: "neo-brutal", name: "Primary Brutal", label: "강한 독립 출판물", category: "Expressive", selection: { aesthetic: "brutalist", surface: "flat", layout: "landing", nav: "left", type: "condensed", palette: "primary", motion: "kinetic" } },
-  { id: "soft-neumo", name: "Soft Neumorphic", label: "차분한 wellness journal", category: "Morphism", selection: { aesthetic: "minimal", surface: "neumo", layout: "cards", nav: "top", type: "humanist", palette: "cobalt", motion: "subtle" } },
-  { id: "swiss-flat", name: "Swiss Archive", label: "grid로 정리한 field archive", category: "Modernist", selection: { aesthetic: "swiss", surface: "flat", layout: "dense", nav: "left", type: "grotesk", palette: "mono", motion: "quiet" } },
-  { id: "editorial-luxury", name: "Editorial Noir", label: "절제된 luxury journal", category: "Editorial", selection: { aesthetic: "luxury", surface: "paper", layout: "editorial", nav: "top", type: "serif", palette: "noir", motion: "quiet" } },
-  { id: "y2k-chrome", name: "Y2K Chrome", label: "2000년대의 미래", category: "Retro", selection: { aesthetic: "y2k", surface: "chrome", layout: "poster", nav: "top", type: "rounded", palette: "aurora", motion: "kinetic" } },
-  { id: "cyber-hud", name: "Cyber Trail", label: "neon expedition index", category: "Futurist", selection: { aesthetic: "cyberpunk", surface: "glass", layout: "dense", nav: "left", type: "mono", palette: "aurora", motion: "kinetic" } },
-  { id: "material-you", name: "Material You", label: "friendly dynamic color", category: "System", selection: { aesthetic: "organic", surface: "material", layout: "cards", nav: "top", type: "rounded", palette: "candy", motion: "subtle" } },
-  { id: "memphis-pop", name: "Memphis Pop", label: "playful creative tools", category: "Expressive", selection: { aesthetic: "memphis", surface: "flat", layout: "bento", nav: "left", type: "slab", palette: "primary", motion: "kinetic" } },
-  { id: "frutiger-gloss", name: "Aero Optimism", label: "nature meets glossy web", category: "Retro", selection: { aesthetic: "frutiger", surface: "glossy", layout: "landing", nav: "top", type: "humanist", palette: "aqua", motion: "subtle" } },
-  { id: "terminal-green", name: "Terminal 84", label: "phosphor field log", category: "Retro", selection: { aesthetic: "terminal", surface: "flat", layout: "dense", nav: "left", type: "pixel", palette: "forest", motion: "quiet" } },
-  { id: "paper-report", name: "Paper Report", label: "printed annual report", category: "Editorial", selection: { aesthetic: "editorial", surface: "paper", layout: "editorial", nav: "top", type: "serif", palette: "sunset", motion: "quiet" } },
-  { id: "clay-candy", name: "Candy Clay", label: "말랑한 onboarding", category: "Morphism", selection: { aesthetic: "organic", surface: "clay", layout: "cards", nav: "left", type: "rounded", palette: "candy", motion: "kinetic" } },
-  { id: "liquid-spatial", name: "Liquid Spatial", label: "floating glass controls", category: "Contemporary", selection: { aesthetic: "minimal", surface: "liquid", layout: "split", nav: "top", type: "humanist", palette: "aurora", motion: "subtle" } },
-  { id: "corporate-clean", name: "Corporate Clean", label: "명료한 editorial landing", category: "System", selection: { aesthetic: "minimal", surface: "material", layout: "landing", nav: "left", type: "grotesk", palette: "cobalt", motion: "quiet" } },
-  { id: "vapor-grid", name: "Vapor Grid", label: "dreamy retro travel page", category: "Retro", selection: { aesthetic: "vaporwave", surface: "glass", layout: "poster", nav: "top", type: "mono", palette: "candy", motion: "kinetic" } },
-  { id: "organic-calm", name: "Organic Calm", label: "wellness와 quiet data", category: "Nature", selection: { aesthetic: "organic", surface: "paper", layout: "bento", nav: "left", type: "humanist", palette: "forest", motion: "quiet" } },
-  { id: "citrus-split", name: "Citrus Split", label: "energetic commerce", category: "Expressive", selection: { aesthetic: "swiss", surface: "flat", layout: "split", nav: "top", type: "condensed", palette: "citrus", motion: "subtle" } },
+  { id: "neo-brutal", name: "Primary Brutal", label: "강한 독립 출판물", category: "Expressive", selection: { aesthetic: "brutalist", surface: "flat", layout: "landing", nav: "left", navStyle: "both", type: "condensed", palette: "primary", motion: "kinetic" } },
+  { id: "soft-neumo", name: "Soft Neumorphic", label: "차분한 wellness journal", category: "Morphism", selection: { aesthetic: "minimal", surface: "neumo", layout: "cards", nav: "top", navStyle: "text", type: "humanist", palette: "cobalt", motion: "subtle" } },
+  { id: "swiss-flat", name: "Swiss Archive", label: "grid로 정리한 field archive", category: "Modernist", selection: { aesthetic: "swiss", surface: "flat", layout: "dense", nav: "left", navStyle: "text", type: "grotesk", palette: "mono", motion: "quiet" } },
+  { id: "editorial-luxury", name: "Editorial Noir", label: "절제된 luxury journal", category: "Editorial", selection: { aesthetic: "luxury", surface: "paper", layout: "editorial", nav: "top", navStyle: "text", type: "serif", palette: "noir", motion: "quiet" } },
+  { id: "y2k-chrome", name: "Y2K Chrome", label: "2000년대의 미래", category: "Retro", selection: { aesthetic: "y2k", surface: "chrome", layout: "poster", nav: "top", navStyle: "both", type: "rounded", palette: "aurora", motion: "kinetic" } },
+  { id: "cyber-hud", name: "Cyber Trail", label: "neon expedition index", category: "Futurist", selection: { aesthetic: "cyberpunk", surface: "glass", layout: "dense", nav: "left", navStyle: "both", type: "mono", palette: "aurora", motion: "kinetic" } },
+  { id: "material-you", name: "Material You", label: "friendly dynamic color", category: "System", selection: { aesthetic: "organic", surface: "material", layout: "cards", nav: "top", navStyle: "both", type: "rounded", palette: "candy", motion: "subtle" } },
+  { id: "memphis-pop", name: "Memphis Pop", label: "playful creative tools", category: "Expressive", selection: { aesthetic: "memphis", surface: "flat", layout: "bento", nav: "left", navStyle: "both", type: "slab", palette: "primary", motion: "kinetic" } },
+  { id: "frutiger-gloss", name: "Aero Optimism", label: "nature meets glossy web", category: "Retro", selection: { aesthetic: "frutiger", surface: "glossy", layout: "landing", nav: "top", navStyle: "both", type: "humanist", palette: "aqua", motion: "subtle" } },
+  { id: "terminal-green", name: "Terminal 84", label: "phosphor field log", category: "Retro", selection: { aesthetic: "terminal", surface: "flat", layout: "dense", nav: "left", navStyle: "both", type: "pixel", palette: "forest", motion: "quiet" } },
+  { id: "paper-report", name: "Paper Report", label: "printed annual report", category: "Editorial", selection: { aesthetic: "editorial", surface: "paper", layout: "editorial", nav: "top", navStyle: "text", type: "serif", palette: "sunset", motion: "quiet" } },
+  { id: "clay-candy", name: "Candy Clay", label: "말랑한 onboarding", category: "Morphism", selection: { aesthetic: "organic", surface: "clay", layout: "cards", nav: "left", navStyle: "both", type: "rounded", palette: "candy", motion: "kinetic" } },
+  { id: "liquid-spatial", name: "Liquid Spatial", label: "floating glass controls", category: "Contemporary", selection: { aesthetic: "minimal", surface: "liquid", layout: "split", nav: "top", navStyle: "icon", type: "humanist", palette: "aurora", motion: "subtle" } },
+  { id: "corporate-clean", name: "Corporate Clean", label: "명료한 editorial landing", category: "System", selection: { aesthetic: "minimal", surface: "material", layout: "landing", nav: "left", navStyle: "text", type: "grotesk", palette: "cobalt", motion: "quiet" } },
+  { id: "vapor-grid", name: "Vapor Grid", label: "dreamy retro travel page", category: "Retro", selection: { aesthetic: "vaporwave", surface: "glass", layout: "poster", nav: "top", navStyle: "icon", type: "mono", palette: "candy", motion: "kinetic" } },
+  { id: "organic-calm", name: "Organic Calm", label: "wellness와 quiet data", category: "Nature", selection: { aesthetic: "organic", surface: "paper", layout: "bento", nav: "left", navStyle: "both", type: "humanist", palette: "forest", motion: "quiet" } },
+  { id: "citrus-split", name: "Citrus Split", label: "energetic commerce", category: "Expressive", selection: { aesthetic: "swiss", surface: "flat", layout: "split", nav: "top", navStyle: "text", type: "condensed", palette: "citrus", motion: "subtle" } },
 ];
+
+const optionNotesEn: Record<AxisKey, Record<string, string>> = {
+  aesthetic: {
+    minimal: "Restrained elements and generous whitespace",
+    swiss: "Objective type, grids, and visual order",
+    brutalist: "Heavy outlines and hard offset shadows",
+    editorial: "Magazine hierarchy and reading rhythm",
+    memphis: "Primary colors and playful geometry",
+    y2k: "Chrome and optimistic digital nostalgia",
+    cyberpunk: "Neon, dense data, and tech-noir",
+    frutiger: "Nature paired with glossy technology",
+    terminal: "Monospace and phosphor-display logic",
+    luxury: "Refined serif and restrained metallic accents",
+    organic: "Natural color and biomorphic curves",
+    vaporwave: "Pink-violet retro digital atmosphere",
+  },
+  surface: {
+    flat: "Clear planes without dimensional effects",
+    glass: "Blurred translucent glass",
+    neumo: "Soft embossed surfaces",
+    clay: "Rounded, inflated 3D forms",
+    material: "Paper-like layers and elevation",
+    liquid: "Refractive fluid glass",
+    chrome: "Reflective metallic surfaces",
+    paper: "Tactile print-inspired texture",
+    glossy: "Gel controls and specular highlights",
+  },
+  layout: {
+    landing: "A guided flow from hero to CTA",
+    bento: "Mixed-size modules in one grid",
+    cards: "Independent, equally weighted modules",
+    editorial: "Headline-led long-form reading rhythm",
+    split: "Two strong and balanced page regions",
+    dense: "Tight spacing and high information density",
+    poster: "Overlap and asymmetric composition",
+  },
+  nav: {
+    top: "Horizontal navigation above the content",
+    left: "A vertical rail spanning the page",
+  },
+  navStyle: {
+    text: "Clear navigation built around text labels",
+    icon: "Compact navigation built around symbols",
+    both: "Symbols and labels shown together",
+  },
+  type: {
+    grotesk: "Neutral, structured sans-serif",
+    humanist: "Warm and highly readable sans-serif",
+    serif: "High-contrast editorial serif",
+    mono: "Technical and systematic rhythm",
+    rounded: "Soft and playful letterforms",
+    condensed: "Narrow, forceful display type",
+    slab: "Heavy strokes with editorial weight",
+    pixel: "Early digital-display character",
+  },
+  palette: {
+    cobalt: "Blue with electric violet",
+    mono: "Black, white, and neutral grey",
+    primary: "Red, blue, and yellow",
+    citrus: "Lime, tangerine, and yellow",
+    candy: "Pink, lavender, and cyan",
+    forest: "Moss, leaf, and warm earth",
+    sunset: "Coral, orange, and purple",
+    noir: "Black, ivory, and restrained gold",
+    aurora: "Cyan, violet, and luminous green",
+    aqua: "Sky, water, and clean green",
+  },
+  motion: {
+    quiet: "Almost no interface motion",
+    subtle: "Short, functional feedback",
+    kinetic: "Large, elastic transitions",
+  },
+};
 
 export const axisKeys = Object.keys(axes) as AxisKey[];
 
 export function getOption(axis: AxisKey, id: string) {
   return axes[axis].find((item) => item.id === id) ?? axes[axis][0];
+}
+
+export function getOptionNote(axis: AxisKey, id: string, language: Language) {
+  const option = getOption(axis, id);
+  return language === "ko" ? option.note : optionNotesEn[axis][option.id];
 }
 
 export function getAestheticRule(aesthetic: string) {
