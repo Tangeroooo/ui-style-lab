@@ -103,7 +103,7 @@ const labCopy = {
     shareIntro: "직접 탐색할 수 있는 전체 실험실 또는 에이전트와 디자인 전달에 적합한 레퍼런스 화면을 공유하세요.",
     labLink: "실험실 링크 복사",
     labLinkNote: "믹서, 프리셋과 선택한 캔버스 포함",
-    referenceLink: "레퍼런스 화면 복사",
+    referenceLink: "레퍼런스 링크 복사",
     referenceLinkNote: "선택한 라이브 캔버스만 표시 · 에이전트 전달용",
     languageMenu: "언어와 콘텐츠 모드",
     englishMode: "English",
