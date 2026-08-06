@@ -6,24 +6,32 @@
 
 UI Language Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하고 비교하는 bilingual interactive reference입니다. 모든 선택을 동일한 `Field Notes` 사이트에 적용하기 때문에 layout, navigation, component, typography, 실제 chart와 콘텐츠 리듬을 같은 조건에서 비교할 수 있습니다.
 
-기본 언어는 English입니다. 상단의 언어 버튼에서 `English`, `한국어 only`, `한국어 + English`를 선택할 수 있습니다.
+기본 언어는 English입니다. 페이지 navigation과 조합 mixer에서 분리된 floating 언어 버튼으로 `English`, `한국어 only`, `한국어 + English`를 선택할 수 있습니다.
 
 ## 조합할 수 있는 층위
 
 | 층위 | 선택지 수 | 역할 |
 | --- | ---: | --- |
-| 기초 미학 | 12 | Minimalism, Swiss, Neo-brutalism, Editorial, Y2K 등 전체 시각 문법을 지배 |
-| 표면 | 9 | Flat, Glassmorphism, Neumorphism, Claymorphism, Material 등 |
-| 구성 | 7 | Landing, Bento, Cards, Editorial, Split, Dense Index, Broken Grid |
+| 기초 미학 | 18 | 역사 계보와 선별한 기업 Design System을 포함해 전체 시각 문법을 지배 |
+| 표면 | 12 | Flat, Skeuomorphism, Glass, Acrylic, Neumorphism, Material, E-ink Paper 등 |
+| 구성 | 10 | Landing, Bento, Cards, Masonry, Editorial, Dashboard, Master–detail, Broken Grid 등 |
 | 메뉴 위치 | 2 | 상단 또는 좌측 rail |
 | 메뉴 표현 | 3 | 텍스트, 아이콘, 아이콘 + 텍스트 |
 | 한글 서체 | 10 | IBM Plex Sans KR, 프리텐다드, 수트, Noto Sans KR, 스포카 한 산스 네오, 나눔고딕, 고운 돋움, 주아, 나눔고딕 코딩, 검은고딕 |
 | 영문 서체 | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | 서체 적용 | 2 | 언어별 서체를 분리하거나 한글 서체 하나로 모든 문자를 표현 |
-| 색상 | 10 | Monochrome, cobalt, primary, citrus, candy, forest 등 |
+| 색상 | 17 | 기존 palette와 Bauhaus, Deco Night, Nordic, Dynamic Tonal, Fluent Blue, Carbon Blue |
 | 움직임 | 3 | Quiet, subtle, kinetic |
 
-화면에서 실제로 구분되는 조합은 English **20,804개**, 한국어 only **44,024개**, 한국어 + English **205,112개**입니다. 모든 선택지를 무제한으로 곱한 값이 아니라, 현재 콘텐츠 모드에 보이는 layer와 기초 미학별 compatibility rule을 통과한 조합만 계산합니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
+화면에서 실제로 구분되는 조합은 English **56,228개**, 한국어 only **124,824개**, 한국어 + English **568,544개**입니다. 모든 선택지를 무제한으로 곱한 값이 아니라, 현재 콘텐츠 모드에 보이는 layer와 기초 미학별 compatibility rule을 통과한 조합만 계산합니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
+
+넓은 조사 목록에서는 다음 기준으로 실제 선택지를 선별했습니다.
+
+- 역사 기초 미학: `Bauhaus`, `Art Deco`, `Scandinavian`. 단순 palette가 아니라 페이지 geometry, hierarchy, component, chart, navigation까지 달라집니다.
+- 기업 Design System: `Material 3`, `Fluent 2`, `IBM Carbon`. 각 native default는 공식 원칙인 Material의 tonal color·shape·elevation, Fluent의 focus·material·4px rhythm, Carbon의 2x Grid·IBM Plex·data density를 기준으로 했습니다. 공식 자료: [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2](https://fluent2.microsoft.design/), [Carbon](https://carbondesignsystem.com/).
+- 다른 layer: `Skeuomorphism`, `Acrylic`, `E-ink Paper`; `Masonry`, `Data Dashboard`, `Master–detail`; 그리고 이에 맞는 palette 6종을 추가했습니다.
+
+Pop Art, Punk/Zine, Spatial UI, Polaris, GOV.UK 같은 후보는 기존 axis와 겹치거나 별도 interaction/domain content가 필요하므로 이번 selectable base aesthetic에서는 보류했습니다.
 
 ## Bilingual typography
 

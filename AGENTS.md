@@ -39,7 +39,7 @@ app/url-state.ts
 
 1. `axes[axis]`에 stable `id`, `ko`, `en`, `note`를 추가한다.
 2. `optionNotesEn`에 같은 ID의 English note를 추가한다.
-3. 12개 `aestheticRules.allowed[axis]`를 모두 검토한다.
+3. `axes.aesthetic`에 등록된 모든 `aestheticRules.allowed[axis]`를 검토한다.
 4. 각 aesthetic에서 허용한 option이 정말 해당 미학을 표현하는지 full-page canvas 기준으로 확인한다.
 5. 필요한 `data-*` CSS selector와 visual token을 구현한다.
 6. option이 필요한 curated preset을 업데이트한다.
@@ -47,6 +47,17 @@ app/url-state.ts
 8. `combinationCount(activeAxes)` 결과를 mode별로 다시 계산하고 README, intro, metadata, OG image의 숫자를 함께 갱신한다.
 
 허용 목록에 무조건 추가한 뒤 palette나 CSS override로 억지로 맞추지 않는다.
+
+현재 compatibility model은 aesthetic별 axis allowlist의 곱이다. 즉 한 aesthetic에서 각각 허용한 surface와 palette는 서로도 자동으로 조합된다. 새 option을 허용할 때는 option 하나만 따로 보지 말고 해당 aesthetic의 `allowed` cross-product 전체에서 정체성, contrast, 정보 가독성이 유지되는지 확인한다. pairwise 예외가 꼭 필요해지면 UI에 조건문을 흩뿌리지 말고 `app/style-data.ts`의 rule model을 먼저 확장한다.
+
+## 3-1. 기업 Design System을 기초 미학으로 추가할 때
+
+- 공식 documentation을 primary source로 사용해 color role, shape, spacing/grid, typography, elevation/material, motion 원칙을 확인한다.
+- 회사명이나 대표 색상만 빌린 palette skin은 aesthetic으로 추가하지 않는다. navigation, component state, data visualization, content density, page rhythm까지 독립적인 시각 문법이 있어야 한다.
+- 특정 제품 screenshot, proprietary asset, logo, illustration을 복제하지 않는다. 이 repository의 동일한 `Field Notes` content와 Lucide icon, Recharts data component로 원칙만 재구성한다.
+- Design System의 domain pattern이 핵심이라면 현재 sample content로 정직하게 검증 가능한지 먼저 판단한다. 예를 들어 commerce admin이나 government form 전용 system은 일반 field-journal page에서 시각 정체성을 충분히 보여주기 어려울 수 있다.
+- native default를 `aestheticRules.defaults`에 먼저 정의하고, 변형 palette/surface는 공식 원칙을 해치지 않는 최소 범위만 `allowed`에 추가한다.
+- 이름, 버전, 공식 source link를 README에 기록한다. major version이 바뀌면 기존 ID를 조용히 재해석하지 말고 migration 영향을 검토한다.
 
 ## 4. 새로운 layer를 추가할 때
 
@@ -116,6 +127,7 @@ sum(
 
 - option dialog는 outside click과 `Escape`로 닫혀야 한다.
 - language menu와 share dialog도 outside click과 `Escape`로 닫혀야 한다.
+- language control은 header navigation이나 combination mixer에 합치지 않고 독립 floating control로 유지한다. desktop에서는 우측 panel과 분리하고, narrow viewport에서는 bottom mixer 위로 이동해 겹침을 피한다.
 - reference share URL은 `view=reference`를 포함하고 mixer/preset 없이 live canvas만 렌더링해야 한다.
 - disabled option에는 `disabled`, reason text, accessible title을 유지한다.
 - icon-only navigation에는 `aria-label`과 visually hidden text를 유지한다.

@@ -6,24 +6,32 @@
 
 UI Language Lab is an interactive, bilingual reference for composing complete interface systems. It applies every selection to the same full-page `Field Notes` site so that layout, navigation, components, typography, real charts, and content rhythm can be compared under consistent conditions.
 
-English is the default interface language. The top language control offers `English`, `한국어 only`, and `한국어 + English` content modes.
+English is the default interface language. A detached floating language control offers `English`, `한국어 only`, and `한국어 + English` content modes without competing with the page navigation or combination mixer.
 
 ## What you can mix
 
 | Layer | Options | Purpose |
 | --- | ---: | --- |
-| Base aesthetic | 12 | The governing visual language: Minimalism, Swiss, Neo-brutalism, Editorial, Y2K, Cyberpunk, Frutiger Aero, and more |
-| Surface | 9 | Flat, Glassmorphism, Neumorphism, Claymorphism, Material, Liquid Glass, Chrome, Paper, Gloss |
-| Layout | 7 | Landing, Bento, Cards, Editorial, Split, Dense Index, Broken Grid |
+| Base aesthetic | 18 | The governing visual language, including historical lineages and selected company design systems |
+| Surface | 12 | Flat, Skeuomorphism, Glass, Acrylic, Neumorphism, Material, E-ink Paper, and more |
+| Layout | 10 | Landing, Bento, Cards, Masonry, Editorial, Dashboard, Master–detail, Broken Grid, and more |
 | Navigation position | 2 | Top or left rail |
 | Menu style | 3 | Text, icon, or icon + text |
 | Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
 | Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
-| Palette | 11 | Monochrome, cobalt, primary, citrus, candy, forest, sunset, noir, aurora, aqua, Bento Pastel |
+| Palette | 17 | Existing families plus Bauhaus, Deco Night, Nordic, Dynamic Tonal, Fluent Blue, and Carbon Blue |
 | Motion | 3 | Quiet, subtle, kinetic |
 
-The lab exposes a different number of visually distinct combinations for each content mode: **23,156** in English, **49,124** in Korean-only, and **229,076** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **56,228** in English, **124,824** in Korean-only, and **568,544** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+
+The added options were deliberately curated from the broader research list:
+
+- Historical base aesthetics: `Bauhaus`, `Art Deco`, and `Scandinavian`. Each has a page-wide geometry, hierarchy, component, chart, and navigation treatment rather than a palette-only skin.
+- Company design systems: `Material 3`, `Fluent 2`, and `IBM Carbon`. Their native defaults follow the official systems: Material tonal color/shape/elevation, Fluent focus/material/4px rhythm, and Carbon 2x Grid/IBM Plex/data density. See [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2](https://fluent2.microsoft.design/), and [Carbon](https://carbondesignsystem.com/).
+- Dependent layers: `Skeuomorphism`, `Acrylic`, `E-ink Paper`; `Masonry`, `Data Dashboard`, `Master–detail`; and six matching palette families.
+
+Broader concepts such as Pop Art, Punk/Zine, Spatial UI, Polaris, and GOV.UK remain research candidates rather than selectable base aesthetics. They either overlap an existing axis, require a different interaction model, or need domain-specific content before the full-page comparison would be honest.
 
 `Bento Grid` is modeled as a layout pattern, not a governing aesthetic. The `Bento Pastel` palette supplies the familiar white-card, navy, cobalt, coral, and mint product-dashboard skin while the base aesthetic still owns typography, geometry, and interaction rules.
 

@@ -95,7 +95,7 @@ const labCopy = {
     incompatible: (name: string) => `Not compatible with ${name}`,
     unavailable: (name: string) => `This combination is unavailable for ${name}.`,
     canvas: "FULL-PAGE LIVE CANVAS",
-    presetKicker: "CURATED STARTING POINTS · 18",
+    presetKicker: "CURATED STARTING POINTS · 25",
     presetTitle: ["Switch the whole page", "in one move."],
     presetIntro: "Every preset applies a coherent visual system to the same Field Notes content. Start here, then adjust one layer at a time in the floating mixer.",
     filters: "Preset filters",
@@ -138,7 +138,7 @@ const labCopy = {
     incompatible: (name: string) => `${name}과 호환되지 않음`,
     unavailable: (name: string) => `${name}에서는 사용할 수 없는 조합입니다.`,
     canvas: "전체 페이지 라이브 캔버스",
-    presetKicker: "추천 시작점 · 18",
+    presetKicker: "추천 시작점 · 25",
     presetTitle: ["페이지의 분위기를", "한 번에 전환하세요."],
     presetIntro: "각 프리셋은 같은 Field Notes 콘텐츠에 일관된 시각 시스템을 적용합니다. 선택한 뒤 플로팅 믹서에서 한 층씩 바꿔 보세요.",
     filters: "프리셋 필터",
@@ -344,10 +344,15 @@ const presetLabelsEn: Record<string, string> = {
   "neo-brutal": "A forceful independent publication",
   "soft-neumo": "A calm wellness journal",
   "swiss-flat": "A field archive organized by grid",
+  "bauhaus-function": "A functional archive built from geometry",
+  "deco-night": "A nocturnal edition shaped by symmetry and gold lines",
+  "nordic-field": "Pale timber tones with a calm information rhythm",
   "editorial-luxury": "A restrained luxury journal",
   "y2k-chrome": "An optimistic future from the 2000s",
   "cyber-hud": "A neon expedition index",
-  "material-you": "Friendly dynamic color",
+  "material-you": "Tonal color with rounded components",
+  "fluent-focus": "Layered focus for adaptive productivity",
+  "carbon-operations": "An enterprise dashboard built on the 2x Grid",
   "memphis-pop": "Playful creative tools",
   "frutiger-gloss": "Nature meets the glossy web",
   "terminal-green": "A phosphor field log",
@@ -358,6 +363,8 @@ const presetLabelsEn: Record<string, string> = {
   "vapor-grid": "A dreamy retro travel page",
   "organic-calm": "Wellness with quiet data",
   "citrus-split": "Energetic commerce",
+  "skeuo-utility": "A desktop tool rebuilt with tactile controls",
+  "eink-fieldbook": "Field records on low-chroma digital paper",
 };
 
 const seasonalWalks = [
@@ -798,19 +805,20 @@ export function StyleLab() {
         <p>{t.tagline}</p>
         <div className="header-actions">
           <nav aria-label={t.pageNav}><a href="#mixer">MIXER</a><a href="#presets">PRESETS</a><a href="https://github.com/Tangeroooo/ui-style-lab" target="_blank" rel="noreferrer">GITHUB <ExternalLink aria-hidden="true" /></a></nav>
-          <div className="language-control" ref={languageRef}>
-            <button className="language-toggle" type="button" onClick={() => setLanguageOpen((current) => !current)} aria-expanded={languageOpen} aria-label={t.languageMenu} title={t.languageMenu}><span aria-hidden="true"><Languages /></span><b>{language === "en" ? "EN" : copyMode === "only" ? "한" : "한+EN"}</b></button>
-            {languageOpen && (
-              <div className="language-menu" role="dialog" aria-label={t.languageMenu}>
-                <span>{t.languageMenu}</span>
-                <button type="button" className={language === "en" ? "selected" : ""} onClick={() => chooseLanguage("en")}><b>EN</b><span>{t.englishMode}</span><em aria-hidden="true">{language === "en" ? <Check /> : <Circle />}</em></button>
-                <button type="button" className={language === "ko" && copyMode === "only" ? "selected" : ""} onClick={() => chooseLanguage("ko", "only")}><b>한</b><span>{t.koreanOnlyMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "only" ? <Check /> : <Circle />}</em></button>
-                <button type="button" className={language === "ko" && copyMode === "mixed" ? "selected" : ""} onClick={() => chooseLanguage("ko", "mixed")}><b>한+</b><span>{t.koreanMixedMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "mixed" ? <Check /> : <Circle />}</em></button>
-              </div>
-            )}
-          </div>
         </div>
       </header>
+
+      <div className="language-control floating-language" ref={languageRef}>
+        <button className="language-toggle" type="button" onClick={() => setLanguageOpen((current) => !current)} aria-expanded={languageOpen} aria-label={t.languageMenu} title={t.languageMenu}><span aria-hidden="true"><Languages /></span><b>{language === "en" ? "EN" : copyMode === "only" ? "한" : "한+EN"}</b></button>
+        {languageOpen && (
+          <div className="language-menu" role="dialog" aria-label={t.languageMenu}>
+            <span>{t.languageMenu}</span>
+            <button type="button" className={language === "en" ? "selected" : ""} onClick={() => chooseLanguage("en")}><b>EN</b><span>{t.englishMode}</span><em aria-hidden="true">{language === "en" ? <Check /> : <Circle />}</em></button>
+            <button type="button" className={language === "ko" && copyMode === "only" ? "selected" : ""} onClick={() => chooseLanguage("ko", "only")}><b>한</b><span>{t.koreanOnlyMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "only" ? <Check /> : <Circle />}</em></button>
+            <button type="button" className={language === "ko" && copyMode === "mixed" ? "selected" : ""} onClick={() => chooseLanguage("ko", "mixed")}><b>한+</b><span>{t.koreanMixedMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "mixed" ? <Check /> : <Circle />}</em></button>
+          </div>
+        )}
+      </div>
 
       <section className="intro" id="top">
         <div className="intro-kicker"><span>{t.introKicker}</span><i />2026</div>

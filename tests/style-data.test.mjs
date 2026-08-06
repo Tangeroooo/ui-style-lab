@@ -58,7 +58,52 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 359_904);
+  assert.equal(combinationCount(), 887_440);
+});
+
+test("new lineage and company aesthetics have full-page implementations", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  const additions = ["bauhaus", "artDeco", "scandinavian", "material3", "fluent2", "carbon"];
+  assert.equal(axes.aesthetic.length, 18);
+  for (const id of additions) {
+    assert.ok(axes.aesthetic.some((option) => option.id === id), id);
+    assert.match(css, new RegExp(`data-aesthetic=["']${id}["']`), id);
+  }
+});
+
+test("new dependent options are implemented and conservatively enabled", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  const additions = {
+    surface: ["skeuo", "acrylic", "eink"],
+    layout: ["masonry", "dashboard", "masterDetail"],
+    palette: ["bauhaus", "deco", "nordic", "materialDynamic", "fluent", "carbon"],
+  };
+
+  for (const [axis, ids] of Object.entries(additions)) {
+    for (const id of ids) {
+      assert.ok(axes[axis].some((option) => option.id === id), `${axis}.${id}`);
+      assert.match(css, new RegExp(`data-${axis}=["']${id}["']`), `${axis}.${id}`);
+      const enabledBy = axes.aesthetic.filter((aesthetic) => aestheticRules[aesthetic.id].allowed[axis].includes(id));
+      assert.ok(enabledBy.length > 0, `${axis}.${id} is never enabled`);
+      assert.ok(enabledBy.length < axes.aesthetic.length, `${axis}.${id} is not conservative`);
+    }
+  }
+});
+
+test("company design systems keep native defaults", () => {
+  assert.deepEqual(
+    ["material3", "fluent2", "carbon"].map((id) => ({
+      id,
+      surface: aestheticRules[id].defaults.surface,
+      layout: aestheticRules[id].defaults.layout,
+      palette: aestheticRules[id].defaults.palette,
+    })),
+    [
+      { id: "material3", surface: "material", layout: "cards", palette: "materialDynamic" },
+      { id: "fluent2", surface: "flat", layout: "masterDetail", palette: "fluent" },
+      { id: "carbon", surface: "flat", layout: "dashboard", palette: "carbon" },
+    ],
+  );
 });
 
 test("Korean typography options remain sans, gothic, or coding-oriented", () => {
