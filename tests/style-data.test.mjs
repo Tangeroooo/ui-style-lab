@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import {
@@ -57,12 +58,23 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
 });
 
 test("the displayed validated combination count matches the compatibility model", () => {
-  assert.equal(combinationCount(), 143_064);
+  assert.equal(combinationCount(), 322_176);
 });
 
 test("Korean typography options remain sans, gothic, or coding-oriented", () => {
   const prohibited = /myeongjo|명조|serif/i;
+  assert.equal(axes.koType.length, 10);
   for (const option of axes.koType) {
     assert.doesNotMatch(`${option.id} ${option.ko} ${option.en} ${option.note}`, prohibited);
   }
+});
+
+test("every Korean type option has a full-canvas CSS implementation", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  for (const option of axes.koType) {
+    assert.match(css, new RegExp(`data-ko-type=["']${option.id}["']`), option.id);
+  }
+  assert.match(css, /--site-ko-hero-size/);
+  assert.match(css, /--site-ko-display-line/);
+  assert.match(css, /--site-ko-tracking/);
 });

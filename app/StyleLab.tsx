@@ -28,9 +28,18 @@ import {
   type Language,
   type Selection,
 } from "./style-data";
+import {
+  createExperienceUrl,
+  getVisibleAxisKeys,
+  parseExperienceHash,
+  serializeExperienceHash,
+  type ExperienceView,
+  type KoreanCopyMode,
+} from "./url-state";
 
 const storageKey = "ui-language-lab-selection";
 const languageKey = "ui-language-lab-language";
+const copyModeKey = "ui-language-lab-copy-mode";
 
 const labCopy = {
   en: {
@@ -39,15 +48,28 @@ const labCopy = {
     pageNav: "Page navigation",
     introKicker: "INTERACTIVE UI REFERENCE",
     title: ["Mix design languages.", "See the whole system."],
-    intro: "Choose ten coordinated layers and watch the same interface transform instantly—from bilingual typography and charts to navigation and page rhythm.",
+    intro: "Choose eight coordinated layers and watch the same interface transform instantly—from typography and charts to navigation and page rhythm.",
+    introOnly: "Choose eight coordinated layers and watch the same interface transform instantly—from typography and charts to navigation and page rhythm.",
     explore: "Explore the live combination below",
     count: "validated combinations",
     mixer: "Design combination mixer",
     random: "Create a random compatible combination",
-    share: "Copy the current combination link",
+    share: "Share the current combination",
+    shareTitle: "Choose a share view",
+    shareIntro: "Send the full lab for exploration or a clean reference page for agents and design handoff.",
+    labLink: "Copy lab link",
+    labLinkNote: "Mixer, presets, and the selected canvas",
+    referenceLink: "Copy reference view",
+    referenceLinkNote: "The selected live canvas only · agent-ready",
+    languageMenu: "Language and content mode",
+    englishMode: "English",
+    koreanOnlyMode: "한국어 only",
+    koreanMixedMode: "한국어 + English",
     applied: "Applied the aesthetic’s native visual system.",
     randomized: "Created a new compatible combination.",
     copied: "Combination link copied.",
+    copiedLab: "Lab link copied.",
+    copiedReference: "Reference view link copied.",
     copyFallback: "Copy the URL from the address bar to share it.",
     close: "Close options",
     compat: (name: string) => `Only options compatible with ${name} can be selected.`,
@@ -70,14 +92,27 @@ const labCopy = {
     introKicker: "인터랙티브 UI 레퍼런스",
     title: ["디자인 언어를 조합하고", "전체 시스템을 확인하세요."],
     intro: "서로 호환되는 열 개의 층위를 선택하면 같은 UI가 즉시 달라집니다. 영문·한글 서체 조합과 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
+    introOnly: "서로 호환되는 여덟 개의 층위를 선택하면 같은 UI가 즉시 달라집니다. 한글 서체와 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
     explore: "아래에서 실제 조합 살펴보기",
     count: "검증된 조합",
     mixer: "디자인 조합 믹서",
     random: "호환되는 무작위 조합 만들기",
-    share: "현재 조합 링크 복사",
+    share: "현재 조합 공유",
+    shareTitle: "공유 화면 선택",
+    shareIntro: "직접 탐색할 수 있는 전체 실험실 또는 에이전트와 디자인 전달에 적합한 레퍼런스 화면을 공유하세요.",
+    labLink: "실험실 링크 복사",
+    labLinkNote: "믹서, 프리셋과 선택한 캔버스 포함",
+    referenceLink: "레퍼런스 화면 복사",
+    referenceLinkNote: "선택한 라이브 캔버스만 표시 · 에이전트 전달용",
+    languageMenu: "언어와 콘텐츠 모드",
+    englishMode: "English",
+    koreanOnlyMode: "한국어 only",
+    koreanMixedMode: "한국어 + English",
     applied: "미학 고유의 시각 시스템을 적용했습니다.",
     randomized: "새로운 호환 조합을 만들었습니다.",
     copied: "조합 링크를 복사했습니다.",
+    copiedLab: "실험실 링크를 복사했습니다.",
+    copiedReference: "레퍼런스 화면 링크를 복사했습니다.",
     copyFallback: "주소창의 URL을 복사해 공유하세요.",
     close: "선택창 닫기",
     compat: (name: string) => `${name}의 시각 문법과 호환되는 옵션만 선택할 수 있습니다.`,
@@ -180,7 +215,7 @@ const sampleCopy = {
     guideIntro: "장소를 소비하는 대신 이해하기 위한 작은 단서들입니다.",
     openGuide: "가이드 열기",
     routeTitle: ["한 번의 주말,", "하나의 좋은 경로."],
-    routeBody: "걷는 속도와 머무는 시간을 고르면 Field Notes가 당신만의 작은 여정을 구성합니다.",
+    routeBody: "걷는 속도와 머무는 시간을 고르면 현장 기록이 당신만의 작은 여정을 구성합니다.",
     routeButton: "내 경로 만들기",
     footer: ["호기심 많은 산책자를 위한 독립 가이드.", "서울에서 천천히 발행합니다."],
     archive: "아카이브",
@@ -193,12 +228,71 @@ const sampleCopy = {
       barTitle: "고요함과 생동감의 균형",
       barAria: "다섯 지역의 고요함과 생동감 비교 막대 그래프",
       regions: "05개 지역",
-      source: "출처 · Field Notes collective / 2026",
+      source: "출처 · 현장 기록 공동체 / 2026",
       walks: "걷기 기록",
       daylight: "일조량 지수",
       calm: "고요함",
       vivid: "생동감",
     },
+  },
+} as const;
+
+const sampleMicrocopy = {
+  en: {
+    brand: "FIELD NOTES",
+    dataKicker: "FIELD DATA · LIVE CHARTS",
+    cadence: "WALKING CADENCE",
+    character: "ROUTE CHARACTER",
+    edition: "EDITION NO. 07",
+    coordinates: "37.5665° N · 126.9780° E",
+    fieldLog: "FIELD LOG",
+    season: "SUMMER / 2026",
+    landscape: ["THE EASTERN RIDGE", "BEFORE FIRST LIGHT"],
+    componentLabels: ["BUTTONS", "INPUT", "FILTERS", "PROGRESS", "STATUS"],
+    primary: "Primary action",
+    secondary: "Secondary",
+    indexLabels: ["01 / DISTANCE", "02 / FIELD GUIDES", "03 / SEASONS"],
+    indexUnits: ["km", "stories", "ways"],
+    collecting: "NOW COLLECTING",
+    essay: "FIELD ESSAY · 01",
+    principle: "— Field principle No. 03",
+    guides: "SELECTED FIELD GUIDES",
+    makeItYours: "MAKE IT YOURS",
+    copyright: "© 2026 · WALK LIGHTLY",
+    instagram: "Instagram",
+    routePoints: ["A", "B", "C"],
+    routeCoordinates: ["35° 09′ 31″ N", "129° 09′ 38″ E"],
+    regions: ["JEJU · VOLCANIC COAST", "GANGWON · PINE FOREST", "TONGYEONG · ISLAND PATH"],
+    months: ["MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT"],
+    conditions: ["COAST", "FOREST", "RIDGE", "ISLAND", "CITY"],
+  },
+  ko: {
+    brand: "현장 기록",
+    dataKicker: "현장 데이터 · 실제 차트",
+    cadence: "걷기 리듬",
+    character: "경로 특성",
+    edition: "제07호",
+    coordinates: "북위 37.5665° · 동경 126.9780°",
+    fieldLog: "현장 기록",
+    season: "2026년 여름",
+    landscape: ["동쪽 능선", "해 뜨기 전"],
+    componentLabels: ["버튼", "입력", "필터", "진행률", "상태"],
+    primary: "주요 동작",
+    secondary: "보조 동작",
+    indexLabels: ["01 / 거리", "02 / 현장 가이드", "03 / 계절"],
+    indexUnits: ["킬로미터", "편", "가지"],
+    collecting: "기록 수집 중",
+    essay: "현장 에세이 · 01",
+    principle: "— 현장 원칙 제03호",
+    guides: "선별한 현장 가이드",
+    makeItYours: "나만의 경로",
+    copyright: "© 2026 · 가볍게 걷기",
+    instagram: "인스타그램",
+    routePoints: ["가", "나", "다"],
+    routeCoordinates: ["북위 35° 09′ 31″", "동경 129° 09′ 38″"],
+    regions: ["제주 · 화산 해안", "강원 · 소나무 숲", "통영 · 섬길"],
+    months: ["3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월"],
+    conditions: ["해안", "숲", "능선", "섬", "도시"],
   },
 } as const;
 
@@ -270,29 +364,30 @@ function sameSelection(a: Selection, b: Selection) {
   return axisKeys.every((axis) => a[axis] === b[axis]);
 }
 
-function parseHash(hash: string): Selection | null {
-  if (!hash) return null;
-  const params = new URLSearchParams(hash.replace(/^#/, ""));
-  const requestedAesthetic = params.get("aesthetic");
-  const aesthetic = requestedAesthetic && axes.aesthetic.some((option) => option.id === requestedAesthetic)
-    ? requestedAesthetic
-    : defaultSelection.aesthetic;
-  const next = recommendedSelection(aesthetic);
-  let matched = Boolean(requestedAesthetic);
-
-  for (const axis of axisKeys) {
-    const value = params.get(axis);
-    if (value && axes[axis].some((option) => option.id === value)) {
-      next[axis] = value;
-      matched = true;
-    }
+async function copyText(value: string) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+    return;
   }
 
-  return matched ? normalizeSelection(next) : null;
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  const copied = document.execCommand("copy");
+  textarea.remove();
+  if (!copied) throw new Error("Clipboard unavailable");
 }
 
-function FieldDataCharts({ selection, language }: { selection: Selection; language: Language }) {
+function FieldDataCharts({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
   const t = sampleCopy[language].charts;
+  const microLanguage = language === "ko" && copyMode === "only" ? "ko" : "en";
+  const micro = sampleMicrocopy[microLanguage];
+  const walks = seasonalWalks.map((entry, index) => ({ ...entry, label: micro.months[index] }));
+  const conditions = routeConditions.map((entry, index) => ({ ...entry, label: micro.conditions[index] }));
   const angular = ["brutalist", "swiss", "terminal", "cyberpunk"].includes(selection.aesthetic);
   const curve = angular ? "stepAfter" as const : "monotone" as const;
   const barRadius: [number, number, number, number] = angular ? [0, 0, 0, 0] : [8, 8, 0, 0];
@@ -311,18 +406,18 @@ function FieldDataCharts({ selection, language }: { selection: Selection; langua
   return (
     <section className="sample-data" aria-labelledby="field-data-title">
       <header>
-        <div><span lang="en">FIELD DATA · LIVE CHARTS</span><h3 id="field-data-title">{t.title[0]}<br />{t.title[1]}</h3></div>
+        <div><span lang={microLanguage}>{micro.dataKicker}</span><h3 id="field-data-title">{t.title[0]}<br />{t.title[1]}</h3></div>
         <p>{t.intro}</p>
       </header>
       <div className="data-grid">
         <article className="data-chart sample-surface">
-          <div className="data-chart-heading"><div><span lang="en">WALKING CADENCE</span><h4>{t.areaTitle}</h4></div><b lang="en">+18.4%</b></div>
+          <div className="data-chart-heading"><div><span lang={microLanguage}>{micro.cadence}</span><h4>{t.areaTitle}</h4></div><b lang="en">+18.4%</b></div>
           <div className="chart-wrap" aria-label={t.areaAria}>
             <ResponsiveContainer width="100%" height={330}>
-              <AreaChart data={seasonalWalks} margin={{ top: 20, right: 10, left: -25, bottom: 0 }} accessibilityLayer>
+              <AreaChart data={walks} margin={{ top: 20, right: 10, left: -25, bottom: 0 }} accessibilityLayer>
                 <defs><linearGradient id="walkFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="var(--site-accent)" stopOpacity={0.62} /><stop offset="100%" stopColor="var(--site-accent)" stopOpacity={0.03} /></linearGradient></defs>
                 <CartesianGrid stroke="var(--site-line)" strokeDasharray={angular ? "0" : "3 7"} vertical={false} />
-                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 9 }} />
+                <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 9 }} />
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 9 }} />
                 <Tooltip contentStyle={chartTooltip} cursor={{ stroke: "var(--site-accent-3)", strokeWidth: 1 }} />
                 <Area type={curve} dataKey="walks" name={t.walks} stroke="var(--site-accent)" strokeWidth={angular ? 3.5 : 2.5} fill="url(#walkFill)" isAnimationActive={animate} animationDuration={duration} />
@@ -333,12 +428,12 @@ function FieldDataCharts({ selection, language }: { selection: Selection; langua
         </article>
 
         <article className="data-chart sample-surface">
-          <div className="data-chart-heading"><div><span lang="en">ROUTE CHARACTER</span><h4>{t.barTitle}</h4></div><b>{t.regions}</b></div>
+          <div className="data-chart-heading"><div><span lang={microLanguage}>{micro.character}</span><h4>{t.barTitle}</h4></div><b>{t.regions}</b></div>
           <div className="chart-wrap" aria-label={t.barAria}>
             <ResponsiveContainer width="100%" height={330}>
-              <BarChart data={routeConditions} margin={{ top: 20, right: 0, left: -25, bottom: 0 }} accessibilityLayer>
+              <BarChart data={conditions} margin={{ top: 20, right: 0, left: -25, bottom: 0 }} accessibilityLayer>
                 <CartesianGrid stroke="var(--site-line)" strokeDasharray={angular ? "0" : "3 7"} vertical={false} />
-                <XAxis dataKey="condition" axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 8 }} />
+                <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 8 }} />
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 9 }} />
                 <Tooltip contentStyle={chartTooltip} cursor={{ fill: "color-mix(in srgb, var(--site-accent) 8%, transparent)" }} />
                 <Bar dataKey="calm" name={t.calm} fill="var(--site-accent)" radius={barRadius} isAnimationActive={animate} animationDuration={duration} />
@@ -353,8 +448,10 @@ function FieldDataCharts({ selection, language }: { selection: Selection; langua
   );
 }
 
-function FieldNotesSite({ selection, language }: { selection: Selection; language: Language }) {
+function FieldNotesSite({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
   const t = sampleCopy[language];
+  const microLanguage = language === "ko" && copyMode === "only" ? "ko" : "en";
+  const micro = sampleMicrocopy[microLanguage];
   const aesthetic = getOption("aesthetic", selection.aesthetic);
   const surface = getOption("surface", selection.surface);
   const localizedAesthetic = language === "en" ? aesthetic.en : aesthetic.ko;
@@ -365,12 +462,18 @@ function FieldNotesSite({ selection, language }: { selection: Selection; languag
     { href: "#sample-route", icon: "⌖", label: t.nav[2] },
   ];
 
+  function scrollWithinCanvas(event: { preventDefault(): void }, targetId: string) {
+    event.preventDefault();
+    document.getElementById(targetId)?.scrollIntoView({ behavior: selection.motion === "quiet" ? "auto" : "smooth" });
+  }
+
   return (
     <section
       className="live-site"
       id="live-site"
       lang={language}
       data-language={language}
+      data-copy-mode={copyMode}
       data-aesthetic={selection.aesthetic}
       data-surface={selection.surface}
       data-layout={selection.layout}
@@ -385,9 +488,9 @@ function FieldNotesSite({ selection, language }: { selection: Selection; languag
     >
       <div className="sample-noise" aria-hidden="true" />
       <header className="sample-nav sample-surface">
-        <a href="#live-site" className="sample-brand" aria-label="Field Notes home"><span className="sample-mark"><i /><i /><i /></span><b lang="en">FIELD NOTES</b></a>
+        <a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")} className="sample-brand" aria-label={language === "ko" ? "현장 기록 홈" : "Field Notes home"}><span className="sample-mark"><i /><i /><i /></span><b lang={microLanguage}>{micro.brand}</b></a>
         <nav aria-label={t.navAria}>
-          {navItems.map((item) => <a href={item.href} aria-label={item.label} key={item.href}><span className="nav-icon" aria-hidden="true">{item.icon}</span><span className="nav-text">{item.label}</span></a>)}
+          {navItems.map((item) => <a href={item.href} onClick={(event) => scrollWithinCanvas(event, item.href.slice(1))} aria-label={item.label} key={item.href}><span className="nav-icon" aria-hidden="true">{item.icon}</span><span className="nav-text">{item.label}</span></a>)}
         </nav>
         <button type="button" className="sample-nav-cta">{t.plan} <span>↗</span></button>
       </header>
@@ -395,55 +498,55 @@ function FieldNotesSite({ selection, language }: { selection: Selection; languag
       <main className="sample-main">
         <section className="sample-hero">
           <div className="hero-copy">
-            <div className="sample-eyebrow"><span lang="en">EDITION NO. 07</span><i /><span lang="en">37.5665° N · 126.9780° E</span></div>
+            <div className="sample-eyebrow"><span lang={microLanguage}>{micro.edition}</span><i /><span lang={microLanguage}>{micro.coordinates}</span></div>
             <h2><span>{t.hero[0]}</span><em>{t.hero[1]}</em></h2>
             <p>{t.heroBody}</p>
-            <div className="hero-actions"><button type="button">{t.explore} <span>↗</span></button><a href="#sample-story"><i>↓</i> {t.read}</a></div>
+            <div className="hero-actions"><button type="button">{t.explore} <span>↗</span></button><a href="#sample-story" onClick={(event) => scrollWithinCanvas(event, "sample-story")}><i>↓</i> {t.read}</a></div>
           </div>
 
           <div className="hero-landscape sample-surface" aria-label={t.artAria}>
             <div className="landscape-sun" /><div className="landscape-orbit orbit-one" /><div className="landscape-orbit orbit-two" />
             <div className="landscape-ridge ridge-back" /><div className="landscape-ridge ridge-front" /><div className="landscape-path" />
-            <div className="landscape-stamp" lang="en"><span>FIELD LOG</span><b>07</b><small>SUMMER / 2026</small></div>
-            <p lang="en">THE EASTERN RIDGE<br />BEFORE FIRST LIGHT</p>
+            <div className="landscape-stamp" lang={microLanguage}><span>{micro.fieldLog}</span><b>07</b><small>{micro.season}</small></div>
+            <p lang={microLanguage}>{micro.landscape[0]}<br />{micro.landscape[1]}</p>
           </div>
         </section>
 
         <section className="component-rack" aria-label={t.componentsAria}>
-          <article className="rack-cell sample-surface button-cell"><span lang="en">BUTTONS</span><div><button type="button" lang="en">Primary action</button><button type="button" lang="en">Secondary</button><button type="button" aria-label={t.more}>•••</button></div></article>
-          <article className="rack-cell sample-surface input-cell"><span lang="en">INPUT</span><label><small>{t.destination}</small><input value={t.destinationValue} readOnly aria-label={t.destinationAria} /><b>⌕</b></label></article>
-          <article className="rack-cell sample-surface tag-cell"><span lang="en">FILTERS</span><div><button type="button" className="selected">{t.allRoutes}</button><button type="button">{t.coast}</button><button type="button">{t.forest}</button></div></article>
-          <article className="rack-cell sample-surface progress-cell"><span lang="en">PROGRESS</span><div><b>{t.fieldLog}</b><em lang="en">72%</em></div><i><b /></i></article>
-          <article className="rack-cell sample-surface toggle-cell"><span lang="en">STATUS</span><div><i /><b>{t.trailOpen}</b><button type="button" aria-label={t.trailAria}><em /></button></div></article>
+          <article className="rack-cell sample-surface button-cell"><span lang={microLanguage}>{micro.componentLabels[0]}</span><div><button type="button" lang={microLanguage}>{micro.primary}</button><button type="button" lang={microLanguage}>{micro.secondary}</button><button type="button" aria-label={t.more}>•••</button></div></article>
+          <article className="rack-cell sample-surface input-cell"><span lang={microLanguage}>{micro.componentLabels[1]}</span><label><small>{t.destination}</small><input value={t.destinationValue} readOnly aria-label={t.destinationAria} /><b>⌕</b></label></article>
+          <article className="rack-cell sample-surface tag-cell"><span lang={microLanguage}>{micro.componentLabels[2]}</span><div><button type="button" className="selected">{t.allRoutes}</button><button type="button">{t.coast}</button><button type="button">{t.forest}</button></div></article>
+          <article className="rack-cell sample-surface progress-cell"><span lang={microLanguage}>{micro.componentLabels[3]}</span><div><b>{t.fieldLog}</b><em lang="en">72%</em></div><i><b /></i></article>
+          <article className="rack-cell sample-surface toggle-cell"><span lang={microLanguage}>{micro.componentLabels[4]}</span><div><i /><b>{t.trailOpen}</b><button type="button" aria-label={t.trailAria}><em /></button></div></article>
         </section>
 
         <section className="sample-index" aria-label={t.indexAria}>
-          <div><span lang="en">01 / DISTANCE</span><strong lang="en">42.7<small>km</small></strong><p>{t.index[0]}</p></div>
-          <div><span lang="en">02 / FIELD GUIDES</span><strong lang="en">12<small>stories</small></strong><p>{t.index[1]}</p></div>
-          <div><span lang="en">03 / SEASONS</span><strong lang="en">04<small>ways</small></strong><p>{t.index[2]}</p></div>
-          <div className="index-note"><span lang="en">NOW COLLECTING</span><p>{t.collecting}</p><a href="#sample-route">{t.contribute}</a></div>
+          <div><span lang={microLanguage}>{micro.indexLabels[0]}</span><strong>42.7<small lang={microLanguage}>{micro.indexUnits[0]}</small></strong><p>{t.index[0]}</p></div>
+          <div><span lang={microLanguage}>{micro.indexLabels[1]}</span><strong>12<small lang={microLanguage}>{micro.indexUnits[1]}</small></strong><p>{t.index[1]}</p></div>
+          <div><span lang={microLanguage}>{micro.indexLabels[2]}</span><strong>04<small lang={microLanguage}>{micro.indexUnits[2]}</small></strong><p>{t.index[2]}</p></div>
+          <div className="index-note"><span lang={microLanguage}>{micro.collecting}</span><p>{t.collecting}</p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")}>{t.contribute}</a></div>
         </section>
 
-        <FieldDataCharts selection={selection} language={language} />
+        <FieldDataCharts selection={selection} language={language} copyMode={copyMode} />
 
         <section className="sample-story" id="sample-story">
-          <div className="story-heading"><span lang="en">FIELD ESSAY · 01</span><h3>{t.storyTitle[0]}<br /><em>{t.storyTitle[1]}</em></h3></div>
+          <div className="story-heading"><span lang={microLanguage}>{micro.essay}</span><h3>{t.storyTitle[0]}<br /><em>{t.storyTitle[1]}</em></h3></div>
           <div className="story-body">
             <p className="story-lead">{t.storyLead}</p>
             <div className="story-columns"><p>{t.storyColumns[0]}</p><p>{t.storyColumns[1]}</p></div>
-            <blockquote><i>“</i><p>{t.quote[0]}<br />{t.quote[1]}</p><cite lang="en">— Field principle No. 03</cite></blockquote>
+            <blockquote><i>“</i><p>{t.quote[0]}<br />{t.quote[1]}</p><cite lang={microLanguage}>{micro.principle}</cite></blockquote>
           </div>
         </section>
 
         <section className="sample-guides" id="sample-guides">
-          <header><div><span lang="en">SELECTED FIELD GUIDES</span><h3>{t.guideTitle}</h3></div><p>{t.guideIntro}</p></header>
+          <header><div><span lang={microLanguage}>{micro.guides}</span><h3>{t.guideTitle}</h3></div><p>{t.guideIntro}</p></header>
           <div className="guide-grid">
-            {guideStories.map((story) => {
+            {guideStories.map((story, index) => {
               const title = story.title[language];
               return (
                 <article className={`guide-card sample-surface ${story.tone}`} key={story.number}>
                   <div className="guide-art" aria-hidden="true"><i /><i /><i /><span>{story.number}</span></div>
-                  <div className="guide-copy"><span lang="en">{story.region}</span><h4>{title}</h4><p>{story.copy[language]}</p><a href="#sample-route" aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <b>↗</b></a></div>
+                  <div className="guide-copy"><span lang={microLanguage}>{micro.regions[index]}</span><h4>{title}</h4><p>{story.copy[language]}</p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")} aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <b>↗</b></a></div>
                 </article>
               );
             })}
@@ -451,16 +554,16 @@ function FieldNotesSite({ selection, language }: { selection: Selection; languag
         </section>
 
         <section className="sample-route sample-surface" id="sample-route">
-          <div className="route-map" aria-hidden="true" lang="en"><i className="route-line line-a" /><i className="route-line line-b" /><i className="route-line line-c" /><b className="route-point point-a">A</b><b className="route-point point-b">B</b><b className="route-point point-c">C</b><span className="route-coordinate">35° 09′ 31″ N<br />129° 09′ 38″ E</span></div>
-          <div className="route-copy"><span lang="en">MAKE IT YOURS</span><h3>{t.routeTitle[0]}<br />{t.routeTitle[1]}</h3><p>{t.routeBody}</p><button type="button">{t.routeButton} <b>↗</b></button></div>
+          <div className="route-map" aria-hidden="true" lang={microLanguage}><i className="route-line line-a" /><i className="route-line line-b" /><i className="route-line line-c" /><b className="route-point point-a">{micro.routePoints[0]}</b><b className="route-point point-b">{micro.routePoints[1]}</b><b className="route-point point-c">{micro.routePoints[2]}</b><span className="route-coordinate">{micro.routeCoordinates[0]}<br />{micro.routeCoordinates[1]}</span></div>
+          <div className="route-copy"><span lang={microLanguage}>{micro.makeItYours}</span><h3>{t.routeTitle[0]}<br />{t.routeTitle[1]}</h3><p>{t.routeBody}</p><button type="button">{t.routeButton} <b>↗</b></button></div>
         </section>
       </main>
 
       <footer className="sample-footer">
-        <div className="sample-brand"><span className="sample-mark"><i /><i /><i /></span><b lang="en">FIELD NOTES</b></div>
+        <div className="sample-brand"><span className="sample-mark"><i /><i /><i /></span><b lang={microLanguage}>{micro.brand}</b></div>
         <p>{t.footer[0]}<br />{t.footer[1]}</p>
-        <div><a href="#live-site">Instagram</a><a href="#live-site">{t.archive}</a><a href="#live-site">{t.contact}</a></div>
-        <span lang="en">© 2026 · WALK LIGHTLY</span>
+        <div><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{micro.instagram}</a><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{t.archive}</a><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{t.contact}</a></div>
+        <span lang={microLanguage}>{micro.copyright}</span>
       </footer>
     </section>
   );
@@ -470,20 +573,28 @@ export function StyleLab() {
   const [selection, setSelection] = useState<Selection>(defaultSelection);
   const [activeAxis, setActiveAxis] = useState<AxisKey | null>(null);
   const [language, setLanguage] = useState<Language>("en");
+  const [copyMode, setCopyMode] = useState<KoreanCopyMode>("mixed");
+  const [view, setView] = useState<ExperienceView>("lab");
+  const [shareOpen, setShareOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
   const [notice, setNotice] = useState("");
   const [presetFilter, setPresetFilter] = useState("All");
   const [ready, setReady] = useState(false);
   const mixerRef = useRef<HTMLElement>(null);
+  const languageRef = useRef<HTMLDivElement>(null);
   const t = labCopy[language];
 
   const currentPreset = useMemo(() => presets.find((preset) => sameSelection(preset.selection, selection)), [selection]);
+  const visibleAxisKeys = useMemo(() => getVisibleAxisKeys(language, copyMode), [copyMode, language]);
   const filters = ["All", ...Array.from(new Set(presets.map((preset) => preset.category)))];
   const visiblePresets = presetFilter === "All" ? presets : presets.filter((preset) => preset.category === presetFilter);
 
   useEffect(() => {
-    const fromHash = parseHash(window.location.hash);
-    let initialSelection = fromHash;
-    let initialLanguage: Language | null = null;
+    const fromHash = parseExperienceHash(window.location.hash);
+    let initialSelection = fromHash.selection;
+    let initialLanguage = fromHash.language;
+    let initialCopyMode = fromHash.copyMode;
+    const initialView = fromHash.view;
 
     try {
       if (!initialSelection) {
@@ -491,7 +602,9 @@ export function StyleLab() {
         if (saved) initialSelection = normalizeSelection({ ...defaultSelection, ...JSON.parse(saved) });
       }
       const savedLanguage = window.localStorage.getItem(languageKey);
-      if (savedLanguage === "en" || savedLanguage === "ko") initialLanguage = savedLanguage;
+      if (!initialLanguage && (savedLanguage === "en" || savedLanguage === "ko")) initialLanguage = savedLanguage;
+      const savedCopyMode = window.localStorage.getItem(copyModeKey);
+      if (!initialCopyMode && (savedCopyMode === "only" || savedCopyMode === "mixed")) initialCopyMode = savedCopyMode;
     } catch {
       // The lab still works when browser storage is unavailable.
     }
@@ -499,6 +612,8 @@ export function StyleLab() {
     const timeoutId = window.setTimeout(() => {
       if (initialSelection) setSelection(initialSelection);
       if (initialLanguage) setLanguage(initialLanguage);
+      if (initialCopyMode) setCopyMode(initialCopyMode);
+      if (initialView) setView(initialView);
       setReady(true);
     }, 0);
     return () => window.clearTimeout(timeoutId);
@@ -506,24 +621,26 @@ export function StyleLab() {
 
   useEffect(() => {
     if (!ready) return;
-    const hash = new URLSearchParams(selection).toString();
+    const hash = serializeExperienceHash({ selection, language, copyMode, view });
     window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${hash}`);
     try {
       window.localStorage.setItem(storageKey, JSON.stringify(selection));
     } catch {
       // Ignore storage failures.
     }
-  }, [ready, selection]);
+  }, [copyMode, language, ready, selection, view]);
 
   useEffect(() => {
     if (!ready) return;
-    function applyHashSelection() {
-      const fromHash = parseHash(window.location.hash);
-      if (!fromHash) return;
-      setSelection((current) => sameSelection(current, fromHash) ? current : fromHash);
+    function applyHashState() {
+      const fromHash = parseExperienceHash(window.location.hash);
+      if (fromHash.selection) setSelection((current) => sameSelection(current, fromHash.selection!) ? current : fromHash.selection!);
+      if (fromHash.language) setLanguage(fromHash.language);
+      if (fromHash.copyMode) setCopyMode(fromHash.copyMode);
+      if (fromHash.view) setView(fromHash.view);
     }
-    window.addEventListener("hashchange", applyHashSelection);
-    return () => window.removeEventListener("hashchange", applyHashSelection);
+    window.addEventListener("hashchange", applyHashState);
+    return () => window.removeEventListener("hashchange", applyHashState);
   }, [ready]);
 
   useEffect(() => {
@@ -531,26 +648,44 @@ export function StyleLab() {
     if (!ready) return;
     try {
       window.localStorage.setItem(languageKey, language);
+      window.localStorage.setItem(copyModeKey, copyMode);
     } catch {
       // Ignore storage failures.
     }
-  }, [language, ready]);
+  }, [copyMode, language, ready]);
 
   useEffect(() => {
-    if (!activeAxis) return;
+    if (!activeAxis && !shareOpen) return;
     function closeOnOutsideClick(event: PointerEvent) {
-      if (!mixerRef.current?.contains(event.target as Node)) setActiveAxis(null);
+      if (!mixerRef.current?.contains(event.target as Node)) {
+        setActiveAxis(null);
+        setShareOpen(false);
+      }
     }
     document.addEventListener("pointerdown", closeOnOutsideClick);
     return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
-  }, [activeAxis]);
+  }, [activeAxis, shareOpen]);
+
+  useEffect(() => {
+    if (!languageOpen) return;
+    function closeLanguageMenu(event: PointerEvent) {
+      if (!languageRef.current?.contains(event.target as Node)) setLanguageOpen(false);
+    }
+    document.addEventListener("pointerdown", closeLanguageMenu);
+    return () => document.removeEventListener("pointerdown", closeLanguageMenu);
+  }, [languageOpen]);
 
   useEffect(() => {
     function onKeyDown(event: globalThis.KeyboardEvent) {
       const target = event.target as HTMLElement | null;
+      if (event.key === "Escape") {
+        setActiveAxis(null);
+        setShareOpen(false);
+        setLanguageOpen(false);
+        return;
+      }
       if (target?.matches("input, select, textarea, button")) return;
       if (event.key.toLowerCase() === "r") randomize();
-      if (event.key === "Escape") setActiveAxis(null);
       if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
         const currentIndex = currentPreset ? presets.indexOf(currentPreset) : -1;
         const direction = event.key === "ArrowRight" ? 1 : -1;
@@ -590,14 +725,24 @@ export function StyleLab() {
     window.setTimeout(() => setNotice(""), 1600);
   }
 
-  async function share() {
+  async function share(targetView: ExperienceView) {
+    const url = createExperienceUrl(window.location.href, { selection, language, copyMode, view }, targetView);
     try {
-      await navigator.clipboard.writeText(window.location.href);
-      setNotice(t.copied);
+      await copyText(url);
+      setNotice(targetView === "reference" ? t.copiedReference : t.copiedLab);
     } catch {
       setNotice(t.copyFallback);
     }
+    setShareOpen(false);
     window.setTimeout(() => setNotice(""), 1800);
+  }
+
+  function chooseLanguage(nextLanguage: Language, nextCopyMode: KoreanCopyMode = copyMode) {
+    setLanguage(nextLanguage);
+    setCopyMode(nextCopyMode);
+    setLanguageOpen(false);
+    setActiveAxis(null);
+    setShareOpen(false);
   }
 
   function choosePreset(nextSelection: Selection) {
@@ -608,37 +753,51 @@ export function StyleLab() {
 
   const aestheticName = language === "en" ? getOption("aesthetic", selection.aesthetic).en : getOption("aesthetic", selection.aesthetic).ko;
 
+  if (view === "reference") {
+    return <main className="reference-view"><FieldNotesSite selection={selection} language={language} copyMode={copyMode} /></main>;
+  }
+
   return (
     <main className="lab-shell" data-language={language}>
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label={t.home}><span>UI</span><b>LANGUAGE LAB</b></a>
         <p>{t.tagline}</p>
         <div className="header-actions">
-          <nav aria-label={t.pageNav}><a href="#mixer">MIXER</a><a href="#presets">PRESETS</a><a href="https://github.com/Tangerooo/ui-style-lab" target="_blank" rel="noreferrer">GITHUB ↗</a></nav>
-          <button className="language-toggle" type="button" onClick={() => setLanguage((current) => current === "en" ? "ko" : "en")} aria-label={t.switchLanguage} title={t.switchLanguage}><span aria-hidden="true">◎</span><b>{language === "en" ? "EN" : "한"}</b></button>
+          <nav aria-label={t.pageNav}><a href="#mixer">MIXER</a><a href="#presets">PRESETS</a><a href="https://github.com/Tangeroooo/ui-style-lab" target="_blank" rel="noreferrer">GITHUB ↗</a></nav>
+          <div className="language-control" ref={languageRef}>
+            <button className="language-toggle" type="button" onClick={() => setLanguageOpen((current) => !current)} aria-expanded={languageOpen} aria-label={t.languageMenu} title={t.languageMenu}><span aria-hidden="true">◎</span><b>{language === "en" ? "EN" : copyMode === "only" ? "한" : "한+EN"}</b></button>
+            {languageOpen && (
+              <div className="language-menu" role="dialog" aria-label={t.languageMenu}>
+                <span>{t.languageMenu}</span>
+                <button type="button" className={language === "en" ? "selected" : ""} onClick={() => chooseLanguage("en")}><b>EN</b><span>{t.englishMode}</span><em>{language === "en" ? "●" : "○"}</em></button>
+                <button type="button" className={language === "ko" && copyMode === "only" ? "selected" : ""} onClick={() => chooseLanguage("ko", "only")}><b>한</b><span>{t.koreanOnlyMode}</span><em>{language === "ko" && copyMode === "only" ? "●" : "○"}</em></button>
+                <button type="button" className={language === "ko" && copyMode === "mixed" ? "selected" : ""} onClick={() => chooseLanguage("ko", "mixed")}><b>한+</b><span>{t.koreanMixedMode}</span><em>{language === "ko" && copyMode === "mixed" ? "●" : "○"}</em></button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
       <section className="intro" id="top">
         <div className="intro-kicker"><span>{t.introKicker}</span><i />2026</div>
         <h1>{t.title[0]}<br /><em>{t.title[1]}</em></h1>
-        <div className="intro-side"><p>{t.intro}</p><a className="explore-cta" href="#live-site"><span>↓</span><b>{t.explore}</b></a><div className="intro-count"><strong>{combinationCount().toLocaleString("en-US")}</strong><span>{t.count}</span></div></div>
+        <div className="intro-side"><p>{language === "ko" && copyMode === "only" ? t.introOnly : t.intro}</p><a className="explore-cta" href="#live-site"><span>↓</span><b>{t.explore}</b></a><div className="intro-count"><strong>{combinationCount(visibleAxisKeys).toLocaleString("en-US")}</strong><span>{t.count}</span></div></div>
       </section>
 
       <div className="mixer-anchor" id="mixer">
         <section className="floating-mixer" aria-label={t.mixer} ref={mixerRef}>
           <div className="mixer-status"><span className="status-dot" /><div><small>LIVE COMBINATION</small><b>{currentPreset?.name ?? "Custom mix"}</b></div></div>
           <div className="axis-controls">
-            {axisKeys.map((axis) => {
+            {visibleAxisKeys.map((axis) => {
               const option = getOption(axis, selection[axis]);
               return (
-                <button type="button" key={axis} className={activeAxis === axis ? "active" : ""} aria-expanded={activeAxis === axis} onClick={() => setActiveAxis((current) => current === axis ? null : axis)}>
+                <button type="button" key={axis} className={activeAxis === axis ? "active" : ""} aria-expanded={activeAxis === axis} onClick={() => { setShareOpen(false); setActiveAxis((current) => current === axis ? null : axis); }}>
                   <small>{language === "en" ? axisMeta[axis].en : axisMeta[axis].ko}</small><b>{language === "en" ? option.en : option.ko}</b><span>⌄</span>
                 </button>
               );
             })}
           </div>
-          <div className="mixer-actions"><button type="button" onClick={randomize} aria-label={t.random}><span>↝</span><b>Shuffle</b><kbd>R</kbd></button><button type="button" onClick={share} aria-label={t.share}><span>↗</span><b>Share</b></button></div>
+          <div className="mixer-actions"><button type="button" onClick={randomize} aria-label={t.random}><span>↝</span><b>Shuffle</b><kbd>R</kbd></button><button type="button" onClick={() => { setActiveAxis(null); setShareOpen((current) => !current); }} aria-expanded={shareOpen} aria-label={t.share}><span>↗</span><b>Share</b></button></div>
 
           {activeAxis && (
             <div className="mixer-popover" data-axis={activeAxis} role="dialog" aria-label={language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}>
@@ -659,11 +818,22 @@ export function StyleLab() {
               </div>
             </div>
           )}
+
+          {shareOpen && (
+            <div className="share-popover" role="dialog" aria-label={t.shareTitle}>
+              <header><div><span>↗</span><b>{t.shareTitle}</b></div><button type="button" onClick={() => setShareOpen(false)} aria-label={t.close}>×</button></header>
+              <p>{t.shareIntro}</p>
+              <div>
+                <button type="button" onClick={() => share("lab")}><span><b>{t.labLink}</b><small>{t.labLinkNote}</small></span><em>LAB ↗</em></button>
+                <button type="button" onClick={() => share("reference")}><span><b>{t.referenceLink}</b><small>{t.referenceLinkNote}</small></span><em>REF ↗</em></button>
+              </div>
+            </div>
+          )}
         </section>
       </div>
 
-      <div className="canvas-label"><span>{t.canvas}</span><b>{axisKeys.map((axis) => language === "en" ? getOption(axis, selection[axis]).en : getOption(axis, selection[axis]).ko).join(" × ")}</b></div>
-      <FieldNotesSite selection={selection} language={language} />
+      <div className="canvas-label"><span>{t.canvas}</span><b>{visibleAxisKeys.map((axis) => language === "en" ? getOption(axis, selection[axis]).en : getOption(axis, selection[axis]).ko).join(" × ")}</b></div>
+      <FieldNotesSite selection={selection} language={language} copyMode={copyMode} />
 
       <section className="preset-section" id="presets">
         <header><div><span>{t.presetKicker}</span><h2>{t.presetTitle[0]}<br />{t.presetTitle[1]}</h2></div><p>{t.presetIntro}</p></header>

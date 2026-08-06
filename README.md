@@ -6,7 +6,7 @@
 
 UI Language Lab is an interactive, bilingual reference for composing complete interface systems. It applies every selection to the same full-page `Field Notes` site so that layout, navigation, components, typography, real charts, and content rhythm can be compared under consistent conditions.
 
-English is the default interface language. Use the language control in the top navigation to switch the entire lab and its sample site to Korean.
+English is the default interface language. The top language control offers `English`, `한국어 only`, and `한국어 + English` content modes.
 
 ## What you can mix
 
@@ -18,24 +18,37 @@ English is the default interface language. Use the language control in the top n
 | Navigation position | 2 | Top or left rail |
 | Menu style | 3 | Text, icon, or icon + text |
 | Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
-| Korean type | 5 | IBM Plex Sans KR, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
+| Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
 | Palette | 10 | Monochrome, cobalt, primary, citrus, candy, forest, sunset, noir, aurora, aqua |
 | Motion | 3 | Quiet, subtle, kinetic |
 
-The lab currently exposes **143,064 validated combinations**. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **20,804** in English, **44,024** in Korean-only, and **322,176** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer. Incompatible values remain visible but disabled.
 
 ## Bilingual typography
 
-The typography system has three coordinated controls:
+Typography controls follow the content mode so irrelevant axes do not create duplicate combinations:
 
-- `Latin Type` selects the Latin type direction.
-- `Korean Type` selects a Hangul-capable web font. Korean serif/Myeongjo faces are intentionally excluded.
-- `Type Binding` chooses between:
-  - `Script Pairing`: Latin glyphs use `Latin Type`; Hangul uses `Korean Type`.
-  - `Korean Unified`: the selected Korean face renders both Latin and Hangul.
+- `English`: `Latin Type` only.
+- `한국어 only`: `Korean Type` only. The selected Korean face is applied automatically across the canvas.
+- `한국어 + English`: `Latin Type`, `Korean Type`, and `Type Binding` are all available.
+  - `Korean Type` selects a Hangul-capable web font. Korean serif/Myeongjo faces are intentionally excluded.
+  - `Type Binding` chooses between:
+    - `Script Pairing`: Latin glyphs use `Latin Type`; Hangul uses `Korean Type`.
+    - `Korean Unified`: the selected Korean face renders both Latin and Hangul.
 
-Korean pages intentionally keep selected English labels and data annotations, making the interaction between the two type systems visible. Existing shared URLs remain compatible: older hashes without `koType` or `fontMode` receive the selected aesthetic's recommended defaults.
+Every Korean face has layout-fit tokens for display size, line height, and tracking so the intended two-line hierarchy survives different Hangul metrics. Existing shared URLs remain compatible: older hashes without language, view, `koType`, or `fontMode` receive safe defaults.
+
+The additional UI fonts come from their official webfont projects: [Pretendard](https://github.com/orioncactus/pretendard), [SUIT](https://github.com/sun-typeface/SUIT), [Noto](https://notofonts.github.io/noto-docs/website/use/), [Spoqa Han Sans Neo](https://github.com/spoqa/spoqa-han-sans), and [Google Fonts + Korean](https://googlefonts.github.io/korean/).
+
+## Sharing
+
+The Share menu creates two state-complete URLs:
+
+- `Lab link`: mixer, presets, and the selected canvas.
+- `Reference view`: the live canvas only, suitable for agent prompts, design briefs, and handoff.
+
+Both links preserve the aesthetic combination, language, Korean content mode, and typography binding in the URL.
 
 ## Compatibility model
 
@@ -45,12 +58,12 @@ Korean pages intentionally keep selected English labels and data annotations, ma
 axes
   → aestheticRules.defaults / aestheticRules.allowed
   → normalizeSelection()
-  → URL hash + mixer disabled states
+  → url-state.ts + mixer disabled states
   → data-* attributes on the full-page canvas
   → CSS visual system
 ```
 
-`combinationCount()` sums the valid product for each aesthetic. Randomize and presets also pass through the same compatibility rules.
+`combinationCount(activeAxes)` sums the valid product for each aesthetic and the axes visible in the current content mode. Randomize and presets also pass through the same compatibility rules.
 
 ## Development
 
@@ -78,6 +91,7 @@ app/
   StyleLab.tsx       mixer, bilingual sample site, Recharts visualizations
   style-data.ts      axes, aesthetic compatibility rules, presets, count
   style-lab.css      layered tokens and full-page visual implementations
+  url-state.ts       language, content mode, share view, URL round-trip
 tests/
   rendered-html.test.mjs
   style-data.test.mjs

@@ -20,6 +20,10 @@ app/style-data.ts
     → presets / randomize / URL hash
     → data-* attributes in StyleLab.tsx
     → selectors and tokens in style-lab.css
+
+app/url-state.ts
+  language / copyMode / view / selection
+    → share URL round-trip
 ```
 
 - option ID, compatibility, 기본값, 조합 수의 source of truth는 `app/style-data.ts`다.
@@ -38,7 +42,7 @@ app/style-data.ts
 5. 필요한 `data-*` CSS selector와 visual token을 구현한다.
 6. option이 필요한 curated preset을 업데이트한다.
 7. disabled state, randomize, URL round-trip을 검증한다.
-8. `combinationCount()` 결과를 다시 계산하고 README, intro, metadata, OG image의 숫자를 함께 갱신한다.
+8. `combinationCount(activeAxes)` 결과를 mode별로 다시 계산하고 README, intro, metadata, OG image의 숫자를 함께 갱신한다.
 
 허용 목록에 무조건 추가한 뒤 palette나 CSS override로 억지로 맞추지 않는다.
 
@@ -61,12 +65,18 @@ app/style-data.ts
 
 - `type`은 backward compatibility를 위해 유지되는 Latin typography axis다. UI label은 `Latin Type / 영문 서체`다.
 - `koType`은 Korean web-font axis다.
-- `fontMode`는 script binding 방식이다.
+- typography control 노출은 content mode에 따라 달라진다.
+  - English: `type`만 표시
+  - Korean only: `koType`만 표시하고 Korean font를 자동 통합 적용
+  - Korean + English: `type`, `koType`, `fontMode` 모두 표시
+- `fontMode`는 Korean + English의 script binding 방식이다.
   - `split`: Latin glyph는 `type`, Hangul은 `koType`
   - `koUnified`: 선택한 `koType`으로 Latin과 Hangul 모두 렌더링
-- Korean locale에서는 English microcopy와 Korean body copy가 함께 보여야 한다. English-only element에는 가능한 경우 `lang="en"`을 지정한다.
+- Korean only에서는 live canvas의 microcopy, chart category, 지도 label도 한국어로 제공한다.
+- Korean + English에서는 English microcopy와 Korean body copy를 함께 보여준다. English-only element에는 `lang="en"`을 지정한다.
 - 한글 명조체 계열은 추가하지 않는다. Editorial/Luxury aesthetic에서도 한글은 검증된 gothic/dotum 계열을 사용한다.
 - 새 Korean font는 Hangul coverage, Latin coverage, webfont loading, fallback stack, weight availability를 확인한다.
+- 새 Korean font는 `--site-ko-hero-size`, `--site-ko-display-line`, `--site-ko-tracking`을 실제 glyph metric에 맞게 조정한다. headline의 의도한 행 수와 container overflow를 함께 확인한다.
 - 특정 aesthetic이 강제로 `--site-display`를 덮어써 typography axis를 무력화하지 않도록 한다. aesthetic identity는 recommended default와 allowed set으로 유지한다.
 
 ## 6. Validated combination count
@@ -80,14 +90,15 @@ sum(
 )
 ```
 
-- 계산은 반드시 `combinationCount()`를 사용한다.
+- 계산은 반드시 `combinationCount(activeAxes)`를 사용한다.
+- English, Korean only, Korean + English는 보이는 typography axis가 다르므로 각 mode의 distinct count를 별도로 검증한다.
 - 새 option이 일부 aesthetic에만 허용되면 해당 미학의 product만 증가해야 한다.
 - 다음 위치의 숫자가 서로 같아야 한다.
-  - live intro count
+  - mode별 live intro count
   - `README.md` / `README.ko.md`
   - `app/layout.tsx`
   - `index.html`
-  - `public/og.png`
+  - `public/og.png`에는 최대 조합 수(Korean + English)를 표시
 - preset은 항상 `normalizeSelection(preset.selection)`과 동일해야 한다.
 
 ## 7. Visual implementation 규칙
@@ -102,6 +113,8 @@ sum(
 ## 8. Interaction과 accessibility
 
 - option dialog는 outside click과 `Escape`로 닫혀야 한다.
+- language menu와 share dialog도 outside click과 `Escape`로 닫혀야 한다.
+- reference share URL은 `view=reference`를 포함하고 mixer/preset 없이 live canvas만 렌더링해야 한다.
 - disabled option에는 `disabled`, reason text, accessible title을 유지한다.
 - icon-only navigation에는 `aria-label`과 visually hidden text를 유지한다.
 - language switch는 `<html lang>`과 sample canvas의 `lang`을 함께 갱신한다.
@@ -111,6 +124,7 @@ sum(
 
 - `app/style-data.ts`: option, compatibility, preset, count
 - `app/StyleLab.tsx`: state, URL, bilingual content, semantic markup, chart composition
+- `app/url-state.ts`: language, content mode, share view, URL serialization
 - `app/style-lab.css`: design tokens, axis selectors, responsive behavior
 - `README*.md`: public product and contributor documentation
 - `tests/`: data invariants and rendered product contract
