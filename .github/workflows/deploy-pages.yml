@@ -1,4 +1,4 @@
-name: Deploy UI Language Lab to GitHub Pages
+name: Publish UI Language Lab to gh-pages
 
 on:
   push:
@@ -6,16 +6,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,24 +27,16 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Build static site
         run: npm run build:pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: gh-pages
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          # Pages deployments can remain queued longer than the action's
-          # 10-minute default even when the uploaded artifact is healthy.
-          timeout: 1800000
+      - name: Publish static branch
+        run: |
+          cp -R gh-pages "$RUNNER_TEMP/ui-style-lab-pages"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --orphan gh-pages
+          git rm -rf .
+          git clean -fdx
+          cp -R "$RUNNER_TEMP/ui-style-lab-pages"/. .
+          touch .nojekyll
+          git add --all
+          git commit -m "Deploy ${GITHUB_SHA}"
+          git push --force origin gh-pages
