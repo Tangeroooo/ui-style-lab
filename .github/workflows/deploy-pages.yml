@@ -46,3 +46,7 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # Pages deployments can remain queued longer than the action's
+          # 10-minute default even when the uploaded artifact is healthy.
+          timeout: 1800000
