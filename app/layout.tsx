@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description: "One interface, many design languages. Explore up to 229,076 aesthetically compatible full-page combinations.",
     type: "website",
     url: "https://tangerooo.github.io/ui-style-lab/",
-    images: [{ url: "/ui-style-lab/og.png", width: 1731, height: 909, alt: "UI Language Lab — the same component kit in Glass, Brutal, Editorial, and Terminal styles" }],
+    images: [{ url: "/ui-style-lab/og.png", width: 1732, height: 908, alt: "UI Language Lab — the same component kit in Glass, Brutal, Editorial, and Terminal styles" }],
   },
   twitter: {
     card: "summary_large_image",
