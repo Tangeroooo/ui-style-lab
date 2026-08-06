@@ -57,6 +57,8 @@ app/url-state.ts
 - 특정 제품 screenshot, proprietary asset, logo, illustration을 복제하지 않는다. 이 repository의 동일한 `Field Notes` content와 Lucide icon, Recharts data component로 원칙만 재구성한다.
 - Design System의 domain pattern이 핵심이라면 현재 sample content로 정직하게 검증 가능한지 먼저 판단한다. 예를 들어 commerce admin이나 government form 전용 system은 일반 field-journal page에서 시각 정체성을 충분히 보여주기 어려울 수 있다.
 - native default를 `aestheticRules.defaults`에 먼저 정의하고, 변형 palette/surface는 공식 원칙을 해치지 않는 최소 범위만 `allowed`에 추가한다.
+- 공식 dark theme가 semantic token과 component state 수준에서 문서화된 system은 별도 `*Dark` aesthetic으로 모델링한다. light/dark pair는 geometry, layout, navigation, typography, motion allowlist를 공유하고 palette만 native dark token으로 제한한다.
+- 단순히 background를 검게 만든 변형이나 역사적 미학의 임의 dark version은 추가하지 않는다. Terminal·Cyberpunk처럼 원래 dark-native인 aesthetic도 중복 dark 항목을 만들지 않는다.
 - 이름, 버전, 공식 source link를 README에 기록한다. major version이 바뀌면 기존 ID를 조용히 재해석하지 말고 migration 영향을 검토한다.
 
 ## 4. 새로운 layer를 추가할 때
@@ -86,7 +88,7 @@ app/url-state.ts
   - `split`: Latin glyph는 `type`, Hangul은 `koType`
   - `koUnified`: 선택한 `koType`으로 Latin과 Hangul 모두 렌더링
 - Korean only에서는 live canvas의 microcopy, chart category, 지도 label도 한국어로 제공한다.
-- Korean + English에서는 English microcopy뿐 아니라 hero, data, index, story, guide, route 등 주요 Korean body copy에도 English companion copy를 함께 보여준다. Korean only에는 companion copy를 노출하지 않으며 English-only element에는 `lang="en"`을 지정한다.
+- Korean + English에서는 English microcopy와 body companion뿐 아니라 hero, data, story, guide, route의 주요 display headline에도 English를 충분한 크기로 섞는다. Korean only에는 English companion/display line을 노출하지 않으며 English-only element에는 `lang="en"`을 지정한다.
 - 한글 명조체 계열은 추가하지 않는다. Editorial/Luxury aesthetic에서도 한글은 검증된 gothic/dotum 계열을 사용한다.
 - 새 Korean font는 Hangul coverage, Latin coverage, webfont loading, fallback stack, weight availability를 확인한다.
 - 새 Korean font는 `--site-ko-hero-size`, `--site-ko-display-line`, `--site-ko-tracking`을 실제 glyph metric에 맞게 조정한다. headline의 의도한 행 수와 container overflow를 함께 확인한다.
@@ -120,6 +122,7 @@ sum(
 - user-provided reference screenshot이나 다른 제작자의 component composition을 복제하거나 asset으로 재사용하지 않는다.
 - chart는 Recharts의 실제 data component를 유지한다. decorative path로 chart를 흉내 내지 않는다.
 - palette는 contrast를 보존해야 하며 text와 surface가 같은 명도에 묻히지 않게 한다.
+- global canvas texture를 기본값으로 두지 않는다. dot matrix, paper grain, scanline, grid는 해당 surface/aesthetic의 문법일 때만 명시적으로 opt-in하고, high-density mobile display에서 pattern이 과장되지 않는지 확인한다.
 - desktop, tablet, mobile에서 horizontal overflow가 없어야 한다.
 - motion은 `prefers-reduced-motion`과 `quiet` mode를 존중한다.
 
@@ -127,7 +130,7 @@ sum(
 
 - option dialog는 outside click과 `Escape`로 닫혀야 한다.
 - language menu와 share dialog도 outside click과 `Escape`로 닫혀야 한다.
-- language control은 header navigation이나 combination mixer에 합치지 않고 독립 floating control로 유지한다. desktop에서는 우측 panel과 분리하고, narrow viewport에서는 bottom mixer 위로 이동해 겹침을 피한다.
+- language, randomize, share control은 header navigation이나 combination mixer에 합치지 않고 독립 floating control group으로 유지한다. desktop에서는 우측 panel과 분리하고, narrow viewport에서는 bottom mixer 위로 이동해 겹침을 피한다.
 - reference share URL은 `view=reference`를 포함하고 mixer/preset 없이 live canvas만 렌더링해야 한다.
 - disabled option에는 `disabled`, reason text, accessible title을 유지한다.
 - icon-only navigation에는 `aria-label`과 visually hidden text를 유지한다.

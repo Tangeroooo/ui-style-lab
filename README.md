@@ -12,7 +12,7 @@ English is the default interface language. A detached floating language control 
 
 | Layer | Options | Purpose |
 | --- | ---: | --- |
-| Base aesthetic | 18 | The governing visual language, including historical lineages and selected company design systems |
+| Base aesthetic | 23 | The governing visual language, including historical lineages, selected company systems, and their documented dark variants |
 | Surface | 12 | Flat, Skeuomorphism, Glass, Acrylic, Neumorphism, Material, E-ink Paper, and more |
 | Layout | 10 | Landing, Bento, Cards, Masonry, Editorial, Dashboard, Master–detail, Broken Grid, and more |
 | Navigation position | 2 | Top or left rail |
@@ -20,20 +20,24 @@ English is the default interface language. A detached floating language control 
 | Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
 | Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
-| Palette | 17 | Existing families plus Bauhaus, Deco Night, Nordic, Dynamic Tonal, Fluent Blue, and Carbon Blue |
+| Palette | 22 | Includes Pure White plus native Material, Fluent, Carbon, and shadcn/ui light/dark token families |
 | Motion | 3 | Quiet, subtle, kinetic |
 
-The lab exposes a different number of visually distinct combinations for each content mode: **56,228** in English, **124,824** in Korean-only, and **568,544** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **62,804** in English, **142,232** in Korean-only, and **635,840** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
 
 The added options were deliberately curated from the broader research list:
 
 - Historical base aesthetics: `Bauhaus`, `Art Deco`, and `Scandinavian`. Each has a page-wide geometry, hierarchy, component, chart, and navigation treatment rather than a palette-only skin.
-- Company design systems: `Material 3`, `Fluent 2`, and `IBM Carbon`. Their native defaults follow the official systems: Material tonal color/shape/elevation, Fluent focus/material/4px rhythm, and Carbon 2x Grid/IBM Plex/data density. See [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2](https://fluent2.microsoft.design/), and [Carbon](https://carbondesignsystem.com/).
+- Company systems: `Material 3`, `Fluent 2`, `IBM Carbon`, and `shadcn/ui`, with separately selectable official dark variants. Their native defaults follow documented semantic tokens, shape, component, and density rules. `shadcn/ui` is technically an Open Code component system and distribution model rather than a historical graphic-design movement, but it is useful here as a governing product-UI convention. See [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2 tokens](https://fluent2.microsoft.design/design-tokens), [Carbon themes](https://carbondesignsystem.com/elements/themes/code/), and [shadcn/ui](https://ui.shadcn.com/docs).
 - Dependent layers: `Skeuomorphism`, `Acrylic`, `E-ink Paper`; `Masonry`, `Data Dashboard`, `Master–detail`; and six matching palette families.
 
 Broader concepts such as Pop Art, Punk/Zine, Spatial UI, Polaris, and GOV.UK remain research candidates rather than selectable base aesthetics. They either overlap an existing axis, require a different interaction model, or need domain-specific content before the full-page comparison would be honest.
 
-`Bento Grid` is modeled as a layout pattern, not a governing aesthetic. The `Bento Pastel` palette supplies the familiar white-card, navy, cobalt, coral, and mint product-dashboard skin while the base aesthetic still owns typography, geometry, and interaction rules.
+`Bento Grid` is modeled as a layout pattern, not a governing aesthetic. The `Bento Pastel` palette supplies the familiar white-card, navy, cobalt, coral, and mint product-dashboard skin while the base aesthetic still owns typography, geometry, and interaction rules. `Pure White` is a separate high-key palette: the canvas and cards stay white while near-black type, neutral borders, and restrained accents preserve hierarchy.
+
+The repeated dot matrix that previously appeared behind every canvas was an implementation artifact, not a UI standard. The global `radial-gradient` texture has been removed. Texture is now opt-in: E-ink keeps a deliberate pixel-like grain, while Acrylic and Digital Paper use non-dot material treatments. High-density phone displays no longer make an unintended common pattern appear across unrelated aesthetics.
+
+Material 3 is the successor to Material 2, not a superset that contains Material 1 and 2. Google documents Material 2 → Material 3 as a migration between systems with changed theming, components, and APIs; both may coexist temporarily during migration, but they should not be treated as nested style presets. See the official [Material 2 to Material 3 migration guide](https://developer.android.com/develop/ui/compose/designsystems/material2-material3).
 
 Functional interface symbols use tree-shakable Lucide React SVG components rather than text glyphs. Their size, color, and stroke weight inherit the selected visual system.
 
@@ -44,7 +48,7 @@ Typography controls follow the content mode so irrelevant axes do not create dup
 - `English`: `Latin Type` only.
 - `한국어 only`: `Korean Type` only. The selected Korean face is applied automatically across the canvas.
 - `한국어 + English`: controls are ordered `Korean Type` → conditional `Latin Type` → `Type Binding`.
-  - Korean primary copy is paired with substantial English companion copy across the hero, data, index, story, guides, route, and footer—not just English labels or microcopy.
+  - Korean primary copy is paired with English across the hero, data, story, guides, and route display headlines as well as substantial body copy—not just labels or small companion text.
   - `Korean Type` selects a Hangul-capable web font. Korean serif/Myeongjo faces are intentionally excluded.
   - `Latin Type` is visible only while `Script Pairing` is selected because it has no visual effect in `Korean Unified`.
   - `Type Binding` chooses between:
@@ -63,6 +67,8 @@ The Share menu creates two state-complete URLs:
 - `Reference view`: the live canvas only, suitable for agent prompts, design briefs, and handoff.
 
 Both links preserve the aesthetic combination, language, Korean content mode, and typography binding in the URL.
+
+Randomize and Share are detached floating actions beside the language control. The right-side mixer is reserved for layer selection; on narrow screens all floating controls sit above the bottom mixer without overlapping it.
 
 ## Compatibility model
 

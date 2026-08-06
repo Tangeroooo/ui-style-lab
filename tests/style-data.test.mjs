@@ -58,13 +58,13 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 887_440);
+  assert.equal(combinationCount(), 987_216);
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  const additions = ["bauhaus", "artDeco", "scandinavian", "material3", "fluent2", "carbon"];
-  assert.equal(axes.aesthetic.length, 18);
+  const additions = ["bauhaus", "artDeco", "scandinavian", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark"];
+  assert.equal(axes.aesthetic.length, 23);
   for (const id of additions) {
     assert.ok(axes.aesthetic.some((option) => option.id === id), id);
     assert.match(css, new RegExp(`data-aesthetic=["']${id}["']`), id);
@@ -76,7 +76,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
   const additions = {
     surface: ["skeuo", "acrylic", "eink"],
     layout: ["masonry", "dashboard", "masterDetail"],
-    palette: ["bauhaus", "deco", "nordic", "materialDynamic", "fluent", "carbon"],
+    palette: ["pureWhite", "bauhaus", "deco", "nordic", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark"],
   };
 
   for (const [axis, ids] of Object.entries(additions)) {
@@ -92,7 +92,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
 
 test("company design systems keep native defaults", () => {
   assert.deepEqual(
-    ["material3", "fluent2", "carbon"].map((id) => ({
+    ["material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark"].map((id) => ({
       id,
       surface: aestheticRules[id].defaults.surface,
       layout: aestheticRules[id].defaults.layout,
@@ -100,10 +100,40 @@ test("company design systems keep native defaults", () => {
     })),
     [
       { id: "material3", surface: "material", layout: "cards", palette: "materialDynamic" },
+      { id: "material3Dark", surface: "material", layout: "cards", palette: "materialDark" },
       { id: "fluent2", surface: "flat", layout: "masterDetail", palette: "fluent" },
+      { id: "fluent2Dark", surface: "flat", layout: "masterDetail", palette: "fluentDark" },
       { id: "carbon", surface: "flat", layout: "dashboard", palette: "carbon" },
+      { id: "carbonDark", surface: "flat", layout: "dashboard", palette: "carbonDark" },
+      { id: "shadcn", surface: "flat", layout: "dashboard", palette: "pureWhite" },
+      { id: "shadcnDark", surface: "flat", layout: "dashboard", palette: "zincDark" },
     ],
   );
+});
+
+test("official dark variants preserve their parent geometry and lock native dark tokens", () => {
+  const pairs = [
+    ["material3", "material3Dark", "materialDark"],
+    ["fluent2", "fluent2Dark", "fluentDark"],
+    ["carbon", "carbonDark", "carbonDark"],
+    ["shadcn", "shadcnDark", "zincDark"],
+  ];
+
+  for (const [light, dark, palette] of pairs) {
+    for (const axis of dependentAxisKeys.filter((axis) => axis !== "palette")) {
+      assert.deepEqual(aestheticRules[dark].allowed[axis], aestheticRules[light].allowed[axis], `${dark}.${axis}`);
+    }
+    assert.deepEqual(aestheticRules[dark].allowed.palette, [palette]);
+  }
+});
+
+test("dot matrix texture is opt-in rather than a global canvas default", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  const baseNoise = css.match(/\.sample-noise\s*\{[^}]+\}/)?.[0] ?? "";
+  assert.match(baseNoise, /opacity:\s*0/);
+  assert.match(baseNoise, /background:\s*none/);
+  assert.match(css, /data-surface="eink"[^\n]+sample-noise[^\n]+radial-gradient/);
+  assert.doesNotMatch(css, /data-surface="acrylic"[^\n]+sample-noise[^\n]+5px 5px/);
 });
 
 test("Korean typography options remain sans, gothic, or coding-oriented", () => {

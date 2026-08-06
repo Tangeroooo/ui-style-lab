@@ -30,8 +30,11 @@ test("server-renders the UI Language Lab product", async () => {
   assert.match(html, /Latin Type/);
   assert.doesNotMatch(html, /Korean Type/);
   assert.doesNotMatch(html, /Type Binding/);
-  assert.match(html, /56,228/);
+  assert.match(html, /62,804/);
   assert.match(html, /lucide-languages/);
   assert.match(html, /floating-language/);
+  assert.match(html, /floating-utilities/);
+  assert.match(html, /lucide-shuffle/);
+  assert.match(html, /lucide-share/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });

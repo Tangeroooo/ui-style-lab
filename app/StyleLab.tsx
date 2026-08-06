@@ -95,7 +95,7 @@ const labCopy = {
     incompatible: (name: string) => `Not compatible with ${name}`,
     unavailable: (name: string) => `This combination is unavailable for ${name}.`,
     canvas: "FULL-PAGE LIVE CANVAS",
-    presetKicker: "CURATED STARTING POINTS · 25",
+    presetKicker: "CURATED STARTING POINTS · 30",
     presetTitle: ["Switch the whole page", "in one move."],
     presetIntro: "Every preset applies a coherent visual system to the same Field Notes content. Start here, then adjust one layer at a time in the floating mixer.",
     filters: "Preset filters",
@@ -138,7 +138,7 @@ const labCopy = {
     incompatible: (name: string) => `${name}과 호환되지 않음`,
     unavailable: (name: string) => `${name}에서는 사용할 수 없는 조합입니다.`,
     canvas: "전체 페이지 라이브 캔버스",
-    presetKicker: "추천 시작점 · 25",
+    presetKicker: "추천 시작점 · 30",
     presetTitle: ["페이지의 분위기를", "한 번에 전환하세요."],
     presetIntro: "각 프리셋은 같은 Field Notes 콘텐츠에 일관된 시각 시스템을 적용합니다. 선택한 뒤 플로팅 믹서에서 한 층씩 바꿔 보세요.",
     filters: "프리셋 필터",
@@ -351,8 +351,13 @@ const presetLabelsEn: Record<string, string> = {
   "y2k-chrome": "An optimistic future from the 2000s",
   "cyber-hud": "A neon expedition index",
   "material-you": "Tonal color with rounded components",
+  "material-night": "Dark tonal roles with soft elevation",
   "fluent-focus": "Layered focus for adaptive productivity",
+  "fluent-night": "Dark aliases with bright focus layers",
   "carbon-operations": "An enterprise dashboard built on the 2x Grid",
+  "carbon-night": "Dense operations on Carbon Gray 100",
+  "shadcn-neutral": "A white canvas with a composable dashboard",
+  "shadcn-night": "Zinc dark with a compact component rhythm",
   "memphis-pop": "Playful creative tools",
   "frutiger-gloss": "Nature meets the glossy web",
   "terminal-green": "A phosphor field log",
@@ -438,7 +443,7 @@ function FieldDataCharts({ selection, language, copyMode }: { selection: Selecti
   return (
     <section className="sample-data" aria-labelledby="field-data-title">
       <header>
-        <div><span lang={microLanguage}>{micro.dataKicker}</span><h3 id="field-data-title">{t.title[0]}<br />{t.title[1]}</h3></div>
+        <div><span lang={microLanguage}>{micro.dataKicker}</span><h3 id="field-data-title">{t.title[0]}<br /><span className={bilingual ? "english-display-line" : undefined} lang={bilingual ? "en" : undefined}>{bilingual ? sampleCopy.en.charts.title[1] : t.title[1]}</span></h3></div>
         <p>{t.intro}<EnglishCompanion visible={bilingual}>{sampleCopy.en.charts.intro}</EnglishCompanion></p>
       </header>
       <div className="data-grid">
@@ -532,7 +537,7 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
         <section className="sample-hero">
           <div className="hero-copy">
             <div className="sample-eyebrow"><span lang={microLanguage}>{micro.edition}</span><i /><span lang={microLanguage}>{micro.coordinates}</span></div>
-            <h2><span>{t.hero[0]}</span><em>{t.hero[1]}</em></h2>
+            <h2><span>{t.hero[0]}</span><em lang={bilingual ? "en" : undefined}>{bilingual ? sampleCopy.en.hero[1] : t.hero[1]}</em></h2>
             <p>{t.heroBody}<EnglishCompanion visible={bilingual}>{sampleCopy.en.heroBody}</EnglishCompanion></p>
             <div className="hero-actions"><button type="button">{t.explore} <span aria-hidden="true"><ArrowUpRight /></span></button><a href="#sample-story" onClick={(event) => scrollWithinCanvas(event, "sample-story")}><i aria-hidden="true"><ArrowDown /></i> {t.read}</a></div>
           </div>
@@ -563,7 +568,7 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
         <FieldDataCharts selection={selection} language={language} copyMode={copyMode} />
 
         <section className="sample-story" id="sample-story">
-          <div className="story-heading"><span lang={microLanguage}>{micro.essay}</span><h3>{t.storyTitle[0]}<br /><em>{t.storyTitle[1]}</em></h3></div>
+          <div className="story-heading"><span lang={microLanguage}>{micro.essay}</span><h3>{t.storyTitle[0]}<br /><em className={bilingual ? "english-display-line" : undefined} lang={bilingual ? "en" : undefined}>{bilingual ? sampleCopy.en.storyTitle[1] : t.storyTitle[1]}</em></h3></div>
           <div className="story-body">
             <p className="story-lead">{t.storyLead}<EnglishCompanion visible={bilingual}>{sampleCopy.en.storyLead}</EnglishCompanion></p>
             <div className="story-columns"><p>{t.storyColumns[0]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.storyColumns[0]}</EnglishCompanion></p><p>{t.storyColumns[1]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.storyColumns[1]}</EnglishCompanion></p></div>
@@ -572,14 +577,14 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
         </section>
 
         <section className="sample-guides" id="sample-guides">
-          <header><div><span lang={microLanguage}>{micro.guides}</span><h3>{t.guideTitle}</h3></div><p>{t.guideIntro}<EnglishCompanion visible={bilingual}>{sampleCopy.en.guideIntro}</EnglishCompanion></p></header>
+          <header><div><span lang={microLanguage}>{micro.guides}</span><h3>{t.guideTitle}{bilingual && <span className="english-display-line" lang="en">{sampleCopy.en.guideTitle}</span>}</h3></div><p>{t.guideIntro}<EnglishCompanion visible={bilingual}>{sampleCopy.en.guideIntro}</EnglishCompanion></p></header>
           <div className="guide-grid">
             {guideStories.map((story, index) => {
               const title = story.title[language];
               return (
                 <article className={`guide-card sample-surface ${story.tone}`} key={story.number}>
                   <div className="guide-art" aria-hidden="true"><i /><i /><i /><span>{story.number}</span></div>
-                  <div className="guide-copy"><span lang={microLanguage}>{micro.regions[index]}</span><h4>{title}<EnglishCompanion visible={bilingual}>{story.title.en}</EnglishCompanion></h4><p>{story.copy[language]}<EnglishCompanion visible={bilingual}>{story.copy.en}</EnglishCompanion></p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")} aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <ArrowUpRight aria-hidden="true" /></a></div>
+                  <div className="guide-copy"><span lang={microLanguage}>{micro.regions[index]}</span><h4>{title}{bilingual && <span className="english-display-line" lang="en">{story.title.en}</span>}</h4><p>{story.copy[language]}<EnglishCompanion visible={bilingual}>{story.copy.en}</EnglishCompanion></p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")} aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <ArrowUpRight aria-hidden="true" /></a></div>
                 </article>
               );
             })}
@@ -588,7 +593,7 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
 
         <section className="sample-route sample-surface" id="sample-route">
           <div className="route-map" aria-hidden="true" lang={microLanguage}><i className="route-line line-a" /><i className="route-line line-b" /><i className="route-line line-c" /><b className="route-point point-a">{micro.routePoints[0]}</b><b className="route-point point-b">{micro.routePoints[1]}</b><b className="route-point point-c">{micro.routePoints[2]}</b><span className="route-coordinate">{micro.routeCoordinates[0]}<br />{micro.routeCoordinates[1]}</span></div>
-          <div className="route-copy"><span lang={microLanguage}>{micro.makeItYours}</span><h3>{t.routeTitle[0]}<br />{t.routeTitle[1]}</h3><p>{t.routeBody}<EnglishCompanion visible={bilingual}>{sampleCopy.en.routeBody}</EnglishCompanion></p><button type="button">{t.routeButton} <b aria-hidden="true"><ArrowUpRight /></b></button></div>
+          <div className="route-copy"><span lang={microLanguage}>{micro.makeItYours}</span><h3>{t.routeTitle[0]}<br /><span className={bilingual ? "english-display-line" : undefined} lang={bilingual ? "en" : undefined}>{bilingual ? sampleCopy.en.routeTitle[1] : t.routeTitle[1]}</span></h3><p>{t.routeBody}<EnglishCompanion visible={bilingual}>{sampleCopy.en.routeBody}</EnglishCompanion></p><button type="button">{t.routeButton} <b aria-hidden="true"><ArrowUpRight /></b></button></div>
         </section>
       </main>
 
@@ -615,6 +620,7 @@ export function StyleLab() {
   const [ready, setReady] = useState(false);
   const mixerRef = useRef<HTMLElement>(null);
   const languageRef = useRef<HTMLDivElement>(null);
+  const utilityRef = useRef<HTMLDivElement>(null);
   const t = labCopy[language];
 
   const currentPreset = useMemo(() => presets.find((preset) => sameSelection(preset.selection, selection)), [selection]);
@@ -692,16 +698,24 @@ export function StyleLab() {
   }, [copyMode, language, ready]);
 
   useEffect(() => {
-    if (!activeAxis && !shareOpen) return;
+    if (!activeAxis) return;
     function closeOnOutsideClick(event: PointerEvent) {
       if (!mixerRef.current?.contains(event.target as Node)) {
         setActiveAxis(null);
-        setShareOpen(false);
       }
     }
     document.addEventListener("pointerdown", closeOnOutsideClick);
     return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
-  }, [activeAxis, shareOpen]);
+  }, [activeAxis]);
+
+  useEffect(() => {
+    if (!shareOpen) return;
+    function closeShareMenu(event: PointerEvent) {
+      if (!utilityRef.current?.contains(event.target as Node)) setShareOpen(false);
+    }
+    document.addEventListener("pointerdown", closeShareMenu);
+    return () => document.removeEventListener("pointerdown", closeShareMenu);
+  }, [shareOpen]);
 
   useEffect(() => {
     if (!languageOpen) return;
@@ -820,6 +834,23 @@ export function StyleLab() {
         )}
       </div>
 
+      <div className="floating-utilities" ref={utilityRef}>
+        <button className="utility-toggle" type="button" onClick={randomize} aria-label={t.random} title={`${t.random} (R)`}><Shuffle aria-hidden="true" /></button>
+        <div className="share-control">
+          <button className="utility-toggle" type="button" onClick={() => { setActiveAxis(null); setShareOpen((current) => !current); }} aria-expanded={shareOpen} aria-label={t.share} title={t.share}><Share2 aria-hidden="true" /></button>
+          {shareOpen && (
+            <div className="share-popover" role="dialog" aria-label={t.shareTitle}>
+              <header><div><span aria-hidden="true"><Share2 /></span><b>{t.shareTitle}</b></div><button type="button" onClick={() => setShareOpen(false)} aria-label={t.close}><X aria-hidden="true" /></button></header>
+              <p>{t.shareIntro}</p>
+              <div>
+                <button type="button" onClick={() => share("lab")}><span><b>{t.labLink}</b><small>{t.labLinkNote}</small></span><em>LAB <ExternalLink aria-hidden="true" /></em></button>
+                <button type="button" onClick={() => share("reference")}><span><b>{t.referenceLink}</b><small>{t.referenceLinkNote}</small></span><em>REF <ExternalLink aria-hidden="true" /></em></button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
       <section className="intro" id="top">
         <div className="intro-kicker"><span>{t.introKicker}</span><i />2026</div>
         <h1>{t.title[0]}<br /><em>{t.title[1]}</em></h1>
@@ -839,8 +870,6 @@ export function StyleLab() {
               );
             })}
           </div>
-          <div className="mixer-actions"><button type="button" onClick={randomize} aria-label={t.random}><span aria-hidden="true"><Shuffle /></span><b>Shuffle</b><kbd>R</kbd></button><button type="button" onClick={() => { setActiveAxis(null); setShareOpen((current) => !current); }} aria-expanded={shareOpen} aria-label={t.share}><span aria-hidden="true"><Share2 /></span><b>Share</b></button></div>
-
           {activeAxis && (
             <div className="mixer-popover" data-axis={activeAxis} role="dialog" aria-label={language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}>
               <header><div><span>{activeAxisIndex}</span><b>{language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}</b><small>{language === "en" ? axisMeta[activeAxis].ko : axisMeta[activeAxis].en}</small></div><button type="button" onClick={() => setActiveAxis(null)} aria-label={t.close}><X aria-hidden="true" /></button></header>
@@ -861,16 +890,6 @@ export function StyleLab() {
             </div>
           )}
 
-          {shareOpen && (
-            <div className="share-popover" role="dialog" aria-label={t.shareTitle}>
-              <header><div><span aria-hidden="true"><Share2 /></span><b>{t.shareTitle}</b></div><button type="button" onClick={() => setShareOpen(false)} aria-label={t.close}><X aria-hidden="true" /></button></header>
-              <p>{t.shareIntro}</p>
-              <div>
-                <button type="button" onClick={() => share("lab")}><span><b>{t.labLink}</b><small>{t.labLinkNote}</small></span><em>LAB <ExternalLink aria-hidden="true" /></em></button>
-                <button type="button" onClick={() => share("reference")}><span><b>{t.referenceLink}</b><small>{t.referenceLinkNote}</small></span><em>REF <ExternalLink aria-hidden="true" /></em></button>
-              </div>
-            </div>
-          )}
         </section>
       </div>
 
