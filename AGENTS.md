@@ -51,7 +51,7 @@ app/url-state.ts
 다음을 빠뜨리면 build가 성공해도 조합 모델이 깨진다.
 
 1. `AxisKey`와 `axes`에 layer 추가
-2. `axisMeta`의 index, Korean/English label 추가
+2. `axisMeta`의 Korean/English label 추가. 화면 index는 현재 mode의 visible order에서 동적으로 계산한다.
 3. `defaultSelection`에 기본값 추가
 4. `dependentAxisKeys`에 추가 (`aesthetic` 제외)
 5. 모든 aesthetic의 `defaults`와 `allowed`에 추가
@@ -68,7 +68,7 @@ app/url-state.ts
 - typography control 노출은 content mode에 따라 달라진다.
   - English: `type`만 표시
   - Korean only: `koType`만 표시하고 Korean font를 자동 통합 적용
-  - Korean + English: `type`, `koType`, `fontMode` 모두 표시
+  - Korean + English: `koType`을 먼저 표시하고 `fontMode`를 표시한다. `type`은 `fontMode=split`일 때만 `koType` 다음에 표시한다.
 - `fontMode`는 Korean + English의 script binding 방식이다.
   - `split`: Latin glyph는 `type`, Hangul은 `koType`
   - `koUnified`: 선택한 `koType`으로 Latin과 Hangul 모두 렌더링
@@ -90,7 +90,7 @@ sum(
 )
 ```
 
-- 계산은 반드시 `combinationCount(activeAxes)`를 사용한다.
+- 계산은 반드시 `combinationCount(activeAxes, fixedValues)`를 사용한다. Korean + English는 `split` branch에서는 `type`을 포함하고 `koUnified` branch에서는 제외한 뒤 두 branch를 합산한다.
 - English, Korean only, Korean + English는 보이는 typography axis가 다르므로 각 mode의 distinct count를 별도로 검증한다.
 - 새 option이 일부 aesthetic에만 허용되면 해당 미학의 product만 증가해야 한다.
 - 다음 위치의 숫자가 서로 같아야 한다.

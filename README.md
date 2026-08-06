@@ -17,13 +17,13 @@ English is the default interface language. The top language control offers `Engl
 | Layout | 7 | Landing, Bento, Cards, Editorial, Split, Dense Index, Broken Grid |
 | Navigation position | 2 | Top or left rail |
 | Menu style | 3 | Text, icon, or icon + text |
-| Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
+| Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
 | Palette | 10 | Monochrome, cobalt, primary, citrus, candy, forest, sunset, noir, aurora, aqua |
 | Motion | 3 | Quiet, subtle, kinetic |
 
-The lab exposes a different number of visually distinct combinations for each content mode: **20,804** in English, **44,024** in Korean-only, and **322,176** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **20,804** in English, **44,024** in Korean-only, and **205,112** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
 
 ## Bilingual typography
 
@@ -31,9 +31,10 @@ Typography controls follow the content mode so irrelevant axes do not create dup
 
 - `English`: `Latin Type` only.
 - `한국어 only`: `Korean Type` only. The selected Korean face is applied automatically across the canvas.
-- `한국어 + English`: `Latin Type`, `Korean Type`, and `Type Binding` are all available.
+- `한국어 + English`: controls are ordered `Korean Type` → conditional `Latin Type` → `Type Binding`.
   - Korean primary copy is paired with substantial English companion copy across the hero, data, index, story, guides, route, and footer—not just English labels or microcopy.
   - `Korean Type` selects a Hangul-capable web font. Korean serif/Myeongjo faces are intentionally excluded.
+  - `Latin Type` is visible only while `Script Pairing` is selected because it has no visual effect in `Korean Unified`.
   - `Type Binding` chooses between:
     - `Script Pairing`: Latin glyphs use `Latin Type`; Hangul uses `Korean Type`.
     - `Korean Unified`: the selected Korean face renders both Latin and Hangul.
@@ -64,7 +65,7 @@ axes
   → CSS visual system
 ```
 
-`combinationCount(activeAxes)` sums the valid product for each aesthetic and the axes visible in the current content mode. Randomize and presets also pass through the same compatibility rules.
+`combinationCount(activeAxes, fixedValues)` sums the valid product for each aesthetic and supports conditional branches such as split versus unified typography. Randomize and presets also pass through the same compatibility rules.
 
 ## Development
 

@@ -57,7 +57,7 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
   assert.equal(normalized.palette, "noir");
 });
 
-test("the displayed validated combination count matches the compatibility model", () => {
+test("the raw compatibility model retains every stored axis", () => {
   assert.equal(combinationCount(), 322_176);
 });
 

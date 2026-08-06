@@ -1,6 +1,7 @@
 import {
   axes,
   axisKeys,
+  combinationCount,
   defaultSelection,
   normalizeSelection,
   recommendedSelection,
@@ -25,12 +26,36 @@ export type ParsedExperienceState = {
   view: ExperienceView | null;
 };
 
-export function getVisibleAxisKeys(language: Language, copyMode: KoreanCopyMode) {
-  return axisKeys.filter((axis) => {
+const koreanFirstAxisKeys = [
+  "aesthetic",
+  "surface",
+  "layout",
+  "nav",
+  "navStyle",
+  "koType",
+  "type",
+  "fontMode",
+  "palette",
+  "motion",
+] as const;
+
+export function getVisibleAxisKeys(language: Language, copyMode: KoreanCopyMode, fontMode = "split") {
+  const orderedAxes = language === "ko" ? koreanFirstAxisKeys : axisKeys;
+  return orderedAxes.filter((axis) => {
     if (language === "en") return axis !== "koType" && axis !== "fontMode";
     if (copyMode === "only") return axis !== "type" && axis !== "fontMode";
+    if (axis === "type") return fontMode === "split";
     return true;
   });
+}
+
+export function experienceCombinationCount(language: Language, copyMode: KoreanCopyMode) {
+  if (language !== "ko" || copyMode !== "mixed") {
+    return combinationCount(getVisibleAxisKeys(language, copyMode));
+  }
+
+  return combinationCount(getVisibleAxisKeys("ko", "mixed", "split"), { fontMode: "split" })
+    + combinationCount(getVisibleAxisKeys("ko", "mixed", "koUnified"), { fontMode: "koUnified" });
 }
 
 export function usesBilingualCopy(language: Language, copyMode: KoreanCopyMode) {

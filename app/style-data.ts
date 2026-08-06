@@ -110,17 +110,17 @@ export const axes: Record<AxisKey, Option[]> = {
   ],
 };
 
-export const axisMeta: Record<AxisKey, { index: string; ko: string; en: string }> = {
-  aesthetic: { index: "01", ko: "기초 미학", en: "Aesthetic" },
-  surface: { index: "02", ko: "표면", en: "Surface" },
-  layout: { index: "03", ko: "구성", en: "Layout" },
-  nav: { index: "04", ko: "메뉴 위치", en: "Navigation" },
-  navStyle: { index: "05", ko: "메뉴 표현", en: "Menu Style" },
-  type: { index: "06", ko: "영문 서체", en: "Latin Type" },
-  koType: { index: "07", ko: "한글 서체", en: "Korean Type" },
-  fontMode: { index: "08", ko: "서체 적용", en: "Type Binding" },
-  palette: { index: "09", ko: "색상", en: "Palette" },
-  motion: { index: "10", ko: "움직임", en: "Motion" },
+export const axisMeta: Record<AxisKey, { ko: string; en: string }> = {
+  aesthetic: { ko: "기초 미학", en: "Aesthetic" },
+  surface: { ko: "표면", en: "Surface" },
+  layout: { ko: "구성", en: "Layout" },
+  nav: { ko: "메뉴 위치", en: "Navigation" },
+  navStyle: { ko: "메뉴 표현", en: "Menu Style" },
+  type: { ko: "영문 서체", en: "Latin Type" },
+  koType: { ko: "한글 서체", en: "Korean Type" },
+  fontMode: { ko: "서체 적용", en: "Type Binding" },
+  palette: { ko: "색상", en: "Palette" },
+  motion: { ko: "움직임", en: "Motion" },
 };
 
 export const defaultSelection: Selection = {
@@ -485,12 +485,21 @@ export function normalizeSelection(candidate: Partial<Selection>): Selection {
   return next;
 }
 
-export function combinationCount(activeAxes: readonly AxisKey[] = axisKeys) {
+export function combinationCount(
+  activeAxes: readonly AxisKey[] = axisKeys,
+  fixedValues: Partial<Selection> = {},
+) {
   const countedAxes = dependentAxisKeys.filter((axis) => activeAxes.includes(axis));
   return axes.aesthetic.reduce((total, aesthetic) => {
+    if (fixedValues.aesthetic && fixedValues.aesthetic !== aesthetic.id) return total;
     const rule = getAestheticRule(aesthetic.id);
+    const fixedValueIsInvalid = dependentAxisKeys.some((axis) => {
+      const value = fixedValues[axis];
+      return value !== undefined && !rule.allowed[axis].includes(value);
+    });
+    if (fixedValueIsInvalid) return total;
     return total + countedAxes.reduce(
-      (count, axis) => count * rule.allowed[axis].length,
+      (count, axis) => count * (fixedValues[axis] === undefined ? rule.allowed[axis].length : 1),
       1,
     );
   }, 0);

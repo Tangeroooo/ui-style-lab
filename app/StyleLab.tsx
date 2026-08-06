@@ -16,7 +16,6 @@ import {
   axes,
   axisKeys,
   axisMeta,
-  combinationCount,
   defaultSelection,
   getOption,
   getOptionNote,
@@ -30,6 +29,7 @@ import {
 } from "./style-data";
 import {
   createExperienceUrl,
+  experienceCombinationCount,
   getVisibleAxisKeys,
   parseExperienceHash,
   serializeExperienceHash,
@@ -92,7 +92,7 @@ const labCopy = {
     pageNav: "페이지 바로가기",
     introKicker: "인터랙티브 UI 레퍼런스",
     title: ["디자인 언어를 조합하고", "전체 시스템을 확인하세요."],
-    intro: "서로 호환되는 열 개의 층위를 선택하면 같은 UI가 즉시 달라집니다. 영문·한글 서체 조합과 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
+    intro: "서로 호환되는 디자인 층위를 선택하면 같은 UI가 즉시 달라집니다. 영문·한글 서체 조합과 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
     introOnly: "서로 호환되는 여덟 개의 층위를 선택하면 같은 UI가 즉시 달라집니다. 한글 서체와 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
     explore: "아래에서 실제 조합 살펴보기",
     count: "검증된 조합",
@@ -593,7 +593,10 @@ export function StyleLab() {
   const t = labCopy[language];
 
   const currentPreset = useMemo(() => presets.find((preset) => sameSelection(preset.selection, selection)), [selection]);
-  const visibleAxisKeys = useMemo(() => getVisibleAxisKeys(language, copyMode), [copyMode, language]);
+  const visibleAxisKeys = useMemo(
+    () => getVisibleAxisKeys(language, copyMode, selection.fontMode),
+    [copyMode, language, selection.fontMode],
+  );
   const filters = ["All", ...Array.from(new Set(presets.map((preset) => preset.category)))];
   const visiblePresets = presetFilter === "All" ? presets : presets.filter((preset) => preset.category === presetFilter);
 
@@ -642,6 +645,7 @@ export function StyleLab() {
     if (!ready) return;
     function applyHashState() {
       const fromHash = parseExperienceHash(window.location.hash);
+      setActiveAxis(null);
       if (fromHash.selection) setSelection((current) => sameSelection(current, fromHash.selection!) ? current : fromHash.selection!);
       if (fromHash.language) setLanguage(fromHash.language);
       if (fromHash.copyMode) setCopyMode(fromHash.copyMode);
@@ -729,6 +733,7 @@ export function StyleLab() {
       next[axis] = options[Math.floor(Math.random() * options.length)].id;
     }
     setSelection(next);
+    setActiveAxis(null);
     setNotice(t.randomized);
     window.setTimeout(() => setNotice(""), 1600);
   }
@@ -760,6 +765,9 @@ export function StyleLab() {
   }
 
   const aestheticName = language === "en" ? getOption("aesthetic", selection.aesthetic).en : getOption("aesthetic", selection.aesthetic).ko;
+  const activeAxisIndex = activeAxis
+    ? String(visibleAxisKeys.indexOf(activeAxis) + 1).padStart(2, "0")
+    : "";
 
   if (view === "reference") {
     return <main className="reference-view"><FieldNotesSite selection={selection} language={language} copyMode={copyMode} /></main>;
@@ -789,7 +797,7 @@ export function StyleLab() {
       <section className="intro" id="top">
         <div className="intro-kicker"><span>{t.introKicker}</span><i />2026</div>
         <h1>{t.title[0]}<br /><em>{t.title[1]}</em></h1>
-        <div className="intro-side"><p>{language === "ko" && copyMode === "only" ? t.introOnly : t.intro}</p><a className="explore-cta" href="#live-site"><span>↓</span><b>{t.explore}</b></a><div className="intro-count"><strong>{combinationCount(visibleAxisKeys).toLocaleString("en-US")}</strong><span>{t.count}</span></div></div>
+        <div className="intro-side"><p>{language === "ko" && copyMode === "only" ? t.introOnly : t.intro}</p><a className="explore-cta" href="#live-site"><span>↓</span><b>{t.explore}</b></a><div className="intro-count"><strong>{experienceCombinationCount(language, copyMode).toLocaleString("en-US")}</strong><span>{t.count}</span></div></div>
       </section>
 
       <div className="mixer-anchor" id="mixer">
@@ -809,7 +817,7 @@ export function StyleLab() {
 
           {activeAxis && (
             <div className="mixer-popover" data-axis={activeAxis} role="dialog" aria-label={language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}>
-              <header><div><span>{axisMeta[activeAxis].index}</span><b>{language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}</b><small>{language === "en" ? axisMeta[activeAxis].ko : axisMeta[activeAxis].en}</small></div><button type="button" onClick={() => setActiveAxis(null)} aria-label={t.close}>×</button></header>
+              <header><div><span>{activeAxisIndex}</span><b>{language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}</b><small>{language === "en" ? axisMeta[activeAxis].ko : axisMeta[activeAxis].en}</small></div><button type="button" onClick={() => setActiveAxis(null)} aria-label={t.close}>×</button></header>
               {activeAxis !== "aesthetic" && <p className="compatibility-note"><b>{aestheticName}</b> · {t.compat(aestheticName)}</p>}
               <div className="popover-options">
                 {axes[activeAxis].map((option) => {
