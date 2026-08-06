@@ -73,7 +73,7 @@ app/url-state.ts
   - `split`: Latin glyph는 `type`, Hangul은 `koType`
   - `koUnified`: 선택한 `koType`으로 Latin과 Hangul 모두 렌더링
 - Korean only에서는 live canvas의 microcopy, chart category, 지도 label도 한국어로 제공한다.
-- Korean + English에서는 English microcopy와 Korean body copy를 함께 보여준다. English-only element에는 `lang="en"`을 지정한다.
+- Korean + English에서는 English microcopy뿐 아니라 hero, data, index, story, guide, route 등 주요 Korean body copy에도 English companion copy를 함께 보여준다. Korean only에는 companion copy를 노출하지 않으며 English-only element에는 `lang="en"`을 지정한다.
 - 한글 명조체 계열은 추가하지 않는다. Editorial/Luxury aesthetic에서도 한글은 검증된 gothic/dotum 계열을 사용한다.
 - 새 Korean font는 Hangul coverage, Latin coverage, webfont loading, fallback stack, weight availability를 확인한다.
 - 새 Korean font는 `--site-ko-hero-size`, `--site-ko-display-line`, `--site-ko-tracking`을 실제 glyph metric에 맞게 조정한다. headline의 의도한 행 수와 container overflow를 함께 확인한다.

@@ -644,6 +644,12 @@
 .live-site[data-language="ko"][data-copy-mode="mixed"][data-font-mode="split"] [lang="en"] { font-family:var(--site-latin-font)!important; }
 .live-site[data-language="ko"][data-copy-mode="mixed"][data-font-mode="koUnified"],
 .live-site[data-language="ko"][data-copy-mode="only"] { --site-font:var(--site-ko-font);--site-display:var(--site-ko-display);--site-metric-font:var(--site-ko-font); }
+.english-companion { display:block;margin-top:.72em;opacity:.72;font-size:.84em;font-weight:400;letter-spacing:0;line-height:1.65;word-break:normal; }
+.story-lead>.english-companion { margin-top:.9em;font-size:.52em;line-height:1.7; }
+.story-body blockquote .english-companion { margin-top:.8em;font-size:.42em;line-height:1.55; }
+.guide-copy h4>.english-companion { margin-top:.45em;font-size:.48em;line-height:1.35; }
+.live-site[data-language="ko"][data-copy-mode="mixed"] .sample-index>div { min-height:250px; }
+.live-site[data-language="ko"][data-copy-mode="mixed"] .guide-copy p { min-height:9.2em; }
 
 /* Aesthetic axis --------------------------------------------------------- */
 

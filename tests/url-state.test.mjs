@@ -7,6 +7,7 @@ import {
   getVisibleAxisKeys,
   parseExperienceHash,
   serializeExperienceHash,
+  usesBilingualCopy,
 } from "../app/url-state.ts";
 
 test("typography controls follow the selected content mode", () => {
@@ -24,6 +25,12 @@ test("typography controls follow the selected content mode", () => {
   assert.ok(koreanMixed.includes("type"));
   assert.ok(koreanMixed.includes("koType"));
   assert.ok(koreanMixed.includes("fontMode"));
+});
+
+test("companion English copy appears only in the Korean + English mode", () => {
+  assert.equal(usesBilingualCopy("en", "mixed"), false);
+  assert.equal(usesBilingualCopy("ko", "only"), false);
+  assert.equal(usesBilingualCopy("ko", "mixed"), true);
 });
 
 test("each content mode reports only visually distinct combinations", () => {

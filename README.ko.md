@@ -30,6 +30,7 @@ UI Language Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하�
 - `English`: `영문 서체`만 표시합니다.
 - `한국어 only`: `한글 서체`만 표시하고 선택한 서체를 canvas 전체에 자동 적용합니다.
 - `한국어 + English`: `영문 서체`, `한글 서체`, `서체 적용`을 모두 표시합니다.
+  - 단순히 English label만 섞지 않고 hero, data, index, story, guide, route, footer의 한글 본문에 실제 English companion copy를 함께 제공합니다.
   - `한글 서체`는 Hangul을 지원하는 실제 web font를 선택합니다. 한글 명조체는 의도적으로 제외합니다.
   - `서체 적용`에서는 다음 두 방식을 선택할 수 있습니다.
     - `스크립트 페어링`: Latin은 영문 서체, 한글은 한글 서체 사용

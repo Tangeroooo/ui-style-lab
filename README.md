@@ -32,6 +32,7 @@ Typography controls follow the content mode so irrelevant axes do not create dup
 - `English`: `Latin Type` only.
 - `한국어 only`: `Korean Type` only. The selected Korean face is applied automatically across the canvas.
 - `한국어 + English`: `Latin Type`, `Korean Type`, and `Type Binding` are all available.
+  - Korean primary copy is paired with substantial English companion copy across the hero, data, index, story, guides, route, and footer—not just English labels or microcopy.
   - `Korean Type` selects a Hangul-capable web font. Korean serif/Myeongjo faces are intentionally excluded.
   - `Type Binding` chooses between:
     - `Script Pairing`: Latin glyphs use `Latin Type`; Hangul uses `Korean Type`.

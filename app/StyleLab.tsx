@@ -33,6 +33,7 @@ import {
   getVisibleAxisKeys,
   parseExperienceHash,
   serializeExperienceHash,
+  usesBilingualCopy,
   type ExperienceView,
   type KoreanCopyMode,
 } from "./url-state";
@@ -382,8 +383,14 @@ async function copyText(value: string) {
   if (!copied) throw new Error("Clipboard unavailable");
 }
 
+function EnglishCompanion({ children, visible }: { children: string; visible: boolean }) {
+  if (!visible) return null;
+  return <span className="english-companion" lang="en">{children}</span>;
+}
+
 function FieldDataCharts({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
   const t = sampleCopy[language].charts;
+  const bilingual = usesBilingualCopy(language, copyMode);
   const microLanguage = language === "ko" && copyMode === "only" ? "ko" : "en";
   const micro = sampleMicrocopy[microLanguage];
   const walks = seasonalWalks.map((entry, index) => ({ ...entry, label: micro.months[index] }));
@@ -407,7 +414,7 @@ function FieldDataCharts({ selection, language, copyMode }: { selection: Selecti
     <section className="sample-data" aria-labelledby="field-data-title">
       <header>
         <div><span lang={microLanguage}>{micro.dataKicker}</span><h3 id="field-data-title">{t.title[0]}<br />{t.title[1]}</h3></div>
-        <p>{t.intro}</p>
+        <p>{t.intro}<EnglishCompanion visible={bilingual}>{sampleCopy.en.charts.intro}</EnglishCompanion></p>
       </header>
       <div className="data-grid">
         <article className="data-chart sample-surface">
@@ -450,6 +457,7 @@ function FieldDataCharts({ selection, language, copyMode }: { selection: Selecti
 
 function FieldNotesSite({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
   const t = sampleCopy[language];
+  const bilingual = usesBilingualCopy(language, copyMode);
   const microLanguage = language === "ko" && copyMode === "only" ? "ko" : "en";
   const micro = sampleMicrocopy[microLanguage];
   const aesthetic = getOption("aesthetic", selection.aesthetic);
@@ -500,7 +508,7 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
           <div className="hero-copy">
             <div className="sample-eyebrow"><span lang={microLanguage}>{micro.edition}</span><i /><span lang={microLanguage}>{micro.coordinates}</span></div>
             <h2><span>{t.hero[0]}</span><em>{t.hero[1]}</em></h2>
-            <p>{t.heroBody}</p>
+            <p>{t.heroBody}<EnglishCompanion visible={bilingual}>{sampleCopy.en.heroBody}</EnglishCompanion></p>
             <div className="hero-actions"><button type="button">{t.explore} <span>↗</span></button><a href="#sample-story" onClick={(event) => scrollWithinCanvas(event, "sample-story")}><i>↓</i> {t.read}</a></div>
           </div>
 
@@ -521,10 +529,10 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
         </section>
 
         <section className="sample-index" aria-label={t.indexAria}>
-          <div><span lang={microLanguage}>{micro.indexLabels[0]}</span><strong>42.7<small lang={microLanguage}>{micro.indexUnits[0]}</small></strong><p>{t.index[0]}</p></div>
-          <div><span lang={microLanguage}>{micro.indexLabels[1]}</span><strong>12<small lang={microLanguage}>{micro.indexUnits[1]}</small></strong><p>{t.index[1]}</p></div>
-          <div><span lang={microLanguage}>{micro.indexLabels[2]}</span><strong>04<small lang={microLanguage}>{micro.indexUnits[2]}</small></strong><p>{t.index[2]}</p></div>
-          <div className="index-note"><span lang={microLanguage}>{micro.collecting}</span><p>{t.collecting}</p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")}>{t.contribute}</a></div>
+          <div><span lang={microLanguage}>{micro.indexLabels[0]}</span><strong>42.7<small lang={microLanguage}>{micro.indexUnits[0]}</small></strong><p>{t.index[0]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.index[0]}</EnglishCompanion></p></div>
+          <div><span lang={microLanguage}>{micro.indexLabels[1]}</span><strong>12<small lang={microLanguage}>{micro.indexUnits[1]}</small></strong><p>{t.index[1]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.index[1]}</EnglishCompanion></p></div>
+          <div><span lang={microLanguage}>{micro.indexLabels[2]}</span><strong>04<small lang={microLanguage}>{micro.indexUnits[2]}</small></strong><p>{t.index[2]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.index[2]}</EnglishCompanion></p></div>
+          <div className="index-note"><span lang={microLanguage}>{micro.collecting}</span><p>{t.collecting}<EnglishCompanion visible={bilingual}>{sampleCopy.en.collecting}</EnglishCompanion></p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")}>{t.contribute}</a></div>
         </section>
 
         <FieldDataCharts selection={selection} language={language} copyMode={copyMode} />
@@ -532,21 +540,21 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
         <section className="sample-story" id="sample-story">
           <div className="story-heading"><span lang={microLanguage}>{micro.essay}</span><h3>{t.storyTitle[0]}<br /><em>{t.storyTitle[1]}</em></h3></div>
           <div className="story-body">
-            <p className="story-lead">{t.storyLead}</p>
-            <div className="story-columns"><p>{t.storyColumns[0]}</p><p>{t.storyColumns[1]}</p></div>
-            <blockquote><i>“</i><p>{t.quote[0]}<br />{t.quote[1]}</p><cite lang={microLanguage}>{micro.principle}</cite></blockquote>
+            <p className="story-lead">{t.storyLead}<EnglishCompanion visible={bilingual}>{sampleCopy.en.storyLead}</EnglishCompanion></p>
+            <div className="story-columns"><p>{t.storyColumns[0]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.storyColumns[0]}</EnglishCompanion></p><p>{t.storyColumns[1]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.storyColumns[1]}</EnglishCompanion></p></div>
+            <blockquote><i>“</i><p>{t.quote[0]}<br />{t.quote[1]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.quote.join(" ")}</EnglishCompanion></p><cite lang={microLanguage}>{micro.principle}</cite></blockquote>
           </div>
         </section>
 
         <section className="sample-guides" id="sample-guides">
-          <header><div><span lang={microLanguage}>{micro.guides}</span><h3>{t.guideTitle}</h3></div><p>{t.guideIntro}</p></header>
+          <header><div><span lang={microLanguage}>{micro.guides}</span><h3>{t.guideTitle}</h3></div><p>{t.guideIntro}<EnglishCompanion visible={bilingual}>{sampleCopy.en.guideIntro}</EnglishCompanion></p></header>
           <div className="guide-grid">
             {guideStories.map((story, index) => {
               const title = story.title[language];
               return (
                 <article className={`guide-card sample-surface ${story.tone}`} key={story.number}>
                   <div className="guide-art" aria-hidden="true"><i /><i /><i /><span>{story.number}</span></div>
-                  <div className="guide-copy"><span lang={microLanguage}>{micro.regions[index]}</span><h4>{title}</h4><p>{story.copy[language]}</p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")} aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <b>↗</b></a></div>
+                  <div className="guide-copy"><span lang={microLanguage}>{micro.regions[index]}</span><h4>{title}<EnglishCompanion visible={bilingual}>{story.title.en}</EnglishCompanion></h4><p>{story.copy[language]}<EnglishCompanion visible={bilingual}>{story.copy.en}</EnglishCompanion></p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")} aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <b>↗</b></a></div>
                 </article>
               );
             })}
@@ -555,13 +563,13 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
 
         <section className="sample-route sample-surface" id="sample-route">
           <div className="route-map" aria-hidden="true" lang={microLanguage}><i className="route-line line-a" /><i className="route-line line-b" /><i className="route-line line-c" /><b className="route-point point-a">{micro.routePoints[0]}</b><b className="route-point point-b">{micro.routePoints[1]}</b><b className="route-point point-c">{micro.routePoints[2]}</b><span className="route-coordinate">{micro.routeCoordinates[0]}<br />{micro.routeCoordinates[1]}</span></div>
-          <div className="route-copy"><span lang={microLanguage}>{micro.makeItYours}</span><h3>{t.routeTitle[0]}<br />{t.routeTitle[1]}</h3><p>{t.routeBody}</p><button type="button">{t.routeButton} <b>↗</b></button></div>
+          <div className="route-copy"><span lang={microLanguage}>{micro.makeItYours}</span><h3>{t.routeTitle[0]}<br />{t.routeTitle[1]}</h3><p>{t.routeBody}<EnglishCompanion visible={bilingual}>{sampleCopy.en.routeBody}</EnglishCompanion></p><button type="button">{t.routeButton} <b>↗</b></button></div>
         </section>
       </main>
 
       <footer className="sample-footer">
         <div className="sample-brand"><span className="sample-mark"><i /><i /><i /></span><b lang={microLanguage}>{micro.brand}</b></div>
-        <p>{t.footer[0]}<br />{t.footer[1]}</p>
+        <p>{t.footer[0]}<br />{t.footer[1]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.footer.join(" ")}</EnglishCompanion></p>
         <div><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{micro.instagram}</a><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{t.archive}</a><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{t.contact}</a></div>
         <span lang={microLanguage}>{micro.copyright}</span>
       </footer>

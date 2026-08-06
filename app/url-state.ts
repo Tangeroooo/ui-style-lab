@@ -33,6 +33,10 @@ export function getVisibleAxisKeys(language: Language, copyMode: KoreanCopyMode)
   });
 }
 
+export function usesBilingualCopy(language: Language, copyMode: KoreanCopyMode) {
+  return language === "ko" && copyMode === "mixed";
+}
+
 export function parseExperienceHash(hash: string): ParsedExperienceState {
   const params = new URLSearchParams(hash.replace(/^#/, ""));
   const requestedAesthetic = params.get("aesthetic");
