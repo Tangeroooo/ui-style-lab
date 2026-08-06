@@ -20,10 +20,14 @@ English is the default interface language. The top language control offers `Engl
 | Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
 | Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
-| Palette | 10 | Monochrome, cobalt, primary, citrus, candy, forest, sunset, noir, aurora, aqua |
+| Palette | 11 | Monochrome, cobalt, primary, citrus, candy, forest, sunset, noir, aurora, aqua, Bento Pastel |
 | Motion | 3 | Quiet, subtle, kinetic |
 
-The lab exposes a different number of visually distinct combinations for each content mode: **20,804** in English, **44,024** in Korean-only, and **205,112** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **23,156** in English, **49,124** in Korean-only, and **229,076** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+
+`Bento Grid` is modeled as a layout pattern, not a governing aesthetic. The `Bento Pastel` palette supplies the familiar white-card, navy, cobalt, coral, and mint product-dashboard skin while the base aesthetic still owns typography, geometry, and interaction rules.
+
+Functional interface symbols use tree-shakable Lucide React SVG components rather than text glyphs. Their size, color, and stroke weight inherit the selected visual system.
 
 ## Bilingual typography
 

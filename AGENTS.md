@@ -6,6 +6,8 @@
 
 - `aesthetic`은 다른 모든 layer의 유효 범위를 결정한다.
 - palette나 surface 때문에 기초 미학의 정체성이 훼손되어서는 안 된다.
+- Bento Grid처럼 정보 배치가 핵심인 개념은 layout으로 유지한다. white card, navy rail, pastel accent처럼 장식 체계가 필요한 경우 별도 aesthetic을 만들지 말고 palette 또는 surface skin으로 모델링한다.
+- 기능 아이콘은 특수문자 glyph 대신 현재 icon component system(`lucide-react`)을 사용하고, 색·크기·stroke가 기초 미학의 token을 상속하게 한다.
 - 새로운 option이 기술적으로 렌더링 가능하더라도 해당 aesthetic의 역사적·시각적 문법과 맞지 않으면 `allowed`에 넣지 않는다.
 - 호환되지 않는 option은 UI에서 숨기지 않는다. 사용자가 전체 가능성을 이해할 수 있도록 보이게 유지하고 `disabled` 상태와 이유를 제공한다.
 - aesthetic을 바꾸면 `recommendedSelection()`으로 그 미학의 native default 전체를 적용한다.

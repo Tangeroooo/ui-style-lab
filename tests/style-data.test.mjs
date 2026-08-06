@@ -58,7 +58,7 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 322_176);
+  assert.equal(combinationCount(), 359_904);
 });
 
 test("Korean typography options remain sans, gothic, or coding-oriented", () => {
@@ -77,4 +77,16 @@ test("every Korean type option has a full-canvas CSS implementation", () => {
   assert.match(css, /--site-ko-hero-size/);
   assert.match(css, /--site-ko-display-line/);
   assert.match(css, /--site-ko-tracking/);
+});
+
+test("Bento Pastel is implemented as a palette skin with a conservative allowlist", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.ok(axes.palette.some((option) => option.id === "bentoPastel"));
+  assert.match(css, /data-palette=["']bentoPastel["']/);
+  assert.deepEqual(
+    axes.aesthetic
+      .filter((aesthetic) => aestheticRules[aesthetic.id].allowed.palette.includes("bentoPastel"))
+      .map((aesthetic) => aesthetic.id),
+    ["minimal", "memphis", "organic"],
+  );
 });

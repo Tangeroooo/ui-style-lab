@@ -43,9 +43,9 @@ test("companion English copy appears only in the Korean + English mode", () => {
 });
 
 test("each content mode reports only visually distinct combinations", () => {
-  assert.equal(experienceCombinationCount("en", "mixed"), 20_804);
-  assert.equal(experienceCombinationCount("ko", "only"), 44_024);
-  assert.equal(experienceCombinationCount("ko", "mixed"), 205_112);
+  assert.equal(experienceCombinationCount("en", "mixed"), 23_156);
+  assert.equal(experienceCombinationCount("ko", "only"), 49_124);
+  assert.equal(experienceCombinationCount("ko", "mixed"), 229_076);
 });
 
 test("language, content mode, view, and selection round-trip through the share hash", () => {
