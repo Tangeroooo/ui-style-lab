@@ -19,7 +19,10 @@ import {
   combinationCount,
   defaultSelection,
   getOption,
+  isOptionAllowed,
+  normalizeSelection,
   presets,
+  recommendedSelection,
   type AxisKey,
   type Selection,
 } from "./style-data";
@@ -44,7 +47,7 @@ function parseHash(hash: string): Selection | null {
     }
   }
 
-  return matched ? next : null;
+  return matched ? normalizeSelection(next) : null;
 }
 
 const guideStories = [
@@ -323,7 +326,7 @@ export function StyleLab() {
     try {
       if (!initialSelection) {
         const saved = window.localStorage.getItem(storageKey);
-        if (saved) initialSelection = { ...defaultSelection, ...JSON.parse(saved) };
+        if (saved) initialSelection = normalizeSelection({ ...defaultSelection, ...JSON.parse(saved) });
       }
     } catch {
       // The lab still works when browser storage is unavailable.
@@ -354,7 +357,7 @@ export function StyleLab() {
         const currentIndex = currentPreset ? presets.indexOf(currentPreset) : -1;
         const direction = event.key === "ArrowRight" ? 1 : -1;
         const next = (currentIndex + direction + presets.length) % presets.length;
-        setSelection(presets[next].selection);
+        setSelection(normalizeSelection(presets[next].selection));
       }
     }
     window.addEventListener("keydown", onKeyDown);
@@ -362,13 +365,26 @@ export function StyleLab() {
   });
 
   function update(axis: AxisKey, value: string) {
-    setSelection((current) => ({ ...current, [axis]: value }));
+    setSelection((current) => {
+      if (axis === "aesthetic") return recommendedSelection(value);
+      if (!isOptionAllowed(current, axis, value)) return current;
+      return { ...current, [axis]: value };
+    });
+
+    if (axis === "aesthetic") {
+      setNotice("미학의 기본 문법과 호환 옵션을 적용했습니다.");
+      window.setTimeout(() => setNotice(""), 1800);
+    }
   }
 
   function randomize() {
-    const next = { ...selection };
+    const aesthetics = axes.aesthetic;
+    const aesthetic = aesthetics[Math.floor(Math.random() * aesthetics.length)].id;
+    const next = recommendedSelection(aesthetic);
+
     for (const axis of axisKeys) {
-      const options = axes[axis];
+      if (axis === "aesthetic") continue;
+      const options = axes[axis].filter((option) => isOptionAllowed(next, axis, option.id));
       next[axis] = options[Math.floor(Math.random() * options.length)].id;
     }
     setSelection(next);
@@ -387,7 +403,7 @@ export function StyleLab() {
   }
 
   function choosePreset(nextSelection: Selection) {
-    setSelection(nextSelection);
+    setSelection(normalizeSelection(nextSelection));
     setActiveAxis(null);
     document.getElementById("live-site")?.scrollIntoView({ behavior: "smooth" });
   }
@@ -406,7 +422,7 @@ export function StyleLab() {
         <div className="intro-side">
           <p>일곱 개의 층위를 선택하면 아래의 같은 UI가 즉시 달라집니다. component부터 chart, navigation까지 한 화면에서 비교하세요.</p>
           <a className="explore-cta" href="#live-site"><span>↓</span><b>아래에서 조합 예시 보기</b></a>
-          <div className="intro-count"><strong>{combinationCount().toLocaleString("en-US")}</strong><span>가능한 조합</span></div>
+          <div className="intro-count"><strong>{combinationCount().toLocaleString("en-US")}</strong><span>검증된 조합</span></div>
         </div>
       </section>
 
@@ -439,19 +455,26 @@ export function StyleLab() {
           {activeAxis && (
             <div className="mixer-popover">
               <header><div><span>{axisMeta[activeAxis].index}</span><b>{axisMeta[activeAxis].ko}</b><small>{axisMeta[activeAxis].en}</small></div><button type="button" onClick={() => setActiveAxis(null)} aria-label="선택창 닫기">×</button></header>
+              {activeAxis !== "aesthetic" && <p className="compatibility-note"><b>{getOption("aesthetic", selection.aesthetic).ko}</b>의 시각 문법과 조합 가능한 옵션만 선택할 수 있습니다.</p>}
               <div className="popover-options">
-                {axes[activeAxis].map((option) => (
-                  <button
-                    type="button"
-                    className={selection[activeAxis] === option.id ? "selected" : ""}
-                    key={option.id}
-                    onClick={() => update(activeAxis, option.id)}
-                  >
-                    <i />
-                    <span><b>{option.ko}</b><small>{option.en} · {option.note}</small></span>
-                    <em>{selection[activeAxis] === option.id ? "●" : "○"}</em>
-                  </button>
-                ))}
+                {axes[activeAxis].map((option) => {
+                  const selected = selection[activeAxis] === option.id;
+                  const allowed = isOptionAllowed(selection, activeAxis, option.id);
+                  return (
+                    <button
+                      type="button"
+                      className={`${selected ? "selected" : ""}${allowed ? "" : " incompatible"}`}
+                      disabled={!allowed}
+                      key={option.id}
+                      onClick={() => update(activeAxis, option.id)}
+                      title={allowed ? option.note : `${getOption("aesthetic", selection.aesthetic).ko}에서는 사용할 수 없는 조합입니다.`}
+                    >
+                      <i />
+                      <span><b>{option.ko}</b><small>{option.en} · {allowed ? option.note : "현재 미학과 호환되지 않음"}</small></span>
+                      <em>{selected ? "●" : allowed ? "○" : "×"}</em>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}

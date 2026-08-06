@@ -15,6 +15,7 @@ export type Option = {
 };
 
 export type Selection = Record<AxisKey, string>;
+export type DependentAxis = Exclude<AxisKey, "aesthetic">;
 
 export const axes: Record<AxisKey, Option[]> = {
   aesthetic: [
@@ -104,6 +105,159 @@ export const defaultSelection: Selection = {
   motion: "subtle",
 };
 
+type AestheticRule = {
+  defaults: Record<DependentAxis, string>;
+  allowed: Record<DependentAxis, string[]>;
+};
+
+export const dependentAxisKeys: DependentAxis[] = [
+  "surface",
+  "layout",
+  "nav",
+  "type",
+  "palette",
+  "motion",
+];
+
+/**
+ * Aesthetic is the governing layer. Each rule keeps the identity of the
+ * selected movement intact while still leaving room for meaningful variants.
+ */
+export const aestheticRules: Record<string, AestheticRule> = {
+  minimal: {
+    defaults: { surface: "glass", layout: "dense", nav: "top", type: "grotesk", palette: "cobalt", motion: "subtle" },
+    allowed: {
+      surface: ["flat", "glass", "neumo", "material", "liquid"],
+      layout: ["landing", "bento", "cards", "split", "dense"],
+      nav: ["top", "left"],
+      type: ["grotesk", "humanist", "serif", "mono"],
+      palette: ["cobalt", "mono", "noir", "forest", "aurora", "aqua"],
+      motion: ["quiet", "subtle"],
+    },
+  },
+  swiss: {
+    defaults: { surface: "flat", layout: "dense", nav: "left", type: "grotesk", palette: "mono", motion: "quiet" },
+    allowed: {
+      surface: ["flat", "paper", "material"],
+      layout: ["landing", "editorial", "split", "dense"],
+      nav: ["top", "left"],
+      type: ["grotesk", "mono", "condensed"],
+      palette: ["mono", "primary", "cobalt", "citrus"],
+      motion: ["quiet", "subtle"],
+    },
+  },
+  brutalist: {
+    defaults: { surface: "flat", layout: "landing", nav: "left", type: "condensed", palette: "primary", motion: "kinetic" },
+    allowed: {
+      surface: ["flat", "paper"],
+      layout: ["landing", "bento", "cards", "dense", "poster"],
+      nav: ["top", "left"],
+      type: ["grotesk", "mono", "condensed", "slab"],
+      palette: ["primary", "mono", "cobalt", "citrus"],
+      motion: ["quiet", "subtle", "kinetic"],
+    },
+  },
+  editorial: {
+    defaults: { surface: "paper", layout: "editorial", nav: "top", type: "serif", palette: "sunset", motion: "quiet" },
+    allowed: {
+      surface: ["flat", "paper"],
+      layout: ["landing", "editorial", "split", "dense"],
+      nav: ["top", "left"],
+      type: ["grotesk", "serif"],
+      palette: ["mono", "forest", "sunset", "noir"],
+      motion: ["quiet", "subtle"],
+    },
+  },
+  memphis: {
+    defaults: { surface: "flat", layout: "bento", nav: "left", type: "slab", palette: "primary", motion: "kinetic" },
+    allowed: {
+      surface: ["flat", "clay", "glossy"],
+      layout: ["landing", "bento", "cards", "poster"],
+      nav: ["top", "left"],
+      type: ["grotesk", "rounded", "condensed", "slab"],
+      palette: ["cobalt", "primary", "citrus", "candy"],
+      motion: ["subtle", "kinetic"],
+    },
+  },
+  y2k: {
+    defaults: { surface: "chrome", layout: "poster", nav: "top", type: "rounded", palette: "aurora", motion: "kinetic" },
+    allowed: {
+      surface: ["glass", "liquid", "chrome", "glossy"],
+      layout: ["landing", "bento", "cards", "split", "poster"],
+      nav: ["top", "left"],
+      type: ["grotesk", "mono", "rounded", "pixel"],
+      palette: ["cobalt", "candy", "aurora", "aqua"],
+      motion: ["subtle", "kinetic"],
+    },
+  },
+  cyberpunk: {
+    defaults: { surface: "glass", layout: "dense", nav: "left", type: "mono", palette: "aurora", motion: "kinetic" },
+    allowed: {
+      surface: ["flat", "glass", "chrome"],
+      layout: ["cards", "split", "dense", "poster"],
+      nav: ["top", "left"],
+      type: ["grotesk", "mono", "condensed", "pixel"],
+      palette: ["cobalt", "noir", "aurora"],
+      motion: ["subtle", "kinetic"],
+    },
+  },
+  frutiger: {
+    defaults: { surface: "glossy", layout: "landing", nav: "top", type: "humanist", palette: "aqua", motion: "subtle" },
+    allowed: {
+      surface: ["glass", "material", "glossy"],
+      layout: ["landing", "bento", "cards"],
+      nav: ["top", "left"],
+      type: ["grotesk", "humanist", "rounded"],
+      palette: ["aqua"],
+      motion: ["subtle", "kinetic"],
+    },
+  },
+  terminal: {
+    defaults: { surface: "flat", layout: "dense", nav: "left", type: "pixel", palette: "forest", motion: "quiet" },
+    allowed: {
+      surface: ["flat"],
+      layout: ["cards", "dense"],
+      nav: ["top", "left"],
+      type: ["mono", "pixel"],
+      palette: ["forest"],
+      motion: ["quiet", "subtle"],
+    },
+  },
+  luxury: {
+    defaults: { surface: "paper", layout: "editorial", nav: "top", type: "serif", palette: "noir", motion: "quiet" },
+    allowed: {
+      surface: ["flat", "material", "paper"],
+      layout: ["landing", "cards", "editorial", "split"],
+      nav: ["top", "left"],
+      type: ["grotesk", "serif"],
+      palette: ["noir"],
+      motion: ["quiet", "subtle"],
+    },
+  },
+  organic: {
+    defaults: { surface: "paper", layout: "bento", nav: "left", type: "humanist", palette: "forest", motion: "quiet" },
+    allowed: {
+      surface: ["flat", "clay", "material", "paper"],
+      layout: ["landing", "bento", "cards", "split"],
+      nav: ["top", "left"],
+      type: ["humanist", "serif", "rounded"],
+      palette: ["citrus", "candy", "forest", "aqua"],
+      motion: ["quiet", "subtle", "kinetic"],
+    },
+  },
+  vaporwave: {
+    defaults: { surface: "glass", layout: "poster", nav: "top", type: "mono", palette: "candy", motion: "kinetic" },
+    allowed: {
+      surface: ["glass", "chrome", "glossy"],
+      layout: ["cards", "split", "dense", "poster"],
+      nav: ["top", "left"],
+      type: ["serif", "mono", "pixel"],
+      palette: ["candy"],
+      motion: ["subtle", "kinetic"],
+    },
+  },
+};
+
 export type Preset = {
   id: string;
   name: string;
@@ -139,6 +293,40 @@ export function getOption(axis: AxisKey, id: string) {
   return axes[axis].find((item) => item.id === id) ?? axes[axis][0];
 }
 
+export function getAestheticRule(aesthetic: string) {
+  return aestheticRules[aesthetic] ?? aestheticRules[defaultSelection.aesthetic];
+}
+
+export function recommendedSelection(aesthetic: string): Selection {
+  const validAesthetic = axes.aesthetic.some((option) => option.id === aesthetic)
+    ? aesthetic
+    : defaultSelection.aesthetic;
+  return { aesthetic: validAesthetic, ...getAestheticRule(validAesthetic).defaults };
+}
+
+export function isOptionAllowed(selection: Selection, axis: AxisKey, optionId: string) {
+  if (axis === "aesthetic") return axes.aesthetic.some((option) => option.id === optionId);
+  return getAestheticRule(selection.aesthetic).allowed[axis].includes(optionId);
+}
+
+export function normalizeSelection(candidate: Partial<Selection>): Selection {
+  const next = recommendedSelection(candidate.aesthetic ?? defaultSelection.aesthetic);
+  const rule = getAestheticRule(next.aesthetic);
+
+  for (const axis of dependentAxisKeys) {
+    const value = candidate[axis];
+    if (value && rule.allowed[axis].includes(value)) next[axis] = value;
+  }
+
+  return next;
+}
+
 export function combinationCount() {
-  return axisKeys.reduce((total, axis) => total * axes[axis].length, 1);
+  return axes.aesthetic.reduce((total, aesthetic) => {
+    const rule = getAestheticRule(aesthetic.id);
+    return total + dependentAxisKeys.reduce(
+      (count, axis) => count * rule.allowed[axis].length,
+      1,
+    );
+  }, 0);
 }

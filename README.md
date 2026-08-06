@@ -14,7 +14,7 @@
 - 10 color palettes
 - 3 motion levels
 
-총 362,880개 조합을 URL hash로 저장하고 공유할 수 있습니다. 18개의 curated preset과 randomize 기능도 포함합니다.
+기초 미학별 compatibility rule을 통과한 8,332개 조합을 URL hash로 저장하고 공유할 수 있습니다. 호환되지 않는 옵션은 목록에 남아 있지만 비활성화되며, 18개의 curated preset과 유효 조합만 생성하는 randomize 기능도 포함합니다.
 
 ## Local development
 
