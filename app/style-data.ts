@@ -2,6 +2,7 @@ export type AxisKey =
   | "aesthetic"
   | "surface"
   | "layout"
+  | "nav"
   | "type"
   | "palette"
   | "motion";
@@ -50,6 +51,10 @@ export const axes: Record<AxisKey, Option[]> = {
     { id: "dense", ko: "컴팩트 인덱스", en: "Compact Index", note: "작은 간격과 높은 콘텐츠 밀도" },
     { id: "poster", ko: "브로큰 그리드", en: "Broken Grid", note: "겹침과 비대칭 composition" },
   ],
+  nav: [
+    { id: "top", ko: "상단 메뉴", en: "Top Navigation", note: "콘텐츠 위의 horizontal navigation" },
+    { id: "left", ko: "좌측 메뉴", en: "Left Navigation", note: "페이지 전체를 관통하는 vertical rail" },
+  ],
   type: [
     { id: "grotesk", ko: "네오 그로테스크", en: "Neo-grotesk", note: "중립적이고 정돈된 sans" },
     { id: "humanist", ko: "휴머니스트 산스", en: "Humanist Sans", note: "친근하고 읽기 쉬운 sans" },
@@ -83,15 +88,17 @@ export const axisMeta: Record<AxisKey, { index: string; ko: string; en: string }
   aesthetic: { index: "01", ko: "기초 미학", en: "Aesthetic" },
   surface: { index: "02", ko: "표면", en: "Surface" },
   layout: { index: "03", ko: "구성", en: "Layout" },
-  type: { index: "04", ko: "서체", en: "Typography" },
-  palette: { index: "05", ko: "색상", en: "Palette" },
-  motion: { index: "06", ko: "움직임", en: "Motion" },
+  nav: { index: "04", ko: "메뉴 위치", en: "Navigation" },
+  type: { index: "05", ko: "서체", en: "Typography" },
+  palette: { index: "06", ko: "색상", en: "Palette" },
+  motion: { index: "07", ko: "움직임", en: "Motion" },
 };
 
 export const defaultSelection: Selection = {
   aesthetic: "minimal",
   surface: "glass",
-  layout: "bento",
+  layout: "dense",
+  nav: "top",
   type: "grotesk",
   palette: "cobalt",
   motion: "subtle",
@@ -107,23 +114,23 @@ export type Preset = {
 
 export const presets: Preset[] = [
   { id: "glass-bento", name: "Glass Field", label: "투명한 여행 저널", category: "Contemporary", selection: defaultSelection },
-  { id: "neo-brutal", name: "Primary Brutal", label: "강한 독립 출판물", category: "Expressive", selection: { aesthetic: "brutalist", surface: "flat", layout: "landing", type: "condensed", palette: "primary", motion: "kinetic" } },
-  { id: "soft-neumo", name: "Soft Neumorphic", label: "차분한 wellness journal", category: "Morphism", selection: { aesthetic: "minimal", surface: "neumo", layout: "cards", type: "humanist", palette: "cobalt", motion: "subtle" } },
-  { id: "swiss-flat", name: "Swiss Archive", label: "grid로 정리한 field archive", category: "Modernist", selection: { aesthetic: "swiss", surface: "flat", layout: "dense", type: "grotesk", palette: "mono", motion: "quiet" } },
-  { id: "editorial-luxury", name: "Editorial Noir", label: "절제된 luxury journal", category: "Editorial", selection: { aesthetic: "luxury", surface: "paper", layout: "editorial", type: "serif", palette: "noir", motion: "quiet" } },
-  { id: "y2k-chrome", name: "Y2K Chrome", label: "2000년대의 미래", category: "Retro", selection: { aesthetic: "y2k", surface: "chrome", layout: "poster", type: "rounded", palette: "aurora", motion: "kinetic" } },
-  { id: "cyber-hud", name: "Cyber Trail", label: "neon expedition index", category: "Futurist", selection: { aesthetic: "cyberpunk", surface: "glass", layout: "dense", type: "mono", palette: "aurora", motion: "kinetic" } },
-  { id: "material-you", name: "Material You", label: "friendly dynamic color", category: "System", selection: { aesthetic: "organic", surface: "material", layout: "cards", type: "rounded", palette: "candy", motion: "subtle" } },
-  { id: "memphis-pop", name: "Memphis Pop", label: "playful creative tools", category: "Expressive", selection: { aesthetic: "memphis", surface: "flat", layout: "bento", type: "slab", palette: "primary", motion: "kinetic" } },
-  { id: "frutiger-gloss", name: "Aero Optimism", label: "nature meets glossy web", category: "Retro", selection: { aesthetic: "frutiger", surface: "glossy", layout: "landing", type: "humanist", palette: "aqua", motion: "subtle" } },
-  { id: "terminal-green", name: "Terminal 84", label: "phosphor field log", category: "Retro", selection: { aesthetic: "terminal", surface: "flat", layout: "dense", type: "pixel", palette: "forest", motion: "quiet" } },
-  { id: "paper-report", name: "Paper Report", label: "printed annual report", category: "Editorial", selection: { aesthetic: "editorial", surface: "paper", layout: "editorial", type: "serif", palette: "sunset", motion: "quiet" } },
-  { id: "clay-candy", name: "Candy Clay", label: "말랑한 onboarding", category: "Morphism", selection: { aesthetic: "organic", surface: "clay", layout: "cards", type: "rounded", palette: "candy", motion: "kinetic" } },
-  { id: "liquid-spatial", name: "Liquid Spatial", label: "floating glass controls", category: "Contemporary", selection: { aesthetic: "minimal", surface: "liquid", layout: "split", type: "humanist", palette: "aurora", motion: "subtle" } },
-  { id: "corporate-clean", name: "Corporate Clean", label: "명료한 editorial landing", category: "System", selection: { aesthetic: "minimal", surface: "material", layout: "landing", type: "grotesk", palette: "cobalt", motion: "quiet" } },
-  { id: "vapor-grid", name: "Vapor Grid", label: "dreamy retro travel page", category: "Retro", selection: { aesthetic: "vaporwave", surface: "glass", layout: "poster", type: "mono", palette: "candy", motion: "kinetic" } },
-  { id: "organic-calm", name: "Organic Calm", label: "wellness와 quiet data", category: "Nature", selection: { aesthetic: "organic", surface: "paper", layout: "bento", type: "humanist", palette: "forest", motion: "quiet" } },
-  { id: "citrus-split", name: "Citrus Split", label: "energetic commerce", category: "Expressive", selection: { aesthetic: "swiss", surface: "flat", layout: "split", type: "condensed", palette: "citrus", motion: "subtle" } },
+  { id: "neo-brutal", name: "Primary Brutal", label: "강한 독립 출판물", category: "Expressive", selection: { aesthetic: "brutalist", surface: "flat", layout: "landing", nav: "left", type: "condensed", palette: "primary", motion: "kinetic" } },
+  { id: "soft-neumo", name: "Soft Neumorphic", label: "차분한 wellness journal", category: "Morphism", selection: { aesthetic: "minimal", surface: "neumo", layout: "cards", nav: "top", type: "humanist", palette: "cobalt", motion: "subtle" } },
+  { id: "swiss-flat", name: "Swiss Archive", label: "grid로 정리한 field archive", category: "Modernist", selection: { aesthetic: "swiss", surface: "flat", layout: "dense", nav: "left", type: "grotesk", palette: "mono", motion: "quiet" } },
+  { id: "editorial-luxury", name: "Editorial Noir", label: "절제된 luxury journal", category: "Editorial", selection: { aesthetic: "luxury", surface: "paper", layout: "editorial", nav: "top", type: "serif", palette: "noir", motion: "quiet" } },
+  { id: "y2k-chrome", name: "Y2K Chrome", label: "2000년대의 미래", category: "Retro", selection: { aesthetic: "y2k", surface: "chrome", layout: "poster", nav: "top", type: "rounded", palette: "aurora", motion: "kinetic" } },
+  { id: "cyber-hud", name: "Cyber Trail", label: "neon expedition index", category: "Futurist", selection: { aesthetic: "cyberpunk", surface: "glass", layout: "dense", nav: "left", type: "mono", palette: "aurora", motion: "kinetic" } },
+  { id: "material-you", name: "Material You", label: "friendly dynamic color", category: "System", selection: { aesthetic: "organic", surface: "material", layout: "cards", nav: "top", type: "rounded", palette: "candy", motion: "subtle" } },
+  { id: "memphis-pop", name: "Memphis Pop", label: "playful creative tools", category: "Expressive", selection: { aesthetic: "memphis", surface: "flat", layout: "bento", nav: "left", type: "slab", palette: "primary", motion: "kinetic" } },
+  { id: "frutiger-gloss", name: "Aero Optimism", label: "nature meets glossy web", category: "Retro", selection: { aesthetic: "frutiger", surface: "glossy", layout: "landing", nav: "top", type: "humanist", palette: "aqua", motion: "subtle" } },
+  { id: "terminal-green", name: "Terminal 84", label: "phosphor field log", category: "Retro", selection: { aesthetic: "terminal", surface: "flat", layout: "dense", nav: "left", type: "pixel", palette: "forest", motion: "quiet" } },
+  { id: "paper-report", name: "Paper Report", label: "printed annual report", category: "Editorial", selection: { aesthetic: "editorial", surface: "paper", layout: "editorial", nav: "top", type: "serif", palette: "sunset", motion: "quiet" } },
+  { id: "clay-candy", name: "Candy Clay", label: "말랑한 onboarding", category: "Morphism", selection: { aesthetic: "organic", surface: "clay", layout: "cards", nav: "left", type: "rounded", palette: "candy", motion: "kinetic" } },
+  { id: "liquid-spatial", name: "Liquid Spatial", label: "floating glass controls", category: "Contemporary", selection: { aesthetic: "minimal", surface: "liquid", layout: "split", nav: "top", type: "humanist", palette: "aurora", motion: "subtle" } },
+  { id: "corporate-clean", name: "Corporate Clean", label: "명료한 editorial landing", category: "System", selection: { aesthetic: "minimal", surface: "material", layout: "landing", nav: "left", type: "grotesk", palette: "cobalt", motion: "quiet" } },
+  { id: "vapor-grid", name: "Vapor Grid", label: "dreamy retro travel page", category: "Retro", selection: { aesthetic: "vaporwave", surface: "glass", layout: "poster", nav: "top", type: "mono", palette: "candy", motion: "kinetic" } },
+  { id: "organic-calm", name: "Organic Calm", label: "wellness와 quiet data", category: "Nature", selection: { aesthetic: "organic", surface: "paper", layout: "bento", nav: "left", type: "humanist", palette: "forest", motion: "quiet" } },
+  { id: "citrus-split", name: "Citrus Split", label: "energetic commerce", category: "Expressive", selection: { aesthetic: "swiss", surface: "flat", layout: "split", nav: "top", type: "condensed", palette: "citrus", motion: "subtle" } },
 ];
 
 export const axisKeys = Object.keys(axes) as AxisKey[];

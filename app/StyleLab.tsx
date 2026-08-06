@@ -167,6 +167,7 @@ function FieldNotesSite({ selection }: { selection: Selection }) {
       data-aesthetic={selection.aesthetic}
       data-surface={selection.surface}
       data-layout={selection.layout}
+      data-nav={selection.nav}
       data-type={selection.type}
       data-palette={selection.palette}
       data-motion={selection.motion}
@@ -208,6 +209,29 @@ function FieldNotesSite({ selection }: { selection: Selection }) {
             <div className="landscape-stamp"><span>FIELD LOG</span><b>07</b><small>SUMMER / 2026</small></div>
             <p>THE EASTERN RIDGE<br />BEFORE FIRST LIGHT</p>
           </div>
+        </section>
+
+        <section className="component-rack" aria-label="선택한 디자인 언어가 적용된 핵심 UI 컴포넌트">
+          <article className="rack-cell sample-surface button-cell">
+            <span>BUTTONS</span>
+            <div><button type="button">Primary action</button><button type="button">Secondary</button><button type="button" aria-label="추가 메뉴">•••</button></div>
+          </article>
+          <article className="rack-cell sample-surface input-cell">
+            <span>INPUT</span>
+            <label><small>Destination</small><input value="Eastern ridge" readOnly aria-label="목적지 예시" /><b>⌕</b></label>
+          </article>
+          <article className="rack-cell sample-surface tag-cell">
+            <span>FILTERS</span>
+            <div><button type="button" className="selected">All routes</button><button type="button">Coast</button><button type="button">Forest</button></div>
+          </article>
+          <article className="rack-cell sample-surface progress-cell">
+            <span>PROGRESS</span>
+            <div><b>Field log</b><em>72%</em></div><i><b /></i>
+          </article>
+          <article className="rack-cell sample-surface toggle-cell">
+            <span>STATUS</span>
+            <div><i /><b>Trail open</b><button type="button" aria-label="경로 상태 켜짐"><em /></button></div>
+          </article>
         </section>
 
         <section className="sample-index" aria-label="이번 호 정보">
@@ -378,10 +402,11 @@ export function StyleLab() {
 
       <section className="intro" id="top">
         <div className="intro-kicker"><span>INTERACTIVE UI REFERENCE</span><i />2026</div>
-        <h1>UI 시스템을 조합하고<br /><em>실제 페이지</em>에서 확인하세요.</h1>
+        <h1>디자인 언어를<br /><em>직접 조합해 보세요.</em></h1>
         <div className="intro-side">
-          <p>하나의 디자인을 Aesthetic, Surface, Layout, Typography, Palette, Motion의 여섯 층위로 분해해 직접 조합하는 interactive reference.</p>
-          <div><strong>{combinationCount().toLocaleString("en-US")}</strong><span>가능한 조합</span></div>
+          <p>일곱 개의 층위를 선택하면 아래의 같은 UI가 즉시 달라집니다. component부터 chart, navigation까지 한 화면에서 비교하세요.</p>
+          <a className="explore-cta" href="#live-site"><span>↓</span><b>아래에서 조합 예시 보기</b></a>
+          <div className="intro-count"><strong>{combinationCount().toLocaleString("en-US")}</strong><span>가능한 조합</span></div>
         </div>
       </section>
 

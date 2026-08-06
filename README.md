@@ -1,6 +1,6 @@
 # UI Language Lab
 
-여섯 가지 UI 디자인 층위를 조합하고, 같은 `Field Notes` 사이트 전체에 적용해 비교하는 interactive reference입니다. Hero부터 long-form story, guide collection, 실제 Recharts data visualization, CTA, footer까지 하나의 visual system으로 연결됩니다.
+일곱 가지 UI 디자인 층위를 조합하고, 같은 `Field Notes` component lab 전체에 적용해 비교하는 interactive reference입니다. Buttons, inputs, filters, navigation, 실제 Recharts data visualization, content module까지 하나의 visual system으로 연결됩니다.
 
 **Live:** https://tangerooo.github.io/ui-style-lab/
 
@@ -9,11 +9,12 @@
 - 12 base aesthetics — Minimalism, Swiss, Neo-brutalism, Editorial, Y2K, Cyberpunk, Frutiger Aero 등
 - 9 surfaces — Flat, Glassmorphism, Neumorphism, Claymorphism, Material, Liquid Glass 등
 - 7 layouts — Landing Narrative, Bento, Modular Cards, Editorial, Split, Compact Index, Broken Grid
+- 2 navigation positions — Top, Left
 - 8 typography directions
 - 10 color palettes
 - 3 motion levels
 
-총 181,440개 조합을 URL hash로 저장하고 공유할 수 있습니다. 18개의 curated preset과 randomize 기능도 포함합니다.
+총 362,880개 조합을 URL hash로 저장하고 공유할 수 있습니다. 18개의 curated preset과 randomize 기능도 포함합니다.
 
 ## Local development
 

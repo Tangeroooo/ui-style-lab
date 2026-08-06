@@ -25,5 +25,7 @@ test("server-renders the UI Language Lab product", async () => {
   assert.match(html, /FIELD NOTES/);
   assert.match(html, /Seasonal field walks/);
   assert.match(html, /FULL-PAGE LIVE CANVAS/);
+  assert.match(html, /Primary action/);
+  assert.match(html, /Navigation/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
