@@ -21,8 +21,9 @@ test("server-renders the UI Language Lab product", async () => {
   const html = await response.text();
   assert.match(html, /<title>UI Language Lab/);
   assert.match(html, /LANGUAGE LAB/);
-  assert.match(html, /COMBINATION MIXER/);
   assert.match(html, /LIVE COMBINATION/);
-  assert.match(html, /Product pulse/);
+  assert.match(html, /FIELD NOTES/);
+  assert.match(html, /Seasonal field walks/);
+  assert.match(html, /FULL-PAGE LIVE CANVAS/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
