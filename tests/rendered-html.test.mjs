@@ -27,5 +27,9 @@ test("server-renders the UI Language Lab product", async () => {
   assert.match(html, /FULL-PAGE LIVE CANVAS/);
   assert.match(html, /Primary action/);
   assert.match(html, /Navigation/);
+  assert.match(html, /Latin Type/);
+  assert.match(html, /Korean Type/);
+  assert.match(html, /Type Binding/);
+  assert.match(html, /143,064/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });

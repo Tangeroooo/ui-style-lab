@@ -1,0 +1,139 @@
+# UI Language Lab 작업 규칙
+
+이 문서는 새로운 option, layer, preset 또는 visual implementation을 추가하는 작업자가 반드시 지켜야 할 repository-level 규칙이다.
+
+## 1. 최우선 원칙: Aesthetic이 governing layer다
+
+- `aesthetic`은 다른 모든 layer의 유효 범위를 결정한다.
+- palette나 surface 때문에 기초 미학의 정체성이 훼손되어서는 안 된다.
+- 새로운 option이 기술적으로 렌더링 가능하더라도 해당 aesthetic의 역사적·시각적 문법과 맞지 않으면 `allowed`에 넣지 않는다.
+- 호환되지 않는 option은 UI에서 숨기지 않는다. 사용자가 전체 가능성을 이해할 수 있도록 보이게 유지하고 `disabled` 상태와 이유를 제공한다.
+- aesthetic을 바꾸면 `recommendedSelection()`으로 그 미학의 native default 전체를 적용한다.
+
+## 2. Data flow와 source of truth
+
+```text
+app/style-data.ts
+  axes
+    → aestheticRules.defaults / aestheticRules.allowed
+    → normalizeSelection() / isOptionAllowed()
+    → presets / randomize / URL hash
+    → data-* attributes in StyleLab.tsx
+    → selectors and tokens in style-lab.css
+```
+
+- option ID, compatibility, 기본값, 조합 수의 source of truth는 `app/style-data.ts`다.
+- UI에서 별도의 compatibility 조건을 hard-code하지 않는다.
+- `normalizeSelection()`을 우회해 state를 적용하지 않는다.
+- 기존 URL hash key를 rename하거나 삭제하지 않는다. 필요한 경우 새 key를 추가하고 누락된 값은 aesthetic default로 보완한다.
+
+## 3. 기존 layer에 option을 추가할 때
+
+다음을 모두 수행한다.
+
+1. `axes[axis]`에 stable `id`, `ko`, `en`, `note`를 추가한다.
+2. `optionNotesEn`에 같은 ID의 English note를 추가한다.
+3. 12개 `aestheticRules.allowed[axis]`를 모두 검토한다.
+4. 각 aesthetic에서 허용한 option이 정말 해당 미학을 표현하는지 full-page canvas 기준으로 확인한다.
+5. 필요한 `data-*` CSS selector와 visual token을 구현한다.
+6. option이 필요한 curated preset을 업데이트한다.
+7. disabled state, randomize, URL round-trip을 검증한다.
+8. `combinationCount()` 결과를 다시 계산하고 README, intro, metadata, OG image의 숫자를 함께 갱신한다.
+
+허용 목록에 무조건 추가한 뒤 palette나 CSS override로 억지로 맞추지 않는다.
+
+## 4. 새로운 layer를 추가할 때
+
+다음을 빠뜨리면 build가 성공해도 조합 모델이 깨진다.
+
+1. `AxisKey`와 `axes`에 layer 추가
+2. `axisMeta`의 index, Korean/English label 추가
+3. `defaultSelection`에 기본값 추가
+4. `dependentAxisKeys`에 추가 (`aesthetic` 제외)
+5. 모든 aesthetic의 `defaults`와 `allowed`에 추가
+6. 모든 preset selection에 값 추가
+7. `StyleLab.tsx`의 `data-*` attribute와 필요한 render logic 추가
+8. `style-lab.css`에 실제 full-page implementation 추가
+9. URL hash의 이전 버전이 `normalizeSelection()`으로 migration되는지 확인
+10. test와 documentation, validated combination count 갱신
+
+## 5. Typography 규칙
+
+- `type`은 backward compatibility를 위해 유지되는 Latin typography axis다. UI label은 `Latin Type / 영문 서체`다.
+- `koType`은 Korean web-font axis다.
+- `fontMode`는 script binding 방식이다.
+  - `split`: Latin glyph는 `type`, Hangul은 `koType`
+  - `koUnified`: 선택한 `koType`으로 Latin과 Hangul 모두 렌더링
+- Korean locale에서는 English microcopy와 Korean body copy가 함께 보여야 한다. English-only element에는 가능한 경우 `lang="en"`을 지정한다.
+- 한글 명조체 계열은 추가하지 않는다. Editorial/Luxury aesthetic에서도 한글은 검증된 gothic/dotum 계열을 사용한다.
+- 새 Korean font는 Hangul coverage, Latin coverage, webfont loading, fallback stack, weight availability를 확인한다.
+- 특정 aesthetic이 강제로 `--site-display`를 덮어써 typography axis를 무력화하지 않도록 한다. aesthetic identity는 recommended default와 allowed set으로 유지한다.
+
+## 6. Validated combination count
+
+조합 수는 global Cartesian product가 아니다.
+
+```text
+sum(
+  for each aesthetic:
+    product(length of every allowed dependent axis)
+)
+```
+
+- 계산은 반드시 `combinationCount()`를 사용한다.
+- 새 option이 일부 aesthetic에만 허용되면 해당 미학의 product만 증가해야 한다.
+- 다음 위치의 숫자가 서로 같아야 한다.
+  - live intro count
+  - `README.md` / `README.ko.md`
+  - `app/layout.tsx`
+  - `index.html`
+  - `public/og.png`
+- preset은 항상 `normalizeSelection(preset.selection)`과 동일해야 한다.
+
+## 7. Visual implementation 규칙
+
+- 작은 thumbnail이나 한 개 component만 바꾸지 말고 navigation, hero, component rack, charts, content section, footer까지 동일한 design language가 이어지는지 본다.
+- user-provided reference screenshot이나 다른 제작자의 component composition을 복제하거나 asset으로 재사용하지 않는다.
+- chart는 Recharts의 실제 data component를 유지한다. decorative path로 chart를 흉내 내지 않는다.
+- palette는 contrast를 보존해야 하며 text와 surface가 같은 명도에 묻히지 않게 한다.
+- desktop, tablet, mobile에서 horizontal overflow가 없어야 한다.
+- motion은 `prefers-reduced-motion`과 `quiet` mode를 존중한다.
+
+## 8. Interaction과 accessibility
+
+- option dialog는 outside click과 `Escape`로 닫혀야 한다.
+- disabled option에는 `disabled`, reason text, accessible title을 유지한다.
+- icon-only navigation에는 `aria-label`과 visually hidden text를 유지한다.
+- language switch는 `<html lang>`과 sample canvas의 `lang`을 함께 갱신한다.
+- 모든 선택은 keyboard로 접근 가능해야 한다.
+
+## 9. 변경 경계
+
+- `app/style-data.ts`: option, compatibility, preset, count
+- `app/StyleLab.tsx`: state, URL, bilingual content, semantic markup, chart composition
+- `app/style-lab.css`: design tokens, axis selectors, responsive behavior
+- `README*.md`: public product and contributor documentation
+- `tests/`: data invariants and rendered product contract
+
+기존 package manager, Vinext/Vite 구조, GitHub Pages workflow를 임의로 교체하지 않는다.
+
+## 10. 완료 조건
+
+최소한 아래를 모두 통과해야 한다.
+
+```bash
+npm run lint
+npm test
+npm run build:pages
+git diff --check
+```
+
+추가 검증:
+
+- 모든 preset이 compatible한지 검사
+- 각 aesthetic의 recommended selection이 compatible한지 검사
+- invalid candidate가 aesthetic default로 normalize되는지 검사
+- combination count가 문서 및 metadata와 일치하는지 검사
+- Korean `split`과 `koUnified`에서 Latin/Hangul font binding이 각각 의도대로 동작하는지 확인
+
+`main`에 push하면 GitHub Pages가 자동 배포된다. 배포 후 live page의 count, language default, URL hash, console error를 확인한다.

@@ -39,7 +39,7 @@ const labCopy = {
     pageNav: "Page navigation",
     introKicker: "INTERACTIVE UI REFERENCE",
     title: ["Mix design languages.", "See the whole system."],
-    intro: "Choose eight coordinated layers and watch the same interface transform instantly—from components and charts to navigation and page rhythm.",
+    intro: "Choose ten coordinated layers and watch the same interface transform instantly—from bilingual typography and charts to navigation and page rhythm.",
     explore: "Explore the live combination below",
     count: "validated combinations",
     mixer: "Design combination mixer",
@@ -69,7 +69,7 @@ const labCopy = {
     pageNav: "페이지 바로가기",
     introKicker: "인터랙티브 UI 레퍼런스",
     title: ["디자인 언어를 조합하고", "전체 시스템을 확인하세요."],
-    intro: "서로 호환되는 여덟 개의 층위를 선택하면 같은 UI가 즉시 달라집니다. 컴포넌트와 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
+    intro: "서로 호환되는 열 개의 층위를 선택하면 같은 UI가 즉시 달라집니다. 영문·한글 서체 조합과 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
     explore: "아래에서 실제 조합 살펴보기",
     count: "검증된 조합",
     mixer: "디자인 조합 믹서",
@@ -311,19 +311,19 @@ function FieldDataCharts({ selection, language }: { selection: Selection; langua
   return (
     <section className="sample-data" aria-labelledby="field-data-title">
       <header>
-        <div><span>FIELD DATA · LIVE CHARTS</span><h3 id="field-data-title">{t.title[0]}<br />{t.title[1]}</h3></div>
+        <div><span lang="en">FIELD DATA · LIVE CHARTS</span><h3 id="field-data-title">{t.title[0]}<br />{t.title[1]}</h3></div>
         <p>{t.intro}</p>
       </header>
       <div className="data-grid">
         <article className="data-chart sample-surface">
-          <div className="data-chart-heading"><div><span>WALKING CADENCE</span><h4>{t.areaTitle}</h4></div><b>+18.4%</b></div>
+          <div className="data-chart-heading"><div><span lang="en">WALKING CADENCE</span><h4>{t.areaTitle}</h4></div><b lang="en">+18.4%</b></div>
           <div className="chart-wrap" aria-label={t.areaAria}>
             <ResponsiveContainer width="100%" height={330}>
               <AreaChart data={seasonalWalks} margin={{ top: 20, right: 10, left: -25, bottom: 0 }} accessibilityLayer>
                 <defs><linearGradient id="walkFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="var(--site-accent)" stopOpacity={0.62} /><stop offset="100%" stopColor="var(--site-accent)" stopOpacity={0.03} /></linearGradient></defs>
                 <CartesianGrid stroke="var(--site-line)" strokeDasharray={angular ? "0" : "3 7"} vertical={false} />
-                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontSize: 9 }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontSize: 9 }} />
+                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 9 }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 9 }} />
                 <Tooltip contentStyle={chartTooltip} cursor={{ stroke: "var(--site-accent-3)", strokeWidth: 1 }} />
                 <Area type={curve} dataKey="walks" name={t.walks} stroke="var(--site-accent)" strokeWidth={angular ? 3.5 : 2.5} fill="url(#walkFill)" isAnimationActive={animate} animationDuration={duration} />
                 <Area type={curve} dataKey="daylight" name={t.daylight} stroke="var(--site-accent-3)" strokeWidth={1.5} fill="transparent" strokeDasharray="5 5" isAnimationActive={animate} animationDuration={duration + 180} />
@@ -333,13 +333,13 @@ function FieldDataCharts({ selection, language }: { selection: Selection; langua
         </article>
 
         <article className="data-chart sample-surface">
-          <div className="data-chart-heading"><div><span>ROUTE CHARACTER</span><h4>{t.barTitle}</h4></div><b>{t.regions}</b></div>
+          <div className="data-chart-heading"><div><span lang="en">ROUTE CHARACTER</span><h4>{t.barTitle}</h4></div><b>{t.regions}</b></div>
           <div className="chart-wrap" aria-label={t.barAria}>
             <ResponsiveContainer width="100%" height={330}>
               <BarChart data={routeConditions} margin={{ top: 20, right: 0, left: -25, bottom: 0 }} accessibilityLayer>
                 <CartesianGrid stroke="var(--site-line)" strokeDasharray={angular ? "0" : "3 7"} vertical={false} />
-                <XAxis dataKey="condition" axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontSize: 8 }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontSize: 9 }} />
+                <XAxis dataKey="condition" axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 8 }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fill: "var(--site-muted)", fontFamily: "var(--site-metric-font)", fontSize: 9 }} />
                 <Tooltip contentStyle={chartTooltip} cursor={{ fill: "color-mix(in srgb, var(--site-accent) 8%, transparent)" }} />
                 <Bar dataKey="calm" name={t.calm} fill="var(--site-accent)" radius={barRadius} isAnimationActive={animate} animationDuration={duration} />
                 <Bar dataKey="vivid" name={t.vivid} fill="var(--site-accent-3)" radius={barRadius} isAnimationActive={animate} animationDuration={duration + 180} />
@@ -377,13 +377,15 @@ function FieldNotesSite({ selection, language }: { selection: Selection; languag
       data-nav={selection.nav}
       data-nav-style={selection.navStyle}
       data-type={selection.type}
+      data-ko-type={selection.koType}
+      data-font-mode={selection.fontMode}
       data-palette={selection.palette}
       data-motion={selection.motion}
       aria-label={`${localizedAesthetic}, ${localizedSurface} full-page interface example`}
     >
       <div className="sample-noise" aria-hidden="true" />
       <header className="sample-nav sample-surface">
-        <a href="#live-site" className="sample-brand" aria-label="Field Notes home"><span className="sample-mark"><i /><i /><i /></span><b>FIELD NOTES</b></a>
+        <a href="#live-site" className="sample-brand" aria-label="Field Notes home"><span className="sample-mark"><i /><i /><i /></span><b lang="en">FIELD NOTES</b></a>
         <nav aria-label={t.navAria}>
           {navItems.map((item) => <a href={item.href} aria-label={item.label} key={item.href}><span className="nav-icon" aria-hidden="true">{item.icon}</span><span className="nav-text">{item.label}</span></a>)}
         </nav>
@@ -393,7 +395,7 @@ function FieldNotesSite({ selection, language }: { selection: Selection; languag
       <main className="sample-main">
         <section className="sample-hero">
           <div className="hero-copy">
-            <div className="sample-eyebrow"><span>EDITION NO. 07</span><i /><span>37.5665° N · 126.9780° E</span></div>
+            <div className="sample-eyebrow"><span lang="en">EDITION NO. 07</span><i /><span lang="en">37.5665° N · 126.9780° E</span></div>
             <h2><span>{t.hero[0]}</span><em>{t.hero[1]}</em></h2>
             <p>{t.heroBody}</p>
             <div className="hero-actions"><button type="button">{t.explore} <span>↗</span></button><a href="#sample-story"><i>↓</i> {t.read}</a></div>
@@ -402,46 +404,46 @@ function FieldNotesSite({ selection, language }: { selection: Selection; languag
           <div className="hero-landscape sample-surface" aria-label={t.artAria}>
             <div className="landscape-sun" /><div className="landscape-orbit orbit-one" /><div className="landscape-orbit orbit-two" />
             <div className="landscape-ridge ridge-back" /><div className="landscape-ridge ridge-front" /><div className="landscape-path" />
-            <div className="landscape-stamp"><span>FIELD LOG</span><b>07</b><small>SUMMER / 2026</small></div>
-            <p>THE EASTERN RIDGE<br />BEFORE FIRST LIGHT</p>
+            <div className="landscape-stamp" lang="en"><span>FIELD LOG</span><b>07</b><small>SUMMER / 2026</small></div>
+            <p lang="en">THE EASTERN RIDGE<br />BEFORE FIRST LIGHT</p>
           </div>
         </section>
 
         <section className="component-rack" aria-label={t.componentsAria}>
-          <article className="rack-cell sample-surface button-cell"><span>BUTTONS</span><div><button type="button">Primary action</button><button type="button">Secondary</button><button type="button" aria-label={t.more}>•••</button></div></article>
-          <article className="rack-cell sample-surface input-cell"><span>INPUT</span><label><small>{t.destination}</small><input value={t.destinationValue} readOnly aria-label={t.destinationAria} /><b>⌕</b></label></article>
-          <article className="rack-cell sample-surface tag-cell"><span>FILTERS</span><div><button type="button" className="selected">{t.allRoutes}</button><button type="button">{t.coast}</button><button type="button">{t.forest}</button></div></article>
-          <article className="rack-cell sample-surface progress-cell"><span>PROGRESS</span><div><b>{t.fieldLog}</b><em>72%</em></div><i><b /></i></article>
-          <article className="rack-cell sample-surface toggle-cell"><span>STATUS</span><div><i /><b>{t.trailOpen}</b><button type="button" aria-label={t.trailAria}><em /></button></div></article>
+          <article className="rack-cell sample-surface button-cell"><span lang="en">BUTTONS</span><div><button type="button" lang="en">Primary action</button><button type="button" lang="en">Secondary</button><button type="button" aria-label={t.more}>•••</button></div></article>
+          <article className="rack-cell sample-surface input-cell"><span lang="en">INPUT</span><label><small>{t.destination}</small><input value={t.destinationValue} readOnly aria-label={t.destinationAria} /><b>⌕</b></label></article>
+          <article className="rack-cell sample-surface tag-cell"><span lang="en">FILTERS</span><div><button type="button" className="selected">{t.allRoutes}</button><button type="button">{t.coast}</button><button type="button">{t.forest}</button></div></article>
+          <article className="rack-cell sample-surface progress-cell"><span lang="en">PROGRESS</span><div><b>{t.fieldLog}</b><em lang="en">72%</em></div><i><b /></i></article>
+          <article className="rack-cell sample-surface toggle-cell"><span lang="en">STATUS</span><div><i /><b>{t.trailOpen}</b><button type="button" aria-label={t.trailAria}><em /></button></div></article>
         </section>
 
         <section className="sample-index" aria-label={t.indexAria}>
-          <div><span>01 / DISTANCE</span><strong>42.7<small>km</small></strong><p>{t.index[0]}</p></div>
-          <div><span>02 / FIELD GUIDES</span><strong>12<small>stories</small></strong><p>{t.index[1]}</p></div>
-          <div><span>03 / SEASONS</span><strong>04<small>ways</small></strong><p>{t.index[2]}</p></div>
-          <div className="index-note"><span>NOW COLLECTING</span><p>{t.collecting}</p><a href="#sample-route">{t.contribute}</a></div>
+          <div><span lang="en">01 / DISTANCE</span><strong lang="en">42.7<small>km</small></strong><p>{t.index[0]}</p></div>
+          <div><span lang="en">02 / FIELD GUIDES</span><strong lang="en">12<small>stories</small></strong><p>{t.index[1]}</p></div>
+          <div><span lang="en">03 / SEASONS</span><strong lang="en">04<small>ways</small></strong><p>{t.index[2]}</p></div>
+          <div className="index-note"><span lang="en">NOW COLLECTING</span><p>{t.collecting}</p><a href="#sample-route">{t.contribute}</a></div>
         </section>
 
         <FieldDataCharts selection={selection} language={language} />
 
         <section className="sample-story" id="sample-story">
-          <div className="story-heading"><span>FIELD ESSAY · 01</span><h3>{t.storyTitle[0]}<br /><em>{t.storyTitle[1]}</em></h3></div>
+          <div className="story-heading"><span lang="en">FIELD ESSAY · 01</span><h3>{t.storyTitle[0]}<br /><em>{t.storyTitle[1]}</em></h3></div>
           <div className="story-body">
             <p className="story-lead">{t.storyLead}</p>
             <div className="story-columns"><p>{t.storyColumns[0]}</p><p>{t.storyColumns[1]}</p></div>
-            <blockquote><i>“</i><p>{t.quote[0]}<br />{t.quote[1]}</p><cite>— Field principle No. 03</cite></blockquote>
+            <blockquote><i>“</i><p>{t.quote[0]}<br />{t.quote[1]}</p><cite lang="en">— Field principle No. 03</cite></blockquote>
           </div>
         </section>
 
         <section className="sample-guides" id="sample-guides">
-          <header><div><span>SELECTED FIELD GUIDES</span><h3>{t.guideTitle}</h3></div><p>{t.guideIntro}</p></header>
+          <header><div><span lang="en">SELECTED FIELD GUIDES</span><h3>{t.guideTitle}</h3></div><p>{t.guideIntro}</p></header>
           <div className="guide-grid">
             {guideStories.map((story) => {
               const title = story.title[language];
               return (
                 <article className={`guide-card sample-surface ${story.tone}`} key={story.number}>
                   <div className="guide-art" aria-hidden="true"><i /><i /><i /><span>{story.number}</span></div>
-                  <div className="guide-copy"><span>{story.region}</span><h4>{title}</h4><p>{story.copy[language]}</p><a href="#sample-route" aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <b>↗</b></a></div>
+                  <div className="guide-copy"><span lang="en">{story.region}</span><h4>{title}</h4><p>{story.copy[language]}</p><a href="#sample-route" aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <b>↗</b></a></div>
                 </article>
               );
             })}
@@ -449,16 +451,16 @@ function FieldNotesSite({ selection, language }: { selection: Selection; languag
         </section>
 
         <section className="sample-route sample-surface" id="sample-route">
-          <div className="route-map" aria-hidden="true"><i className="route-line line-a" /><i className="route-line line-b" /><i className="route-line line-c" /><b className="route-point point-a">A</b><b className="route-point point-b">B</b><b className="route-point point-c">C</b><span className="route-coordinate">35° 09′ 31″ N<br />129° 09′ 38″ E</span></div>
-          <div className="route-copy"><span>MAKE IT YOURS</span><h3>{t.routeTitle[0]}<br />{t.routeTitle[1]}</h3><p>{t.routeBody}</p><button type="button">{t.routeButton} <b>↗</b></button></div>
+          <div className="route-map" aria-hidden="true" lang="en"><i className="route-line line-a" /><i className="route-line line-b" /><i className="route-line line-c" /><b className="route-point point-a">A</b><b className="route-point point-b">B</b><b className="route-point point-c">C</b><span className="route-coordinate">35° 09′ 31″ N<br />129° 09′ 38″ E</span></div>
+          <div className="route-copy"><span lang="en">MAKE IT YOURS</span><h3>{t.routeTitle[0]}<br />{t.routeTitle[1]}</h3><p>{t.routeBody}</p><button type="button">{t.routeButton} <b>↗</b></button></div>
         </section>
       </main>
 
       <footer className="sample-footer">
-        <div className="sample-brand"><span className="sample-mark"><i /><i /><i /></span><b>FIELD NOTES</b></div>
+        <div className="sample-brand"><span className="sample-mark"><i /><i /><i /></span><b lang="en">FIELD NOTES</b></div>
         <p>{t.footer[0]}<br />{t.footer[1]}</p>
         <div><a href="#live-site">Instagram</a><a href="#live-site">{t.archive}</a><a href="#live-site">{t.contact}</a></div>
-        <span>© 2026 · WALK LIGHTLY</span>
+        <span lang="en">© 2026 · WALK LIGHTLY</span>
       </footer>
     </section>
   );
@@ -639,7 +641,7 @@ export function StyleLab() {
           <div className="mixer-actions"><button type="button" onClick={randomize} aria-label={t.random}><span>↝</span><b>Shuffle</b><kbd>R</kbd></button><button type="button" onClick={share} aria-label={t.share}><span>↗</span><b>Share</b></button></div>
 
           {activeAxis && (
-            <div className="mixer-popover" role="dialog" aria-label={language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}>
+            <div className="mixer-popover" data-axis={activeAxis} role="dialog" aria-label={language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}>
               <header><div><span>{axisMeta[activeAxis].index}</span><b>{language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}</b><small>{language === "en" ? axisMeta[activeAxis].ko : axisMeta[activeAxis].en}</small></div><button type="button" onClick={() => setActiveAxis(null)} aria-label={t.close}>×</button></header>
               {activeAxis !== "aesthetic" && <p className="compatibility-note"><b>{aestheticName}</b> · {t.compat(aestheticName)}</p>}
               <div className="popover-options">
@@ -649,8 +651,8 @@ export function StyleLab() {
                   const name = language === "en" ? option.en : option.ko;
                   const note = allowed ? getOptionNote(activeAxis, option.id, language) : t.incompatible(aestheticName);
                   return (
-                    <button type="button" className={`${selected ? "selected" : ""}${allowed ? "" : " incompatible"}`} disabled={!allowed} key={option.id} onClick={() => update(activeAxis, option.id)} title={allowed ? note : t.unavailable(aestheticName)}>
-                      <i /><span><b>{name}</b><small>{language === "ko" ? `${option.en} · ` : ""}{note}</small></span><em>{selected ? "●" : allowed ? "○" : "×"}</em>
+                    <button type="button" data-option={option.id} className={`${selected ? "selected" : ""}${allowed ? "" : " incompatible"}`} disabled={!allowed} key={option.id} onClick={() => update(activeAxis, option.id)} title={allowed ? note : t.unavailable(aestheticName)}>
+                      <i /><span><b>{name}</b><small>{language === "ko" ? `${option.en} · ` : ""}{note}</small>{(activeAxis === "type" || activeAxis === "koType") && <span className="font-sample" lang={activeAxis === "koType" ? "ko" : "en"}>{activeAxis === "koType" ? "가나다 Aa 27" : "Aa Rr 27"}</span>}</span><em>{selected ? "●" : allowed ? "○" : "×"}</em>
                     </button>
                   );
                 })}

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Jua&family=Nanum+Gothic+Coding:wght@400;700&display=swap");
+
 /* UI Language Lab shell --------------------------------------------------- */
 
 .lab-shell {
@@ -276,6 +278,20 @@
 .popover-options b { font-size: 12px; }
 .popover-options small { overflow: hidden; color: #7b7870; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
 .popover-options em { color: var(--lab-blue); font-size: 11px; font-style: normal; }
+.popover-options .font-sample { display:block;margin-top:6px;color:#24231f;font-size:21px;line-height:1;letter-spacing:-.035em; }
+.mixer-popover[data-axis="type"] [data-option="grotesk"] .font-sample { font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="humanist"] .font-sample { font-family:"Trebuchet MS",Candara,sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="serif"] .font-sample { font-family:Georgia,"Times New Roman",serif; }
+.mixer-popover[data-axis="type"] [data-option="mono"] .font-sample { font-family:"SFMono-Regular",Consolas,monospace; }
+.mixer-popover[data-axis="type"] [data-option="rounded"] .font-sample { font-family:ui-rounded,"Arial Rounded MT Bold",sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="condensed"] .font-sample { font-family:"Arial Narrow",Impact,sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="slab"] .font-sample { font-family:Rockwell,Georgia,serif; }
+.mixer-popover[data-axis="type"] [data-option="pixel"] .font-sample { font-family:Monaco,"Lucida Console",monospace; }
+.mixer-popover[data-axis="koType"] [data-option="plex"] .font-sample { font-family:"IBM Plex Sans KR",sans-serif; }
+.mixer-popover[data-axis="koType"] [data-option="gowun"] .font-sample { font-family:"Gowun Dodum",sans-serif; }
+.mixer-popover[data-axis="koType"] [data-option="jua"] .font-sample { font-family:"Jua",sans-serif; }
+.mixer-popover[data-axis="koType"] [data-option="coding"] .font-sample { font-family:"Nanum Gothic Coding",monospace; }
+.mixer-popover[data-axis="koType"] [data-option="blackhan"] .font-sample { font-family:"Black Han Sans",sans-serif; }
 
 .canvas-label {
   display: flex;
@@ -307,8 +323,13 @@
   --site-radius: 20px;
   --site-border: 1px solid var(--site-line);
   --site-shadow: none;
-  --site-font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --site-display: var(--site-font);
+  --site-latin-font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-latin-display: var(--site-latin-font);
+  --site-ko-font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --site-ko-display: var(--site-ko-font);
+  --site-font: var(--site-latin-font);
+  --site-display: var(--site-latin-display);
+  --site-metric-font: var(--site-latin-font);
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -569,15 +590,26 @@
 
 /* Typography axis -------------------------------------------------------- */
 
-.live-site[data-type="humanist"] { --site-font:"Trebuchet MS",Candara,ui-sans-serif,sans-serif;--site-display:var(--site-font); }
-.live-site[data-type="serif"] { --site-font:Georgia,"Times New Roman",serif;--site-display:var(--site-font); }
-.live-site[data-type="mono"] { --site-font:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--site-display:var(--site-font); }
-.live-site[data-type="rounded"] { --site-font:ui-rounded,"Arial Rounded MT Bold","Trebuchet MS",sans-serif;--site-display:var(--site-font); }
-.live-site[data-type="condensed"] { --site-font:"Arial Narrow",Impact,Haettenschweiler,sans-serif;--site-display:var(--site-font); }
+.live-site[data-type="grotesk"] { --site-latin-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="humanist"] { --site-latin-font:"Trebuchet MS",Candara,sans-serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="serif"] { --site-latin-font:Georgia,"Times New Roman",serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="mono"] { --site-latin-font:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="rounded"] { --site-latin-font:ui-rounded,"Arial Rounded MT Bold","Trebuchet MS",sans-serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="condensed"] { --site-latin-font:"Arial Narrow",Impact,Haettenschweiler,sans-serif;--site-latin-display:var(--site-latin-font); }
 .live-site[data-type="condensed"] h2,.live-site[data-type="condensed"] h3,.live-site[data-type="condensed"] h4 { text-transform:uppercase;letter-spacing:-.035em; }
-.live-site[data-type="slab"] { --site-font:Rockwell,"Roboto Slab",Georgia,serif;--site-display:var(--site-font); }
-.live-site[data-type="pixel"] { --site-font:Monaco,"Lucida Console",monospace;--site-display:var(--site-font); }
+.live-site[data-type="slab"] { --site-latin-font:Rockwell,"Roboto Slab",Georgia,serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="pixel"] { --site-latin-font:Monaco,"Lucida Console",monospace;--site-latin-display:var(--site-latin-font); }
 .live-site[data-type="pixel"] * { border-radius:0!important; }
+
+.live-site[data-ko-type="plex"] { --site-ko-font:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--site-ko-display:var(--site-ko-font); }
+.live-site[data-ko-type="gowun"] { --site-ko-font:"Gowun Dodum","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--site-ko-display:var(--site-ko-font); }
+.live-site[data-ko-type="jua"] { --site-ko-font:"Jua","NanumSquareRound","Apple SD Gothic Neo","Noto Sans KR",sans-serif;--site-ko-display:var(--site-ko-font); }
+.live-site[data-ko-type="coding"] { --site-ko-font:"Nanum Gothic Coding","D2Coding","Noto Sans Mono CJK KR",monospace;--site-ko-display:var(--site-ko-font); }
+.live-site[data-ko-type="blackhan"] { --site-ko-font:"Black Han Sans","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--site-ko-display:var(--site-ko-font); }
+
+.live-site[data-language="ko"] { --site-font:var(--site-ko-font);--site-display:var(--site-ko-display); }
+.live-site[data-language="ko"][data-font-mode="split"] [lang="en"] { font-family:var(--site-latin-font)!important; }
+.live-site[data-font-mode="koUnified"] { --site-font:var(--site-ko-font);--site-display:var(--site-ko-display);--site-metric-font:var(--site-ko-font); }
 
 /* Aesthetic axis --------------------------------------------------------- */
 
@@ -596,7 +628,7 @@
 .live-site[data-aesthetic="brutalist"] .sample-index>div { border-right:3px solid #0a0a0a; }
 .live-site[data-aesthetic="brutalist"] h2,.live-site[data-aesthetic="brutalist"] h3,.live-site[data-aesthetic="brutalist"] h4 { font-weight:900; }
 
-.live-site[data-aesthetic="editorial"] { --site-radius:0px;--site-display:Georgia,"Times New Roman",serif; }
+.live-site[data-aesthetic="editorial"] { --site-radius:0px; }
 .live-site[data-aesthetic="editorial"] .sample-nav,.live-site[data-aesthetic="editorial"] .guide-card,.live-site[data-aesthetic="editorial"] .sample-route { box-shadow:none; }
 .live-site[data-aesthetic="editorial"] .sample-hero h2 em,.live-site[data-aesthetic="editorial"] .story-heading h3 em { font-style:italic; }
 .live-site[data-aesthetic="editorial"] .sample-hero h2 { font-weight:400; }
@@ -625,7 +657,7 @@
 .live-site[data-aesthetic="terminal"] .sample-nav-cta,.live-site[data-aesthetic="terminal"] .hero-actions button,.live-site[data-aesthetic="terminal"] .route-copy button { color:#020604;background:var(--site-ink); }
 .live-site[data-aesthetic="terminal"] .sample-mark { border-radius:0; }
 
-.live-site[data-aesthetic="luxury"] { --site-bg:#e8e2d5;--site-surface:#f1ede3;--site-solid:#f5f1e8;--site-ink:#171612;--site-muted:#746e61;--site-accent:#927638;--site-accent-2:#c7ad70;--site-accent-3:#6f6b5f;--site-line:rgba(35,31,20,.2);--site-radius:0px;--site-shadow:none;--site-display:Georgia,"Times New Roman",serif; }
+.live-site[data-aesthetic="luxury"] { --site-bg:#e8e2d5;--site-surface:#f1ede3;--site-solid:#f5f1e8;--site-ink:#171612;--site-muted:#746e61;--site-accent:#927638;--site-accent-2:#c7ad70;--site-accent-3:#6f6b5f;--site-line:rgba(35,31,20,.2);--site-radius:0px;--site-shadow:none; }
 .live-site[data-aesthetic="luxury"] .sample-nav,.live-site[data-aesthetic="luxury"] .hero-landscape,.live-site[data-aesthetic="luxury"] .sample-route { border-color:#b69a60; }
 .live-site[data-aesthetic="luxury"] .sample-hero h2,.live-site[data-aesthetic="luxury"] h3 { font-weight:400; }
 
@@ -638,9 +670,8 @@
 .live-site[data-aesthetic="vaporwave"] .landscape-sun { background:linear-gradient(#ff8fce,#ffdc7a);box-shadow:0 0 80px #ff6ed2; }
 .live-site[data-aesthetic="vaporwave"] .sample-nav-cta,.live-site[data-aesthetic="vaporwave"] .hero-actions button { color:#20103a;background:var(--site-accent-3); }
 
-/* Korean stays sans-serif even when the selected Latin type system is serif. */
-.lab-shell[data-language="ko"],.live-site[data-language="ko"] { font-family:Pretendard,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",ui-sans-serif,sans-serif; }
-.live-site[data-language="ko"] { --site-font:Pretendard,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",ui-sans-serif,sans-serif!important;--site-display:var(--site-font)!important; }
+/* The controller stays neutral; the live canvas carries the selected Korean face. */
+.lab-shell[data-language="ko"] { font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",ui-sans-serif,sans-serif; }
 .lab-shell[data-language="ko"] .intro h1,.lab-shell[data-language="ko"] .preset-section h2 { letter-spacing:-.055em;word-break:keep-all; }
 
 /* Layout axis: the whole site rhythm changes, not only one panel. -------- */
