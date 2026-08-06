@@ -1,0 +1,28 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+
+async function render() {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
+  const { default: worker } = await import(workerUrl.href);
+
+  return worker.fetch(
+    new Request("http://localhost/", { headers: { accept: "text/html" } }),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+}
+
+test("server-renders the UI Language Lab product", async () => {
+  const response = await render();
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+
+  const html = await response.text();
+  assert.match(html, /<title>UI Language Lab/);
+  assert.match(html, /LANGUAGE LAB/);
+  assert.match(html, /COMBINATION MIXER/);
+  assert.match(html, /LIVE COMBINATION/);
+  assert.match(html, /Product pulse/);
+  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
+});
