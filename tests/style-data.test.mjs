@@ -39,7 +39,7 @@ test("every aesthetic defines a valid default and allowed set for every dependen
 });
 
 test("all curated presets are already normalized and compatible", () => {
-  assert.equal(presets.length, 41);
+  assert.equal(presets.length, 46);
   for (const preset of presets) {
     assert.deepEqual(normalizeSelection(preset.selection), preset.selection, preset.id);
   }
@@ -74,13 +74,13 @@ test("bilingual randomization preserves the selected type binding", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 1_249_232);
+  assert.equal(combinationCount(), 1_264_208);
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  const additions = ["bauhaus", "artDeco", "scandinavian", "appleLiquid", "appleLiquidDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark"];
-  assert.equal(axes.aesthetic.length, 31);
+  const additions = ["bauhaus", "artDeco", "scandinavian", "appleLiquid", "appleLiquidDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"];
+  assert.equal(axes.aesthetic.length, 36);
   for (const id of additions) {
     assert.ok(axes.aesthetic.some((option) => option.id === id), id);
     assert.match(css, new RegExp(`data-aesthetic=["']${id}["']`), id);
@@ -92,7 +92,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
   const additions = {
     surface: ["skeuo", "acrylic", "eink"],
     layout: ["masonry", "dashboard", "masterDetail"],
-    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "appleSystem", "appleSystemDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark"],
+    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "appleSystem", "appleSystemDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"],
   };
 
   for (const [axis, ids] of Object.entries(additions)) {
@@ -108,7 +108,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
 
 test("company design systems keep native defaults", () => {
   assert.deepEqual(
-    ["appleLiquid", "appleLiquidDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark"].map((id) => ({
+    ["appleLiquid", "appleLiquidDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"].map((id) => ({
       id,
       surface: aestheticRules[id].defaults.surface,
       layout: aestheticRules[id].defaults.layout,
@@ -131,6 +131,11 @@ test("company design systems keep native defaults", () => {
       { id: "carbonDark", surface: "flat", layout: "dashboard", palette: "carbonDark" },
       { id: "shadcn", surface: "flat", layout: "dashboard", palette: "pureWhite" },
       { id: "shadcnDark", surface: "flat", layout: "dashboard", palette: "zincDark" },
+      { id: "zag", surface: "flat", layout: "landing", palette: "zag" },
+      { id: "tamagui", surface: "material", layout: "landing", palette: "tamagui" },
+      { id: "tamaguiDark", surface: "material", layout: "landing", palette: "tamaguiDark" },
+      { id: "nebular", surface: "flat", layout: "dashboard", palette: "nebular" },
+      { id: "nebularDark", surface: "flat", layout: "dashboard", palette: "nebularDark" },
     ],
   );
 });
@@ -145,6 +150,8 @@ test("official dark variants preserve their parent geometry and lock native dark
     ["fluent2", "fluent2Dark", "fluentDark"],
     ["carbon", "carbonDark", "carbonDark"],
     ["shadcn", "shadcnDark", "zincDark"],
+    ["tamagui", "tamaguiDark", "tamaguiDark"],
+    ["nebular", "nebularDark", "nebularDark"],
   ];
 
   for (const [light, dark, palette] of pairs) {
@@ -173,9 +180,16 @@ test("Apple Liquid Glass is a governing aesthetic, not a blanket translucent con
 
 test("Glassmorphism stays a frosted surface rather than reusing Apple refraction", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  assert.match(css, /data-surface="glass"[^\n]+site-solid\) 30%,transparent/);
-  assert.match(css, /data-surface="glass"[^\n]+sample-surface[^\n]+blur\(16px\) saturate\(1\.18\)/);
+  assert.match(css, /data-surface="glass"[^\n]+site-solid\) 18%,transparent/);
+  assert.match(css, /data-surface="glass"[^\n]+sample-surface[^\n]+blur\(12px\) saturate\(1\.16\)/);
   assert.match(css, /data-surface="glass"[^\n]+sample-noise[^\n]+radial-gradient/);
+});
+
+test("Liquid and frosted glass leave the backdrop visibly transmissive", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.match(css, /data-surface="liquid"[^\n]+site-surface:color-mix\(in srgb,white 12%,transparent\)/);
+  assert.match(css, /data-surface="liquid"[^\n]+sample-noise[^\n]+radial-gradient/);
+  assert.match(css, /data-surface="liquid"[^\n]+sample-surface[^\n]+blur\(9px\) contrast\(\.88\) saturate\(1\.32\)/);
 });
 
 test("dot matrix texture is opt-in rather than a global canvas default", () => {

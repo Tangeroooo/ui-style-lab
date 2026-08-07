@@ -12,7 +12,7 @@ UI Style Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하고 �
 
 | 층위 | 선택지 수 | 역할 |
 | --- | ---: | --- |
-| 기초 미학 | 31 | 역사 계보, 선별한 기업 system과 공식 dark variant를 포함해 전체 시각 문법을 지배 |
+| 기초 미학 | 36 | 역사 계보, 선별한 기업 system과 공식 dark variant를 포함해 전체 시각 문법을 지배 |
 | 표면 | 12 | Flat, Skeuomorphism, Glass, Acrylic, Neumorphism, Material, E-ink Paper 등 |
 | 구성 | 10 | Landing, Bento, Cards, Masonry, Editorial, Dashboard, Master–detail, Broken Grid 등 |
 | 메뉴 위치 | 2 | 상단 또는 좌측 rail |
@@ -20,22 +20,22 @@ UI Style Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하고 �
 | 한글 서체 | 10 | IBM Plex Sans KR, 프리텐다드, 수트, Noto Sans KR, 스포카 한 산스 네오, 나눔고딕, 고운 돋움, 주아, 나눔고딕 코딩, 검은고딕 |
 | 영문 서체 | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | 서체 적용 | 2 | 언어별 서체를 분리하거나 한글 서체 하나로 모든 문자를 표현 |
-| 색상 | 34 | 4색 Enterprise Rail family, Pure White와 Apple, Atlassian, Primer, Fiori, Material, Fluent, Carbon, shadcn/ui의 native light/dark token family 포함 |
+| 색상 | 39 | 4색 Enterprise Rail family, Pure White와 Apple, Atlassian, Primer, Fiori, Material, Fluent, Carbon, shadcn/ui, Zag, Tamagui, Nebular token family 포함 |
 | 움직임 | 3 | Quiet, subtle, kinetic |
 
-화면에서 실제로 구분되는 조합은 English **79,348개**, 한국어 only **182,056개**, 한국어 + English **806,672개**입니다. 모든 선택지를 무제한으로 곱한 값이 아니라, 현재 콘텐츠 모드에 보이는 layer와 기초 미학별 compatibility rule을 통과한 조합만 계산합니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
+화면에서 실제로 구분되는 조합은 English **81,220개**, 한국어 only **184,936개**, 한국어 + English **817,040개**입니다. 모든 선택지를 무제한으로 곱한 값이 아니라, 현재 콘텐츠 모드에 보이는 layer와 기초 미학별 compatibility rule을 통과한 조합만 계산합니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
 
 넓은 조사 목록에서는 다음 기준으로 실제 선택지를 선별했습니다.
 
 - 역사 기초 미학: `Bauhaus`, `Art Deco`, `Scandinavian`. 단순 palette가 아니라 페이지 geometry, hierarchy, component, chart, navigation까지 달라집니다.
-- 기업 system: `Apple Liquid Glass`, `Atlassian Design System`, `GitHub Primer`, `SAP Fiori`, `Material 3`, `Fluent 2`, `IBM Carbon`, `shadcn/ui`와 문서화된 dark variant. native default는 공식 semantic color, material, shape, component, density, navigation 원칙을 기준으로 했습니다. `shadcn/ui`는 엄밀히 역사적 디자인 사조가 아니라 Open Code component system과 distribution model이지만, 제품 UI를 지배하는 convention으로 비교 가치가 있어 기초 미학에 포함했습니다. 공식 자료: [Apple Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass), [Atlassian foundations](https://atlassian.design/foundations), [Primer foundations](https://primer.style/product/getting-started/foundations/), [SAP Fiori](https://experience.sap.com/fiori-design-web/sap-fiori/), [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2 token](https://fluent2.microsoft.design/design-tokens), [Carbon theme](https://carbondesignsystem.com/elements/themes/code/), [shadcn/ui](https://ui.shadcn.com/docs).
+- 기업·library system: `Apple Liquid Glass`, `Atlassian Design System`, `GitHub Primer`, `SAP Fiori`, `Material 3`, `Fluent 2`, `IBM Carbon`, `shadcn/ui`, `Tamagui`, `Nebular Eva`와 문서화된 dark variant. native default는 공식 semantic color, material, shape, component, density, navigation 원칙을 기준으로 했습니다. `shadcn/ui`는 Open Code distribution model이고 Tamagui는 configurable cross-platform style/UI system이지만, 제품 UI를 지배하는 일관된 convention이 있어 기초 미학에 포함했습니다. 공식 자료: [Apple Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass), [Atlassian foundations](https://atlassian.design/foundations), [Primer foundations](https://primer.style/product/getting-started/foundations/), [SAP Fiori](https://experience.sap.com/fiori-design-web/sap-fiori/), [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2 token](https://fluent2.microsoft.design/design-tokens), [Carbon theme](https://carbondesignsystem.com/elements/themes/code/), [shadcn/ui](https://ui.shadcn.com/docs), [Tamagui theme](https://tamagui.dev/docs/core/theme), [Nebular Eva theme](https://akveo.github.io/nebular/docs/design-system/design-system-theme/).
 - 다른 layer: `Skeuomorphism`, `Glassmorphism`, `Liquid Glass`, `Acrylic`, `E-ink Paper`; `Masonry`, `Data Dashboard`, `Master–detail`; 그리고 각 미학과 호환되는 palette family를 유지합니다.
 
-[awesome-styleguides 목록](https://github.com/streamich/awesome-styleguides)은 그대로 가져오는 catalog가 아니라 후보를 찾는 discovery index로 사용했습니다. 그중 Apple HIG, Atlassian, Primer, Fiori는 동일 canvas 전체를 지배할 만큼 page-level grammar가 분명해 추가했습니다. React Aria, Radix, Flowbite, Material UI 같은 component/implementation library는 theme에 따라 결과가 달라지거나 기존 governing system과 겹치므로 별도 기초 미학으로 만들지 않았습니다. Pop Art, Punk/Zine, Spatial UI, Polaris, Lightning, GOV.UK 같은 후보도 기존 axis와 겹치거나 commerce, CRM, government form처럼 별도 interaction/domain content가 필요해 보류했습니다.
+[awesome-styleguides 목록](https://github.com/streamich/awesome-styleguides)은 그대로 가져오는 catalog가 아니라 후보를 찾는 discovery index로 사용했습니다. Tamagui와 Nebular는 공식 token·theme·shape·component state 문서를 전체 canvas와 대조한 뒤 승격했습니다. Zag는 의도적인 예외입니다. [machine API 자체가 공식적으로 headless·unstyled](https://zagjs.com/overview/introduction)이므로 `Zag Showcase`는 official docs site의 charcoal, green, pill state와 statechart flow만 가리키며, 존재하지 않는 Zag core theme를 뜻하지 않습니다. React Aria, Radix, Flowbite, Material UI 같은 library는 theme에 따라 결과가 달라지거나 기존 governing system과 겹쳐 별도 기초 미학으로 만들지 않았습니다.
 
 `Apple Liquid Glass`는 단순히 반투명 surface를 선택하는 것과 구분합니다. 범용 `Glassmorphism`과 `Liquid Glass`는 계속 재사용 가능한 표면 layer이고, Apple 기초 미학은 현재 HIG 원칙대로 glass를 content 위의 navigation·control용 기능 layer로 제한하며 배경에 적응시키고 절제해 사용합니다. control에는 가장자리를 압축하고 중앙을 팽창시키는 identity map, 미세 ripple displacement, 절제된 RGB chromatic aberration, Fresnel 방식의 비대칭 specular rim과 색 보정 layered-blur fallback을 결합했습니다. 본문 card까지 전부 흐린 유리판으로 만들지 않고 읽기 쉬운 불투명 content surface를 유지합니다. light/dark 항목은 geometry와 compatibility를 공유하되 adaptive system palette를 분리했습니다. 공식 [Liquid Glass overview](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass), [Materials 지침](https://developer.apple.com/design/human-interface-guidelines/materials), [Dark Mode 지침](https://developer.apple.com/design/human-interface-guidelines/dark-mode), [Atlas Pup Labs의 CSS 분석](https://atlaspuplabs.com/blog/liquid-glass-but-in-css)을 기준으로 구현했습니다.
 
-범용 `Glassmorphism` surface는 의도적으로 광학 굴절을 사용하지 않습니다. 약 30% tint, 16px backdrop blur, 반투명 bright border, inner highlight와 soft depth shadow를 색이 보이는 배경 위에 적용해 frosted-glass layer separation을 표현합니다. 따라서 모든 glass option이 Apple 재질처럼 보이지 않습니다.
+범용 `Glassmorphism` surface는 의도적으로 광학 굴절을 사용하지 않습니다. tint를 18%, backdrop blur를 12px로 낮춰 panel 뒤의 color field와 geometry가 실제로 비치게 하고, 반투명 border, inner highlight와 soft shadow로 frosted layer를 구분합니다. 범용 `Liquid Glass`는 12% fill과 9px color-adjusted blur로 더 투명하며 큰 ring과 color field가 surface 뒤를 지나가도록 구성했습니다. 불투명 white card를 glass처럼 보이게 처리하지 않으면서 Apple의 굴절 material과도 구분합니다.
 
 `Bento Grid`는 기초 미학이 아니라 layout pattern으로 유지합니다. `Bento Pastel`은 흰 card, navy, cobalt, coral, mint로 익숙한 dashboard skin을 제공하고, 기초 미학은 계속 typography, geometry, interaction을 지배합니다. `Pure White` palette는 배경과 card를 white로 유지하면서 near-black text, neutral border, 절제된 accent로 hierarchy를 보존합니다.
 
