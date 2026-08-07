@@ -363,8 +363,6 @@ const presetLabelsEn: Record<string, string> = {
   "editorial-luxury": "A restrained luxury journal",
   "y2k-chrome": "An optimistic future from the 2000s",
   "cyber-hud": "A neon expedition index",
-  "apple-liquid": "Adaptive glass controls floating above the content",
-  "apple-liquid-night": "Base and elevated glass hierarchy in dark appearance",
   "atlassian-work": "Semantic tokens for compact product workflows",
   "atlassian-night": "Dark neutrals with bright brand and status roles",
   "primer-repository": "Compact product UI with subtle borders",
@@ -389,7 +387,11 @@ const presetLabelsEn: Record<string, string> = {
   "terminal-green": "A phosphor field log",
   "paper-report": "A printed annual report",
   "clay-candy": "A soft, dimensional onboarding",
-  "liquid-spatial": "Floating glass controls",
+  "adaptive-feed": "A responsive content stream with productive feedback",
+  "supporting-workspace": "Primary work paired with a contextual two-to-one pane",
+  "operations-table": "Scannable rows for fast status comparison",
+  "guided-wizard": "A sequential task flow focused on one step at a time",
+  "spring-canvas": "Rounded token UI with restrained physics response",
   "corporate-clean": "An enterprise UI with a navy rail and white canvas",
   "evergreen-workspace": "Calm operations with an evergreen rail and frost canvas",
   "burgundy-workspace": "A warm service UI with a burgundy rail and pearl canvas",
@@ -458,7 +460,7 @@ function FieldDataCharts({ selection, language, copyMode }: { selection: Selecti
   const curve = angular ? "stepAfter" as const : "monotone" as const;
   const barRadius: [number, number, number, number] = angular ? [0, 0, 0, 0] : [8, 8, 0, 0];
   const animate = selection.motion !== "quiet";
-  const duration = selection.motion === "kinetic" ? 1100 : 480;
+  const duration = selection.motion === "productive" ? 280 : selection.motion === "kinetic" ? 1100 : selection.motion === "spring" ? 900 : selection.motion === "staged" ? 720 : 480;
   const chartTooltip = {
     background: "var(--site-solid)",
     border: "var(--site-border)",
@@ -514,30 +516,6 @@ function FieldDataCharts({ selection, language, copyMode }: { selection: Selecti
   );
 }
 
-const liquidGlassWarpMap = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
-  <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="warp-x" x1="0" x2="1" y1="0" y2="0">
-        <stop offset="0" stop-color="#ff0000" />
-        <stop offset=".05" stop-color="#990000" />
-        <stop offset=".5" stop-color="#800000" />
-        <stop offset=".95" stop-color="#4d0000" />
-        <stop offset="1" stop-color="#000000" />
-      </linearGradient>
-      <linearGradient id="warp-y" x1="0" x2="0" y1="0" y2="1">
-        <stop offset="0" stop-color="#0000ff" />
-        <stop offset=".05" stop-color="#000099" />
-        <stop offset=".5" stop-color="#000080" />
-        <stop offset=".95" stop-color="#00004d" />
-        <stop offset="1" stop-color="#000000" />
-      </linearGradient>
-    </defs>
-    <rect width="400" height="400" fill="#000000" />
-    <rect width="400" height="400" fill="url(#warp-x)" />
-    <rect width="400" height="400" fill="url(#warp-y)" style="mix-blend-mode:screen" />
-  </svg>
-`)}`;
-
 function FieldNotesSite({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
   const t = sampleCopy[language];
   const bilingual = usesBilingualCopy(language, copyMode);
@@ -577,32 +555,6 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
       data-motion={selection.motion}
       aria-label={`${localizedAesthetic}, ${localizedSurface} full-page interface example`}
     >
-      <svg className="liquid-glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
-        <defs>
-          <filter id="ui-liquid-glass-refraction" x="-16%" y="-34%" width="132%" height="168%" colorInterpolationFilters="sRGB">
-            <feImage href={liquidGlassWarpMap} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="liquid-warp-map" />
-            <feTurbulence type="fractalNoise" baseFrequency="0.003 0.009" numOctaves={2} seed={17} stitchTiles="stitch" result="liquid-ripple-noise" />
-            <feGaussianBlur in="liquid-ripple-noise" stdDeviation="0.35" result="liquid-ripple-map" />
-            <feDisplacementMap in="SourceGraphic" in2="liquid-ripple-map" scale={7} xChannelSelector="R" yChannelSelector="B" result="rippled-glass" />
-            <feDisplacementMap in="rippled-glass" in2="liquid-warp-map" scale={34} xChannelSelector="R" yChannelSelector="B" result="edge-refracted-glass" />
-            <feColorMatrix in="edge-refracted-glass" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .18 0" result="liquid-red" />
-            <feOffset in="liquid-red" dx="1.2" dy="0.2" result="liquid-red-shift" />
-            <feColorMatrix in="edge-refracted-glass" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 .12 0" result="liquid-green" />
-            <feOffset in="liquid-green" dx="0" dy="-0.7" result="liquid-green-shift" />
-            <feColorMatrix in="edge-refracted-glass" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 .2 0" result="liquid-blue" />
-            <feOffset in="liquid-blue" dx="-1.2" dy="0.2" result="liquid-blue-shift" />
-            <feBlend in="liquid-red-shift" in2="liquid-green-shift" mode="screen" result="liquid-rg" />
-            <feBlend in="liquid-rg" in2="liquid-blue-shift" mode="screen" result="liquid-chromatic-edge" />
-            <feBlend in="edge-refracted-glass" in2="liquid-chromatic-edge" mode="screen" result="liquid-optics" />
-            <feSpecularLighting in="liquid-ripple-map" surfaceScale={2.4} specularConstant={0.38} specularExponent={30} lightingColor="#ffffff" result="liquid-specular">
-              <feDistantLight azimuth={225} elevation={62} />
-            </feSpecularLighting>
-            <feComposite in="liquid-specular" in2="SourceAlpha" operator="in" result="clipped-specular" />
-            <feBlend in="liquid-optics" in2="clipped-specular" mode="screen" result="lit-liquid-glass" />
-            <feComposite in="lit-liquid-glass" in2="SourceAlpha" operator="in" />
-          </filter>
-        </defs>
-      </svg>
       <div className="sample-noise" aria-hidden="true" />
       <header className="sample-nav sample-surface">
         <a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")} className="sample-brand" aria-label={language === "ko" ? "현장 기록 홈" : "Field Notes home"}><span className="sample-mark"><i /><i /><i /></span><b lang={microLanguage}>{micro.brand}</b></a>
@@ -913,18 +865,6 @@ export function StyleLab() {
         </div>
       </header>
 
-      <div className="language-control floating-language" ref={languageRef}>
-        <button className="language-toggle" type="button" onClick={() => setLanguageOpen((current) => !current)} aria-expanded={languageOpen} aria-label={t.languageMenu} title={t.languageMenu}><span aria-hidden="true"><Languages /></span><b>{language === "en" ? "EN" : copyMode === "only" ? "한" : "한+EN"}</b></button>
-        {languageOpen && (
-          <div className="language-menu" role="dialog" aria-label={t.languageMenu}>
-            <span>{t.languageMenu}</span>
-            <button type="button" className={language === "en" ? "selected" : ""} onClick={() => chooseLanguage("en")}><b>EN</b><span>{t.englishMode}</span><em aria-hidden="true">{language === "en" ? <Check /> : <Circle />}</em></button>
-            <button type="button" className={language === "ko" && copyMode === "only" ? "selected" : ""} onClick={() => chooseLanguage("ko", "only")}><b>한</b><span>{t.koreanOnlyMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "only" ? <Check /> : <Circle />}</em></button>
-            <button type="button" className={language === "ko" && copyMode === "mixed" ? "selected" : ""} onClick={() => chooseLanguage("ko", "mixed")}><b>한+</b><span>{t.koreanMixedMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "mixed" ? <Check /> : <Circle />}</em></button>
-          </div>
-        )}
-      </div>
-
       <section className="intro" id="top">
         <div className="intro-kicker"><span>{t.introKicker}</span><i />2026</div>
         <h1>{t.title[0]}<br /><em>{t.title[1]}</em></h1>
@@ -983,6 +923,17 @@ export function StyleLab() {
               </div>
             )}
           </div>
+        </div>
+        <div className="language-control floating-language" ref={languageRef}>
+          <button className="language-toggle" type="button" onClick={() => setLanguageOpen((current) => !current)} aria-expanded={languageOpen} aria-label={t.languageMenu} title={t.languageMenu}><span aria-hidden="true"><Languages /></span><b>{language === "en" ? "EN" : copyMode === "only" ? "한" : "한+EN"}</b></button>
+          {languageOpen && (
+            <div className="language-menu" role="dialog" aria-label={t.languageMenu}>
+              <span>{t.languageMenu}</span>
+              <button type="button" className={language === "en" ? "selected" : ""} onClick={() => chooseLanguage("en")}><b>EN</b><span>{t.englishMode}</span><em aria-hidden="true">{language === "en" ? <Check /> : <Circle />}</em></button>
+              <button type="button" className={language === "ko" && copyMode === "only" ? "selected" : ""} onClick={() => chooseLanguage("ko", "only")}><b>한</b><span>{t.koreanOnlyMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "only" ? <Check /> : <Circle />}</em></button>
+              <button type="button" className={language === "ko" && copyMode === "mixed" ? "selected" : ""} onClick={() => chooseLanguage("ko", "mixed")}><b>한+</b><span>{t.koreanMixedMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "mixed" ? <Check /> : <Circle />}</em></button>
+            </div>
+          )}
         </div>
       </div>
 

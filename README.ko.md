@@ -6,36 +6,38 @@
 
 UI Style Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하고 비교하는 bilingual interactive reference입니다. 모든 선택을 동일한 `Field Notes` 사이트에 적용하기 때문에 layout, navigation, component, typography, 실제 chart와 콘텐츠 리듬을 같은 조건에서 비교할 수 있습니다.
 
-기본 언어는 English입니다. 페이지 navigation과 조합 mixer에서 분리된 floating 언어 버튼으로 `English`, `한국어 only`, `한국어 + English`를 선택할 수 있습니다.
+기본 언어는 English입니다. 데스크톱에서는 우측 floating stack의 프리셋·무작위·공유 바로 아래에서 `English`, `한국어 only`, `한국어 + English`를 선택할 수 있습니다.
 
 ## 조합할 수 있는 층위
 
 | 층위 | 선택지 수 | 역할 |
 | --- | ---: | --- |
-| 기초 미학 | 36 | 역사 계보, 선별한 기업 system과 공식 dark variant를 포함해 전체 시각 문법을 지배 |
-| 표면 | 12 | Flat, Skeuomorphism, Glass, Acrylic, Neumorphism, Material, E-ink Paper 등 |
-| 구성 | 10 | Landing, Bento, Cards, Masonry, Editorial, Dashboard, Master–detail, Broken Grid 등 |
+| 기초 미학 | 34 | 역사 계보, 선별한 기업 system과 공식 dark variant를 포함해 전체 시각 문법을 지배 |
+| 표면 | 11 | Flat, Skeuomorphism, Glass, Acrylic, Neumorphism, Material, E-ink Paper 등 |
+| 구성 | 14 | Landing, Bento, Feed, Supporting Pane, Data Table, Wizard, Dashboard, Master–detail 등 |
 | 메뉴 위치 | 2 | 상단 또는 좌측 rail |
 | 메뉴 표현 | 3 | 텍스트, 아이콘, 아이콘 + 텍스트 |
 | 한글 서체 | 10 | IBM Plex Sans KR, 프리텐다드, 수트, Noto Sans KR, 스포카 한 산스 네오, 나눔고딕, 고운 돋움, 주아, 나눔고딕 코딩, 검은고딕 |
 | 영문 서체 | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | 서체 적용 | 2 | 언어별 서체를 분리하거나 한글 서체 하나로 모든 문자를 표현 |
-| 색상 | 39 | 4색 Enterprise Rail family, Pure White와 Apple, Atlassian, Primer, Fiori, Material, Fluent, Carbon, shadcn/ui, Zag, Tamagui, Nebular token family 포함 |
-| 움직임 | 3 | Quiet, subtle, kinetic |
+| 색상 | 37 | 4색 Enterprise Rail family, Pure White와 Atlassian, Primer, Fiori, Material, Fluent, Carbon, shadcn/ui, Zag, Tamagui, Nebular token family 포함 |
+| 움직임 | 6 | Quiet, subtle, kinetic, productive, staged, spring physics |
 
-화면에서 실제로 구분되는 조합은 English **81,220개**, 한국어 only **184,936개**, 한국어 + English **817,040개**입니다. 모든 선택지를 무제한으로 곱한 값이 아니라, 현재 콘텐츠 모드에 보이는 layer와 기초 미학별 compatibility rule을 통과한 조합만 계산합니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
+화면에서 실제로 구분되는 조합은 English **214,484개**, 한국어 only **497,148개**, 한국어 + English **2,148,172개**입니다. 모든 선택지를 무제한으로 곱한 값이 아니라, 현재 콘텐츠 모드에 보이는 layer와 기초 미학별 compatibility rule을 통과한 조합만 계산합니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
 
 넓은 조사 목록에서는 다음 기준으로 실제 선택지를 선별했습니다.
 
 - 역사 기초 미학: `Bauhaus`, `Art Deco`, `Scandinavian`. 단순 palette가 아니라 페이지 geometry, hierarchy, component, chart, navigation까지 달라집니다.
-- 기업·library system: `Apple Liquid Glass`, `Atlassian Design System`, `GitHub Primer`, `SAP Fiori`, `Material 3`, `Fluent 2`, `IBM Carbon`, `shadcn/ui`, `Tamagui`, `Nebular Eva`와 문서화된 dark variant. native default는 공식 semantic color, material, shape, component, density, navigation 원칙을 기준으로 했습니다. `shadcn/ui`는 Open Code distribution model이고 Tamagui는 configurable cross-platform style/UI system이지만, 제품 UI를 지배하는 일관된 convention이 있어 기초 미학에 포함했습니다. 공식 자료: [Apple Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass), [Atlassian foundations](https://atlassian.design/foundations), [Primer foundations](https://primer.style/product/getting-started/foundations/), [SAP Fiori](https://experience.sap.com/fiori-design-web/sap-fiori/), [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2 token](https://fluent2.microsoft.design/design-tokens), [Carbon theme](https://carbondesignsystem.com/elements/themes/code/), [shadcn/ui](https://ui.shadcn.com/docs), [Tamagui theme](https://tamagui.dev/docs/core/theme), [Nebular Eva theme](https://akveo.github.io/nebular/docs/design-system/design-system-theme/).
-- 다른 layer: `Skeuomorphism`, `Glassmorphism`, `Liquid Glass`, `Acrylic`, `E-ink Paper`; `Masonry`, `Data Dashboard`, `Master–detail`; 그리고 각 미학과 호환되는 palette family를 유지합니다.
+- 기업·library system: `Atlassian Design System`, `GitHub Primer`, `SAP Fiori`, `Material 3`, `Fluent 2`, `IBM Carbon`, `shadcn/ui`, `Tamagui`, `Nebular Eva`와 문서화된 dark variant. native default는 공식 semantic color, material, shape, component, density, navigation 원칙을 기준으로 했습니다. `shadcn/ui`는 Open Code distribution model이고 Tamagui는 configurable cross-platform style/UI system이지만, 제품 UI를 지배하는 일관된 convention이 있어 기초 미학에 포함했습니다. 공식 자료: [Atlassian foundations](https://atlassian.design/foundations), [Primer foundations](https://primer.style/product/getting-started/foundations/), [SAP Fiori](https://experience.sap.com/fiori-design-web/sap-fiori/), [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2 token](https://fluent2.microsoft.design/design-tokens), [Carbon theme](https://carbondesignsystem.com/elements/themes/code/), [shadcn/ui](https://ui.shadcn.com/docs), [Tamagui theme](https://tamagui.dev/docs/core/theme), [Nebular Eva theme](https://akveo.github.io/nebular/docs/design-system/design-system-theme/).
+- 다른 layer: `Skeuomorphism`, `Glassmorphism`, `Acrylic`, `E-ink Paper`; `Feed`, `Supporting Pane`, `Data Table`, `Wizard`, `Masonry`, `Dashboard`, `Master–detail`; 그리고 각 미학과 호환되는 motion·palette family를 유지합니다.
 
 [awesome-styleguides 목록](https://github.com/streamich/awesome-styleguides)은 그대로 가져오는 catalog가 아니라 후보를 찾는 discovery index로 사용했습니다. Tamagui와 Nebular는 공식 token·theme·shape·component state 문서를 전체 canvas와 대조한 뒤 승격했습니다. Zag는 의도적인 예외입니다. [machine API 자체가 공식적으로 headless·unstyled](https://zagjs.com/overview/introduction)이므로 `Zag Showcase`는 official docs site의 charcoal, green, pill state와 statechart flow만 가리키며, 존재하지 않는 Zag core theme를 뜻하지 않습니다. React Aria, Radix, Flowbite, Material UI 같은 library는 theme에 따라 결과가 달라지거나 기존 governing system과 겹쳐 별도 기초 미학으로 만들지 않았습니다.
 
-`Apple Liquid Glass`는 단순히 반투명 surface를 선택하는 것과 구분합니다. 범용 `Glassmorphism`과 `Liquid Glass`는 계속 재사용 가능한 표면 layer이고, Apple 기초 미학은 현재 HIG 원칙대로 glass를 content 위의 navigation·control용 기능 layer로 제한하며 배경에 적응시키고 절제해 사용합니다. control에는 가장자리를 압축하고 중앙을 팽창시키는 identity map, 미세 ripple displacement, 절제된 RGB chromatic aberration, Fresnel 방식의 비대칭 specular rim과 색 보정 layered-blur fallback을 결합했습니다. 본문 card까지 전부 흐린 유리판으로 만들지 않고 읽기 쉬운 불투명 content surface를 유지합니다. light/dark 항목은 geometry와 compatibility를 공유하되 adaptive system palette를 분리했습니다. 공식 [Liquid Glass overview](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass), [Materials 지침](https://developer.apple.com/design/human-interface-guidelines/materials), [Dark Mode 지침](https://developer.apple.com/design/human-interface-guidelines/dark-mode), [Atlas Pup Labs의 CSS 분석](https://atlaspuplabs.com/blog/liquid-glass-but-in-css)을 기준으로 구현했습니다.
+Apple Liquid Glass light/dark 기초 미학과 Liquid Glass 표면, 전용 palette는 모두 제거했습니다. 남은 `Glassmorphism`은 tint 8%와 backdrop blur 7px만 사용합니다. 큰 ring과 color field가 panel 뒤를 실제로 지나가도록 하고, 얇은 border·절제된 highlight·soft shadow로 layer separation만 유지했습니다.
 
-범용 `Glassmorphism` surface는 의도적으로 광학 굴절을 사용하지 않습니다. tint를 18%, backdrop blur를 12px로 낮춰 panel 뒤의 color field와 geometry가 실제로 비치게 하고, 반투명 border, inner highlight와 soft shadow로 frosted layer를 구분합니다. 범용 `Liquid Glass`는 12% fill과 9px color-adjusted blur로 더 투명하며 큰 ring과 color field가 surface 뒤를 지나가도록 구성했습니다. 불투명 white card를 glass처럼 보이게 처리하지 않으면서 Apple의 굴절 material과도 구분합니다.
+새 layout은 breakpoint 전체에서 실제로 구분되는 제품 패턴만 추가했습니다. Material이 canonical adaptive layout으로 문서화한 `Feed`와 `Supporting Pane`, Carbon이 큰 비교 데이터에 권장하는 `Data Table`, 그리고 다단계 입력·과업의 `Wizard Flow`입니다. 기존 Master–detail은 Material의 List-detail 역할을 이미 담당합니다. 참고: [Material canonical layouts](https://m3.material.io/foundations/layout/canonical-examples/overview), [Carbon structured list와 data table](https://carbondesignsystem.com/components/structured-list/usage/), [Carbon universal patterns](https://carbondesignsystem.com/patterns/overview/).
+
+motion은 기존 Quiet·Subtle·Kinetic에 `Productive`, `Staged`, `Spring Physics`를 추가했습니다. Productive는 Carbon의 빠른 task-oriented timing, Staged는 Fluent의 enter/exit choreography, Spring은 Material의 tokenized motion physics를 반영합니다. 모든 animation은 `prefers-reduced-motion`에서 중지됩니다. 참고: [Carbon motion](https://carbondesignsystem.com/elements/motion/overview/), [Fluent 2 motion](https://fluent2.microsoft.design/motion), [Material 3](https://m3.material.io/), [W3C C39](https://www.w3.org/WAI/WCAG21/Techniques/css/C39).
 
 `Bento Grid`는 기초 미학이 아니라 layout pattern으로 유지합니다. `Bento Pastel`은 흰 card, navy, cobalt, coral, mint로 익숙한 dashboard skin을 제공하고, 기초 미학은 계속 typography, geometry, interaction을 지배합니다. `Pure White` palette는 배경과 card를 white로 유지하면서 near-black text, neutral border, 절제된 accent로 hierarchy를 보존합니다.
 
@@ -68,7 +70,7 @@ Material 3은 Material 1·2를 내부에 포함하는 superset이 아니라 Mate
 
 두 링크 모두 디자인 조합, 언어, 한국어 콘텐츠 모드와 서체 적용 방식을 URL에 저장합니다.
 
-무작위 조합과 공유는 독립 floating action group을 유지하되 desktop에서는 우측 mixer 바로 아래에 배치해 하나의 조작 영역으로 인식되게 했습니다. contextual `프리셋 ↕ 캔버스` 버튼으로 whole-page preset을 적용한 뒤 live canvas와 preset 목록 사이를 원터치로 왕복할 수 있습니다. 언어 control은 계속 분리되며 narrow viewport에서는 quick action이 bottom mixer 위에 겹치지 않도록 배치됩니다.
+프리셋 이동·무작위·공유는 우측 mixer 바로 아래의 floating action group을 유지하고, 언어 control은 desktop에서 그 바로 아래에 붙였습니다. narrow viewport에서는 네 action을 bottom mixer 위의 한 줄로 압축하고, 언어·공유 dialog는 viewport 안에 고정되는 sheet로 열어 control 크기가 커져도 서로 겹치거나 화면 밖으로 벗어나지 않습니다.
 
 ## 개발과 검증
 

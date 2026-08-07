@@ -39,7 +39,7 @@ test("every aesthetic defines a valid default and allowed set for every dependen
 });
 
 test("all curated presets are already normalized and compatible", () => {
-  assert.equal(presets.length, 46);
+  assert.equal(presets.length, 48);
   for (const preset of presets) {
     assert.deepEqual(normalizeSelection(preset.selection), preset.selection, preset.id);
   }
@@ -74,13 +74,13 @@ test("bilingual randomization preserves the selected type binding", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 1_264_208);
+  assert.equal(combinationCount(), 3_302_048);
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  const additions = ["bauhaus", "artDeco", "scandinavian", "appleLiquid", "appleLiquidDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"];
-  assert.equal(axes.aesthetic.length, 36);
+  const additions = ["bauhaus", "artDeco", "scandinavian", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"];
+  assert.equal(axes.aesthetic.length, 34);
   for (const id of additions) {
     assert.ok(axes.aesthetic.some((option) => option.id === id), id);
     assert.match(css, new RegExp(`data-aesthetic=["']${id}["']`), id);
@@ -91,8 +91,9 @@ test("new dependent options are implemented and conservatively enabled", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
   const additions = {
     surface: ["skeuo", "acrylic", "eink"],
-    layout: ["masonry", "dashboard", "masterDetail"],
-    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "appleSystem", "appleSystemDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"],
+    layout: ["masonry", "dashboard", "masterDetail", "feed", "supportingPane", "table", "wizard"],
+    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"],
+    motion: ["productive", "staged", "spring"],
   };
 
   for (const [axis, ids] of Object.entries(additions)) {
@@ -108,15 +109,13 @@ test("new dependent options are implemented and conservatively enabled", () => {
 
 test("company design systems keep native defaults", () => {
   assert.deepEqual(
-    ["appleLiquid", "appleLiquidDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"].map((id) => ({
+    ["atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"].map((id) => ({
       id,
       surface: aestheticRules[id].defaults.surface,
       layout: aestheticRules[id].defaults.layout,
       palette: aestheticRules[id].defaults.palette,
     })),
     [
-      { id: "appleLiquid", surface: "liquid", layout: "landing", palette: "appleSystem" },
-      { id: "appleLiquidDark", surface: "liquid", layout: "landing", palette: "appleSystemDark" },
       { id: "atlassian", surface: "flat", layout: "dashboard", palette: "atlassian" },
       { id: "atlassianDark", surface: "flat", layout: "dashboard", palette: "atlassianDark" },
       { id: "primer", surface: "flat", layout: "dense", palette: "primer" },
@@ -142,7 +141,6 @@ test("company design systems keep native defaults", () => {
 
 test("official dark variants preserve their parent geometry and lock native dark tokens", () => {
   const pairs = [
-    ["appleLiquid", "appleLiquidDark", "appleSystemDark"],
     ["atlassian", "atlassianDark", "atlassianDark"],
     ["primer", "primerDark", "primerDark"],
     ["fiori", "fioriDark", "fioriDark"],
@@ -162,34 +160,33 @@ test("official dark variants preserve their parent geometry and lock native dark
   }
 });
 
-test("Apple Liquid Glass is a governing aesthetic, not a blanket translucent content surface", () => {
+test("Apple Liquid Glass aesthetics and the Liquid Glass surface are fully removed", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
   const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
-  assert.deepEqual(aestheticRules.appleLiquid.allowed.surface, ["liquid"]);
-  assert.deepEqual(aestheticRules.appleLiquidDark.allowed.surface, ["liquid"]);
-  assert.match(source, /feImage[^>]+href=\{liquidGlassWarpMap\}/);
-  assert.match(source, /feDisplacementMap[^>]+scale=\{7\}/);
-  assert.match(source, /feDisplacementMap[^>]+scale=\{34\}/);
-  assert.match(source, /feColorMatrix/);
-  assert.match(source, /feOffset/);
-  assert.match(source, /feSpecularLighting/);
-  assert.match(css, /appleLiquid[^\n]+backdrop-filter:url\("#ui-liquid-glass-refraction"\)/);
-  assert.match(css, /appleLiquid[^\n]+backdrop-filter:blur\(14px\) contrast\(\.84\) saturate\(1\.28\)/);
-  assert.match(css, /appleLiquid[^\n]+rack-cell[^\n]+backdrop-filter:none/);
+  assert.equal(axes.aesthetic.some((option) => option.id.startsWith("appleLiquid")), false);
+  assert.equal(axes.surface.some((option) => option.id === "liquid"), false);
+  assert.equal(axes.palette.some((option) => option.id.startsWith("appleSystem")), false);
+  assert.equal(axes.surface.length, 11);
+  assert.doesNotMatch(source, /liquidGlassWarpMap|ui-liquid-glass-refraction/);
+  assert.doesNotMatch(css, /appleLiquid|data-surface=["']liquid["']|ui-liquid-glass-refraction/);
 });
 
-test("Glassmorphism stays a frosted surface rather than reusing Apple refraction", () => {
+test("Glassmorphism keeps its backdrop highly transmissive", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  assert.match(css, /data-surface="glass"[^\n]+site-solid\) 18%,transparent/);
-  assert.match(css, /data-surface="glass"[^\n]+sample-surface[^\n]+blur\(12px\) saturate\(1\.16\)/);
+  assert.match(css, /data-surface="glass"[^\n]+site-solid\) 8%,transparent/);
+  assert.match(css, /data-surface="glass"[^\n]+sample-surface[^\n]+blur\(7px\) saturate\(1\.12\)/);
   assert.match(css, /data-surface="glass"[^\n]+sample-noise[^\n]+radial-gradient/);
 });
 
-test("Liquid and frosted glass leave the backdrop visibly transmissive", () => {
+test("common layouts and motion models have full-canvas implementations", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  assert.match(css, /data-surface="liquid"[^\n]+site-surface:color-mix\(in srgb,white 12%,transparent\)/);
-  assert.match(css, /data-surface="liquid"[^\n]+sample-noise[^\n]+radial-gradient/);
-  assert.match(css, /data-surface="liquid"[^\n]+sample-surface[^\n]+blur\(9px\) contrast\(\.88\) saturate\(1\.32\)/);
+  for (const layout of ["feed", "supportingPane", "table", "wizard"]) {
+    assert.match(css, new RegExp(`data-layout=["']${layout}["']`));
+  }
+  for (const motion of ["productive", "staged", "spring"]) {
+    assert.match(css, new RegExp(`data-motion=["']${motion}["']`));
+  }
+  assert.match(css, /prefers-reduced-motion:reduce/);
 });
 
 test("dot matrix texture is opt-in rather than a global canvas default", () => {
