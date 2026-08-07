@@ -77,6 +77,10 @@ const labCopy = {
     intro: "Choose eight coordinated layers and watch the same interface transform instantly—from typography and charts to navigation and page rhythm.",
     introOnly: "Choose eight coordinated layers and watch the same interface transform instantly—from typography and charts to navigation and page rhythm.",
     explore: "View live canvas",
+    agentGuideKicker: "AGENT-ASSISTED REVIEW",
+    agentGuideTitle: "Let an agent explore the lab.",
+    agentGuideBody: "Share the Agent Guide so it can inspect compatible combinations, open reference canvases, and compare their evidence directly—no installation required.",
+    agentGuideLink: "Open Agent Guide",
     count: "validated combinations",
     mixer: "Design combination mixer",
     random: "Create a random compatible combination",
@@ -129,6 +133,10 @@ const labCopy = {
     intro: "서로 호환되는 디자인 층위를 선택하면 같은 UI가 즉시 달라집니다. 영문·한글 서체 조합과 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
     introOnly: "서로 호환되는 여덟 개의 층위를 선택하면 같은 UI가 즉시 달라집니다. 한글 서체와 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
     explore: "실제 조합 바로 보기",
+    agentGuideKicker: "에이전트 탐색 지원",
+    agentGuideTitle: "에이전트에게 직접 탐색을 맡기세요.",
+    agentGuideBody: "Agent Guide를 전달하면 호환 조합을 찾고 레퍼런스 화면을 열어 근거까지 직접 비교할 수 있습니다. 별도 설치는 필요 없습니다.",
+    agentGuideLink: "Agent Guide 열기",
     count: "검증된 조합",
     mixer: "디자인 조합 믹서",
     random: "호환되는 무작위 조합 만들기",
@@ -1034,7 +1042,16 @@ export function StyleLab() {
       <section className="intro" id="top">
         <div className="intro-kicker"><span>{t.introKicker}</span><i />2026</div>
         <h1>{t.title[0]}<br /><em>{t.title[1]}</em></h1>
-        <div className="intro-side"><p>{language === "ko" && copyMode === "only" ? t.introOnly : t.intro}</p><div className="intro-count"><strong>{experienceCombinationCount(language, copyMode).toLocaleString("en-US")}</strong><span>{t.count}</span></div><a className="explore-cta" href="#live-site"><b>{t.explore}</b><span aria-hidden="true"><ArrowDown /></span></a></div>
+        <div className="intro-side">
+          <p>{language === "ko" && copyMode === "only" ? t.introOnly : t.intro}</p>
+          <div className="intro-count"><strong>{experienceCombinationCount(language, copyMode).toLocaleString("en-US")}</strong><span>{t.count}</span></div>
+          <a className="explore-cta" href="#live-site"><b>{t.explore}</b><span aria-hidden="true"><ArrowDown /></span></a>
+          <aside className="agent-guide-note">
+            <span className="agent-guide-icon" aria-hidden="true"><BookOpenText /></span>
+            <div><small>{t.agentGuideKicker}</small><b>{t.agentGuideTitle}</b><p>{t.agentGuideBody}</p></div>
+            <a href="agent-guide.md" target="_blank" rel="noreferrer">{t.agentGuideLink}<ExternalLink aria-hidden="true" /></a>
+          </aside>
+        </div>
       </section>
 
       <div className="mixer-anchor" id="mixer">

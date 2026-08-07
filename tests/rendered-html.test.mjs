@@ -41,6 +41,9 @@ test("server-renders the UI Style Lab product", async () => {
   assert.match(html, /random-toggle/);
   assert.match(html, /share-toggle/);
   assert.match(html, /Jump to curated presets/);
+  assert.match(html, /Let an agent explore the lab\./);
+  assert.match(html, /href="agent-guide\.md"/);
+  assert.match(html, /no installation required/);
   assert.match(html, /lucide-shuffle/);
   assert.match(html, /lucide-share/);
   assert.match(html, /id="ui-style-lab-state"/);
