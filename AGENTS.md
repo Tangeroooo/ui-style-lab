@@ -1,4 +1,4 @@
-# UI Language Lab 작업 규칙
+# UI Style Lab 작업 규칙
 
 이 문서는 새로운 option, layer, preset 또는 visual implementation을 추가하는 작업자가 반드시 지켜야 할 repository-level 규칙이다.
 

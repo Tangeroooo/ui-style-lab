@@ -1,10 +1,10 @@
-# UI Language Lab
+# UI Style Lab
 
 **English** · [한국어](./README.ko.md)
 
 [Live site](https://tangeroooo.github.io/ui-style-lab/) · [Repository](https://github.com/Tangeroooo/ui-style-lab)
 
-UI Language Lab is an interactive, bilingual reference for composing complete interface systems. It applies every selection to the same full-page `Field Notes` site so that layout, navigation, components, typography, real charts, and content rhythm can be compared under consistent conditions.
+UI Style Lab is an interactive, bilingual reference for composing complete interface systems. It applies every selection to the same full-page `Field Notes` site so that layout, navigation, components, typography, real charts, and content rhythm can be compared under consistent conditions.
 
 English is the default interface language. A detached floating language control offers `English`, `한국어 only`, and `한국어 + English` content modes without competing with the page navigation or combination mixer.
 

@@ -40,6 +40,7 @@ import {
   isOptionAllowed,
   normalizeSelection,
   presets,
+  randomCompatibleSelection,
   recommendedSelection,
   type AxisKey,
   type Language,
@@ -62,7 +63,7 @@ const copyModeKey = "ui-language-lab-copy-mode";
 
 const labCopy = {
   en: {
-    home: "UI Language Lab home",
+    home: "UI Style Lab home",
     tagline: "Design the layers. See the whole page.",
     pageNav: "Page navigation",
     introKicker: "INTERACTIVE UI REFERENCE",
@@ -111,7 +112,7 @@ const labCopy = {
     switchLanguage: "한국어로 전환",
   },
   ko: {
-    home: "UI Language Lab 홈",
+    home: "UI Style Lab 홈",
     tagline: "층위를 설계하고, 전체 페이지에서 확인하세요.",
     pageNav: "페이지 바로가기",
     introKicker: "인터랙티브 UI 레퍼런스",
@@ -789,15 +790,8 @@ export function StyleLab() {
   }
 
   function randomize() {
-    const aesthetics = axes.aesthetic;
-    const aesthetic = aesthetics[Math.floor(Math.random() * aesthetics.length)].id;
-    const next = recommendedSelection(aesthetic);
-
-    for (const axis of axisKeys) {
-      if (axis === "aesthetic") continue;
-      const options = axes[axis].filter((option) => isOptionAllowed(next, axis, option.id));
-      next[axis] = options[Math.floor(Math.random() * options.length)].id;
-    }
+    const preserveFontMode = language === "ko" && copyMode === "mixed";
+    const next = randomCompatibleSelection(preserveFontMode ? { fontMode: selection.fontMode } : {});
     setSelection(next);
     setActiveAxis(null);
     setNotice(t.randomized);
@@ -849,7 +843,7 @@ export function StyleLab() {
   return (
     <main className="lab-shell" data-language={language}>
       <header className="site-header">
-        <a className="wordmark" href="#top" aria-label={t.home}><span>UI</span><b>LANGUAGE LAB</b></a>
+        <a className="wordmark" href="#top" aria-label={t.home}><span>UI</span><b>STYLE LAB</b></a>
         <p>{t.tagline}</p>
         <div className="header-actions">
           <nav aria-label={t.pageNav}><a href="#mixer">MIXER</a><a href="#presets">PRESETS</a><a href="https://github.com/Tangeroooo/ui-style-lab" target="_blank" rel="noreferrer">GITHUB <ExternalLink aria-hidden="true" /></a></nav>
@@ -945,7 +939,7 @@ export function StyleLab() {
         </div>
       </section>
 
-      <footer className="lab-footer"><div className="wordmark"><span>UI</span><b>LANGUAGE LAB</b></div><p>{t.footer}</p><a href="#top">{t.back}<ArrowUp aria-hidden="true" /></a></footer>
+      <footer className="lab-footer"><div className="wordmark"><span>UI</span><b>STYLE LAB</b></div><p>{t.footer}</p><a href="#top">{t.back}<ArrowUp aria-hidden="true" /></a></footer>
       <div className="toast" aria-live="polite" data-visible={Boolean(notice)}>{notice}</div>
     </main>
   );

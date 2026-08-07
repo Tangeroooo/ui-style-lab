@@ -720,6 +720,36 @@ export function normalizeSelection(candidate: Partial<Selection>): Selection {
   return next;
 }
 
+export function randomCompatibleSelection(
+  fixedValues: Partial<Selection> = {},
+  random: () => number = Math.random,
+): Selection {
+  const compatibleAesthetics = axes.aesthetic.filter((option) => {
+    if (fixedValues.aesthetic && option.id !== fixedValues.aesthetic) return false;
+    const rule = getAestheticRule(option.id);
+    return dependentAxisKeys.every((axis) => {
+      const fixedValue = fixedValues[axis];
+      return !fixedValue || rule.allowed[axis].includes(fixedValue);
+    });
+  });
+  const availableAesthetics = compatibleAesthetics.length > 0 ? compatibleAesthetics : axes.aesthetic;
+  const aestheticIndex = Math.floor(random() * availableAesthetics.length);
+  const aesthetic = availableAesthetics[aestheticIndex]?.id ?? defaultSelection.aesthetic;
+  const next = recommendedSelection(aesthetic);
+
+  for (const axis of dependentAxisKeys) {
+    const options = getAestheticRule(aesthetic).allowed[axis];
+    const fixedValue = fixedValues[axis];
+    if (fixedValue && options.includes(fixedValue)) {
+      next[axis] = fixedValue;
+      continue;
+    }
+    next[axis] = options[Math.floor(random() * options.length)] ?? next[axis];
+  }
+
+  return next;
+}
+
 export function combinationCount(
   activeAxes: readonly AxisKey[] = axisKeys,
   fixedValues: Partial<Selection> = {},

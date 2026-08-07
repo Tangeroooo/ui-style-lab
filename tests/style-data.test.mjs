@@ -8,9 +8,11 @@ import {
   axisKeys,
   combinationCount,
   dependentAxisKeys,
+  getAestheticRule,
   isOptionAllowed,
   normalizeSelection,
   presets,
+  randomCompatibleSelection,
   recommendedSelection,
 } from "../app/style-data.ts";
 
@@ -56,6 +58,19 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
   assert.equal(normalized.koType, "gowun");
   assert.equal(normalized.fontMode, "koUnified");
   assert.equal(normalized.palette, "noir");
+});
+
+test("bilingual randomization preserves the selected type binding", () => {
+  const nearEnd = () => 0.999999;
+  const split = randomCompatibleSelection({ fontMode: "split" }, nearEnd);
+  const unified = randomCompatibleSelection({ fontMode: "koUnified" }, nearEnd);
+
+  assert.equal(split.fontMode, "split");
+  assert.equal(unified.fontMode, "koUnified");
+  assert.ok(getAestheticRule(split.aesthetic).allowed.fontMode.includes("split"));
+  assert.ok(getAestheticRule(unified.aesthetic).allowed.fontMode.includes("koUnified"));
+  assert.ok(axisKeys.every((axis) => isOptionAllowed(split, axis, split[axis])));
+  assert.ok(axisKeys.every((axis) => isOptionAllowed(unified, axis, unified[axis])));
 });
 
 test("the raw compatibility model retains every stored axis", () => {

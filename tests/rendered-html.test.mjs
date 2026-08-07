@@ -13,14 +13,15 @@ async function render() {
   );
 }
 
-test("server-renders the UI Language Lab product", async () => {
+test("server-renders the UI Style Lab product", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>UI Language Lab/);
-  assert.match(html, /LANGUAGE LAB/);
+  assert.match(html, /<title>UI Style Lab/);
+  assert.match(html, /STYLE LAB/);
+  assert.doesNotMatch(html, /UI Language Lab|LANGUAGE LAB/);
   assert.match(html, /LIVE COMBINATION/);
   assert.match(html, /FIELD NOTES/);
   assert.match(html, /Seasonal field walks/);
