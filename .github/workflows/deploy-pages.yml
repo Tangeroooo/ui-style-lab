@@ -1,4 +1,4 @@
-name: Publish UI Language Lab to gh-pages
+name: Publish UI Style Lab to gh-pages
 
 on:
   push:
