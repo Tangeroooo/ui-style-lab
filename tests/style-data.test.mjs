@@ -149,6 +149,13 @@ test("Primer separates blue accent states from green primary actions", () => {
   assert.match(css, /toggle-cell button em \{ background:#fff; \}/);
 });
 
+test("quick actions keep distinct filled emphasis colors", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.match(css, /\.page-jump-toggle \{ color:#fff;border-color:var\(--lab-blue\);background:var\(--lab-blue\); \}/);
+  assert.match(css, /\.random-toggle \{ color:#171714;border-color:#d3b900;background:var\(--lab-yellow\)/);
+  assert.match(css, /\.share-toggle \{ color:#fff;border-color:var\(--lab-red\);background:var\(--lab-red\)/);
+});
+
 test("official dark variants preserve their parent geometry and lock native dark tokens", () => {
   const pairs = [
     ["atlassian", "atlassianDark", "atlassianDark"],

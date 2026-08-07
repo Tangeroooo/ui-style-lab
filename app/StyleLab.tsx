@@ -909,9 +909,9 @@ export function StyleLab() {
           <button className="utility-toggle page-jump-toggle" type="button" onClick={jumpBetweenCanvasAndPresets} aria-label={presetSectionVisible ? t.canvasJumpLabel : t.presetsJumpLabel} title={presetSectionVisible ? t.canvasJumpLabel : t.presetsJumpLabel}>
             {presetSectionVisible ? <ArrowUp aria-hidden="true" /> : <ArrowDown aria-hidden="true" />}<b>{presetSectionVisible ? t.canvasJump : t.presetsJump}</b>
           </button>
-          <button className="utility-toggle" type="button" onClick={randomize} aria-label={t.random} title={`${t.random} (R)`}><Shuffle aria-hidden="true" /><b>{t.randomShort}</b></button>
+          <button className="utility-toggle random-toggle" type="button" onClick={randomize} aria-label={t.random} title={`${t.random} (R)`}><Shuffle aria-hidden="true" /><b>{t.randomShort}</b></button>
           <div className="share-control">
-            <button className="utility-toggle" type="button" onClick={() => { setActiveAxis(null); setShareOpen((current) => !current); }} aria-expanded={shareOpen} aria-label={t.share} title={t.share}><Share2 aria-hidden="true" /><b>{t.shareShort}</b></button>
+            <button className="utility-toggle share-toggle" type="button" onClick={() => { setActiveAxis(null); setShareOpen((current) => !current); }} aria-expanded={shareOpen} aria-label={t.share} title={t.share}><Share2 aria-hidden="true" /><b>{t.shareShort}</b></button>
             {shareOpen && (
               <div className="share-popover" role="dialog" aria-label={t.shareTitle}>
                 <header><div><span aria-hidden="true"><Share2 /></span><b>{t.shareTitle}</b></div><button type="button" onClick={() => setShareOpen(false)} aria-label={t.close}><X aria-hidden="true" /></button></header>

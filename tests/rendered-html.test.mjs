@@ -37,6 +37,8 @@ test("server-renders the UI Style Lab product", async () => {
   assert.match(html, /floating-language/);
   assert.match(html, /floating-utilities/);
   assert.match(html, /page-jump-toggle/);
+  assert.match(html, /random-toggle/);
+  assert.match(html, /share-toggle/);
   assert.match(html, /Jump to curated presets/);
   assert.match(html, /lucide-shuffle/);
   assert.match(html, /lucide-share/);
