@@ -74,6 +74,12 @@ const labCopy = {
     mixer: "Design combination mixer",
     random: "Create a random compatible combination",
     share: "Share the current combination",
+    randomShort: "Random",
+    shareShort: "Share",
+    presetsJump: "Presets",
+    presetsJumpLabel: "Jump to curated presets",
+    canvasJump: "Canvas",
+    canvasJumpLabel: "Return to the live canvas",
     shareTitle: "Choose a share view",
     shareIntro: "Send the full lab for exploration or a clean reference page for agents and design handoff.",
     labLink: "Copy lab link",
@@ -95,7 +101,7 @@ const labCopy = {
     incompatible: (name: string) => `Not compatible with ${name}`,
     unavailable: (name: string) => `This combination is unavailable for ${name}.`,
     canvas: "FULL-PAGE LIVE CANVAS",
-    presetKicker: "CURATED STARTING POINTS · 30",
+    presetKicker: "CURATED STARTING POINTS",
     presetTitle: ["Switch the whole page", "in one move."],
     presetIntro: "Every preset applies a coherent visual system to the same Field Notes content. Start here, then adjust one layer at a time in the floating mixer.",
     filters: "Preset filters",
@@ -117,6 +123,12 @@ const labCopy = {
     mixer: "디자인 조합 믹서",
     random: "호환되는 무작위 조합 만들기",
     share: "현재 조합 공유",
+    randomShort: "무작위",
+    shareShort: "공유",
+    presetsJump: "프리셋",
+    presetsJumpLabel: "추천 프리셋으로 이동",
+    canvasJump: "캔버스",
+    canvasJumpLabel: "라이브 캔버스로 돌아가기",
     shareTitle: "공유 화면 선택",
     shareIntro: "직접 탐색할 수 있는 전체 실험실 또는 에이전트와 디자인 전달에 적합한 레퍼런스 화면을 공유하세요.",
     labLink: "실험실 링크 복사",
@@ -138,7 +150,7 @@ const labCopy = {
     incompatible: (name: string) => `${name}과 호환되지 않음`,
     unavailable: (name: string) => `${name}에서는 사용할 수 없는 조합입니다.`,
     canvas: "전체 페이지 라이브 캔버스",
-    presetKicker: "추천 시작점 · 30",
+    presetKicker: "추천 시작점",
     presetTitle: ["페이지의 분위기를", "한 번에 전환하세요."],
     presetIntro: "각 프리셋은 같은 Field Notes 콘텐츠에 일관된 시각 시스템을 적용합니다. 선택한 뒤 플로팅 믹서에서 한 층씩 바꿔 보세요.",
     filters: "프리셋 필터",
@@ -364,7 +376,10 @@ const presetLabelsEn: Record<string, string> = {
   "paper-report": "A printed annual report",
   "clay-candy": "A soft, dimensional onboarding",
   "liquid-spatial": "Floating glass controls",
-  "corporate-clean": "A clear editorial landing page",
+  "corporate-clean": "An enterprise UI with a navy rail and white canvas",
+  "evergreen-workspace": "Calm operations with an evergreen rail and frost canvas",
+  "burgundy-workspace": "A warm service UI with a burgundy rail and pearl canvas",
+  "graphite-workspace": "Neutral data operations with a graphite rail and snow canvas",
   "vapor-grid": "A dreamy retro travel page",
   "organic-calm": "Wellness with quiet data",
   "citrus-split": "Energetic commerce",
@@ -617,6 +632,7 @@ export function StyleLab() {
   const [languageOpen, setLanguageOpen] = useState(false);
   const [notice, setNotice] = useState("");
   const [presetFilter, setPresetFilter] = useState("All");
+  const [presetSectionVisible, setPresetSectionVisible] = useState(false);
   const [ready, setReady] = useState(false);
   const mixerRef = useRef<HTMLElement>(null);
   const languageRef = useRef<HTMLDivElement>(null);
@@ -727,6 +743,17 @@ export function StyleLab() {
   }, [languageOpen]);
 
   useEffect(() => {
+    const presetSection = document.getElementById("presets");
+    if (!presetSection) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setPresetSectionVisible(entry.isIntersecting),
+      { rootMargin: "-18% 0px -62%", threshold: 0 },
+    );
+    observer.observe(presetSection);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     function onKeyDown(event: globalThis.KeyboardEvent) {
       const target = event.target as HTMLElement | null;
       if (event.key === "Escape") {
@@ -803,6 +830,13 @@ export function StyleLab() {
     document.getElementById("live-site")?.scrollIntoView({ behavior: "smooth" });
   }
 
+  function jumpBetweenCanvasAndPresets() {
+    const targetId = presetSectionVisible ? "live-site" : "presets";
+    document.getElementById(targetId)?.scrollIntoView({ behavior: selection.motion === "quiet" ? "auto" : "smooth" });
+    setActiveAxis(null);
+    setShareOpen(false);
+  }
+
   const aestheticName = language === "en" ? getOption("aesthetic", selection.aesthetic).en : getOption("aesthetic", selection.aesthetic).ko;
   const activeAxisIndex = activeAxis
     ? String(visibleAxisKeys.indexOf(activeAxis) + 1).padStart(2, "0")
@@ -832,23 +866,6 @@ export function StyleLab() {
             <button type="button" className={language === "ko" && copyMode === "mixed" ? "selected" : ""} onClick={() => chooseLanguage("ko", "mixed")}><b>한+</b><span>{t.koreanMixedMode}</span><em aria-hidden="true">{language === "ko" && copyMode === "mixed" ? <Check /> : <Circle />}</em></button>
           </div>
         )}
-      </div>
-
-      <div className="floating-utilities" ref={utilityRef}>
-        <button className="utility-toggle" type="button" onClick={randomize} aria-label={t.random} title={`${t.random} (R)`}><Shuffle aria-hidden="true" /></button>
-        <div className="share-control">
-          <button className="utility-toggle" type="button" onClick={() => { setActiveAxis(null); setShareOpen((current) => !current); }} aria-expanded={shareOpen} aria-label={t.share} title={t.share}><Share2 aria-hidden="true" /></button>
-          {shareOpen && (
-            <div className="share-popover" role="dialog" aria-label={t.shareTitle}>
-              <header><div><span aria-hidden="true"><Share2 /></span><b>{t.shareTitle}</b></div><button type="button" onClick={() => setShareOpen(false)} aria-label={t.close}><X aria-hidden="true" /></button></header>
-              <p>{t.shareIntro}</p>
-              <div>
-                <button type="button" onClick={() => share("lab")}><span><b>{t.labLink}</b><small>{t.labLinkNote}</small></span><em>LAB <ExternalLink aria-hidden="true" /></em></button>
-                <button type="button" onClick={() => share("reference")}><span><b>{t.referenceLink}</b><small>{t.referenceLinkNote}</small></span><em>REF <ExternalLink aria-hidden="true" /></em></button>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
 
       <section className="intro" id="top">
@@ -891,13 +908,32 @@ export function StyleLab() {
           )}
 
         </section>
+        <div className="floating-utilities" ref={utilityRef} aria-label={language === "en" ? "Quick actions" : "빠른 동작"}>
+          <button className="utility-toggle page-jump-toggle" type="button" onClick={jumpBetweenCanvasAndPresets} aria-label={presetSectionVisible ? t.canvasJumpLabel : t.presetsJumpLabel} title={presetSectionVisible ? t.canvasJumpLabel : t.presetsJumpLabel}>
+            {presetSectionVisible ? <ArrowUp aria-hidden="true" /> : <ArrowDown aria-hidden="true" />}<b>{presetSectionVisible ? t.canvasJump : t.presetsJump}</b>
+          </button>
+          <button className="utility-toggle" type="button" onClick={randomize} aria-label={t.random} title={`${t.random} (R)`}><Shuffle aria-hidden="true" /><b>{t.randomShort}</b></button>
+          <div className="share-control">
+            <button className="utility-toggle" type="button" onClick={() => { setActiveAxis(null); setShareOpen((current) => !current); }} aria-expanded={shareOpen} aria-label={t.share} title={t.share}><Share2 aria-hidden="true" /><b>{t.shareShort}</b></button>
+            {shareOpen && (
+              <div className="share-popover" role="dialog" aria-label={t.shareTitle}>
+                <header><div><span aria-hidden="true"><Share2 /></span><b>{t.shareTitle}</b></div><button type="button" onClick={() => setShareOpen(false)} aria-label={t.close}><X aria-hidden="true" /></button></header>
+                <p>{t.shareIntro}</p>
+                <div>
+                  <button type="button" onClick={() => share("lab")}><span><b>{t.labLink}</b><small>{t.labLinkNote}</small></span><em>LAB <ExternalLink aria-hidden="true" /></em></button>
+                  <button type="button" onClick={() => share("reference")}><span><b>{t.referenceLink}</b><small>{t.referenceLinkNote}</small></span><em>REF <ExternalLink aria-hidden="true" /></em></button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="canvas-label"><span>{t.canvas}</span><b>{visibleAxisKeys.map((axis) => language === "en" ? getOption(axis, selection[axis]).en : getOption(axis, selection[axis]).ko).join(" × ")}</b></div>
       <FieldNotesSite selection={selection} language={language} copyMode={copyMode} />
 
       <section className="preset-section" id="presets">
-        <header><div><span>{t.presetKicker}</span><h2>{t.presetTitle[0]}<br />{t.presetTitle[1]}</h2></div><p>{t.presetIntro}</p></header>
+        <header><div><span>{t.presetKicker} · {presets.length}</span><h2>{t.presetTitle[0]}<br />{t.presetTitle[1]}</h2></div><p>{t.presetIntro}</p></header>
         <div className="preset-filters" aria-label={t.filters}>{filters.map((filter) => <button className={presetFilter === filter ? "active" : ""} type="button" key={filter} onClick={() => setPresetFilter(filter)}>{filter === "All" ? t.all : filter}</button>)}</div>
         <div className="preset-grid">
           {visiblePresets.map((preset, index) => (

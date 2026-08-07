@@ -20,10 +20,10 @@ English is the default interface language. A detached floating language control 
 | Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
 | Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
-| Palette | 23 | Includes Enterprise Navy, Pure White, and native Material, Fluent, Carbon, and shadcn/ui light/dark token families |
+| Palette | 26 | Includes a four-color Enterprise Rail family, Pure White, and native Material, Fluent, Carbon, and shadcn/ui light/dark token families |
 | Motion | 3 | Quiet, subtle, kinetic |
 
-The lab exposes a different number of visually distinct combinations for each content mode: **66,700** in English, **151,624** in Korean-only, and **676,832** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **78,388** in English, **179,800** in Korean-only, and **799,808** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
 
 The added options were deliberately curated from the broader research list:
 
@@ -33,7 +33,9 @@ The added options were deliberately curated from the broader research list:
 
 Broader concepts such as Pop Art, Punk/Zine, Spatial UI, Polaris, and GOV.UK remain research candidates rather than selectable base aesthetics. They either overlap an existing axis, require a different interaction model, or need domain-specific content before the full-page comparison would be honest.
 
-`Bento Grid` is modeled as a layout pattern, not a governing aesthetic. The `Bento Pastel` palette supplies the familiar white-card, navy, cobalt, coral, and mint product-dashboard skin while the base aesthetic still owns typography, geometry, and interaction rules. `Pure White` is a separate high-key palette: the canvas and cards stay white while near-black type, neutral borders, and restrained accents preserve hierarchy. `Enterprise Navy` models the common dark-navigation/light-canvas product pattern with a `#16294A` rail, porcelain-white surfaces, cool grey borders, and restrained slate data accents; it is enabled only for compatible light system aesthetics.
+`Bento Grid` is modeled as a layout pattern, not a governing aesthetic. The `Bento Pastel` palette supplies the familiar white-card, navy, cobalt, coral, and mint product-dashboard skin while the base aesthetic still owns typography, geometry, and interaction rules. `Pure White` is a separate high-key palette: the canvas and cards stay white while near-black type, neutral borders, and restrained accents preserve hierarchy.
+
+The `Enterprise Rail` family models the common dark-navigation/light-canvas product pattern. It now includes Navy + Porcelain (`#16294A`), Evergreen + Frost (`#193324`), Burgundy + Pearl (`#402731`), and Graphite + Snow (`#2D2E2F`). The four rail colors retain at least a 13.5:1 contrast against white navigation text. They are treated as role-based palette variants—not new aesthetics—and are enabled only for Minimal, Material 3, Fluent 2, Carbon, and shadcn/ui light systems. The role structure follows the background/solid/text separation described by [Radix Colors](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale), while hue grades and contrast selection were checked against [USWDS color guidance](https://designsystem.digital.gov/design-tokens/color/overview/) and [WCAG 2.2 contrast minimums](https://www.w3.org/TR/WCAG22/#contrast-minimum).
 
 The repeated dot matrix that previously appeared behind every canvas was an implementation artifact, not a UI standard. The global `radial-gradient` texture has been removed. Texture is now opt-in: E-ink keeps a deliberate pixel-like grain, while Acrylic and Digital Paper use non-dot material treatments. High-density phone displays no longer make an unintended common pattern appear across unrelated aesthetics.
 
@@ -68,7 +70,7 @@ The Share menu creates two state-complete URLs:
 
 Both links preserve the aesthetic combination, language, Korean content mode, and typography binding in the URL.
 
-Randomize and Share are detached floating actions beside the language control. The right-side mixer is reserved for layer selection; on narrow screens all floating controls sit above the bottom mixer without overlapping it.
+Randomize and Share remain a separate floating action group, but on desktop that group sits directly below the right-side mixer so the related controls stay in one attention zone. A contextual `Presets ↕ Canvas` action provides one-touch travel between the live page and curated presets after switching a whole-page style. The language control remains detached. On narrow screens all quick actions sit above the bottom mixer without overlapping it.
 
 ## Compatibility model
 

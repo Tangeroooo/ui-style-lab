@@ -20,10 +20,10 @@ UI Language Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하�
 | 한글 서체 | 10 | IBM Plex Sans KR, 프리텐다드, 수트, Noto Sans KR, 스포카 한 산스 네오, 나눔고딕, 고운 돋움, 주아, 나눔고딕 코딩, 검은고딕 |
 | 영문 서체 | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | 서체 적용 | 2 | 언어별 서체를 분리하거나 한글 서체 하나로 모든 문자를 표현 |
-| 색상 | 23 | Enterprise Navy, Pure White와 Material, Fluent, Carbon, shadcn/ui의 native light/dark token family 포함 |
+| 색상 | 26 | 4색 Enterprise Rail family, Pure White와 Material, Fluent, Carbon, shadcn/ui의 native light/dark token family 포함 |
 | 움직임 | 3 | Quiet, subtle, kinetic |
 
-화면에서 실제로 구분되는 조합은 English **66,700개**, 한국어 only **151,624개**, 한국어 + English **676,832개**입니다. 모든 선택지를 무제한으로 곱한 값이 아니라, 현재 콘텐츠 모드에 보이는 layer와 기초 미학별 compatibility rule을 통과한 조합만 계산합니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
+화면에서 실제로 구분되는 조합은 English **78,388개**, 한국어 only **179,800개**, 한국어 + English **799,808개**입니다. 모든 선택지를 무제한으로 곱한 값이 아니라, 현재 콘텐츠 모드에 보이는 layer와 기초 미학별 compatibility rule을 통과한 조합만 계산합니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
 
 넓은 조사 목록에서는 다음 기준으로 실제 선택지를 선별했습니다.
 
@@ -33,7 +33,9 @@ UI Language Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하�
 
 Pop Art, Punk/Zine, Spatial UI, Polaris, GOV.UK 같은 후보는 기존 axis와 겹치거나 별도 interaction/domain content가 필요하므로 이번 selectable base aesthetic에서는 보류했습니다.
 
-`Bento Grid`는 기초 미학이 아니라 layout pattern으로 유지합니다. `Bento Pastel`은 흰 card, navy, cobalt, coral, mint로 익숙한 dashboard skin을 제공하고, 기초 미학은 계속 typography, geometry, interaction을 지배합니다. `Pure White` palette는 배경과 card를 white로 유지하면서 near-black text, neutral border, 절제된 accent로 hierarchy를 보존합니다. `Enterprise Navy`는 `#16294A` navigation rail과 porcelain-white canvas, cool grey border, 절제된 slate data accent를 조합한 dark-navigation/light-canvas 제품 패턴이며 호환되는 light system aesthetic에서만 활성화됩니다.
+`Bento Grid`는 기초 미학이 아니라 layout pattern으로 유지합니다. `Bento Pastel`은 흰 card, navy, cobalt, coral, mint로 익숙한 dashboard skin을 제공하고, 기초 미학은 계속 typography, geometry, interaction을 지배합니다. `Pure White` palette는 배경과 card를 white로 유지하면서 near-black text, neutral border, 절제된 accent로 hierarchy를 보존합니다.
+
+`Enterprise Rail` family는 dark navigation과 light canvas를 대비시키는 제품 UI 패턴입니다. Navy + Porcelain(`#16294A`), Evergreen + Frost(`#193324`), Burgundy + Pearl(`#402731`), Graphite + Snow(`#2D2E2F`) 네 종류이며, 모두 white navigation text와 최소 13.5:1의 대비를 유지합니다. 새 기초 미학이 아니라 동일한 color role을 공유하는 palette variant로 모델링했고 Minimal, Material 3, Fluent 2, Carbon, shadcn/ui의 light system에서만 활성화했습니다. role 구성은 [Radix Colors](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale)의 background/solid/text 구분을, 명도 grade와 대비는 [USWDS color guidance](https://designsystem.digital.gov/design-tokens/color/overview/)와 [WCAG 2.2](https://www.w3.org/TR/WCAG22/#contrast-minimum)를 기준으로 점검했습니다.
 
 이전에 모든 canvas 뒤에 반복되던 작은 점(dot matrix)은 UI 표준이 아니라 공통 `.sample-noise`의 `radial-gradient`가 만든 구현 문제였습니다. global 점 texture를 제거했고, 이제 E-ink처럼 pixel grain이 물성 표현에 필요한 surface에서만 명시적으로 사용합니다. Acrylic과 Digital Paper는 점 격자 대신 각 material에 맞는 blur와 섬유 방향 texture를 사용하므로 고밀도 iPhone 화면에서도 서로 무관한 미학에 같은 점 무늬가 나타나지 않습니다.
 
@@ -62,7 +64,7 @@ Material 3은 Material 1·2를 내부에 포함하는 superset이 아니라 Mate
 
 두 링크 모두 디자인 조합, 언어, 한국어 콘텐츠 모드와 서체 적용 방식을 URL에 저장합니다.
 
-무작위 조합과 공유는 언어 control 옆의 독립 floating action으로 분리했습니다. 우측 mixer는 layer 선택에만 집중하며, narrow viewport에서는 세 floating control이 bottom mixer 위에 겹치지 않도록 배치됩니다.
+무작위 조합과 공유는 독립 floating action group을 유지하되 desktop에서는 우측 mixer 바로 아래에 배치해 하나의 조작 영역으로 인식되게 했습니다. contextual `프리셋 ↕ 캔버스` 버튼으로 whole-page preset을 적용한 뒤 live canvas와 preset 목록 사이를 원터치로 왕복할 수 있습니다. 언어 control은 계속 분리되며 narrow viewport에서는 quick action이 bottom mixer 위에 겹치지 않도록 배치됩니다.
 
 ## 개발과 검증
 

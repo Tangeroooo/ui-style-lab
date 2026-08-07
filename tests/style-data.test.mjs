@@ -37,6 +37,7 @@ test("every aesthetic defines a valid default and allowed set for every dependen
 });
 
 test("all curated presets are already normalized and compatible", () => {
+  assert.equal(presets.length, 33);
   for (const preset of presets) {
     assert.deepEqual(normalizeSelection(preset.selection), preset.selection, preset.id);
   }
@@ -58,7 +59,7 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 1_050_416);
+  assert.equal(combinationCount(), 1_240_016);
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
@@ -76,7 +77,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
   const additions = {
     surface: ["skeuo", "acrylic", "eink"],
     layout: ["masonry", "dashboard", "masterDetail"],
-    palette: ["pureWhite", "enterpriseNavy", "bauhaus", "deco", "nordic", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark"],
+    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark"],
   };
 
   for (const [axis, ids] of Object.entries(additions)) {
@@ -166,15 +167,30 @@ test("Bento Pastel is implemented as a palette skin with a conservative allowlis
   );
 });
 
-test("Enterprise Navy keeps a dark navigation and light canvas with a conservative allowlist", () => {
+test("enterprise rail palettes keep accessible dark navigation and a conservative allowlist", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  assert.ok(axes.palette.some((option) => option.id === "enterpriseNavy"));
-  assert.match(css, /data-palette=["']enterpriseNavy["']/);
-  assert.match(css, /data-palette="enterpriseNavy"[^\n]+sample-nav[^\n]+background:#16294a/);
-  assert.deepEqual(
-    axes.aesthetic
-      .filter((aesthetic) => aestheticRules[aesthetic.id].allowed.palette.includes("enterpriseNavy"))
-      .map((aesthetic) => aesthetic.id),
-    ["minimal", "material3", "fluent2", "carbon", "shadcn"],
-  );
+  const family = [
+    ["enterpriseNavy", "16294a"],
+    ["enterpriseEvergreen", "193324"],
+    ["enterpriseBurgundy", "402731"],
+    ["enterpriseGraphite", "2d2e2f"],
+  ];
+  const luminance = (hex) => {
+    const channels = hex.match(/../g).map((part) => parseInt(part, 16) / 255);
+    const linear = channels.map((value) => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+  };
+
+  for (const [id, rail] of family) {
+    assert.ok(axes.palette.some((option) => option.id === id));
+    assert.match(css, new RegExp(`data-palette=["']${id}["'][^\\n]+--site-rail:#${rail}`));
+    assert.ok(1.05 / (luminance(rail) + 0.05) >= 4.5, `${id} rail must pass WCAG AA with white text`);
+    assert.deepEqual(
+      axes.aesthetic
+        .filter((aesthetic) => aestheticRules[aesthetic.id].allowed.palette.includes(id))
+        .map((aesthetic) => aesthetic.id),
+      ["minimal", "material3", "fluent2", "carbon", "shadcn"],
+    );
+  }
+  assert.match(css, /enterpriseEvergreen[^\n]+enterpriseBurgundy[^\n]+enterpriseGraphite[^\n]+sample-nav[^\n]+background:var\(--site-rail\)/);
 });

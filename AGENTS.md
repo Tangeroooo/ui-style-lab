@@ -130,7 +130,8 @@ sum(
 
 - option dialog는 outside click과 `Escape`로 닫혀야 한다.
 - language menu와 share dialog도 outside click과 `Escape`로 닫혀야 한다.
-- language, randomize, share control은 header navigation이나 combination mixer에 합치지 않고 독립 floating control group으로 유지한다. desktop에서는 우측 panel과 분리하고, narrow viewport에서는 bottom mixer 위로 이동해 겹침을 피한다.
+- language control은 header navigation과 combination mixer에서 분리된 floating control로 유지한다. randomize, share, canvas/preset jump는 별도의 quick-action group으로 유지하되 desktop에서는 우측 mixer 바로 아래에 간격을 두고 정렬해 관련 조작이 한 attention zone에 머물게 한다. narrow viewport에서는 bottom mixer 위로 이동해 겹침을 피한다.
+- whole-page preset을 적용해 live canvas로 이동한 뒤 긴 역방향 scroll을 강제하지 않는다. contextual canvas/preset jump처럼 keyboard-accessible한 원터치 왕복 동선을 유지한다.
 - reference share URL은 `view=reference`를 포함하고 mixer/preset 없이 live canvas만 렌더링해야 한다.
 - disabled option에는 `disabled`, reason text, accessible title을 유지한다.
 - icon-only navigation에는 `aria-label`과 visually hidden text를 유지한다.
