@@ -139,6 +139,16 @@ test("company design systems keep native defaults", () => {
   );
 });
 
+test("Primer separates blue accent states from green primary actions", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.match(css, /data-palette=["']primer["'][^}]*--site-accent:#0969da;--site-accent-2:#ddf4ff;--site-accent-3:#1f883d;--site-success:#1f883d/);
+  assert.match(css, /data-palette=["']primerDark["'][^}]*--site-accent:#4493f8;--site-accent-2:#0c2d6b;--site-accent-3:#3fb950;--site-success:#238636/);
+  assert.match(css, /data-aesthetic=["']primer["'][^\n]*\.sample-nav nav a:first-child \{ color:var\(--site-accent\)/);
+  assert.match(css, /button-cell button:first-child\) \{ color:#fff;[^}]*background:var\(--site-success\)/);
+  assert.match(css, /tag-cell button\.selected,[^}]*route-point\) \{ color:#fff; \}/);
+  assert.match(css, /toggle-cell button em \{ background:#fff; \}/);
+});
+
 test("official dark variants preserve their parent geometry and lock native dark tokens", () => {
   const pairs = [
     ["atlassian", "atlassianDark", "atlassianDark"],
