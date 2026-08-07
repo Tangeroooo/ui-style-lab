@@ -23,6 +23,11 @@ app/style-data.ts
     → data-* attributes in StyleLab.tsx
     → selectors and tokens in style-lab.css
 
+app/style-references.ts
+  aesthetic / surface / layout evidence
+    → selected-option reference card in StyleLab.tsx
+    → evidence completeness invariant in tests
+
 app/url-state.ts
   language / copyMode / view / selection
     → share URL round-trip
@@ -54,6 +59,8 @@ app/url-state.ts
 
 - 공식 documentation을 primary source로 사용해 color role, shape, spacing/grid, typography, elevation/material, motion 원칙을 확인한다.
 - 회사명이나 대표 색상만 빌린 palette skin은 aesthetic으로 추가하지 않는다. navigation, component state, data visualization, content density, page rhythm까지 독립적인 시각 문법이 있어야 한다.
+- Google `Material Design 3`와 MUI 조직의 `Material UI`를 같은 system으로 부르지 않는다. 현재 MUI 공식 문서는 Material UI를 Material Design 2 기반 React component library로 설명한다. `material3*`와 `mui*`의 palette, radius, elevation, component grammar를 별도로 유지한다.
+- 범용 `material` surface ID는 이전 URL 호환을 위해 유지하지만 UI 명칭과 의미는 `Elevated Paper`다. 이 surface를 선택했다고 Google Material 또는 MUI aesthetic이 되는 것이 아니다.
 - 특정 제품 screenshot, proprietary asset, logo, illustration을 복제하지 않는다. 이 repository의 동일한 `Field Notes` content와 Lucide icon, Recharts data component로 원칙만 재구성한다.
 - Design System의 domain pattern이 핵심이라면 현재 sample content로 정직하게 검증 가능한지 먼저 판단한다. 예를 들어 commerce admin이나 government form 전용 system은 일반 field-journal page에서 시각 정체성을 충분히 보여주기 어려울 수 있다.
 - curated collection이나 `awesome-*` 목록은 discovery index로만 사용한다. 기초 미학 승격 여부는 각 system의 공식 primary documentation에서 page-level color role, material, navigation, component, density 원칙을 다시 검증한다.
@@ -124,6 +131,7 @@ sum(
 ## 7. Visual implementation 규칙
 
 - 작은 thumbnail이나 한 개 component만 바꾸지 말고 navigation, hero, component rack, charts, content section, footer까지 동일한 design language가 이어지는지 본다.
+- `Masonry`, `Dashboard`, `Master–detail`, `Feed`, `Supporting Pane`, `Data Table`, `Wizard`처럼 DOM 의미와 flow가 다른 layout은 CSS 재배치만으로 구현하지 않는다. `StyleLab.tsx`의 dedicated semantic renderer와 responsive fallback을 함께 제공한다.
 - user-provided reference screenshot이나 다른 제작자의 component composition을 복제하거나 asset으로 재사용하지 않는다.
 - chart는 Recharts의 실제 data component를 유지한다. decorative path로 chart를 흉내 내지 않는다.
 - palette는 contrast를 보존해야 하며 text와 surface가 같은 명도에 묻히지 않게 한다.
@@ -146,6 +154,7 @@ sum(
 ## 9. 변경 경계
 
 - `app/style-data.ts`: option, compatibility, preset, count
+- `app/style-references.ts`: aesthetic·surface·layout의 reference URL, 근거 수준, 구현 claim, 검토일
 - `app/StyleLab.tsx`: state, URL, bilingual content, semantic markup, chart composition
 - `app/url-state.ts`: language, content mode, share view, URL serialization
 - `app/style-lab.css`: design tokens, axis selectors, responsive behavior
@@ -171,6 +180,8 @@ git diff --check
 - 각 aesthetic의 recommended selection이 compatible한지 검사
 - invalid candidate가 aesthetic default로 normalize되는지 검사
 - combination count가 문서 및 metadata와 일치하는지 검사
+- 모든 aesthetic·surface·layout option에 reference evidence가 있고 선택창에서 열리는지 검사
+- structural layout이 dedicated semantic renderer를 사용하며 table/form/list landmark가 유지되는지 검사
 - Korean `split`과 `koUnified`에서 Latin/Hangul font binding이 각각 의도대로 동작하는지 확인
 
 `main`에 push하면 GitHub Pages가 자동 배포된다. 배포 후 live page의 count, language default, URL hash, console error를 확인한다.
