@@ -4,7 +4,11 @@
     "name": "UI Style Lab",
     "repository": "https://github.com/Tangeroooo/ui-style-lab",
     "canonicalUrl": "https://tangeroooo.github.io/ui-style-lab/",
-    "defaultLanguage": "en"
+    "defaultLanguage": "en",
+    "license": {
+      "spdx": "MIT",
+      "url": "https://github.com/Tangeroooo/ui-style-lab/blob/main/LICENSE"
+    }
   },
   "transport": {
     "canonical": "query",

@@ -9,6 +9,7 @@ test("the agent catalog publishes rules, evidence, presets, and bounded review p
   const catalog = buildAgentCatalog();
 
   assert.equal(catalog.schemaVersion, "1.0.0");
+  assert.equal(catalog.project.license.spdx, "MIT");
   assert.equal(catalog.transport.canonical, "query");
   assert.equal(catalog.compatibility.governingAxis, "aesthetic");
   assert.equal(catalog.axes.length, 10);

@@ -62,6 +62,10 @@ export function buildAgentCatalog() {
       repository: "https://github.com/Tangeroooo/ui-style-lab",
       canonicalUrl: canonicalLabUrl,
       defaultLanguage: "en",
+      license: {
+        spdx: "MIT",
+        url: "https://github.com/Tangeroooo/ui-style-lab/blob/main/LICENSE",
+      },
     },
     transport: {
       canonical: "query",

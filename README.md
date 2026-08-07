@@ -152,3 +152,7 @@ public/
 - Charts use Recharts with real data structures rather than decorative chart drawings.
 - Aesthetic identity takes precedence over arbitrary palette or surface mixing.
 - See [AGENTS.md](./AGENTS.md) before adding an option, layer, or preset.
+
+## License
+
+The original UI Style Lab source code and documentation are available under the [MIT License](./LICENSE). Third-party libraries, fonts, and referenced materials remain subject to their respective licenses and terms.

@@ -114,3 +114,7 @@ app/url-state.ts     language, content mode, reference view, URL state
 public/              llms.txt, agent guide, catalog, review packs
 AGENTS.md             확장 및 검증 규칙
 ```
+
+## 라이선스
+
+UI Style Lab의 자체 소스 코드와 문서는 [MIT License](./LICENSE)로 배포합니다. 외부 library, font와 참고 자료에는 각각의 라이선스 및 이용 조건이 계속 적용됩니다.
