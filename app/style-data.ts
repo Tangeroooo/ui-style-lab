@@ -42,8 +42,15 @@ export const axes: Record<AxisKey, Option[]> = {
     { id: "atlassianDark", ko: "아틀라시안 디자인 · 다크", en: "Atlassian Design · Dark", note: "dark neutral token과 밝은 brand·status role" },
     { id: "primer", ko: "깃허브 프라이머", en: "GitHub Primer", note: "compact product UI, subtle border, responsive content density" },
     { id: "primerDark", ko: "깃허브 프라이머 · 다크", en: "GitHub Primer · Dark", note: "Primer dark color mode와 high-contrast product controls" },
-    { id: "fiori", ko: "SAP 피오리", en: "SAP Fiori", note: "role-based shell, adaptive floorplan, enterprise clarity" },
-    { id: "fioriDark", ko: "SAP 피오리 · 다크", en: "SAP Fiori · Dark", note: "Evening Horizon의 dark shell과 semantic enterprise surface" },
+    { id: "sapHorizon", ko: "SAP 호라이즌 · 라이트", en: "SAP Horizon · Light", note: "Morning Horizon의 둥근 shape와 밝은 role-based enterprise shell" },
+    { id: "sapHorizonDark", ko: "SAP 호라이즌 · 다크", en: "SAP Horizon · Dark", note: "Evening Horizon의 저조도 surface와 밝은 semantic foreground" },
+    { id: "sapHorizonHcb", ko: "SAP 호라이즌 · 고대비 블랙", en: "SAP Horizon · HC Black", note: "Horizon geometry에 검은 canvas와 흰 경계를 적용한 접근성 theme" },
+    { id: "sapHorizonHcw", ko: "SAP 호라이즌 · 고대비 화이트", en: "SAP Horizon · HC White", note: "Horizon geometry에 흰 canvas와 검은 경계를 적용한 접근성 theme" },
+    { id: "sapQuartz", ko: "SAP 쿼츠 · 라이트", en: "SAP Quartz · Light", note: "Fiori 3의 compact geometry와 dark shell을 사용하는 Quartz Light" },
+    { id: "sapQuartzDark", ko: "SAP 쿼츠 · 다크", en: "SAP Quartz · Dark", note: "Fiori 3의 compact geometry를 저조도 surface로 전환한 Quartz Dark" },
+    { id: "sapQuartzHcb", ko: "SAP 쿼츠 · 고대비 블랙", en: "SAP Quartz · HC Black", note: "Quartz component grammar의 검은색 high-contrast accessibility theme" },
+    { id: "sapQuartzHcw", ko: "SAP 쿼츠 · 고대비 화이트", en: "SAP Quartz · HC White", note: "Quartz component grammar의 흰색 high-contrast accessibility theme" },
+    { id: "sapBelize", ko: "SAP 벨리즈 · 레거시", en: "SAP Belize · Legacy", note: "Fiori 2 시대의 blue gradient shell과 각진 field grammar" },
     { id: "material3", ko: "머티리얼 3", en: "Material 3", note: "Google의 tonal color, shape, elevation system" },
     { id: "material3Dark", ko: "머티리얼 3 · 다크", en: "Material 3 · Dark", note: "Material 3의 dark color role과 tonal elevation" },
     { id: "fluent2", ko: "플루언트 2", en: "Fluent 2", note: "Microsoft의 focus, depth, adaptive UI" },
@@ -146,8 +153,15 @@ export const axes: Record<AxisKey, Option[]> = {
     { id: "atlassianDark", ko: "아틀라시안 다크", en: "Atlassian Dark", note: "dark neutral surface와 밝은 blue·status role" },
     { id: "primer", ko: "프라이머 라이트", en: "Primer Light", note: "GitHub canvas, blue accent와 green primary·success role" },
     { id: "primerDark", ko: "프라이머 다크", en: "Primer Dark", note: "GitHub dark canvas와 accessible action role" },
-    { id: "fiori", ko: "모닝 호라이즌", en: "Morning Horizon", note: "SAP shell blue와 밝은 enterprise content surface" },
-    { id: "fioriDark", ko: "이브닝 호라이즌", en: "Evening Horizon", note: "SAP dark shell과 elevated container surface" },
+    { id: "sapHorizon", ko: "모닝 호라이즌", en: "Morning Horizon", note: "white shell, vibrant blue action과 밝은 enterprise content surface" },
+    { id: "sapHorizonDark", ko: "이브닝 호라이즌", en: "Evening Horizon", note: "near-black shell과 vibrant foreground의 low-light theme" },
+    { id: "sapHorizonHcb", ko: "호라이즌 고대비 블랙", en: "Horizon HC Black", note: "black canvas, white boundary와 high-contrast semantic state" },
+    { id: "sapHorizonHcw", ko: "호라이즌 고대비 화이트", en: "Horizon HC White", note: "white canvas, black boundary와 high-contrast semantic state" },
+    { id: "sapQuartz", ko: "쿼츠 라이트", en: "Quartz Light", note: "navy shell, neutral white content와 Fiori 3 blue action" },
+    { id: "sapQuartzDark", ko: "쿼츠 다크", en: "Quartz Dark", note: "navy shell과 layered charcoal enterprise surface" },
+    { id: "sapQuartzHcb", ko: "쿼츠 고대비 블랙", en: "Quartz HC Black", note: "Quartz component를 위한 black high-contrast token set" },
+    { id: "sapQuartzHcw", ko: "쿼츠 고대비 화이트", en: "Quartz HC White", note: "Quartz component를 위한 white high-contrast token set" },
+    { id: "sapBelize", ko: "벨리즈", en: "Belize", note: "blue gradient shell과 Fiori 2 legacy content colors" },
     { id: "materialDynamic", ko: "다이내믹 토널", en: "Dynamic Tonal", note: "primary, secondary, tertiary tonal roles" },
     { id: "materialDark", ko: "머티리얼 다크", en: "Material Dark", note: "dark surface와 밝은 tonal color role" },
     { id: "fluent", ko: "플루언트 블루", en: "Fluent Blue", note: "Microsoft blue와 cool neutral" },
@@ -485,8 +499,8 @@ export const aestheticRules: Record<string, AestheticRule> = {
       motion: ["quiet", "subtle", "productive", "staged"],
     },
   },
-  fiori: {
-    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "fiori", motion: "subtle" },
+  sapHorizon: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapHorizon", motion: "subtle" },
     allowed: {
       surface: ["flat", "material"],
       layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
@@ -495,12 +509,12 @@ export const aestheticRules: Record<string, AestheticRule> = {
       type: ["grotesk", "humanist"],
       koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
       fontMode: ["split", "koUnified"],
-      palette: ["fiori"],
+      palette: ["sapHorizon"],
       motion: ["quiet", "subtle", "productive", "staged"],
     },
   },
-  fioriDark: {
-    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "fioriDark", motion: "subtle" },
+  sapHorizonDark: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapHorizonDark", motion: "subtle" },
     allowed: {
       surface: ["flat", "material"],
       layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
@@ -509,8 +523,106 @@ export const aestheticRules: Record<string, AestheticRule> = {
       type: ["grotesk", "humanist"],
       koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
       fontMode: ["split", "koUnified"],
-      palette: ["fioriDark"],
+      palette: ["sapHorizonDark"],
       motion: ["quiet", "subtle", "productive", "staged"],
+    },
+  },
+  sapHorizonHcb: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapHorizonHcb", motion: "quiet" },
+    allowed: {
+      surface: ["flat"],
+      layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
+      nav: ["top"],
+      navStyle: ["icon", "both"],
+      type: ["grotesk", "humanist"],
+      koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
+      fontMode: ["split", "koUnified"],
+      palette: ["sapHorizonHcb"],
+      motion: ["quiet", "subtle", "productive"],
+    },
+  },
+  sapHorizonHcw: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapHorizonHcw", motion: "quiet" },
+    allowed: {
+      surface: ["flat"],
+      layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
+      nav: ["top"],
+      navStyle: ["icon", "both"],
+      type: ["grotesk", "humanist"],
+      koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
+      fontMode: ["split", "koUnified"],
+      palette: ["sapHorizonHcw"],
+      motion: ["quiet", "subtle", "productive"],
+    },
+  },
+  sapQuartz: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapQuartz", motion: "subtle" },
+    allowed: {
+      surface: ["flat", "material"],
+      layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
+      nav: ["top"],
+      navStyle: ["icon", "both"],
+      type: ["grotesk", "humanist"],
+      koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
+      fontMode: ["split", "koUnified"],
+      palette: ["sapQuartz"],
+      motion: ["quiet", "subtle", "productive", "staged"],
+    },
+  },
+  sapQuartzDark: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapQuartzDark", motion: "subtle" },
+    allowed: {
+      surface: ["flat", "material"],
+      layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
+      nav: ["top"],
+      navStyle: ["icon", "both"],
+      type: ["grotesk", "humanist"],
+      koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
+      fontMode: ["split", "koUnified"],
+      palette: ["sapQuartzDark"],
+      motion: ["quiet", "subtle", "productive", "staged"],
+    },
+  },
+  sapQuartzHcb: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapQuartzHcb", motion: "quiet" },
+    allowed: {
+      surface: ["flat"],
+      layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
+      nav: ["top"],
+      navStyle: ["icon", "both"],
+      type: ["grotesk", "humanist"],
+      koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
+      fontMode: ["split", "koUnified"],
+      palette: ["sapQuartzHcb"],
+      motion: ["quiet", "subtle", "productive"],
+    },
+  },
+  sapQuartzHcw: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapQuartzHcw", motion: "quiet" },
+    allowed: {
+      surface: ["flat"],
+      layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
+      nav: ["top"],
+      navStyle: ["icon", "both"],
+      type: ["grotesk", "humanist"],
+      koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
+      fontMode: ["split", "koUnified"],
+      palette: ["sapQuartzHcw"],
+      motion: ["quiet", "subtle", "productive"],
+    },
+  },
+  sapBelize: {
+    defaults: { surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapBelize", motion: "subtle" },
+    allowed: {
+      surface: ["flat"],
+      layout: ["cards", "dashboard", "masterDetail", "supportingPane", "table", "wizard"],
+      nav: ["top"],
+      navStyle: ["icon", "both"],
+      type: ["grotesk", "humanist"],
+      koType: ["plex", "pretendard", "suit", "noto", "spoqa"],
+      fontMode: ["split", "koUnified"],
+      palette: ["sapBelize"],
+      motion: ["quiet", "subtle", "productive"],
     },
   },
   material3: {
@@ -720,8 +832,15 @@ export const presets: Preset[] = [
   { id: "atlassian-night", name: "Atlassian Night", label: "dark neutral과 밝은 brand·status role", category: "Design System", selection: { aesthetic: "atlassianDark", surface: "flat", layout: "dashboard", nav: "left", navStyle: "both", type: "grotesk", koType: "pretendard", fontMode: "split", palette: "atlassianDark", motion: "subtle" } },
   { id: "primer-repository", name: "Primer Repository", label: "subtle border와 compact product UI", category: "Design System", selection: { aesthetic: "primer", surface: "flat", layout: "dense", nav: "top", navStyle: "both", type: "grotesk", koType: "pretendard", fontMode: "split", palette: "primer", motion: "subtle" } },
   { id: "primer-night", name: "Primer Night", label: "GitHub dark canvas와 accessible action state", category: "Design System", selection: { aesthetic: "primerDark", surface: "flat", layout: "dense", nav: "top", navStyle: "both", type: "grotesk", koType: "pretendard", fontMode: "split", palette: "primerDark", motion: "subtle" } },
-  { id: "fiori-horizon", name: "Fiori Morning Horizon", label: "role-based shell과 adaptive floorplan", category: "Design System", selection: { aesthetic: "fiori", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "fiori", motion: "subtle" } },
-  { id: "fiori-evening", name: "Fiori Evening Horizon", label: "dark shell과 elevated enterprise container", category: "Design System", selection: { aesthetic: "fioriDark", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "fioriDark", motion: "subtle" } },
+  { id: "sap-horizon-morning", name: "SAP Morning Horizon", label: "rounded current-generation Fiori shell", category: "Design System", selection: { aesthetic: "sapHorizon", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapHorizon", motion: "subtle" } },
+  { id: "sap-horizon-evening", name: "SAP Evening Horizon", label: "low-light surface와 vibrant foreground", category: "Design System", selection: { aesthetic: "sapHorizonDark", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapHorizonDark", motion: "subtle" } },
+  { id: "sap-horizon-hcb", name: "Horizon HC Black", label: "black canvas와 white accessibility boundary", category: "Accessibility", selection: { aesthetic: "sapHorizonHcb", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapHorizonHcb", motion: "quiet" } },
+  { id: "sap-horizon-hcw", name: "Horizon HC White", label: "white canvas와 black accessibility boundary", category: "Accessibility", selection: { aesthetic: "sapHorizonHcw", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapHorizonHcw", motion: "quiet" } },
+  { id: "sap-quartz-light", name: "SAP Quartz Light", label: "compact Fiori 3 geometry와 navy shell", category: "Design System", selection: { aesthetic: "sapQuartz", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapQuartz", motion: "subtle" } },
+  { id: "sap-quartz-dark", name: "SAP Quartz Dark", label: "compact geometry와 layered charcoal surface", category: "Design System", selection: { aesthetic: "sapQuartzDark", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapQuartzDark", motion: "subtle" } },
+  { id: "sap-quartz-hcb", name: "Quartz HC Black", label: "Fiori 3 black high-contrast workspace", category: "Accessibility", selection: { aesthetic: "sapQuartzHcb", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapQuartzHcb", motion: "quiet" } },
+  { id: "sap-quartz-hcw", name: "Quartz HC White", label: "Fiori 3 white high-contrast workspace", category: "Accessibility", selection: { aesthetic: "sapQuartzHcw", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapQuartzHcw", motion: "quiet" } },
+  { id: "sap-belize-legacy", name: "SAP Belize Legacy", label: "gradient shell과 Fiori 2 field grammar", category: "Lineage", selection: { aesthetic: "sapBelize", surface: "flat", layout: "masterDetail", nav: "top", navStyle: "both", type: "humanist", koType: "suit", fontMode: "split", palette: "sapBelize", motion: "subtle" } },
   { id: "material-you", name: "Material 3", label: "tonal color와 rounded component", category: "Design System", selection: { aesthetic: "material3", surface: "material", layout: "cards", nav: "top", navStyle: "both", type: "grotesk", koType: "pretendard", fontMode: "split", palette: "materialDynamic", motion: "subtle" } },
   { id: "material-night", name: "Material Night", label: "dark tonal role과 부드러운 elevation", category: "Design System", selection: { aesthetic: "material3Dark", surface: "material", layout: "cards", nav: "top", navStyle: "both", type: "grotesk", koType: "pretendard", fontMode: "split", palette: "materialDark", motion: "subtle" } },
   { id: "fluent-focus", name: "Fluent Focus", label: "layered focus와 adaptive productivity", category: "Design System", selection: { aesthetic: "fluent2", surface: "flat", layout: "masterDetail", nav: "left", navStyle: "both", type: "grotesk", koType: "pretendard", fontMode: "split", palette: "fluent", motion: "subtle" } },
@@ -777,8 +896,15 @@ const optionNotesEn: Record<AxisKey, Record<string, string>> = {
     atlassianDark: "Dark neutral tokens with bright brand and status roles",
     primer: "Compact product UI with subtle borders and responsive density",
     primerDark: "Primer dark color mode with high-contrast product controls",
-    fiori: "Role-based shell, adaptive floorplans, and enterprise clarity",
-    fioriDark: "Evening Horizon shell with semantic elevated surfaces",
+    sapHorizon: "Morning Horizon's rounded forms, brighter hierarchy, and current-generation Fiori shell",
+    sapHorizonDark: "Evening Horizon's low-light surfaces with vibrant semantic foregrounds",
+    sapHorizonHcb: "Horizon component grammar on the official black high-contrast accessibility theme",
+    sapHorizonHcw: "Horizon component grammar on the official white high-contrast accessibility theme",
+    sapQuartz: "Quartz Light's compact Fiori 3 geometry, dark shell, and restrained enterprise density",
+    sapQuartzDark: "Quartz Dark's compact geometry and layered charcoal enterprise surfaces",
+    sapQuartzHcb: "Quartz component grammar on the official black high-contrast theme",
+    sapQuartzHcw: "Quartz component grammar on the official white high-contrast theme",
+    sapBelize: "The legacy Fiori 2 visual theme with a blue gradient shell and angular fields",
     material3: "Google's tonal color, shape, and elevation system",
     material3Dark: "Material 3 dark color roles and tonal elevation",
     fluent2: "Microsoft's focused, layered, adaptive interface system",
@@ -881,8 +1007,15 @@ const optionNotesEn: Record<AxisKey, Record<string, string>> = {
     atlassianDark: "Dark neutral surfaces with brighter blue and status roles",
     primer: "GitHub canvas, blue accent states, green primary actions, and subtle borders",
     primerDark: "GitHub dark canvas with accessible action roles",
-    fiori: "SAP shell blue with bright enterprise content surfaces",
-    fioriDark: "SAP dark shell with elevated container surfaces",
+    sapHorizon: "A white shell, vibrant blue actions, and bright Morning Horizon content surfaces",
+    sapHorizonDark: "Near-black containers with vivid Evening Horizon foreground roles",
+    sapHorizonHcb: "Black surfaces, white boundaries, and high-contrast semantic states",
+    sapHorizonHcw: "White surfaces, black boundaries, and high-contrast semantic states",
+    sapQuartz: "A navy shell, white content surfaces, and Fiori 3 blue actions",
+    sapQuartzDark: "A navy shell with layered charcoal enterprise surfaces",
+    sapQuartzHcb: "Black Quartz surfaces with explicit white boundaries",
+    sapQuartzHcw: "White Quartz surfaces with explicit black boundaries",
+    sapBelize: "A blue gradient shell with legacy Fiori 2 content colors",
     materialDynamic: "Primary, secondary, and tertiary tonal roles",
     materialDark: "Dark surfaces with bright tonal color roles",
     fluent: "Microsoft blue with cool neutrals",
@@ -917,13 +1050,23 @@ export function getOptionNote(axis: AxisKey, id: string, language: Language) {
   return language === "ko" ? option.note : optionNotesEn[axis][option.id];
 }
 
+const legacyAestheticAliases: Record<string, string> = {
+  fiori: "sapHorizon",
+  fioriDark: "sapHorizonDark",
+};
+
+export function resolveAestheticId(aesthetic: string) {
+  return legacyAestheticAliases[aesthetic] ?? aesthetic;
+}
+
 export function getAestheticRule(aesthetic: string) {
-  return aestheticRules[aesthetic] ?? aestheticRules[defaultSelection.aesthetic];
+  return aestheticRules[resolveAestheticId(aesthetic)] ?? aestheticRules[defaultSelection.aesthetic];
 }
 
 export function recommendedSelection(aesthetic: string): Selection {
-  const validAesthetic = axes.aesthetic.some((option) => option.id === aesthetic)
-    ? aesthetic
+  const resolvedAesthetic = resolveAestheticId(aesthetic);
+  const validAesthetic = axes.aesthetic.some((option) => option.id === resolvedAesthetic)
+    ? resolvedAesthetic
     : defaultSelection.aesthetic;
   return { aesthetic: validAesthetic, ...getAestheticRule(validAesthetic).defaults };
 }
@@ -934,7 +1077,7 @@ export function isOptionAllowed(selection: Selection, axis: AxisKey, optionId: s
 }
 
 export function normalizeSelection(candidate: Partial<Selection>): Selection {
-  const next = recommendedSelection(candidate.aesthetic ?? defaultSelection.aesthetic);
+  const next = recommendedSelection(resolveAestheticId(candidate.aesthetic ?? defaultSelection.aesthetic));
   const rule = getAestheticRule(next.aesthetic);
 
   for (const axis of dependentAxisKeys) {

@@ -5,6 +5,7 @@ import {
   defaultSelection,
   normalizeSelection,
   recommendedSelection,
+  resolveAestheticId,
   type Language,
   type Selection,
 } from "./style-data.ts";
@@ -65,8 +66,9 @@ export function usesBilingualCopy(language: Language, copyMode: KoreanCopyMode) 
 export function parseExperienceHash(hash: string): ParsedExperienceState {
   const params = new URLSearchParams(hash.replace(/^#/, ""));
   const requestedAesthetic = params.get("aesthetic");
-  const aesthetic = requestedAesthetic && axes.aesthetic.some((option) => option.id === requestedAesthetic)
-    ? requestedAesthetic
+  const resolvedAesthetic = requestedAesthetic ? resolveAestheticId(requestedAesthetic) : null;
+  const aesthetic = resolvedAesthetic && axes.aesthetic.some((option) => option.id === resolvedAesthetic)
+    ? resolvedAesthetic
     : defaultSelection.aesthetic;
   const next = recommendedSelection(aesthetic);
   let matched = Boolean(requestedAesthetic);

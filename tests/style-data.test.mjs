@@ -39,7 +39,7 @@ test("every aesthetic defines a valid default and allowed set for every dependen
 });
 
 test("all curated presets are already normalized and compatible", () => {
-  assert.equal(presets.length, 48);
+  assert.equal(presets.length, 55);
   for (const preset of presets) {
     assert.deepEqual(normalizeSelection(preset.selection), preset.selection, preset.id);
   }
@@ -74,13 +74,13 @@ test("bilingual randomization preserves the selected type binding", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 3_302_048);
+  assert.equal(combinationCount(), 3_309_488);
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  const additions = ["bauhaus", "artDeco", "scandinavian", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"];
-  assert.equal(axes.aesthetic.length, 34);
+  const additions = ["bauhaus", "artDeco", "scandinavian", "atlassian", "atlassianDark", "primer", "primerDark", "sapHorizon", "sapHorizonDark", "sapHorizonHcb", "sapHorizonHcw", "sapQuartz", "sapQuartzDark", "sapQuartzHcb", "sapQuartzHcw", "sapBelize", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"];
+  assert.equal(axes.aesthetic.length, 41);
   for (const id of additions) {
     assert.ok(axes.aesthetic.some((option) => option.id === id), id);
     assert.match(css, new RegExp(`data-aesthetic=["']${id}["']`), id);
@@ -92,7 +92,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
   const additions = {
     surface: ["skeuo", "acrylic", "eink"],
     layout: ["masonry", "dashboard", "masterDetail", "feed", "supportingPane", "table", "wizard"],
-    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"],
+    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "atlassian", "atlassianDark", "primer", "primerDark", "sapHorizon", "sapHorizonDark", "sapHorizonHcb", "sapHorizonHcw", "sapQuartz", "sapQuartzDark", "sapQuartzHcb", "sapQuartzHcw", "sapBelize", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"],
     motion: ["productive", "staged", "spring"],
   };
 
@@ -109,7 +109,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
 
 test("company design systems keep native defaults", () => {
   assert.deepEqual(
-    ["atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"].map((id) => ({
+    ["atlassian", "atlassianDark", "primer", "primerDark", "sapHorizon", "sapHorizonDark", "sapHorizonHcb", "sapHorizonHcw", "sapQuartz", "sapQuartzDark", "sapQuartzHcb", "sapQuartzHcw", "sapBelize", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"].map((id) => ({
       id,
       surface: aestheticRules[id].defaults.surface,
       layout: aestheticRules[id].defaults.layout,
@@ -120,8 +120,15 @@ test("company design systems keep native defaults", () => {
       { id: "atlassianDark", surface: "flat", layout: "dashboard", palette: "atlassianDark" },
       { id: "primer", surface: "flat", layout: "dense", palette: "primer" },
       { id: "primerDark", surface: "flat", layout: "dense", palette: "primerDark" },
-      { id: "fiori", surface: "flat", layout: "masterDetail", palette: "fiori" },
-      { id: "fioriDark", surface: "flat", layout: "masterDetail", palette: "fioriDark" },
+      { id: "sapHorizon", surface: "flat", layout: "masterDetail", palette: "sapHorizon" },
+      { id: "sapHorizonDark", surface: "flat", layout: "masterDetail", palette: "sapHorizonDark" },
+      { id: "sapHorizonHcb", surface: "flat", layout: "masterDetail", palette: "sapHorizonHcb" },
+      { id: "sapHorizonHcw", surface: "flat", layout: "masterDetail", palette: "sapHorizonHcw" },
+      { id: "sapQuartz", surface: "flat", layout: "masterDetail", palette: "sapQuartz" },
+      { id: "sapQuartzDark", surface: "flat", layout: "masterDetail", palette: "sapQuartzDark" },
+      { id: "sapQuartzHcb", surface: "flat", layout: "masterDetail", palette: "sapQuartzHcb" },
+      { id: "sapQuartzHcw", surface: "flat", layout: "masterDetail", palette: "sapQuartzHcw" },
+      { id: "sapBelize", surface: "flat", layout: "masterDetail", palette: "sapBelize" },
       { id: "material3", surface: "material", layout: "cards", palette: "materialDynamic" },
       { id: "material3Dark", surface: "material", layout: "cards", palette: "materialDark" },
       { id: "fluent2", surface: "flat", layout: "masterDetail", palette: "fluent" },
@@ -160,7 +167,8 @@ test("official dark variants preserve their parent geometry and lock native dark
   const pairs = [
     ["atlassian", "atlassianDark", "atlassianDark"],
     ["primer", "primerDark", "primerDark"],
-    ["fiori", "fioriDark", "fioriDark"],
+    ["sapHorizon", "sapHorizonDark", "sapHorizonDark"],
+    ["sapQuartz", "sapQuartzDark", "sapQuartzDark"],
     ["material3", "material3Dark", "materialDark"],
     ["fluent2", "fluent2Dark", "fluentDark"],
     ["carbon", "carbonDark", "carbonDark"],
@@ -175,6 +183,23 @@ test("official dark variants preserve their parent geometry and lock native dark
     }
     assert.deepEqual(aestheticRules[dark].allowed.palette, [palette]);
   }
+});
+
+test("SAP Fiori generations and accessibility themes remain separately governed", () => {
+  const families = [
+    ["sapHorizon", ["sapHorizon", "sapHorizonDark", "sapHorizonHcb", "sapHorizonHcw"]],
+    ["sapQuartz", ["sapQuartz", "sapQuartzDark", "sapQuartzHcb", "sapQuartzHcw"]],
+  ];
+
+  for (const [light, variants] of families) {
+    for (const variant of variants) {
+      assert.equal(aestheticRules[variant].defaults.layout, aestheticRules[light].defaults.layout);
+      assert.deepEqual(aestheticRules[variant].allowed.palette, [variant]);
+    }
+  }
+  assert.deepEqual(aestheticRules.sapBelize.allowed.palette, ["sapBelize"]);
+  assert.deepEqual(normalizeSelection({ aesthetic: "fiori" }).aesthetic, "sapHorizon");
+  assert.deepEqual(normalizeSelection({ aesthetic: "fioriDark" }).aesthetic, "sapHorizonDark");
 });
 
 test("Apple Liquid Glass aesthetics and the Liquid Glass surface are fully removed", () => {

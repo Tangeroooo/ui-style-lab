@@ -62,6 +62,7 @@ app/url-state.ts
 - 범용 Glassmorphism surface는 refraction을 흉내 내지 않는다. 매우 낮은 반투명 tint, 배경 geometry를 식별할 수 있는 약한 backdrop blur, 얇은 밝은 border, soft shadow와 배경의 다채로운 color field로 frosted layer separation을 표현한다. opaque card 위에 highlight만 얹어 glass라고 부르지 않는다.
 - native default를 `aestheticRules.defaults`에 먼저 정의하고, 변형 palette/surface는 공식 원칙을 해치지 않는 최소 범위만 `allowed`에 추가한다.
 - 공식 dark theme가 semantic token과 component state 수준에서 문서화된 system은 별도 `*Dark` aesthetic으로 모델링한다. light/dark pair는 geometry, layout, navigation, typography, motion allowlist를 공유하고 palette만 native dark token으로 제한한다.
+- SAP Fiori는 상위 design system이고 Horizon·Quartz·Belize는 서로 다른 세대의 visual theme다. 현재 architecture에서는 Morning/Evening Horizon, Horizon HCB/HCW, Quartz Light/Dark, Quartz HCB/HCW, Belize를 각각 별도 aesthetic으로 유지한다. High Contrast theme은 color뿐 아니라 border, focus, radius와 component override도 바뀌므로 일반 palette로 다른 aesthetic과 섞지 않는다. `*_set`, `sap_fiori_3_light_dark`처럼 OS 설정에 따라 실제 theme을 고르는 bundle은 visual option이나 검증된 조합 수에 포함하지 않는다.
 - 단순히 background를 검게 만든 변형이나 역사적 미학의 임의 dark version은 추가하지 않는다. Terminal·Cyberpunk처럼 원래 dark-native인 aesthetic도 중복 dark 항목을 만들지 않는다.
 - 이름, 버전, 공식 source link를 README에 기록한다. major version이 바뀌면 기존 ID를 조용히 재해석하지 말고 migration 영향을 검토한다.
 

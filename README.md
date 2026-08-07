@@ -12,7 +12,7 @@ English is the default interface language. The right-side floating control stack
 
 | Layer | Options | Purpose |
 | --- | ---: | --- |
-| Base aesthetic | 34 | The governing visual language, including historical lineages, selected company systems, and their documented dark variants |
+| Base aesthetic | 41 | The governing visual language, including historical lineages, selected company systems, documented dark variants, and SAP accessibility themes |
 | Surface | 11 | Flat, Skeuomorphism, Glass, Acrylic, Neumorphism, Material, E-ink Paper, and more |
 | Layout | 14 | Landing, Bento, Feed, Supporting Pane, Data Table, Wizard, Dashboard, Master–detail, and more |
 | Navigation position | 2 | Top or left rail |
@@ -20,15 +20,16 @@ English is the default interface language. The right-side floating control stack
 | Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
 | Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
-| Palette | 37 | Includes a four-color Enterprise Rail family, Pure White, and native Atlassian, Primer, Fiori, Material, Fluent, Carbon, shadcn/ui, Zag, Tamagui, and Nebular token families |
+| Palette | 44 | Includes a four-color Enterprise Rail family, Pure White, and native Atlassian, Primer, SAP Horizon/Quartz/Belize, Material, Fluent, Carbon, shadcn/ui, Zag, Tamagui, and Nebular token families |
 | Motion | 6 | Quiet, subtle, kinetic, productive, staged, and spring physics |
 
-The lab exposes a different number of visually distinct combinations for each content mode: **214,484** in English, **497,148** in Korean-only, and **2,148,172** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **215,228** in English, **499,008** in Korean-only, and **2,153,752** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
 
 The added options were deliberately curated from the broader research list:
 
 - Historical base aesthetics: `Bauhaus`, `Art Deco`, and `Scandinavian`. Each has a page-wide geometry, hierarchy, component, chart, and navigation treatment rather than a palette-only skin.
 - Company and library systems: `Atlassian Design System`, `GitHub Primer`, `SAP Fiori`, `Material 3`, `Fluent 2`, `IBM Carbon`, `shadcn/ui`, `Tamagui`, and `Nebular Eva`, with separately selectable documented dark variants. Their native defaults follow official semantic color, material, shape, component, density, and navigation guidance. `shadcn/ui` is an Open Code distribution model and Tamagui is a configurable cross-platform style/UI system rather than a historical movement, but each supplies a coherent governing product-UI convention. Sources: [Atlassian foundations](https://atlassian.design/foundations), [Primer foundations](https://primer.style/product/getting-started/foundations/), [SAP Fiori](https://experience.sap.com/fiori-design-web/sap-fiori/), [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [Fluent 2 tokens](https://fluent2.microsoft.design/design-tokens), [Carbon themes](https://carbondesignsystem.com/elements/themes/code/), [shadcn/ui](https://ui.shadcn.com/docs), [Tamagui themes](https://tamagui.dev/docs/core/theme), and [Nebular's Eva theme](https://akveo.github.io/nebular/docs/design-system/design-system-theme/).
+  - SAP Fiori is treated as the parent design system rather than one visual skin. `Morning/Evening Horizon`, both `Horizon High Contrast` themes, `Quartz Light/Dark`, both `Quartz High Contrast` themes, and legacy `Belize` are separate base aesthetics because they change component geometry, shell treatment, focus, border, and color tokens together. `Horizon Set`, `Quartz Set`, and `Quartz Auto` are runtime selectors rather than visual results, so they are not options or counted combinations. Sources: [Fundamental Styles themes](https://github.com/SAP/fundamental-styles#-theming), [SAP theming guidance](https://experience.sap.com/fiori-design-web/theming/), and [SAP theming base content](https://github.com/SAP/theming-base-content).
   - Primer specifically keeps links, selected controls, active navigation, and focus in the blue `accent` role. Green is reserved for primary buttons and positive/success states, so it is deliberately visible but not the page-wide accent. Source: [Primer color usage](https://primer.style/product/getting-started/foundations/color-usage/) and [Primer color primitives](https://primer.style/product/primitives/color/).
 - Dependent layers: `Skeuomorphism`, `Glassmorphism`, `Acrylic`, `E-ink Paper`; `Feed`, `Supporting Pane`, `Data Table`, `Wizard`, `Masonry`, `Dashboard`, `Master–detail`; and their compatible motion and palette families.
 
