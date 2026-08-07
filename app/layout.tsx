@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.svg" },
   openGraph: {
     title: "UI Language Lab",
-    description: "One interface, many design languages. Explore up to 635,840 aesthetically compatible full-page combinations.",
+    description: "One interface, many design languages. Explore up to 676,832 aesthetically compatible full-page combinations.",
     type: "website",
     url: "https://tangerooo.github.io/ui-style-lab/",
     images: [{ url: "/ui-style-lab/og.png", width: 1732, height: 908, alt: "UI Language Lab — the same component kit in Glass, Brutal, Editorial, and Terminal styles" }],
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "UI Language Lab",
-    description: "One interface, many design languages. Explore up to 635,840 aesthetically compatible full-page combinations.",
+    description: "One interface, many design languages. Explore up to 676,832 aesthetically compatible full-page combinations.",
     images: ["/ui-style-lab/og.png"],
   },
 };

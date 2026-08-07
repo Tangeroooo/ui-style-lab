@@ -58,7 +58,7 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 987_216);
+  assert.equal(combinationCount(), 1_050_416);
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
@@ -76,7 +76,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
   const additions = {
     surface: ["skeuo", "acrylic", "eink"],
     layout: ["masonry", "dashboard", "masterDetail"],
-    palette: ["pureWhite", "bauhaus", "deco", "nordic", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark"],
+    palette: ["pureWhite", "enterpriseNavy", "bauhaus", "deco", "nordic", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark"],
   };
 
   for (const [axis, ids] of Object.entries(additions)) {
@@ -163,5 +163,18 @@ test("Bento Pastel is implemented as a palette skin with a conservative allowlis
       .filter((aesthetic) => aestheticRules[aesthetic.id].allowed.palette.includes("bentoPastel"))
       .map((aesthetic) => aesthetic.id),
     ["minimal", "memphis", "organic"],
+  );
+});
+
+test("Enterprise Navy keeps a dark navigation and light canvas with a conservative allowlist", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.ok(axes.palette.some((option) => option.id === "enterpriseNavy"));
+  assert.match(css, /data-palette=["']enterpriseNavy["']/);
+  assert.match(css, /data-palette="enterpriseNavy"[^\n]+sample-nav[^\n]+background:#16294a/);
+  assert.deepEqual(
+    axes.aesthetic
+      .filter((aesthetic) => aestheticRules[aesthetic.id].allowed.palette.includes("enterpriseNavy"))
+      .map((aesthetic) => aesthetic.id),
+    ["minimal", "material3", "fluent2", "carbon", "shadcn"],
   );
 });

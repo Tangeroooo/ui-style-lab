@@ -20,10 +20,10 @@ English is the default interface language. A detached floating language control 
 | Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
 | Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
-| Palette | 22 | Includes Pure White plus native Material, Fluent, Carbon, and shadcn/ui light/dark token families |
+| Palette | 23 | Includes Enterprise Navy, Pure White, and native Material, Fluent, Carbon, and shadcn/ui light/dark token families |
 | Motion | 3 | Quiet, subtle, kinetic |
 
-The lab exposes a different number of visually distinct combinations for each content mode: **62,804** in English, **142,232** in Korean-only, and **635,840** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **66,700** in English, **151,624** in Korean-only, and **676,832** in Korean + English. This is not the unrestricted Cartesian product: the selected base aesthetic controls which values are valid in every dependent layer, and Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
 
 The added options were deliberately curated from the broader research list:
 
@@ -33,7 +33,7 @@ The added options were deliberately curated from the broader research list:
 
 Broader concepts such as Pop Art, Punk/Zine, Spatial UI, Polaris, and GOV.UK remain research candidates rather than selectable base aesthetics. They either overlap an existing axis, require a different interaction model, or need domain-specific content before the full-page comparison would be honest.
 
-`Bento Grid` is modeled as a layout pattern, not a governing aesthetic. The `Bento Pastel` palette supplies the familiar white-card, navy, cobalt, coral, and mint product-dashboard skin while the base aesthetic still owns typography, geometry, and interaction rules. `Pure White` is a separate high-key palette: the canvas and cards stay white while near-black type, neutral borders, and restrained accents preserve hierarchy.
+`Bento Grid` is modeled as a layout pattern, not a governing aesthetic. The `Bento Pastel` palette supplies the familiar white-card, navy, cobalt, coral, and mint product-dashboard skin while the base aesthetic still owns typography, geometry, and interaction rules. `Pure White` is a separate high-key palette: the canvas and cards stay white while near-black type, neutral borders, and restrained accents preserve hierarchy. `Enterprise Navy` models the common dark-navigation/light-canvas product pattern with a `#16294A` rail, porcelain-white surfaces, cool grey borders, and restrained slate data accents; it is enabled only for compatible light system aesthetics.
 
 The repeated dot matrix that previously appeared behind every canvas was an implementation artifact, not a UI standard. The global `radial-gradient` texture has been removed. Texture is now opt-in: E-ink keeps a deliberate pixel-like grain, while Acrylic and Digital Paper use non-dot material treatments. High-density phone displays no longer make an unintended common pattern appear across unrelated aesthetics.
 

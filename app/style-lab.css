@@ -585,6 +585,12 @@
 
 .live-site[data-palette="mono"], .preset-mini[data-palette="mono"] { --site-bg:#e7e6e1;--site-surface:rgba(255,255,252,.84);--site-solid:#fafaf7;--site-ink:#151515;--site-muted:#6b6b66;--site-accent:#282828;--site-accent-2:#c8c8c0;--site-accent-3:#7a7a74;--site-line:rgba(0,0,0,.2); }
 .live-site[data-palette="pureWhite"], .preset-mini[data-palette="pureWhite"] { --site-bg:#ffffff;--site-surface:#ffffff;--site-solid:#ffffff;--site-ink:#111113;--site-muted:#71717a;--site-accent:#18181b;--site-accent-2:#f4f4f5;--site-accent-3:#d4d4d8;--site-line:rgba(17,17,19,.14); }
+.live-site[data-palette="enterpriseNavy"], .preset-mini[data-palette="enterpriseNavy"] { --site-bg:#f7f8fb;--site-surface:#f8f9fc;--site-solid:#ffffff;--site-ink:#16223b;--site-muted:#778097;--site-accent:#16294a;--site-accent-2:#e3e8f0;--site-accent-3:#60789b;--site-line:rgba(22,41,74,.15); }
+.live-site[data-palette="enterpriseNavy"] .sample-nav { color:#f7f9fc;border-color:rgba(255,255,255,.14);background:#16294a; }
+.live-site[data-palette="enterpriseNavy"] .sample-nav-cta { color:#16294a;background:#ffffff; }
+.live-site[data-palette="enterpriseNavy"] .sample-nav nav a { border-color:rgba(255,255,255,.18); }
+.preset-mini[data-palette="enterpriseNavy"] .mini-nav { margin:-4px -4px 0;padding:4px 8px;border:0;background:#16294a; }
+.preset-mini[data-palette="enterpriseNavy"] .mini-nav i,.preset-mini[data-palette="enterpriseNavy"] .mini-nav b { background:#ffffff; }
 .live-site[data-palette="primary"], .preset-mini[data-palette="primary"] { --site-bg:#fff2cc;--site-surface:#fffaf0;--site-solid:#fffaf0;--site-ink:#090909;--site-muted:#625d52;--site-accent:#064ff1;--site-accent-2:#ffd400;--site-accent-3:#ff5147;--site-line:rgba(0,0,0,.22); }
 .live-site[data-palette="cobalt"], .preset-mini[data-palette="cobalt"] { --site-bg:#e2e8f5;--site-surface:rgba(249,251,255,.8);--site-solid:#f7f9ff;--site-ink:#131d3d;--site-muted:#66708d;--site-accent:#315cff;--site-accent-2:#b8c7ff;--site-accent-3:#9a6cff;--site-line:rgba(24,44,103,.17); }
 .live-site[data-palette="citrus"], .preset-mini[data-palette="citrus"] { --site-bg:#f1f7ce;--site-surface:rgba(252,255,236,.84);--site-solid:#fbffef;--site-ink:#24300e;--site-muted:#6b7554;--site-accent:#72b900;--site-accent-2:#f4df32;--site-accent-3:#ff982f;--site-line:rgba(48,73,10,.18); }
