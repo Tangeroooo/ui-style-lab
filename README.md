@@ -71,7 +71,7 @@ Typography controls follow the content mode so irrelevant axes do not create dup
     - `Script Pairing`: Latin glyphs use `Latin Type`; Hangul uses `Korean Type`.
     - `Korean Unified`: the selected Korean face renders both Latin and Hangul.
 
-Every Korean face has layout-fit tokens for display size, line height, and tracking so the intended two-line hierarchy survives different Hangul metrics. Existing shared URLs remain compatible: older hashes without language, view, `koType`, or `fontMode` receive safe defaults.
+Every Korean face has layout-fit tokens for display size, line height, and tracking so the intended two-line hierarchy survives different Hangul metrics. Canonical shared URLs now use query parameters; existing hash-state links remain readable and migrate to the current contract with safe defaults.
 
 The additional UI fonts come from their official webfont projects: [Pretendard](https://github.com/orioncactus/pretendard), [SUIT](https://github.com/sun-typeface/SUIT), [Noto](https://notofonts.github.io/noto-docs/website/use/), [Spoqa Han Sans Neo](https://github.com/spoqa/spoqa-han-sans), and [Google Fonts + Korean](https://googlefonts.github.io/korean/).
 
@@ -82,7 +82,13 @@ The Share menu creates two state-complete URLs:
 - `Lab link`: mixer, presets, and the selected canvas.
 - `Reference view`: the live canvas only, suitable for agent prompts, design briefs, and handoff.
 
-Both links preserve the aesthetic combination, language, Korean content mode, and typography binding in the URL.
+Both links preserve the aesthetic combination, language, Korean content mode, and typography binding as canonical query parameters. Reference links also enable deterministic `capture=1` and compatibility-reporting `strict=1` modes.
+
+## Agent access without installation
+
+Agents do not need an npm package, MCP server, login, or API key. [`llms.txt`](./public/llms.txt) points to the [agent guide](./public/agent-guide.md), machine-readable [`catalog.v1.json`](./public/agent/catalog.v1.json), and bounded [`review-packs.v1.json`](./public/agent/review-packs.v1.json). The catalog publishes stable IDs, aesthetic-governed allowlists, curated presets, evidence, and validated counts rather than enumerating every combination.
+
+A browser agent can load a reference query, wait for `[data-agent-ready="true"]`, and read `#ui-style-lab-state`. That JSON reports `requested`, safe `resolved` state, and every `adjustment`; `data-agent-valid` makes invalid requests explicit. Legacy hashes are read-only input and are no longer emitted by the app.
 
 Preset jump, Randomize, and Share remain a separate floating action group directly below the right-side mixer. The language control now sits immediately below that group on desktop. On narrow screens all four quick actions collapse into one compact row above the bottom mixer; language and share dialogs use viewport-bound sheets so enlarged controls cannot overlap each other or escape the screen.
 
@@ -125,15 +131,19 @@ Pushing `main` triggers the GitHub Pages workflow in `.github/workflows/deploy-p
 ```text
 app/
   StyleLab.tsx       mixer, bilingual sample site, Recharts visualizations
+  agent-contract.ts  machine-readable catalog and rendered state contract
   style-data.ts      axes, aesthetic compatibility rules, presets, count
   style-lab.css      layered tokens and full-page visual implementations
   url-state.ts       language, content mode, share view, URL round-trip
 tests/
+  agent-contract.test.mjs
   rendered-html.test.mjs
   style-data.test.mjs
 AGENTS.md             contribution rules for extending the design layers
 static-main.tsx       GitHub Pages client entry
 vite.pages.config.ts  static Pages build configuration
+public/
+  llms.txt, agent-guide.md, agent/catalog.v1.json
 ```
 
 ## Design and asset policy

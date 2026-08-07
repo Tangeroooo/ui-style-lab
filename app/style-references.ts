@@ -103,14 +103,14 @@ const layout: Record<string, StyleEvidence> = {
   wizard: evidence("official-system", "IBM Carbon · Progress indicator", "https://carbondesignsystem.com/components/progress-indicator/usage/", "A sequential task with explicit current, completed, and upcoming steps."),
 };
 
-const registries: Partial<Record<AxisKey, Record<string, StyleEvidence>>> = {
+export const styleEvidenceRegistries: Partial<Record<AxisKey, Record<string, StyleEvidence>>> = {
   aesthetic,
   surface,
   layout,
 };
 
 export function getStyleEvidence(axis: AxisKey, id: string) {
-  return registries[axis]?.[id];
+  return styleEvidenceRegistries[axis]?.[id];
 }
 
 export function hasStyleEvidence(axis: AxisKey, id: string) {

@@ -67,7 +67,7 @@ Material 3은 Material 1·2를 내부에 포함하는 superset이 아니라 Mate
     - `스크립트 페어링`: Latin은 영문 서체, 한글은 한글 서체 사용
     - `한글 서체 통합`: 선택한 한글 서체 하나로 Latin과 한글을 모두 표현
 
-각 한글 서체에는 display 크기, line-height, letter-spacing용 layout-fit token을 따로 두어 서체를 바꿔도 의도한 2행 구조와 콘텐츠 높이가 유지되도록 했습니다. 기존 URL에 언어·화면 모드·`koType`·`fontMode`가 없어도 안전한 기본값으로 자동 보완됩니다.
+각 한글 서체에는 display 크기, line-height, letter-spacing용 layout-fit token을 따로 두어 서체를 바꿔도 의도한 2행 구조와 콘텐츠 높이가 유지되도록 했습니다. 새 공유 URL은 query parameter가 canonical 형식이며, 기존 hash-state URL도 읽은 뒤 안전한 기본값을 보완해 새 형식으로 migration합니다.
 
 추가한 UI 서체는 공식 webfont 배포처를 기준으로 선정했습니다: [Pretendard](https://github.com/orioncactus/pretendard), [SUIT](https://github.com/sun-typeface/SUIT), [Noto](https://notofonts.github.io/noto-docs/website/use/), [Spoqa Han Sans Neo](https://github.com/spoqa/spoqa-han-sans), [Google Fonts + Korean](https://googlefonts.github.io/korean/).
 
@@ -76,7 +76,13 @@ Material 3은 Material 1·2를 내부에 포함하는 superset이 아니라 Mate
 - `실험실 링크`: mixer, preset과 현재 canvas를 함께 공유합니다.
 - `레퍼런스 화면`: 선택한 live canvas만 표시합니다. 에이전트 prompt, 디자인 brief, handoff용 reference로 전달하기 좋습니다.
 
-두 링크 모두 디자인 조합, 언어, 한국어 콘텐츠 모드와 서체 적용 방식을 URL에 저장합니다.
+두 링크 모두 디자인 조합, 언어, 한국어 콘텐츠 모드와 서체 적용 방식을 canonical query parameter로 저장합니다. 레퍼런스 링크에는 deterministic capture를 위한 `capture=1`과 호환성 보정 보고를 위한 `strict=1`도 포함됩니다.
+
+## 설치 없는 Agent 지원
+
+Agent 사용자는 npm package, MCP server, login, API key가 필요 없습니다. [`llms.txt`](./public/llms.txt)에서 [agent guide](./public/agent-guide.md), machine-readable [`catalog.v1.json`](./public/agent/catalog.v1.json), 범위를 제한한 [`review-packs.v1.json`](./public/agent/review-packs.v1.json)을 찾을 수 있습니다. Catalog는 모든 조합을 나열하지 않고 stable ID, aesthetic 중심 allowlist, curated preset, reference evidence와 검증된 조합 수를 제공합니다.
+
+Browser agent는 reference query를 연 뒤 `[data-agent-ready="true"]`를 기다리고 `#ui-style-lab-state` JSON을 읽으면 됩니다. 여기에는 `requested`, 안전하게 보정한 `resolved`, 모든 `adjustment`가 있으며 `data-agent-valid`로 유효하지 않은 요청을 즉시 판별할 수 있습니다. Legacy hash는 입력 호환성만 유지하고 새 링크로는 생성하지 않습니다.
 
 프리셋 이동·무작위·공유는 우측 mixer 바로 아래의 floating action group을 유지하고, 언어 control은 desktop에서 그 바로 아래에 붙였습니다. narrow viewport에서는 네 action을 bottom mixer 위의 한 줄로 압축하고, 언어·공유 dialog는 viewport 안에 고정되는 sheet로 열어 control 크기가 커져도 서로 겹치거나 화면 밖으로 벗어나지 않습니다.
 
@@ -101,8 +107,10 @@ npm run build:pages
 
 ```text
 app/StyleLab.tsx     mixer, bilingual sample site, Recharts
+app/agent-contract.ts machine-readable catalog와 rendered state contract
 app/style-data.ts    axes, compatibility rules, presets, combination count
 app/style-lab.css    layered visual tokens and implementations
 app/url-state.ts     language, content mode, reference view, URL state
+public/              llms.txt, agent guide, catalog, review packs
 AGENTS.md             확장 및 검증 규칙
 ```

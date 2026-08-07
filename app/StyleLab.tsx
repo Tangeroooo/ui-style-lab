@@ -42,17 +42,22 @@ import {
   presets,
   randomCompatibleSelection,
   recommendedSelection,
+  resolveSelection,
   type AxisKey,
   type Language,
   type Selection,
+  type SelectionResolution,
 } from "./style-data";
 import { getStyleEvidence } from "./style-references";
+import { buildAgentState } from "./agent-contract";
 import {
   createExperienceUrl,
+  defaultExperienceResolution,
   experienceCombinationCount,
   getVisibleAxisKeys,
+  parseExperienceLocation,
   parseExperienceHash,
-  serializeExperienceHash,
+  serializeExperienceQuery,
   usesBilingualCopy,
   type ExperienceView,
   type KoreanCopyMode,
@@ -465,6 +470,11 @@ function EnglishCompanion({ children, visible }: { children: string; visible: bo
   return <span className="english-companion" lang="en">{children}</span>;
 }
 
+function AgentStateScript({ payload }: { payload: ReturnType<typeof buildAgentState> }) {
+  const json = JSON.stringify(payload).replaceAll("<", "\\u003c");
+  return <script id="ui-style-lab-state" type="application/json" dangerouslySetInnerHTML={{ __html: json }} />;
+}
+
 function LayoutShowcase({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
   const t = sampleCopy[language];
   const bilingual = usesBilingualCopy(language, copyMode);
@@ -718,6 +728,7 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
 
 export function StyleLab() {
   const [selection, setSelection] = useState<Selection>(defaultSelection);
+  const [resolution, setResolution] = useState<SelectionResolution>(defaultExperienceResolution);
   const [activeAxis, setActiveAxis] = useState<AxisKey | null>(null);
   const [language, setLanguage] = useState<Language>("en");
   const [copyMode, setCopyMode] = useState<KoreanCopyMode>("mixed");
@@ -728,6 +739,9 @@ export function StyleLab() {
   const [presetFilter, setPresetFilter] = useState("All");
   const [presetSectionVisible, setPresetSectionVisible] = useState(false);
   const [ready, setReady] = useState(false);
+  const [agentReady, setAgentReady] = useState(false);
+  const [capture, setCapture] = useState(false);
+  const [strict, setStrict] = useState(false);
   const mixerRef = useRef<HTMLElement>(null);
   const languageRef = useRef<HTMLDivElement>(null);
   const utilityRef = useRef<HTMLDivElement>(null);
@@ -742,16 +756,20 @@ export function StyleLab() {
   const visiblePresets = presetFilter === "All" ? presets : presets.filter((preset) => preset.category === presetFilter);
 
   useEffect(() => {
-    const fromHash = parseExperienceHash(window.location.hash);
-    let initialSelection = fromHash.selection;
-    let initialLanguage = fromHash.language;
-    let initialCopyMode = fromHash.copyMode;
-    const initialView = fromHash.view;
+    const fromLocation = parseExperienceLocation(window.location.search, window.location.hash);
+    let initialSelection = fromLocation.selection;
+    let initialResolution = fromLocation.resolution;
+    let initialLanguage = fromLocation.language;
+    let initialCopyMode = fromLocation.copyMode;
+    const initialView = fromLocation.view;
 
     try {
       if (!initialSelection) {
         const saved = window.localStorage.getItem(storageKey);
-        if (saved) initialSelection = normalizeSelection({ ...defaultSelection, ...JSON.parse(saved) });
+        if (saved) {
+          initialResolution = resolveSelection({ ...defaultSelection, ...JSON.parse(saved) });
+          initialSelection = initialResolution.resolved;
+        }
       }
       const savedLanguage = window.localStorage.getItem(languageKey);
       if (!initialLanguage && (savedLanguage === "en" || savedLanguage === "ko")) initialLanguage = savedLanguage;
@@ -763,9 +781,12 @@ export function StyleLab() {
 
     const timeoutId = window.setTimeout(() => {
       if (initialSelection) setSelection(initialSelection);
+      if (initialResolution) setResolution(initialResolution);
       if (initialLanguage) setLanguage(initialLanguage);
       if (initialCopyMode) setCopyMode(initialCopyMode);
       if (initialView) setView(initialView);
+      if (fromLocation.capture !== null) setCapture(fromLocation.capture);
+      if (fromLocation.strict !== null) setStrict(fromLocation.strict);
       setReady(true);
     }, 0);
     return () => window.clearTimeout(timeoutId);
@@ -773,28 +794,62 @@ export function StyleLab() {
 
   useEffect(() => {
     if (!ready) return;
-    const hash = serializeExperienceHash({ selection, language, copyMode, view });
-    window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${hash}`);
     try {
       window.localStorage.setItem(storageKey, JSON.stringify(selection));
     } catch {
       // Ignore storage failures.
     }
-  }, [copyMode, language, ready, selection, view]);
+
+    if (strict && !resolution.valid) return;
+    const query = serializeExperienceQuery({ selection, language, copyMode, view, capture, strict });
+    const anchor = /^#(?:top|mixer|presets|live-site)$/.test(window.location.hash)
+      ? window.location.hash
+      : "";
+    window.history.replaceState(null, "", `${window.location.pathname}?${query}${anchor}`);
+  }, [capture, copyMode, language, ready, resolution, selection, strict, view]);
 
   useEffect(() => {
     if (!ready) return;
-    function applyHashState() {
-      const fromHash = parseExperienceHash(window.location.hash);
+    function applyParsedState() {
+      const parsed = parseExperienceLocation(window.location.search, window.location.hash);
+      if (parsed.source === "none") return;
       setActiveAxis(null);
-      if (fromHash.selection) setSelection((current) => sameSelection(current, fromHash.selection!) ? current : fromHash.selection!);
-      if (fromHash.language) setLanguage(fromHash.language);
-      if (fromHash.copyMode) setCopyMode(fromHash.copyMode);
-      if (fromHash.view) setView(fromHash.view);
+      if (parsed.selection) setSelection((current) => sameSelection(current, parsed.selection!) ? current : parsed.selection!);
+      if (parsed.resolution) setResolution(parsed.resolution);
+      if (parsed.language) setLanguage(parsed.language);
+      if (parsed.copyMode) setCopyMode(parsed.copyMode);
+      if (parsed.view) setView(parsed.view);
+      if (parsed.capture !== null) setCapture(parsed.capture);
+      if (parsed.strict !== null) setStrict(parsed.strict);
+      setAgentReady(false);
     }
-    window.addEventListener("hashchange", applyHashState);
-    return () => window.removeEventListener("hashchange", applyHashState);
+
+    function migrateLegacyHash() {
+      if (parseExperienceHash(window.location.hash).source === "legacy-hash") applyParsedState();
+    }
+
+    window.addEventListener("popstate", applyParsedState);
+    window.addEventListener("hashchange", migrateLegacyHash);
+    return () => {
+      window.removeEventListener("popstate", applyParsedState);
+      window.removeEventListener("hashchange", migrateLegacyHash);
+    };
   }, [ready]);
+
+  useEffect(() => {
+    if (!ready) return;
+    let cancelled = false;
+
+    async function settleDocument() {
+      if (document.fonts?.ready) await document.fonts.ready;
+      await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
+      await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
+      if (!cancelled) setAgentReady(true);
+    }
+
+    void settleDocument();
+    return () => { cancelled = true; };
+  }, [capture, copyMode, language, ready, selection, view]);
 
   useEffect(() => {
     document.documentElement.lang = language;
@@ -862,19 +917,26 @@ export function StyleLab() {
         const currentIndex = currentPreset ? presets.indexOf(currentPreset) : -1;
         const direction = event.key === "ArrowRight" ? 1 : -1;
         const next = (currentIndex + direction + presets.length) % presets.length;
-        setSelection(normalizeSelection(presets[next].selection));
+        applySelection(normalizeSelection(presets[next].selection));
       }
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   });
 
+  function applySelection(next: Selection) {
+    setSelection(next);
+    setResolution(resolveSelection(next));
+    setAgentReady(false);
+  }
+
   function update(axis: AxisKey, value: string) {
-    setSelection((current) => {
-      if (axis === "aesthetic") return recommendedSelection(value);
-      if (!isOptionAllowed(current, axis, value)) return current;
-      return { ...current, [axis]: value };
-    });
+    const next = axis === "aesthetic"
+      ? recommendedSelection(value)
+      : isOptionAllowed(selection, axis, value)
+        ? { ...selection, [axis]: value }
+        : selection;
+    if (!sameSelection(next, selection)) applySelection(next);
 
     if (axis === "aesthetic") {
       setNotice(t.applied);
@@ -885,7 +947,7 @@ export function StyleLab() {
   function randomize() {
     const preserveFontMode = language === "ko" && copyMode === "mixed";
     const next = randomCompatibleSelection(preserveFontMode ? { fontMode: selection.fontMode } : {});
-    setSelection(next);
+    applySelection(next);
     setActiveAxis(null);
     setNotice(t.randomized);
     window.setTimeout(() => setNotice(""), 1600);
@@ -906,13 +968,14 @@ export function StyleLab() {
   function chooseLanguage(nextLanguage: Language, nextCopyMode: KoreanCopyMode = copyMode) {
     setLanguage(nextLanguage);
     setCopyMode(nextCopyMode);
+    setAgentReady(false);
     setLanguageOpen(false);
     setActiveAxis(null);
     setShareOpen(false);
   }
 
   function choosePreset(nextSelection: Selection) {
-    setSelection(normalizeSelection(nextSelection));
+    applySelection(normalizeSelection(nextSelection));
     setActiveAxis(null);
     document.getElementById("live-site")?.scrollIntoView({ behavior: "smooth" });
   }
@@ -929,13 +992,37 @@ export function StyleLab() {
   const activeAxisIndex = activeAxis
     ? String(visibleAxisKeys.indexOf(activeAxis) + 1).padStart(2, "0")
     : "";
+  const agentState = buildAgentState({
+    state: { selection, language, copyMode, view },
+    resolution,
+    ready: agentReady,
+    capture,
+    strict,
+  });
 
   if (view === "reference") {
-    return <main className="reference-view"><FieldNotesSite selection={selection} language={language} copyMode={copyMode} /></main>;
+    return (
+      <main
+        className="reference-view"
+        data-agent-ready={agentReady}
+        data-agent-valid={resolution.valid}
+        data-capture={capture}
+      >
+        <AgentStateScript payload={agentState} />
+        <FieldNotesSite selection={selection} language={language} copyMode={copyMode} />
+      </main>
+    );
   }
 
   return (
-    <main className="lab-shell" data-language={language}>
+    <main
+      className="lab-shell"
+      data-language={language}
+      data-agent-ready={agentReady}
+      data-agent-valid={resolution.valid}
+      data-capture={capture}
+    >
+      <AgentStateScript payload={agentState} />
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label={t.home}><span>UI</span><b>STYLE LAB</b></a>
         <p>{t.tagline}</p>
@@ -967,18 +1054,20 @@ export function StyleLab() {
             <div className="mixer-popover" data-axis={activeAxis} role="dialog" aria-label={language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}>
               <header><div><span>{activeAxisIndex}</span><b>{language === "en" ? axisMeta[activeAxis].en : axisMeta[activeAxis].ko}</b><small>{language === "en" ? axisMeta[activeAxis].ko : axisMeta[activeAxis].en}</small></div><button type="button" onClick={() => setActiveAxis(null)} aria-label={t.close}><X aria-hidden="true" /></button></header>
               {activeAxis !== "aesthetic" && <p className="compatibility-note"><b>{aestheticName}</b> · {t.compat(aestheticName)}</p>}
-              <div className="popover-options">
-                {axes[activeAxis].map((option) => {
-                  const selected = selection[activeAxis] === option.id;
-                  const allowed = isOptionAllowed(selection, activeAxis, option.id);
-                  const name = language === "en" ? option.en : option.ko;
-                  const note = allowed ? getOptionNote(activeAxis, option.id, language) : t.incompatible(aestheticName);
-                  return (
-                    <button type="button" data-option={option.id} className={`${selected ? "selected" : ""}${allowed ? "" : " incompatible"}`} disabled={!allowed} key={option.id} onClick={() => update(activeAxis, option.id)} title={allowed ? note : t.unavailable(aestheticName)}>
-                      <i /><span><b>{name}</b><small>{language === "ko" ? `${option.en} · ` : ""}{note}</small>{(activeAxis === "type" || activeAxis === "koType") && <span className="font-sample" lang={activeAxis === "koType" ? "ko" : "en"}>{activeAxis === "koType" ? "가나다 Aa 27" : "Aa Rr 27"}</span>}</span><em aria-hidden="true">{selected ? <Check /> : allowed ? <Circle /> : <X />}</em>
-                    </button>
-                  );
-                })}
+              <div className="popover-scroll" data-testid="popover-scroll">
+                <div className="popover-options">
+                  {axes[activeAxis].map((option) => {
+                    const selected = selection[activeAxis] === option.id;
+                    const allowed = isOptionAllowed(selection, activeAxis, option.id);
+                    const name = language === "en" ? option.en : option.ko;
+                    const note = allowed ? getOptionNote(activeAxis, option.id, language) : t.incompatible(aestheticName);
+                    return (
+                      <button type="button" data-option={option.id} className={`${selected ? "selected" : ""}${allowed ? "" : " incompatible"}`} disabled={!allowed} key={option.id} onClick={() => update(activeAxis, option.id)} title={allowed ? note : t.unavailable(aestheticName)}>
+                        <i /><span><b>{name}</b><small>{language === "ko" ? `${option.en} · ` : ""}{note}</small>{(activeAxis === "type" || activeAxis === "koType") && <span className="font-sample" lang={activeAxis === "koType" ? "ko" : "en"}>{activeAxis === "koType" ? "가나다 Aa 27" : "Aa Rr 27"}</span>}</span><em aria-hidden="true">{selected ? <Check /> : allowed ? <Circle /> : <X />}</em>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
               {activeEvidence && (
                 <aside className="evidence-card">

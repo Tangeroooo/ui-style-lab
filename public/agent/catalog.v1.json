@@ -1,0 +1,5293 @@
+{
+  "schemaVersion": "1.0.0",
+  "project": {
+    "name": "UI Style Lab",
+    "repository": "https://github.com/Tangeroooo/ui-style-lab",
+    "canonicalUrl": "https://tangeroooo.github.io/ui-style-lab/",
+    "defaultLanguage": "en"
+  },
+  "transport": {
+    "canonical": "query",
+    "legacyReadOnly": "hash",
+    "queryTemplate": "https://tangeroooo.github.io/ui-style-lab/?aesthetic={id}&surface={id}&layout={id}&nav={id}&navStyle={id}&type={id}&koType={id}&fontMode={id}&palette={id}&motion={id}&language={en|ko}&copyMode={only|mixed}&view={lab|reference}&capture=1&strict=1",
+    "flags": {
+      "strict": "Preserve invalid requested values in the URL and report every resolver adjustment.",
+      "capture": "Disable non-essential motion and expose a deterministic readiness marker."
+    }
+  },
+  "compatibility": {
+    "governingAxis": "aesthetic",
+    "policy": "Only values in the selected aesthetic's allowed lists are valid.",
+    "fallback": "Unknown or incompatible values resolve to that aesthetic's native defaults.",
+    "aliases": {
+      "fiori": "sapHorizon",
+      "fioriDark": "sapHorizonDark"
+    },
+    "rules": {
+      "minimal": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "landing",
+          "nav": "top",
+          "navStyle": "text",
+          "type": "grotesk",
+          "koType": "plex",
+          "fontMode": "split",
+          "palette": "pureWhite",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "glass",
+            "neumo",
+            "paper"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "editorial",
+            "split",
+            "feed",
+            "supportingPane"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "mono",
+            "pureWhite",
+            "enterpriseNavy",
+            "enterpriseEvergreen",
+            "enterpriseBurgundy",
+            "enterpriseGraphite",
+            "nordic"
+          ],
+          "motion": [
+            "quiet",
+            "subtle"
+          ]
+        }
+      },
+      "swiss": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dense",
+          "nav": "left",
+          "navStyle": "text",
+          "type": "grotesk",
+          "koType": "plex",
+          "fontMode": "split",
+          "palette": "mono",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "paper",
+            "material",
+            "eink"
+          ],
+          "layout": [
+            "landing",
+            "editorial",
+            "split",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono",
+            "condensed"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum",
+            "coding",
+            "blackhan"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "mono",
+            "pureWhite",
+            "primary",
+            "cobalt",
+            "citrus",
+            "carbon"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "bauhaus": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "bento",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "plex",
+          "fontMode": "split",
+          "palette": "bauhaus",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material",
+            "paper"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "editorial",
+            "split",
+            "poster",
+            "feed"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "condensed",
+            "slab"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "blackhan"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "bauhaus",
+            "primary",
+            "mono"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "kinetic",
+            "staged"
+          ]
+        }
+      },
+      "artDeco": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "poster",
+          "nav": "top",
+          "navStyle": "text",
+          "type": "serif",
+          "koType": "gowun",
+          "fontMode": "split",
+          "palette": "deco",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material",
+            "paper",
+            "glossy"
+          ],
+          "layout": [
+            "landing",
+            "cards",
+            "editorial",
+            "split",
+            "poster"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "serif",
+            "condensed",
+            "slab"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "gowun"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "deco",
+            "noir"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "staged"
+          ]
+        }
+      },
+      "scandinavian": {
+        "defaults": {
+          "surface": "paper",
+          "layout": "masonry",
+          "nav": "top",
+          "navStyle": "text",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "koUnified",
+          "palette": "nordic",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material",
+            "paper",
+            "eink"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "masonry",
+            "split",
+            "feed",
+            "supportingPane"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum",
+            "gowun"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "nordic",
+            "pureWhite",
+            "mono",
+            "forest"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "brutalist": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "landing",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "condensed",
+          "koType": "blackhan",
+          "fontMode": "koUnified",
+          "palette": "primary",
+          "motion": "kinetic"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "paper"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "dense",
+            "poster",
+            "feed",
+            "table"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono",
+            "condensed",
+            "slab"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "nanum",
+            "coding",
+            "blackhan"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "primary",
+            "mono",
+            "cobalt",
+            "citrus"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "kinetic",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "editorial": {
+        "defaults": {
+          "surface": "paper",
+          "layout": "editorial",
+          "nav": "top",
+          "navStyle": "text",
+          "type": "serif",
+          "koType": "gowun",
+          "fontMode": "split",
+          "palette": "sunset",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "paper",
+            "eink"
+          ],
+          "layout": [
+            "landing",
+            "masonry",
+            "editorial",
+            "split",
+            "dense",
+            "masterDetail",
+            "feed",
+            "supportingPane"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "serif"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum",
+            "gowun"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "mono",
+            "pureWhite",
+            "forest",
+            "sunset",
+            "noir"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "staged"
+          ]
+        }
+      },
+      "memphis": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "bento",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "slab",
+          "koType": "jua",
+          "fontMode": "koUnified",
+          "palette": "primary",
+          "motion": "kinetic"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "clay",
+            "glossy"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "poster"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "rounded",
+            "condensed",
+            "slab"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "nanum",
+            "jua",
+            "blackhan"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "cobalt",
+            "primary",
+            "citrus",
+            "candy",
+            "bentoPastel"
+          ],
+          "motion": [
+            "subtle",
+            "kinetic",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "y2k": {
+        "defaults": {
+          "surface": "chrome",
+          "layout": "poster",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "rounded",
+          "koType": "jua",
+          "fontMode": "split",
+          "palette": "aurora",
+          "motion": "kinetic"
+        },
+        "allowed": {
+          "surface": [
+            "skeuo",
+            "glass",
+            "acrylic",
+            "chrome",
+            "glossy"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "split",
+            "dashboard",
+            "poster"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono",
+            "rounded",
+            "pixel"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "nanum",
+            "jua",
+            "coding",
+            "blackhan"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "cobalt",
+            "candy",
+            "aurora",
+            "aqua"
+          ],
+          "motion": [
+            "subtle",
+            "kinetic",
+            "spring"
+          ]
+        }
+      },
+      "cyberpunk": {
+        "defaults": {
+          "surface": "glass",
+          "layout": "dense",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "mono",
+          "koType": "coding",
+          "fontMode": "split",
+          "palette": "aurora",
+          "motion": "kinetic"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "glass",
+            "acrylic",
+            "chrome"
+          ],
+          "layout": [
+            "cards",
+            "split",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "poster",
+            "table"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono",
+            "condensed",
+            "pixel"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "nanum",
+            "coding",
+            "blackhan"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "cobalt",
+            "noir",
+            "aurora"
+          ],
+          "motion": [
+            "subtle",
+            "kinetic",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "frutiger": {
+        "defaults": {
+          "surface": "glossy",
+          "layout": "landing",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "gowun",
+          "fontMode": "koUnified",
+          "palette": "aqua",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "glass",
+            "material",
+            "glossy"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "feed"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist",
+            "rounded"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum",
+            "gowun",
+            "jua"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "aqua"
+          ],
+          "motion": [
+            "subtle",
+            "kinetic",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "terminal": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dense",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "pixel",
+          "koType": "coding",
+          "fontMode": "koUnified",
+          "palette": "forest",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "table"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "mono",
+            "pixel"
+          ],
+          "koType": [
+            "nanum",
+            "coding",
+            "blackhan"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "forest"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "luxury": {
+        "defaults": {
+          "surface": "paper",
+          "layout": "editorial",
+          "nav": "top",
+          "navStyle": "text",
+          "type": "serif",
+          "koType": "gowun",
+          "fontMode": "split",
+          "palette": "noir",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material",
+            "paper"
+          ],
+          "layout": [
+            "landing",
+            "cards",
+            "editorial",
+            "split",
+            "feed",
+            "supportingPane"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text"
+          ],
+          "type": [
+            "grotesk",
+            "serif"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum",
+            "gowun"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "noir",
+            "deco"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "staged"
+          ]
+        }
+      },
+      "organic": {
+        "defaults": {
+          "surface": "paper",
+          "layout": "bento",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "gowun",
+          "fontMode": "koUnified",
+          "palette": "forest",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "clay",
+            "material",
+            "paper"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "masonry",
+            "split",
+            "feed",
+            "supportingPane"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "humanist",
+            "serif",
+            "rounded"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum",
+            "gowun",
+            "jua"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "citrus",
+            "candy",
+            "forest",
+            "aqua",
+            "bentoPastel",
+            "nordic",
+            "materialDynamic"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "kinetic",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "vaporwave": {
+        "defaults": {
+          "surface": "glass",
+          "layout": "poster",
+          "nav": "top",
+          "navStyle": "icon",
+          "type": "mono",
+          "koType": "coding",
+          "fontMode": "split",
+          "palette": "candy",
+          "motion": "kinetic"
+        },
+        "allowed": {
+          "surface": [
+            "glass",
+            "chrome",
+            "glossy"
+          ],
+          "layout": [
+            "cards",
+            "split",
+            "dense",
+            "poster"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "serif",
+            "mono",
+            "pixel"
+          ],
+          "koType": [
+            "pretendard",
+            "suit",
+            "nanum",
+            "jua",
+            "coding",
+            "blackhan"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "candy"
+          ],
+          "motion": [
+            "subtle",
+            "kinetic",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "atlassian": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "atlassian",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "atlassian"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "atlassianDark": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "atlassianDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "atlassianDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "primer": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dense",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "primer",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "primer"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "primerDark": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dense",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "primerDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "primerDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "sapHorizon": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapHorizon",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapHorizon"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "sapHorizonDark": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapHorizonDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapHorizonDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "sapHorizonHcb": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapHorizonHcb",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapHorizonHcb"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "sapHorizonHcw": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapHorizonHcw",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapHorizonHcw"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "sapQuartz": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapQuartz",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapQuartz"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "sapQuartzDark": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapQuartzDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapQuartzDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "sapQuartzHcb": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapQuartzHcb",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapQuartzHcb"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "sapQuartzHcw": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapQuartzHcw",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapQuartzHcw"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "sapBelize": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "suit",
+          "fontMode": "split",
+          "palette": "sapBelize",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat"
+          ],
+          "layout": [
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "sapBelize"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "material3": {
+        "defaults": {
+          "surface": "material",
+          "layout": "cards",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "materialDynamic",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist",
+            "rounded"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "jua"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "materialDynamic"
+          ],
+          "motion": [
+            "subtle",
+            "productive",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "material3Dark": {
+        "defaults": {
+          "surface": "material",
+          "layout": "cards",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "materialDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist",
+            "rounded"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "jua"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "materialDark"
+          ],
+          "motion": [
+            "subtle",
+            "productive",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "mui": {
+        "defaults": {
+          "surface": "material",
+          "layout": "dashboard",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "noto",
+          "fontMode": "split",
+          "palette": "mui",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "mui"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "muiDark": {
+        "defaults": {
+          "surface": "material",
+          "layout": "dashboard",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "noto",
+          "fontMode": "split",
+          "palette": "muiDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "muiDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "fluent2": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "fluent",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "acrylic",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "cards",
+            "split",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "fluent",
+            "pureWhite",
+            "enterpriseNavy",
+            "enterpriseEvergreen",
+            "enterpriseBurgundy",
+            "enterpriseGraphite",
+            "cobalt",
+            "mono"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "fluent2Dark": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "masterDetail",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "fluentDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "acrylic",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "cards",
+            "split",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "fluentDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "carbon": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "plex",
+          "fontMode": "split",
+          "palette": "carbon",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "carbon",
+            "pureWhite",
+            "enterpriseNavy",
+            "enterpriseEvergreen",
+            "enterpriseBurgundy",
+            "enterpriseGraphite",
+            "mono"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "carbonDark": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "plex",
+          "fontMode": "split",
+          "palette": "carbonDark",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "carbonDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "shadcn": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "pureWhite",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "pureWhite",
+            "enterpriseNavy",
+            "enterpriseEvergreen",
+            "enterpriseBurgundy",
+            "enterpriseGraphite",
+            "mono"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "shadcnDark": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "zincDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "feed",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono"
+          ],
+          "koType": [
+            "plex",
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa",
+            "nanum",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "zincDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "zag": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "landing",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "pretendard",
+          "fontMode": "split",
+          "palette": "zag",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "cards",
+            "dense",
+            "dashboard",
+            "feed",
+            "table"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono"
+          ],
+          "koType": [
+            "pretendard",
+            "suit",
+            "noto",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "zag"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "kinetic",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "tamagui": {
+        "defaults": {
+          "surface": "material",
+          "layout": "landing",
+          "nav": "top",
+          "navStyle": "text",
+          "type": "mono",
+          "koType": "coding",
+          "fontMode": "split",
+          "palette": "tamagui",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "glass",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "dense",
+            "feed",
+            "supportingPane",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono",
+            "pixel"
+          ],
+          "koType": [
+            "pretendard",
+            "suit",
+            "noto",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "tamagui"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "kinetic",
+            "productive",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "tamaguiDark": {
+        "defaults": {
+          "surface": "material",
+          "layout": "landing",
+          "nav": "top",
+          "navStyle": "text",
+          "type": "mono",
+          "koType": "coding",
+          "fontMode": "split",
+          "palette": "tamaguiDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "glass",
+            "material"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "dense",
+            "feed",
+            "supportingPane",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono",
+            "pixel"
+          ],
+          "koType": [
+            "pretendard",
+            "suit",
+            "noto",
+            "coding"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "tamaguiDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "kinetic",
+            "productive",
+            "staged",
+            "spring"
+          ]
+        }
+      },
+      "nebular": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "noto",
+          "fontMode": "split",
+          "palette": "nebular",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "nebular"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      },
+      "nebularDark": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "left",
+          "navStyle": "both",
+          "type": "humanist",
+          "koType": "noto",
+          "fontMode": "split",
+          "palette": "nebularDark",
+          "motion": "subtle"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "supportingPane",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "humanist"
+          ],
+          "koType": [
+            "pretendard",
+            "suit",
+            "noto",
+            "spoqa"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "nebularDark"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive",
+            "staged"
+          ]
+        }
+      }
+    }
+  },
+  "axes": [
+    {
+      "id": "aesthetic",
+      "label": {
+        "ko": "기초 미학",
+        "en": "Aesthetic"
+      },
+      "options": [
+        {
+          "id": "minimal",
+          "ko": "미니멀리즘",
+          "en": "Minimalism",
+          "note": "절제된 요소와 넓은 여백"
+        },
+        {
+          "id": "swiss",
+          "ko": "스위스 모더니즘",
+          "en": "Swiss Modernism",
+          "note": "grid, 질서, 객관적 typography"
+        },
+        {
+          "id": "bauhaus",
+          "ko": "바우하우스",
+          "en": "Bauhaus",
+          "note": "기능 중심의 기하학과 원색"
+        },
+        {
+          "id": "artDeco",
+          "ko": "아르데코",
+          "en": "Art Deco",
+          "note": "대칭, 계단형 geometry, 절제된 장식"
+        },
+        {
+          "id": "scandinavian",
+          "ko": "스칸디나비안",
+          "en": "Scandinavian",
+          "note": "밝은 자연색과 따뜻한 기능주의"
+        },
+        {
+          "id": "brutalist",
+          "ko": "네오 브루탈리즘",
+          "en": "Neo-brutalism",
+          "note": "굵은 선과 hard shadow"
+        },
+        {
+          "id": "editorial",
+          "ko": "에디토리얼",
+          "en": "Editorial",
+          "note": "잡지식 hierarchy와 serif"
+        },
+        {
+          "id": "memphis",
+          "ko": "네오 멤피스",
+          "en": "Neo-Memphis",
+          "note": "원색과 playful geometry"
+        },
+        {
+          "id": "y2k",
+          "ko": "Y2K 퓨처리즘",
+          "en": "Y2K Futurism",
+          "note": "chrome과 낙관적 digital nostalgia"
+        },
+        {
+          "id": "cyberpunk",
+          "ko": "사이버펑크",
+          "en": "Cyberpunk",
+          "note": "neon, dense data, tech-noir"
+        },
+        {
+          "id": "frutiger",
+          "ko": "프루티거 에어로",
+          "en": "Frutiger Aero",
+          "note": "자연과 glossy technology"
+        },
+        {
+          "id": "terminal",
+          "ko": "터미널 레트로",
+          "en": "Terminal Retro",
+          "note": "monospace와 phosphor display"
+        },
+        {
+          "id": "luxury",
+          "ko": "럭셔리 미니멀",
+          "en": "Luxury Minimalism",
+          "note": "고급 serif와 절제된 금색"
+        },
+        {
+          "id": "organic",
+          "ko": "오가닉 바이오필릭",
+          "en": "Organic Biophilic",
+          "note": "자연색과 biomorphic curve"
+        },
+        {
+          "id": "vaporwave",
+          "ko": "베이퍼웨이브",
+          "en": "Vaporwave",
+          "note": "pink·violet·retro digital mood"
+        },
+        {
+          "id": "atlassian",
+          "ko": "아틀라시안 디자인",
+          "en": "Atlassian Design",
+          "note": "semantic token, compact workflow, 명확한 상태 hierarchy"
+        },
+        {
+          "id": "atlassianDark",
+          "ko": "아틀라시안 디자인 · 다크",
+          "en": "Atlassian Design · Dark",
+          "note": "dark neutral token과 밝은 brand·status role"
+        },
+        {
+          "id": "primer",
+          "ko": "깃허브 프라이머",
+          "en": "GitHub Primer",
+          "note": "compact product UI, subtle border, responsive content density"
+        },
+        {
+          "id": "primerDark",
+          "ko": "깃허브 프라이머 · 다크",
+          "en": "GitHub Primer · Dark",
+          "note": "Primer dark color mode와 high-contrast product controls"
+        },
+        {
+          "id": "sapHorizon",
+          "ko": "SAP 호라이즌 · 라이트",
+          "en": "SAP Horizon · Light",
+          "note": "Morning Horizon의 둥근 shape와 밝은 role-based enterprise shell"
+        },
+        {
+          "id": "sapHorizonDark",
+          "ko": "SAP 호라이즌 · 다크",
+          "en": "SAP Horizon · Dark",
+          "note": "Evening Horizon의 저조도 surface와 밝은 semantic foreground"
+        },
+        {
+          "id": "sapHorizonHcb",
+          "ko": "SAP 호라이즌 · 고대비 블랙",
+          "en": "SAP Horizon · HC Black",
+          "note": "Horizon geometry에 검은 canvas와 흰 경계를 적용한 접근성 theme"
+        },
+        {
+          "id": "sapHorizonHcw",
+          "ko": "SAP 호라이즌 · 고대비 화이트",
+          "en": "SAP Horizon · HC White",
+          "note": "Horizon geometry에 흰 canvas와 검은 경계를 적용한 접근성 theme"
+        },
+        {
+          "id": "sapQuartz",
+          "ko": "SAP 쿼츠 · 라이트",
+          "en": "SAP Quartz · Light",
+          "note": "Fiori 3의 compact geometry와 dark shell을 사용하는 Quartz Light"
+        },
+        {
+          "id": "sapQuartzDark",
+          "ko": "SAP 쿼츠 · 다크",
+          "en": "SAP Quartz · Dark",
+          "note": "Fiori 3의 compact geometry를 저조도 surface로 전환한 Quartz Dark"
+        },
+        {
+          "id": "sapQuartzHcb",
+          "ko": "SAP 쿼츠 · 고대비 블랙",
+          "en": "SAP Quartz · HC Black",
+          "note": "Quartz component grammar의 검은색 high-contrast accessibility theme"
+        },
+        {
+          "id": "sapQuartzHcw",
+          "ko": "SAP 쿼츠 · 고대비 화이트",
+          "en": "SAP Quartz · HC White",
+          "note": "Quartz component grammar의 흰색 high-contrast accessibility theme"
+        },
+        {
+          "id": "sapBelize",
+          "ko": "SAP 벨리즈 · 레거시",
+          "en": "SAP Belize · Legacy",
+          "note": "Fiori 2 시대의 blue gradient shell과 각진 field grammar"
+        },
+        {
+          "id": "material3",
+          "ko": "머티리얼 3",
+          "en": "Material 3",
+          "note": "Google의 tonal color, shape, elevation system"
+        },
+        {
+          "id": "material3Dark",
+          "ko": "머티리얼 3 · 다크",
+          "en": "Material 3 · Dark",
+          "note": "Material 3의 dark color role과 tonal elevation"
+        },
+        {
+          "id": "mui",
+          "ko": "MUI 머티리얼 UI",
+          "en": "MUI Material UI",
+          "note": "MUI의 React component 기본 문법과 Material Design 2 구현"
+        },
+        {
+          "id": "muiDark",
+          "ko": "MUI 머티리얼 UI · 다크",
+          "en": "MUI Material UI · Dark",
+          "note": "MUI dark theme의 paper, divider와 primary state"
+        },
+        {
+          "id": "fluent2",
+          "ko": "플루언트 2",
+          "en": "Fluent 2",
+          "note": "Microsoft의 focus, depth, adaptive UI"
+        },
+        {
+          "id": "fluent2Dark",
+          "ko": "플루언트 2 · 다크",
+          "en": "Fluent 2 · Dark",
+          "note": "Fluent 2의 dark alias token과 layered focus"
+        },
+        {
+          "id": "carbon",
+          "ko": "IBM 카본",
+          "en": "IBM Carbon",
+          "note": "2x Grid와 enterprise data density"
+        },
+        {
+          "id": "carbonDark",
+          "ko": "IBM 카본 · 다크",
+          "en": "IBM Carbon · Dark",
+          "note": "Carbon Gray 100 theme과 고밀도 data UI"
+        },
+        {
+          "id": "shadcn",
+          "ko": "shadcn/ui",
+          "en": "shadcn/ui",
+          "note": "Open Code, neutral token, composable component defaults"
+        },
+        {
+          "id": "shadcnDark",
+          "ko": "shadcn/ui · 다크",
+          "en": "shadcn/ui · Dark",
+          "note": "shadcn/ui의 neutral dark token과 compact component rhythm"
+        },
+        {
+          "id": "zag",
+          "ko": "Zag 쇼케이스",
+          "en": "Zag Showcase",
+          "note": "headless core와 구분한 official docs의 statechart 시각 문법"
+        },
+        {
+          "id": "tamagui",
+          "ko": "Tamagui",
+          "en": "Tamagui",
+          "note": "cross-platform token scale, nested theme, rounded composable UI"
+        },
+        {
+          "id": "tamaguiDark",
+          "ko": "Tamagui · 다크",
+          "en": "Tamagui · Dark",
+          "note": "dark nested theme과 spectral accent의 cross-platform UI"
+        },
+        {
+          "id": "nebular",
+          "ko": "Nebular Eva",
+          "en": "Nebular Eva",
+          "note": "Eva semantic color, compact enterprise card와 명확한 status state"
+        },
+        {
+          "id": "nebularDark",
+          "ko": "Nebular Eva · 다크",
+          "en": "Nebular Eva · Dark",
+          "note": "dark basic scale 위의 vivid semantic status hierarchy"
+        }
+      ]
+    },
+    {
+      "id": "surface",
+      "label": {
+        "ko": "표면",
+        "en": "Surface"
+      },
+      "options": [
+        {
+          "id": "flat",
+          "ko": "플랫",
+          "en": "Flat",
+          "note": "입체 효과 없는 명확한 면"
+        },
+        {
+          "id": "skeuo",
+          "ko": "스큐어모피즘",
+          "en": "Skeuomorphism",
+          "note": "현실 물성을 닮은 tactile control"
+        },
+        {
+          "id": "glass",
+          "ko": "글래스모피즘",
+          "en": "Glassmorphism",
+          "note": "blurred translucent glass"
+        },
+        {
+          "id": "acrylic",
+          "ko": "아크릴",
+          "en": "Acrylic",
+          "note": "색과 blur가 비치는 frosted material"
+        },
+        {
+          "id": "neumo",
+          "ko": "뉴모피즘",
+          "en": "Neumorphism",
+          "note": "soft embossed surface"
+        },
+        {
+          "id": "clay",
+          "ko": "클레이모피즘",
+          "en": "Claymorphism",
+          "note": "말랑하고 부푼 3D"
+        },
+        {
+          "id": "material",
+          "ko": "입체 페이퍼",
+          "en": "Elevated Paper",
+          "note": "얕은 shadow로 구분하는 범용 layered surface"
+        },
+        {
+          "id": "chrome",
+          "ko": "리퀴드 크롬",
+          "en": "Liquid Chrome",
+          "note": "반사되는 금속 surface"
+        },
+        {
+          "id": "paper",
+          "ko": "디지털 페이퍼",
+          "en": "Digital Paper",
+          "note": "인쇄물 같은 tactile texture"
+        },
+        {
+          "id": "eink",
+          "ko": "E-ink 페이퍼",
+          "en": "E-ink Paper",
+          "note": "저채도 고대비 digital paper"
+        },
+        {
+          "id": "glossy",
+          "ko": "웹 2.0 글로시",
+          "en": "Web 2.0 Gloss",
+          "note": "gel button과 specular highlight"
+        }
+      ]
+    },
+    {
+      "id": "layout",
+      "label": {
+        "ko": "구성",
+        "en": "Layout"
+      },
+      "options": [
+        {
+          "id": "landing",
+          "ko": "랜딩 내러티브",
+          "en": "Landing Narrative",
+          "note": "hero부터 CTA까지 이어지는 흐름"
+        },
+        {
+          "id": "bento",
+          "ko": "벤토 그리드",
+          "en": "Bento Grid",
+          "note": "크기가 다른 section의 조합"
+        },
+        {
+          "id": "cards",
+          "ko": "모듈러 카드",
+          "en": "Modular Cards",
+          "note": "독립된 동일 비중의 content module"
+        },
+        {
+          "id": "masonry",
+          "ko": "메이슨리",
+          "en": "Masonry Grid",
+          "note": "높이가 다른 module을 촘촘히 쌓는 구성"
+        },
+        {
+          "id": "editorial",
+          "ko": "에디토리얼",
+          "en": "Editorial Grid",
+          "note": "headline과 long-form reading rhythm"
+        },
+        {
+          "id": "split",
+          "ko": "스플릿 내러티브",
+          "en": "Split Narrative",
+          "note": "두 개의 강한 화면 영역"
+        },
+        {
+          "id": "dense",
+          "ko": "컴팩트 인덱스",
+          "en": "Compact Index",
+          "note": "작은 간격과 높은 콘텐츠 밀도"
+        },
+        {
+          "id": "dashboard",
+          "ko": "데이터 대시보드",
+          "en": "Data Dashboard",
+          "note": "KPI, chart, control을 집약한 화면"
+        },
+        {
+          "id": "masterDetail",
+          "ko": "마스터–디테일",
+          "en": "Master–detail",
+          "note": "목록과 선택 항목의 detail을 함께 표시"
+        },
+        {
+          "id": "poster",
+          "ko": "브로큰 그리드",
+          "en": "Broken Grid",
+          "note": "겹침과 비대칭 composition"
+        },
+        {
+          "id": "feed",
+          "ko": "콘텐츠 피드",
+          "en": "Content Feed",
+          "note": "반복되는 항목을 빠르게 탐색하는 responsive stream"
+        },
+        {
+          "id": "supportingPane",
+          "ko": "보조 패널",
+          "en": "Supporting Pane",
+          "note": "주요 콘텐츠와 맥락·도구를 2:1 pane으로 구성"
+        },
+        {
+          "id": "table",
+          "ko": "데이터 테이블",
+          "en": "Data Table",
+          "note": "행과 열 중심의 비교·정렬·탐색 화면"
+        },
+        {
+          "id": "wizard",
+          "ko": "단계형 흐름",
+          "en": "Wizard Flow",
+          "note": "하나의 과업을 순차 단계로 나누는 구성"
+        }
+      ]
+    },
+    {
+      "id": "nav",
+      "label": {
+        "ko": "메뉴 위치",
+        "en": "Navigation"
+      },
+      "options": [
+        {
+          "id": "top",
+          "ko": "상단 메뉴",
+          "en": "Top Navigation",
+          "note": "콘텐츠 위의 horizontal navigation"
+        },
+        {
+          "id": "left",
+          "ko": "좌측 메뉴",
+          "en": "Left Navigation",
+          "note": "페이지 전체를 관통하는 vertical rail"
+        }
+      ]
+    },
+    {
+      "id": "navStyle",
+      "label": {
+        "ko": "메뉴 표현",
+        "en": "Menu Style"
+      },
+      "options": [
+        {
+          "id": "text",
+          "ko": "텍스트",
+          "en": "Text",
+          "note": "명확한 텍스트 label 중심의 메뉴"
+        },
+        {
+          "id": "icon",
+          "ko": "아이콘",
+          "en": "Icon",
+          "note": "공간을 절약하는 symbol 중심의 메뉴"
+        },
+        {
+          "id": "both",
+          "ko": "아이콘 + 텍스트",
+          "en": "Icon + Text",
+          "note": "symbol과 label을 함께 제공하는 메뉴"
+        }
+      ]
+    },
+    {
+      "id": "type",
+      "label": {
+        "ko": "영문 서체",
+        "en": "Latin Type"
+      },
+      "options": [
+        {
+          "id": "grotesk",
+          "ko": "네오 그로테스크",
+          "en": "Neo-grotesk",
+          "note": "중립적이고 정돈된 sans"
+        },
+        {
+          "id": "humanist",
+          "ko": "휴머니스트 산스",
+          "en": "Humanist Sans",
+          "note": "친근하고 읽기 쉬운 sans"
+        },
+        {
+          "id": "serif",
+          "ko": "에디토리얼 세리프",
+          "en": "Editorial Serif",
+          "note": "대조가 큰 고전적 serif"
+        },
+        {
+          "id": "mono",
+          "ko": "모노스페이스",
+          "en": "Monospace",
+          "note": "기술적이고 구조적인 rhythm"
+        },
+        {
+          "id": "rounded",
+          "ko": "라운디드 산스",
+          "en": "Rounded Sans",
+          "note": "부드럽고 playful한 인상"
+        },
+        {
+          "id": "condensed",
+          "ko": "콘덴스드 디스플레이",
+          "en": "Condensed Display",
+          "note": "좁고 강한 headline"
+        },
+        {
+          "id": "slab",
+          "ko": "슬랩 세리프",
+          "en": "Slab Serif",
+          "note": "굵은 획과 editorial 힘"
+        },
+        {
+          "id": "pixel",
+          "ko": "픽셀 타입",
+          "en": "Pixel Type",
+          "note": "초기 digital display 분위기"
+        }
+      ]
+    },
+    {
+      "id": "koType",
+      "label": {
+        "ko": "한글 서체",
+        "en": "Korean Type"
+      },
+      "options": [
+        {
+          "id": "plex",
+          "ko": "IBM 플렉스 산스 KR",
+          "en": "IBM Plex Sans KR",
+          "note": "중립적이고 구조적인 현대 고딕"
+        },
+        {
+          "id": "pretendard",
+          "ko": "프리텐다드",
+          "en": "Pretendard",
+          "note": "한국 웹 UI에 널리 쓰이는 현대적 system-ui 대체 서체"
+        },
+        {
+          "id": "suit",
+          "ko": "수트",
+          "en": "SUIT",
+          "note": "화면 본문과 인터페이스에 최적화된 균형 잡힌 고딕"
+        },
+        {
+          "id": "noto",
+          "ko": "노토 산스 KR",
+          "en": "Noto Sans KR",
+          "note": "폭넓은 글자 지원과 안정적인 다국어 리듬"
+        },
+        {
+          "id": "spoqa",
+          "ko": "스포카 한 산스 네오",
+          "en": "Spoqa Han Sans Neo",
+          "note": "숫자와 다국어 UI의 균형을 다듬은 웹 고딕"
+        },
+        {
+          "id": "nanum",
+          "ko": "나눔고딕",
+          "en": "Nanum Gothic",
+          "note": "오랫동안 웹 본문에 사용된 친숙한 고딕"
+        },
+        {
+          "id": "gowun",
+          "ko": "고운 돋움",
+          "en": "Gowun Dodum",
+          "note": "부드러운 획과 편안한 본문 리듬"
+        },
+        {
+          "id": "jua",
+          "ko": "주아 라운드",
+          "en": "Jua Rounded",
+          "note": "둥글고 친근한 display 고딕"
+        },
+        {
+          "id": "coding",
+          "ko": "나눔고딕 코딩",
+          "en": "Nanum Gothic Coding",
+          "note": "한글과 Latin 폭을 정돈한 coding 고딕"
+        },
+        {
+          "id": "blackhan",
+          "ko": "검은고딕",
+          "en": "Black Han Sans",
+          "note": "굵고 압축적인 headline 고딕"
+        }
+      ]
+    },
+    {
+      "id": "fontMode",
+      "label": {
+        "ko": "서체 적용",
+        "en": "Type Binding"
+      },
+      "options": [
+        {
+          "id": "split",
+          "ko": "스크립트 페어링",
+          "en": "Script Pairing",
+          "note": "Latin은 영문 서체, 한글은 한글 서체로 분리"
+        },
+        {
+          "id": "koUnified",
+          "ko": "한글 서체 통합",
+          "en": "Korean Unified",
+          "note": "선택한 한글 서체 하나로 Latin과 한글을 모두 표현"
+        }
+      ]
+    },
+    {
+      "id": "palette",
+      "label": {
+        "ko": "색상",
+        "en": "Palette"
+      },
+      "options": [
+        {
+          "id": "cobalt",
+          "ko": "코발트",
+          "en": "Cobalt",
+          "note": "blue와 electric violet"
+        },
+        {
+          "id": "mono",
+          "ko": "모노",
+          "en": "Monochrome",
+          "note": "black, white, neutral grey"
+        },
+        {
+          "id": "pureWhite",
+          "ko": "퓨어 화이트",
+          "en": "Pure White",
+          "note": "white surface와 near-black typography"
+        },
+        {
+          "id": "enterpriseNavy",
+          "ko": "엔터프라이즈 네이비",
+          "en": "Enterprise Navy",
+          "note": "navy navigation과 porcelain-white canvas의 강한 대비"
+        },
+        {
+          "id": "enterpriseEvergreen",
+          "ko": "엔터프라이즈 에버그린",
+          "en": "Enterprise Evergreen",
+          "note": "evergreen navigation과 frost-white canvas의 차분한 대비"
+        },
+        {
+          "id": "enterpriseBurgundy",
+          "ko": "엔터프라이즈 버건디",
+          "en": "Enterprise Burgundy",
+          "note": "burgundy navigation과 pearl-white canvas의 따뜻한 대비"
+        },
+        {
+          "id": "enterpriseGraphite",
+          "ko": "엔터프라이즈 그래파이트",
+          "en": "Enterprise Graphite",
+          "note": "graphite navigation과 snow-white canvas의 중립적 대비"
+        },
+        {
+          "id": "primary",
+          "ko": "프라이머리",
+          "en": "Primary",
+          "note": "red, blue, yellow"
+        },
+        {
+          "id": "citrus",
+          "ko": "시트러스",
+          "en": "Citrus",
+          "note": "lime, tangerine, yellow"
+        },
+        {
+          "id": "candy",
+          "ko": "캔디",
+          "en": "Candy",
+          "note": "pink, lavender, cyan"
+        },
+        {
+          "id": "forest",
+          "ko": "포레스트",
+          "en": "Forest",
+          "note": "moss, leaf, warm earth"
+        },
+        {
+          "id": "sunset",
+          "ko": "선셋",
+          "en": "Sunset",
+          "note": "coral, orange, purple"
+        },
+        {
+          "id": "noir",
+          "ko": "누아르",
+          "en": "Noir",
+          "note": "black, ivory, restrained gold"
+        },
+        {
+          "id": "aurora",
+          "ko": "오로라",
+          "en": "Aurora",
+          "note": "cyan, violet, luminous green"
+        },
+        {
+          "id": "aqua",
+          "ko": "아쿠아",
+          "en": "Aqua",
+          "note": "sky, water, clean green"
+        },
+        {
+          "id": "bentoPastel",
+          "ko": "벤토 파스텔",
+          "en": "Bento Pastel",
+          "note": "deep navy와 cobalt, coral, mint pastel"
+        },
+        {
+          "id": "bauhaus",
+          "ko": "바우하우스",
+          "en": "Bauhaus",
+          "note": "black, white, red, blue, yellow"
+        },
+        {
+          "id": "deco",
+          "ko": "데코 나이트",
+          "en": "Deco Night",
+          "note": "midnight, ivory, champagne gold"
+        },
+        {
+          "id": "nordic",
+          "ko": "노르딕",
+          "en": "Nordic",
+          "note": "birch, fog, sage, muted blue"
+        },
+        {
+          "id": "atlassian",
+          "ko": "아틀라시안 라이트",
+          "en": "Atlassian Light",
+          "note": "brand blue, neutral surface, semantic status role"
+        },
+        {
+          "id": "atlassianDark",
+          "ko": "아틀라시안 다크",
+          "en": "Atlassian Dark",
+          "note": "dark neutral surface와 밝은 blue·status role"
+        },
+        {
+          "id": "primer",
+          "ko": "프라이머 라이트",
+          "en": "Primer Light",
+          "note": "GitHub canvas, blue accent와 green primary·success role"
+        },
+        {
+          "id": "primerDark",
+          "ko": "프라이머 다크",
+          "en": "Primer Dark",
+          "note": "GitHub dark canvas와 accessible action role"
+        },
+        {
+          "id": "sapHorizon",
+          "ko": "모닝 호라이즌",
+          "en": "Morning Horizon",
+          "note": "white shell, vibrant blue action과 밝은 enterprise content surface"
+        },
+        {
+          "id": "sapHorizonDark",
+          "ko": "이브닝 호라이즌",
+          "en": "Evening Horizon",
+          "note": "near-black shell과 vibrant foreground의 low-light theme"
+        },
+        {
+          "id": "sapHorizonHcb",
+          "ko": "호라이즌 고대비 블랙",
+          "en": "Horizon HC Black",
+          "note": "black canvas, white boundary와 high-contrast semantic state"
+        },
+        {
+          "id": "sapHorizonHcw",
+          "ko": "호라이즌 고대비 화이트",
+          "en": "Horizon HC White",
+          "note": "white canvas, black boundary와 high-contrast semantic state"
+        },
+        {
+          "id": "sapQuartz",
+          "ko": "쿼츠 라이트",
+          "en": "Quartz Light",
+          "note": "navy shell, neutral white content와 Fiori 3 blue action"
+        },
+        {
+          "id": "sapQuartzDark",
+          "ko": "쿼츠 다크",
+          "en": "Quartz Dark",
+          "note": "navy shell과 layered charcoal enterprise surface"
+        },
+        {
+          "id": "sapQuartzHcb",
+          "ko": "쿼츠 고대비 블랙",
+          "en": "Quartz HC Black",
+          "note": "Quartz component를 위한 black high-contrast token set"
+        },
+        {
+          "id": "sapQuartzHcw",
+          "ko": "쿼츠 고대비 화이트",
+          "en": "Quartz HC White",
+          "note": "Quartz component를 위한 white high-contrast token set"
+        },
+        {
+          "id": "sapBelize",
+          "ko": "벨리즈",
+          "en": "Belize",
+          "note": "blue gradient shell과 Fiori 2 legacy content colors"
+        },
+        {
+          "id": "materialDynamic",
+          "ko": "다이내믹 토널",
+          "en": "Dynamic Tonal",
+          "note": "primary, secondary, tertiary tonal roles"
+        },
+        {
+          "id": "materialDark",
+          "ko": "머티리얼 다크",
+          "en": "Material Dark",
+          "note": "dark surface와 밝은 tonal color role"
+        },
+        {
+          "id": "mui",
+          "ko": "MUI 기본",
+          "en": "MUI Default",
+          "note": "MUI Material UI의 blue primary와 neutral paper role"
+        },
+        {
+          "id": "muiDark",
+          "ko": "MUI 다크",
+          "en": "MUI Dark",
+          "note": "MUI dark theme의 dark paper와 밝은 blue primary role"
+        },
+        {
+          "id": "fluent",
+          "ko": "플루언트 블루",
+          "en": "Fluent Blue",
+          "note": "Microsoft blue와 cool neutral"
+        },
+        {
+          "id": "fluentDark",
+          "ko": "플루언트 다크",
+          "en": "Fluent Dark",
+          "note": "dark neutral alias와 밝은 brand blue"
+        },
+        {
+          "id": "carbon",
+          "ko": "카본 블루",
+          "en": "Carbon Blue",
+          "note": "IBM blue와 grey 10–100"
+        },
+        {
+          "id": "carbonDark",
+          "ko": "카본 Gray 100",
+          "en": "Carbon Gray 100",
+          "note": "Gray 100 surface와 accessible IBM blue"
+        },
+        {
+          "id": "zincDark",
+          "ko": "징크 다크",
+          "en": "Zinc Dark",
+          "note": "near-black zinc와 high-contrast neutral"
+        },
+        {
+          "id": "zag",
+          "ko": "Zag 그린",
+          "en": "Zag Green",
+          "note": "charcoal canvas, white type와 state-machine green"
+        },
+        {
+          "id": "tamagui",
+          "ko": "Tamagui 라이트",
+          "en": "Tamagui Light",
+          "note": "neutral canvas와 cyan·green·rose spectral role"
+        },
+        {
+          "id": "tamaguiDark",
+          "ko": "Tamagui 다크",
+          "en": "Tamagui Dark",
+          "note": "near-black canvas와 luminous nested-theme accent"
+        },
+        {
+          "id": "nebular",
+          "ko": "Nebular 기본",
+          "en": "Nebular Default",
+          "note": "Eva blue, basic neutral scale와 semantic green"
+        },
+        {
+          "id": "nebularDark",
+          "ko": "Nebular 다크",
+          "en": "Nebular Dark",
+          "note": "deep navy basic scale와 vivid semantic roles"
+        }
+      ]
+    },
+    {
+      "id": "motion",
+      "label": {
+        "ko": "움직임",
+        "en": "Motion"
+      },
+      "options": [
+        {
+          "id": "quiet",
+          "ko": "콰이어트",
+          "en": "Quiet",
+          "note": "motion을 거의 사용하지 않음"
+        },
+        {
+          "id": "subtle",
+          "ko": "서틀",
+          "en": "Subtle",
+          "note": "짧고 기능적인 feedback"
+        },
+        {
+          "id": "kinetic",
+          "ko": "키네틱",
+          "en": "Kinetic",
+          "note": "크고 탄성 있는 transition"
+        },
+        {
+          "id": "productive",
+          "ko": "프로덕티브",
+          "en": "Productive",
+          "note": "빠르고 효율적인 상태·elevation feedback"
+        },
+        {
+          "id": "staged",
+          "ko": "스테이지드",
+          "en": "Staged",
+          "note": "콘텐츠 hierarchy를 순차적으로 드러내는 choreography"
+        },
+        {
+          "id": "spring",
+          "ko": "스프링",
+          "en": "Spring Physics",
+          "note": "물리 기반 감속과 절제된 overshoot"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "id": "glass-bento",
+      "name": "Glass Field",
+      "label": "투명한 여행 저널",
+      "category": "Contemporary",
+      "selection": {
+        "aesthetic": "minimal",
+        "surface": "glass",
+        "layout": "bento",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "grotesk",
+        "koType": "plex",
+        "fontMode": "split",
+        "palette": "pureWhite",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "neo-brutal",
+      "name": "Primary Brutal",
+      "label": "강한 독립 출판물",
+      "category": "Expressive",
+      "selection": {
+        "aesthetic": "brutalist",
+        "surface": "flat",
+        "layout": "landing",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "condensed",
+        "koType": "blackhan",
+        "fontMode": "koUnified",
+        "palette": "primary",
+        "motion": "kinetic"
+      }
+    },
+    {
+      "id": "soft-neumo",
+      "name": "Soft Neumorphic",
+      "label": "차분한 wellness journal",
+      "category": "Morphism",
+      "selection": {
+        "aesthetic": "minimal",
+        "surface": "neumo",
+        "layout": "cards",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "pureWhite",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "swiss-flat",
+      "name": "Swiss Archive",
+      "label": "grid로 정리한 field archive",
+      "category": "Modernist",
+      "selection": {
+        "aesthetic": "swiss",
+        "surface": "flat",
+        "layout": "dense",
+        "nav": "left",
+        "navStyle": "text",
+        "type": "grotesk",
+        "koType": "plex",
+        "fontMode": "split",
+        "palette": "mono",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "bauhaus-function",
+      "name": "Bauhaus Function",
+      "label": "기하학으로 정리한 기능적 archive",
+      "category": "Lineage",
+      "selection": {
+        "aesthetic": "bauhaus",
+        "surface": "flat",
+        "layout": "bento",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "plex",
+        "fontMode": "split",
+        "palette": "bauhaus",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "deco-night",
+      "name": "Deco Night",
+      "label": "대칭과 금빛 선으로 만든 야간 edition",
+      "category": "Lineage",
+      "selection": {
+        "aesthetic": "artDeco",
+        "surface": "flat",
+        "layout": "poster",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "serif",
+        "koType": "gowun",
+        "fontMode": "split",
+        "palette": "deco",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "nordic-field",
+      "name": "Nordic Field",
+      "label": "밝은 목재색과 차분한 정보 rhythm",
+      "category": "Lineage",
+      "selection": {
+        "aesthetic": "scandinavian",
+        "surface": "paper",
+        "layout": "masonry",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "koUnified",
+        "palette": "nordic",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "editorial-luxury",
+      "name": "Editorial Noir",
+      "label": "절제된 luxury journal",
+      "category": "Editorial",
+      "selection": {
+        "aesthetic": "luxury",
+        "surface": "paper",
+        "layout": "editorial",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "serif",
+        "koType": "gowun",
+        "fontMode": "split",
+        "palette": "noir",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "y2k-chrome",
+      "name": "Y2K Chrome",
+      "label": "2000년대의 미래",
+      "category": "Retro",
+      "selection": {
+        "aesthetic": "y2k",
+        "surface": "chrome",
+        "layout": "poster",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "rounded",
+        "koType": "jua",
+        "fontMode": "split",
+        "palette": "aurora",
+        "motion": "kinetic"
+      }
+    },
+    {
+      "id": "cyber-hud",
+      "name": "Cyber Trail",
+      "label": "neon expedition index",
+      "category": "Futurist",
+      "selection": {
+        "aesthetic": "cyberpunk",
+        "surface": "glass",
+        "layout": "dense",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "mono",
+        "koType": "coding",
+        "fontMode": "split",
+        "palette": "aurora",
+        "motion": "kinetic"
+      }
+    },
+    {
+      "id": "atlassian-work",
+      "name": "Atlassian Work",
+      "label": "semantic token과 compact workflow",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "atlassian",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "atlassian",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "atlassian-night",
+      "name": "Atlassian Night",
+      "label": "dark neutral과 밝은 brand·status role",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "atlassianDark",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "atlassianDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "primer-repository",
+      "name": "Primer Repository",
+      "label": "subtle border와 compact product UI",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "primer",
+        "surface": "flat",
+        "layout": "dense",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "primer",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "primer-night",
+      "name": "Primer Night",
+      "label": "GitHub dark canvas와 accessible action state",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "primerDark",
+        "surface": "flat",
+        "layout": "dense",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "primerDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "sap-horizon-morning",
+      "name": "SAP Morning Horizon",
+      "label": "rounded current-generation Fiori shell",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "sapHorizon",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapHorizon",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "sap-horizon-evening",
+      "name": "SAP Evening Horizon",
+      "label": "low-light surface와 vibrant foreground",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "sapHorizonDark",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapHorizonDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "sap-horizon-hcb",
+      "name": "Horizon HC Black",
+      "label": "black canvas와 white accessibility boundary",
+      "category": "Accessibility",
+      "selection": {
+        "aesthetic": "sapHorizonHcb",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapHorizonHcb",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "sap-horizon-hcw",
+      "name": "Horizon HC White",
+      "label": "white canvas와 black accessibility boundary",
+      "category": "Accessibility",
+      "selection": {
+        "aesthetic": "sapHorizonHcw",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapHorizonHcw",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "sap-quartz-light",
+      "name": "SAP Quartz Light",
+      "label": "compact Fiori 3 geometry와 navy shell",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "sapQuartz",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapQuartz",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "sap-quartz-dark",
+      "name": "SAP Quartz Dark",
+      "label": "compact geometry와 layered charcoal surface",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "sapQuartzDark",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapQuartzDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "sap-quartz-hcb",
+      "name": "Quartz HC Black",
+      "label": "Fiori 3 black high-contrast workspace",
+      "category": "Accessibility",
+      "selection": {
+        "aesthetic": "sapQuartzHcb",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapQuartzHcb",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "sap-quartz-hcw",
+      "name": "Quartz HC White",
+      "label": "Fiori 3 white high-contrast workspace",
+      "category": "Accessibility",
+      "selection": {
+        "aesthetic": "sapQuartzHcw",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapQuartzHcw",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "sap-belize-legacy",
+      "name": "SAP Belize Legacy",
+      "label": "gradient shell과 Fiori 2 field grammar",
+      "category": "Lineage",
+      "selection": {
+        "aesthetic": "sapBelize",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "sapBelize",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "material-you",
+      "name": "Material 3",
+      "label": "tonal color와 rounded component",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "material3",
+        "surface": "material",
+        "layout": "cards",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "materialDynamic",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "material-night",
+      "name": "Material Night",
+      "label": "dark tonal role과 부드러운 elevation",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "material3Dark",
+        "surface": "material",
+        "layout": "cards",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "materialDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "mui-dashboard",
+      "name": "MUI Dashboard",
+      "label": "Material UI의 paper와 compact React component rhythm",
+      "category": "Component Library",
+      "selection": {
+        "aesthetic": "mui",
+        "surface": "material",
+        "layout": "dashboard",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "noto",
+        "fontMode": "split",
+        "palette": "mui",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "mui-dashboard-dark",
+      "name": "MUI Dashboard Dark",
+      "label": "MUI dark paper와 primary state",
+      "category": "Component Library",
+      "selection": {
+        "aesthetic": "muiDark",
+        "surface": "material",
+        "layout": "dashboard",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "noto",
+        "fontMode": "split",
+        "palette": "muiDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "fluent-focus",
+      "name": "Fluent Focus",
+      "label": "layered focus와 adaptive productivity",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "fluent2",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "fluent",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "fluent-night",
+      "name": "Fluent Night",
+      "label": "dark alias token과 밝은 focus layer",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "fluent2Dark",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "fluentDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "carbon-operations",
+      "name": "Carbon Operations",
+      "label": "2x Grid 기반의 enterprise dashboard",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "carbon",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "plex",
+        "fontMode": "split",
+        "palette": "carbon",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "carbon-night",
+      "name": "Carbon Gray 100",
+      "label": "Gray 100 기반의 고밀도 operations",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "carbonDark",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "plex",
+        "fontMode": "split",
+        "palette": "carbonDark",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "shadcn-neutral",
+      "name": "shadcn/ui Neutral",
+      "label": "white canvas와 composable dashboard",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "shadcn",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "pureWhite",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "shadcn-night",
+      "name": "shadcn/ui Dark",
+      "label": "zinc dark와 compact component rhythm",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "shadcnDark",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "zincDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "zag-statecharts",
+      "name": "Zag Statecharts",
+      "label": "official showcase의 dark canvas와 machine-state flow",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "zag",
+        "surface": "flat",
+        "layout": "landing",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "zag",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "tamagui-adaptive",
+      "name": "Tamagui Adaptive",
+      "label": "nested theme과 rounded cross-platform token rhythm",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "tamagui",
+        "surface": "material",
+        "layout": "landing",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "mono",
+        "koType": "coding",
+        "fontMode": "split",
+        "palette": "tamagui",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "tamagui-night",
+      "name": "Tamagui Night",
+      "label": "near-black canvas와 spectral theme accent",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "tamaguiDark",
+        "surface": "material",
+        "layout": "landing",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "mono",
+        "koType": "coding",
+        "fontMode": "split",
+        "palette": "tamaguiDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "nebular-eva",
+      "name": "Nebular Eva",
+      "label": "semantic blue와 compact enterprise component state",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "nebular",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "noto",
+        "fontMode": "split",
+        "palette": "nebular",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "nebular-night",
+      "name": "Nebular Dark",
+      "label": "deep navy basic scale와 vivid status hierarchy",
+      "category": "Design System",
+      "selection": {
+        "aesthetic": "nebularDark",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "noto",
+        "fontMode": "split",
+        "palette": "nebularDark",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "memphis-pop",
+      "name": "Memphis Pop",
+      "label": "playful creative tools",
+      "category": "Expressive",
+      "selection": {
+        "aesthetic": "memphis",
+        "surface": "flat",
+        "layout": "bento",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "slab",
+        "koType": "jua",
+        "fontMode": "koUnified",
+        "palette": "primary",
+        "motion": "kinetic"
+      }
+    },
+    {
+      "id": "frutiger-gloss",
+      "name": "Aero Optimism",
+      "label": "nature meets glossy web",
+      "category": "Retro",
+      "selection": {
+        "aesthetic": "frutiger",
+        "surface": "glossy",
+        "layout": "landing",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "gowun",
+        "fontMode": "koUnified",
+        "palette": "aqua",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "terminal-green",
+      "name": "Terminal 84",
+      "label": "phosphor field log",
+      "category": "Retro",
+      "selection": {
+        "aesthetic": "terminal",
+        "surface": "flat",
+        "layout": "dense",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "pixel",
+        "koType": "coding",
+        "fontMode": "koUnified",
+        "palette": "forest",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "paper-report",
+      "name": "Paper Report",
+      "label": "printed annual report",
+      "category": "Editorial",
+      "selection": {
+        "aesthetic": "editorial",
+        "surface": "paper",
+        "layout": "editorial",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "serif",
+        "koType": "gowun",
+        "fontMode": "split",
+        "palette": "sunset",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "clay-candy",
+      "name": "Candy Clay",
+      "label": "말랑한 onboarding",
+      "category": "Morphism",
+      "selection": {
+        "aesthetic": "organic",
+        "surface": "clay",
+        "layout": "cards",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "rounded",
+        "koType": "jua",
+        "fontMode": "koUnified",
+        "palette": "candy",
+        "motion": "kinetic"
+      }
+    },
+    {
+      "id": "adaptive-feed",
+      "name": "Adaptive Feed",
+      "label": "responsive content stream과 빠른 productive feedback",
+      "category": "Layout",
+      "selection": {
+        "aesthetic": "fluent2",
+        "surface": "acrylic",
+        "layout": "feed",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "fluent",
+        "motion": "productive"
+      }
+    },
+    {
+      "id": "supporting-workspace",
+      "name": "Supporting Workspace",
+      "label": "주요 작업과 contextual pane의 2:1 composition",
+      "category": "Layout",
+      "selection": {
+        "aesthetic": "material3",
+        "surface": "material",
+        "layout": "supportingPane",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "materialDynamic",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "operations-table",
+      "name": "Operations Table",
+      "label": "scannable rows와 빠른 상태 비교",
+      "category": "Layout",
+      "selection": {
+        "aesthetic": "carbon",
+        "surface": "flat",
+        "layout": "table",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "mono",
+        "koType": "plex",
+        "fontMode": "split",
+        "palette": "carbon",
+        "motion": "productive"
+      }
+    },
+    {
+      "id": "guided-wizard",
+      "name": "Guided Wizard",
+      "label": "한 단계씩 집중시키는 sequential task flow",
+      "category": "Layout",
+      "selection": {
+        "aesthetic": "fluent2",
+        "surface": "material",
+        "layout": "wizard",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "fluent",
+        "motion": "staged"
+      }
+    },
+    {
+      "id": "spring-canvas",
+      "name": "Spring Canvas",
+      "label": "rounded token UI와 절제된 physics response",
+      "category": "Motion",
+      "selection": {
+        "aesthetic": "tamagui",
+        "surface": "material",
+        "layout": "cards",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "mono",
+        "koType": "coding",
+        "fontMode": "split",
+        "palette": "tamagui",
+        "motion": "spring"
+      }
+    },
+    {
+      "id": "corporate-clean",
+      "name": "Navy Workspace",
+      "label": "navy rail과 white canvas의 enterprise UI",
+      "category": "System",
+      "selection": {
+        "aesthetic": "shadcn",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "text",
+        "type": "grotesk",
+        "koType": "plex",
+        "fontMode": "split",
+        "palette": "enterpriseNavy",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "evergreen-workspace",
+      "name": "Evergreen Workspace",
+      "label": "evergreen rail과 frost canvas의 차분한 operations UI",
+      "category": "System",
+      "selection": {
+        "aesthetic": "fluent2",
+        "surface": "flat",
+        "layout": "masterDetail",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "suit",
+        "fontMode": "split",
+        "palette": "enterpriseEvergreen",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "burgundy-workspace",
+      "name": "Burgundy Workspace",
+      "label": "burgundy rail과 pearl canvas의 따뜻한 service UI",
+      "category": "System",
+      "selection": {
+        "aesthetic": "fluent2",
+        "surface": "material",
+        "layout": "cards",
+        "nav": "left",
+        "navStyle": "text",
+        "type": "grotesk",
+        "koType": "pretendard",
+        "fontMode": "split",
+        "palette": "enterpriseBurgundy",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "graphite-workspace",
+      "name": "Graphite Workspace",
+      "label": "graphite rail과 snow canvas의 중립적 data UI",
+      "category": "System",
+      "selection": {
+        "aesthetic": "carbon",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "mono",
+        "koType": "plex",
+        "fontMode": "split",
+        "palette": "enterpriseGraphite",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "vapor-grid",
+      "name": "Vapor Grid",
+      "label": "dreamy retro travel page",
+      "category": "Retro",
+      "selection": {
+        "aesthetic": "vaporwave",
+        "surface": "glass",
+        "layout": "poster",
+        "nav": "top",
+        "navStyle": "icon",
+        "type": "mono",
+        "koType": "coding",
+        "fontMode": "split",
+        "palette": "candy",
+        "motion": "kinetic"
+      }
+    },
+    {
+      "id": "organic-calm",
+      "name": "Organic Calm",
+      "label": "wellness와 quiet data",
+      "category": "Nature",
+      "selection": {
+        "aesthetic": "organic",
+        "surface": "paper",
+        "layout": "bento",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "humanist",
+        "koType": "gowun",
+        "fontMode": "koUnified",
+        "palette": "forest",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "citrus-split",
+      "name": "Citrus Split",
+      "label": "energetic commerce",
+      "category": "Expressive",
+      "selection": {
+        "aesthetic": "swiss",
+        "surface": "flat",
+        "layout": "split",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "condensed",
+        "koType": "blackhan",
+        "fontMode": "split",
+        "palette": "citrus",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "skeuo-utility",
+      "name": "Skeuo Utility",
+      "label": "촉각적 control로 되살린 desktop tool",
+      "category": "Retro",
+      "selection": {
+        "aesthetic": "y2k",
+        "surface": "skeuo",
+        "layout": "dashboard",
+        "nav": "left",
+        "navStyle": "both",
+        "type": "rounded",
+        "koType": "jua",
+        "fontMode": "split",
+        "palette": "aqua",
+        "motion": "subtle"
+      }
+    },
+    {
+      "id": "eink-fieldbook",
+      "name": "E-ink Fieldbook",
+      "label": "저채도 digital paper로 읽는 현장 기록",
+      "category": "Editorial",
+      "selection": {
+        "aesthetic": "editorial",
+        "surface": "eink",
+        "layout": "masterDetail",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "serif",
+        "koType": "gowun",
+        "fontMode": "split",
+        "palette": "mono",
+        "motion": "quiet"
+      }
+    }
+  ],
+  "reviewPacks": [
+    {
+      "id": "official-systems",
+      "name": "Official design systems",
+      "purpose": "Compare documented company systems without losing each system's native defaults.",
+      "presetIds": [
+        "atlassian-work",
+        "atlassian-night",
+        "primer-repository",
+        "primer-night",
+        "sap-horizon-morning",
+        "sap-horizon-evening",
+        "sap-quartz-light",
+        "sap-quartz-dark",
+        "material-you",
+        "material-night",
+        "mui-dashboard",
+        "mui-dashboard-dark",
+        "fluent-focus",
+        "fluent-night",
+        "carbon-operations",
+        "carbon-night",
+        "shadcn-neutral",
+        "shadcn-night",
+        "zag-statecharts",
+        "tamagui-adaptive",
+        "tamagui-night",
+        "nebular-eva",
+        "nebular-night"
+      ]
+    },
+    {
+      "id": "layout-and-motion",
+      "name": "Layout and motion",
+      "purpose": "Compare structural page patterns and interaction pacing on the same content.",
+      "presetIds": [
+        "adaptive-feed",
+        "supporting-workspace",
+        "operations-table",
+        "guided-wizard",
+        "spring-canvas"
+      ]
+    },
+    {
+      "id": "lineage-and-retro",
+      "name": "Historical and retro lineages",
+      "purpose": "Review historical graphic lineages and retrospective digital aesthetics.",
+      "presetIds": [
+        "swiss-flat",
+        "bauhaus-function",
+        "deco-night",
+        "nordic-field",
+        "y2k-chrome",
+        "sap-belize-legacy",
+        "frutiger-gloss",
+        "terminal-green",
+        "vapor-grid",
+        "skeuo-utility"
+      ]
+    },
+    {
+      "id": "accessibility-and-dark",
+      "name": "Accessibility and dark themes",
+      "purpose": "Review official high-contrast and dark-theme branches as separate governing aesthetics.",
+      "presetIds": [
+        "deco-night",
+        "atlassian-night",
+        "primer-night",
+        "sap-horizon-hcb",
+        "sap-horizon-hcw",
+        "sap-quartz-dark",
+        "sap-quartz-hcb",
+        "sap-quartz-hcw",
+        "material-night",
+        "mui-dashboard-dark",
+        "fluent-night",
+        "carbon-night",
+        "shadcn-night",
+        "tamagui-night",
+        "nebular-night"
+      ]
+    }
+  ],
+  "evidence": {
+    "aesthetic": {
+      "minimal": {
+        "kind": "documented-pattern",
+        "source": "Nielsen Norman Group · Visual hierarchy",
+        "url": "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/",
+        "claim": "Restraint, hierarchy, and whitespace—not a surface effect.",
+        "checkedAt": "2026-08-07"
+      },
+      "swiss": {
+        "kind": "institutional-history",
+        "source": "MoMA · International Typographic Style",
+        "url": "https://www.moma.org/collection/terms/international-typographic-style",
+        "claim": "Grid-led, objective typography and asymmetric order.",
+        "checkedAt": "2026-08-07"
+      },
+      "bauhaus": {
+        "kind": "institutional-history",
+        "source": "MoMA · Bauhaus",
+        "url": "https://www.moma.org/artists/716",
+        "claim": "Functional geometry and reduction of applied ornament.",
+        "checkedAt": "2026-08-07"
+      },
+      "artDeco": {
+        "kind": "institutional-history",
+        "source": "V&A · Art Deco",
+        "url": "https://www.vam.ac.uk/articles/an-introduction-to-art-deco",
+        "claim": "Symmetry, geometry, luxury materials, and ornament.",
+        "checkedAt": "2026-08-07"
+      },
+      "scandinavian": {
+        "kind": "institutional-history",
+        "source": "Encyclopaedia Britannica · Scandinavian design",
+        "url": "https://www.britannica.com/art/Scandinavian-design",
+        "claim": "Functional clarity, lightness, and natural materials.",
+        "checkedAt": "2026-08-07"
+      },
+      "brutalist": {
+        "kind": "community-term",
+        "source": "Brutalist Websites · Guidelines",
+        "url": "https://brutalistwebsites.com/",
+        "claim": "The lab implements the contemporary neo-brutalist border and offset-shadow branch.",
+        "checkedAt": "2026-08-07"
+      },
+      "editorial": {
+        "kind": "documented-pattern",
+        "source": "Nielsen Norman Group · Typography terms",
+        "url": "https://www.nngroup.com/articles/typography-terms-ux/",
+        "claim": "Reading hierarchy, columns, captions, and pull quotes.",
+        "checkedAt": "2026-08-07"
+      },
+      "memphis": {
+        "kind": "institutional-history",
+        "source": "V&A · Memphis Group",
+        "url": "https://www.vam.ac.uk/articles/memphis-design",
+        "claim": "Playful geometry, pattern, and high-chroma color.",
+        "checkedAt": "2026-08-07"
+      },
+      "y2k": {
+        "kind": "documented-pattern",
+        "source": "Web Design Museum · Y2K",
+        "url": "https://www.webdesignmuseum.org/exhibitions/y2k-aesthetic-in-web-design",
+        "claim": "Period web references for chrome, translucency, and techno optimism.",
+        "checkedAt": "2026-08-07"
+      },
+      "cyberpunk": {
+        "kind": "community-term",
+        "source": "CARI · Cyberpunk",
+        "url": "https://cari.institute/aesthetics/cyberpunk",
+        "claim": "A retrospective visual category; treated as an aesthetic rather than a formal design system.",
+        "checkedAt": "2026-08-07"
+      },
+      "frutiger": {
+        "kind": "community-term",
+        "source": "CARI · Frutiger Aero",
+        "url": "https://cari.institute/aesthetics/frutiger-aero",
+        "claim": "A retrospective name for glossy nature-and-technology optimism.",
+        "checkedAt": "2026-08-07"
+      },
+      "terminal": {
+        "kind": "documented-pattern",
+        "source": "IBM Carbon · Code",
+        "url": "https://carbondesignsystem.com/components/code/usage/",
+        "claim": "Monospaced, text-first command and code presentation.",
+        "checkedAt": "2026-08-07"
+      },
+      "luxury": {
+        "kind": "documented-pattern",
+        "source": "Nielsen Norman Group · Visual hierarchy",
+        "url": "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/",
+        "claim": "A curated combination of sparse hierarchy, display type, and restrained metallic accent.",
+        "checkedAt": "2026-08-07"
+      },
+      "organic": {
+        "kind": "documented-pattern",
+        "source": "Terrapin · 14 Patterns of Biophilic Design",
+        "url": "https://www.terrapinbrightgreen.com/reports/14-patterns/",
+        "claim": "Natural color, biomorphic form, and biophilic visual references.",
+        "checkedAt": "2026-08-07"
+      },
+      "vaporwave": {
+        "kind": "community-term",
+        "source": "CARI · Vaporwave",
+        "url": "https://cari.institute/aesthetics/vaporwave",
+        "claim": "A retrospective internet aesthetic, not an interface standard.",
+        "checkedAt": "2026-08-07"
+      },
+      "atlassian": {
+        "kind": "official-system",
+        "source": "Atlassian Design System · Foundations",
+        "url": "https://atlassian.design/foundations",
+        "claim": "Semantic tokens, accessible states, and product workflow conventions.",
+        "checkedAt": "2026-08-07"
+      },
+      "atlassianDark": {
+        "kind": "official-system",
+        "source": "Atlassian Design System · Color",
+        "url": "https://atlassian.design/foundations/color",
+        "claim": "Official dark semantic token roles.",
+        "checkedAt": "2026-08-07"
+      },
+      "primer": {
+        "kind": "official-system",
+        "source": "Primer · Foundations",
+        "url": "https://primer.style/product/getting-started/foundations/",
+        "claim": "GitHub product foundations, density, and semantic color roles.",
+        "checkedAt": "2026-08-07"
+      },
+      "primerDark": {
+        "kind": "official-system",
+        "source": "Primer · Color modes",
+        "url": "https://primer.style/product/primitives/color/",
+        "claim": "Primer dark color primitives and semantic roles.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapHorizon": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Morning Horizon is a distinct SAP visual theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapHorizonDark": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Evening Horizon is the official dark Horizon theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapHorizonHcb": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Horizon High Contrast Black is a separate accessibility theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapHorizonHcw": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Horizon High Contrast White is a separate accessibility theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapQuartz": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Quartz Light maps to the sap_fiori_3 theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapQuartzDark": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Quartz Dark maps to sap_fiori_3_dark.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapQuartzHcb": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Quartz High Contrast Black is a separate accessibility theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapQuartzHcw": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Quartz High Contrast White is a separate accessibility theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "sapBelize": {
+        "kind": "official-system",
+        "source": "SAP Fundamental Styles · Themes",
+        "url": "https://github.com/SAP/fundamental-styles#-theming",
+        "claim": "Belize is retained as the documented legacy theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "material3": {
+        "kind": "official-system",
+        "source": "Google · Material Design 3",
+        "url": "https://m3.material.io/",
+        "claim": "Google's current tonal color, shape, component, elevation, and motion system.",
+        "checkedAt": "2026-08-07"
+      },
+      "material3Dark": {
+        "kind": "official-system",
+        "source": "Android Developers · Material 3",
+        "url": "https://developer.android.com/develop/ui/compose/designsystems/material3",
+        "claim": "Material 3 dark roles use the same system with dark color and tonal elevation.",
+        "checkedAt": "2026-08-07"
+      },
+      "mui": {
+        "kind": "official-system",
+        "source": "MUI · Material UI",
+        "url": "https://mui.com/material-ui/",
+        "claim": "The MUI React component library currently implements Material Design 2.",
+        "checkedAt": "2026-08-07"
+      },
+      "muiDark": {
+        "kind": "official-system",
+        "source": "MUI · Dark mode",
+        "url": "https://mui.com/material-ui/customization/dark-mode/",
+        "claim": "MUI's documented dark palette and paper defaults.",
+        "checkedAt": "2026-08-07"
+      },
+      "fluent2": {
+        "kind": "official-system",
+        "source": "Microsoft · Fluent 2",
+        "url": "https://fluent2.microsoft.design/",
+        "claim": "Microsoft's tokenized, adaptive interface system.",
+        "checkedAt": "2026-08-07"
+      },
+      "fluent2Dark": {
+        "kind": "official-system",
+        "source": "Microsoft · Fluent 2 color",
+        "url": "https://fluent2.microsoft.design/color",
+        "claim": "Fluent dark alias tokens and accessible foreground roles.",
+        "checkedAt": "2026-08-07"
+      },
+      "carbon": {
+        "kind": "official-system",
+        "source": "IBM · Carbon Design System",
+        "url": "https://carbondesignsystem.com/",
+        "claim": "IBM's 2x Grid, data density, typography, and component conventions.",
+        "checkedAt": "2026-08-07"
+      },
+      "carbonDark": {
+        "kind": "official-system",
+        "source": "IBM Carbon · Themes",
+        "url": "https://carbondesignsystem.com/elements/themes/overview/",
+        "claim": "Gray 100 is an official Carbon theme.",
+        "checkedAt": "2026-08-07"
+      },
+      "shadcn": {
+        "kind": "official-system",
+        "source": "shadcn/ui · Theming",
+        "url": "https://ui.shadcn.com/docs/theming",
+        "claim": "Open-code component defaults using semantic CSS variables.",
+        "checkedAt": "2026-08-07"
+      },
+      "shadcnDark": {
+        "kind": "official-system",
+        "source": "shadcn/ui · Dark mode",
+        "url": "https://ui.shadcn.com/docs/dark-mode",
+        "claim": "Documented dark semantic token mode.",
+        "checkedAt": "2026-08-07"
+      },
+      "zag": {
+        "kind": "official-system",
+        "source": "Zag · Introduction",
+        "url": "https://zagjs.com/overview/introduction",
+        "claim": "The core is headless and unstyled; this option explicitly models only the docs showcase.",
+        "checkedAt": "2026-08-07"
+      },
+      "tamagui": {
+        "kind": "official-system",
+        "source": "Tamagui · Theme",
+        "url": "https://tamagui.dev/docs/core/theme",
+        "claim": "Cross-platform token scales and nested themes.",
+        "checkedAt": "2026-08-07"
+      },
+      "tamaguiDark": {
+        "kind": "official-system",
+        "source": "Tamagui · Theme",
+        "url": "https://tamagui.dev/docs/core/theme",
+        "claim": "A documented nested dark theme branch.",
+        "checkedAt": "2026-08-07"
+      },
+      "nebular": {
+        "kind": "official-system",
+        "source": "Nebular · Eva theme",
+        "url": "https://akveo.github.io/nebular/docs/design-system/design-system-theme/",
+        "claim": "Eva semantic color and component theme roles.",
+        "checkedAt": "2026-08-07"
+      },
+      "nebularDark": {
+        "kind": "official-system",
+        "source": "Nebular · Eva theme",
+        "url": "https://akveo.github.io/nebular/docs/design-system/design-system-theme/",
+        "claim": "Eva dark basic colors with semantic states.",
+        "checkedAt": "2026-08-07"
+      }
+    },
+    "surface": {
+      "flat": {
+        "kind": "official-system",
+        "source": "Microsoft Design · Flat principles",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/",
+        "claim": "No simulated depth; hierarchy is carried by color, type, and spacing.",
+        "checkedAt": "2026-08-07"
+      },
+      "skeuo": {
+        "kind": "documented-pattern",
+        "source": "Figma · Skeuomorphism",
+        "url": "https://www.figma.com/resource-library/what-is-skeuomorphism/",
+        "claim": "Physical visual and functional cues, not merely gradients.",
+        "checkedAt": "2026-08-07"
+      },
+      "glass": {
+        "kind": "documented-pattern",
+        "source": "Interaction Design Foundation · Glassmorphism",
+        "url": "https://www.interaction-design.org/literature/topics/glassmorphism",
+        "claim": "Translucent panels, backdrop blur, light borders, and visible background context.",
+        "checkedAt": "2026-08-07"
+      },
+      "acrylic": {
+        "kind": "official-system",
+        "source": "Microsoft Fluent 2 · Material",
+        "url": "https://fluent2.microsoft.design/material",
+        "claim": "A transient frosted material with backdrop sampling and luminosity.",
+        "checkedAt": "2026-08-07"
+      },
+      "neumo": {
+        "kind": "documented-pattern",
+        "source": "Interaction Design Foundation · Neumorphism",
+        "url": "https://www.interaction-design.org/literature/topics/neumorphism",
+        "claim": "Low-contrast extrusion using paired light and dark shadows.",
+        "checkedAt": "2026-08-07"
+      },
+      "clay": {
+        "kind": "community-term",
+        "source": "Claymorphism",
+        "url": "https://claymorphism.com/",
+        "claim": "A community-defined inflated, rounded 3D surface style.",
+        "checkedAt": "2026-08-07"
+      },
+      "material": {
+        "kind": "documented-pattern",
+        "source": "Material Design · Elevation",
+        "url": "https://m3.material.io/styles/elevation/overview",
+        "claim": "Generic elevated paper is kept separate from the Google Material aesthetic.",
+        "checkedAt": "2026-08-07"
+      },
+      "chrome": {
+        "kind": "documented-pattern",
+        "source": "Web Design Museum · Y2K",
+        "url": "https://www.webdesignmuseum.org/exhibitions/y2k-aesthetic-in-web-design",
+        "claim": "Specular metallic bands and reflective chrome are period surface references.",
+        "checkedAt": "2026-08-07"
+      },
+      "paper": {
+        "kind": "documented-pattern",
+        "source": "MDN · CSS backgrounds",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background",
+        "claim": "A tactile print simulation implemented with directional fiber, not a global dot grid.",
+        "checkedAt": "2026-08-07"
+      },
+      "eink": {
+        "kind": "official-system",
+        "source": "W3C · Reduced motion",
+        "url": "https://www.w3.org/WAI/WCAG22/Techniques/css/C39",
+        "claim": "Low-chroma paper presentation with quiet motion and explicit contrast.",
+        "checkedAt": "2026-08-07"
+      },
+      "glossy": {
+        "kind": "documented-pattern",
+        "source": "Web Design Museum · Web 2.0",
+        "url": "https://www.webdesignmuseum.org/exhibitions/web-design-in-the-2000s",
+        "claim": "Rounded gel controls, gradients, and strong specular highlights.",
+        "checkedAt": "2026-08-07"
+      }
+    },
+    "layout": {
+      "landing": {
+        "kind": "documented-pattern",
+        "source": "Nielsen Norman Group · Scrolling and attention",
+        "url": "https://www.nngroup.com/articles/scrolling-and-attention/",
+        "claim": "A guided long-scroll narrative from value proposition to action.",
+        "checkedAt": "2026-08-07"
+      },
+      "bento": {
+        "kind": "documented-pattern",
+        "source": "Web Design Museum · Bento Grid",
+        "url": "https://www.webdesignmuseum.org/styles/bento-grid",
+        "claim": "Mixed-size rectangular modules; a layout, not a governing aesthetic.",
+        "checkedAt": "2026-08-07"
+      },
+      "cards": {
+        "kind": "official-system",
+        "source": "Material Design · Cards",
+        "url": "https://m3.material.io/components/cards/overview",
+        "claim": "Independent grouped containers with clear boundaries.",
+        "checkedAt": "2026-08-07"
+      },
+      "masonry": {
+        "kind": "documented-pattern",
+        "source": "MDN · Masonry layout",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Masonry_layout",
+        "claim": "Variable-height items fill vertical gaps; the lab uses a column fallback because native masonry is not Baseline.",
+        "checkedAt": "2026-08-07"
+      },
+      "editorial": {
+        "kind": "documented-pattern",
+        "source": "Nielsen Norman Group · Typography",
+        "url": "https://www.nngroup.com/articles/typography-terms-ux/",
+        "claim": "Headline, body, captions, columns, and reading measure establish the grid.",
+        "checkedAt": "2026-08-07"
+      },
+      "split": {
+        "kind": "documented-pattern",
+        "source": "MDN · CSS Grid layout",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+        "claim": "Two simultaneous, balanced grid regions with distinct roles.",
+        "checkedAt": "2026-08-07"
+      },
+      "dense": {
+        "kind": "official-system",
+        "source": "IBM Carbon · 2x Grid",
+        "url": "https://carbondesignsystem.com/elements/2x-grid/overview/",
+        "claim": "Compact spacing and explicit alignment increase information density.",
+        "checkedAt": "2026-08-07"
+      },
+      "dashboard": {
+        "kind": "official-system",
+        "source": "IBM Carbon · Data visualization",
+        "url": "https://carbondesignsystem.com/data-visualization/getting-started/",
+        "claim": "KPIs, filters, charts, and status tables form a task-oriented data workspace.",
+        "checkedAt": "2026-08-07"
+      },
+      "masterDetail": {
+        "kind": "official-system",
+        "source": "Material Design 3 · Canonical layouts",
+        "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
+        "claim": "A documented adaptive page-level layout pattern.",
+        "checkedAt": "2026-08-07"
+      },
+      "poster": {
+        "kind": "documented-pattern",
+        "source": "Web Design Museum · Brutalism",
+        "url": "https://www.webdesignmuseum.org/styles/brutalism",
+        "claim": "Broken-grid overlap and asymmetric visual hierarchy.",
+        "checkedAt": "2026-08-07"
+      },
+      "feed": {
+        "kind": "official-system",
+        "source": "Material Design 3 · Canonical layouts",
+        "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
+        "claim": "A documented adaptive page-level layout pattern.",
+        "checkedAt": "2026-08-07"
+      },
+      "supportingPane": {
+        "kind": "official-system",
+        "source": "Material Design 3 · Canonical layouts",
+        "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
+        "claim": "A documented adaptive page-level layout pattern.",
+        "checkedAt": "2026-08-07"
+      },
+      "table": {
+        "kind": "official-system",
+        "source": "IBM Carbon · Data table",
+        "url": "https://carbondesignsystem.com/components/data-table/usage/",
+        "claim": "Semantic rows and columns for comparison, sorting, and scanning.",
+        "checkedAt": "2026-08-07"
+      },
+      "wizard": {
+        "kind": "official-system",
+        "source": "IBM Carbon · Progress indicator",
+        "url": "https://carbondesignsystem.com/components/progress-indicator/usage/",
+        "claim": "A sequential task with explicit current, completed, and upcoming steps.",
+        "checkedAt": "2026-08-07"
+      }
+    }
+  },
+  "validatedCombinationCounts": {
+    "english": 100608,
+    "koreanOnly": 245992,
+    "koreanEnglish": 897688
+  },
+  "notes": [
+    "The catalog intentionally publishes rules and curated presets, not the full Cartesian product.",
+    "Bento Grid is a layout option, not a governing aesthetic.",
+    "Reference evidence is currently defined for aesthetic, surface, and layout options."
+  ]
+}

@@ -215,9 +215,28 @@ export const defaultSelection: Selection = {
   motion: "quiet",
 };
 
-type AestheticRule = {
+export type AestheticRule = {
   defaults: Record<DependentAxis, string>;
   allowed: Record<DependentAxis, string[]>;
+};
+
+export type ResolutionReason =
+  | "legacy-alias"
+  | "unknown-option"
+  | "not-allowed-by-aesthetic";
+
+export type ResolutionAdjustment = {
+  axis: AxisKey;
+  requested: string;
+  resolved: string;
+  reason: ResolutionReason;
+};
+
+export type SelectionResolution = {
+  requested: Partial<Record<AxisKey, string>>;
+  resolved: Selection;
+  valid: boolean;
+  adjustments: ResolutionAdjustment[];
 };
 
 export const dependentAxisKeys: DependentAxis[] = [
@@ -1088,7 +1107,7 @@ export function getOptionNote(axis: AxisKey, id: string, language: Language) {
   return language === "ko" ? option.note : optionNotesEn[axis][option.id];
 }
 
-const legacyAestheticAliases: Record<string, string> = {
+export const legacyAestheticAliases: Record<string, string> = {
   fiori: "sapHorizon",
   fioriDark: "sapHorizonDark",
 };
@@ -1114,16 +1133,65 @@ export function isOptionAllowed(selection: Selection, axis: AxisKey, optionId: s
   return getAestheticRule(selection.aesthetic).allowed[axis].includes(optionId);
 }
 
-export function normalizeSelection(candidate: Partial<Selection>): Selection {
-  const next = recommendedSelection(resolveAestheticId(candidate.aesthetic ?? defaultSelection.aesthetic));
+export function resolveSelection(
+  candidate: Partial<Record<AxisKey, string>>,
+): SelectionResolution {
+  const requested = { ...candidate };
+  const adjustments: ResolutionAdjustment[] = [];
+  const requestedAesthetic = candidate.aesthetic;
+  const aliasedAesthetic = requestedAesthetic
+    ? resolveAestheticId(requestedAesthetic)
+    : defaultSelection.aesthetic;
+  const aestheticExists = axes.aesthetic.some((option) => option.id === aliasedAesthetic);
+  const resolvedAesthetic = aestheticExists ? aliasedAesthetic : defaultSelection.aesthetic;
+  const next = recommendedSelection(resolvedAesthetic);
+
+  if (requestedAesthetic && requestedAesthetic !== aliasedAesthetic) {
+    adjustments.push({
+      axis: "aesthetic",
+      requested: requestedAesthetic,
+      resolved: aliasedAesthetic,
+      reason: "legacy-alias",
+    });
+  } else if (requestedAesthetic && !aestheticExists) {
+    adjustments.push({
+      axis: "aesthetic",
+      requested: requestedAesthetic,
+      resolved: resolvedAesthetic,
+      reason: "unknown-option",
+    });
+  }
+
   const rule = getAestheticRule(next.aesthetic);
 
   for (const axis of dependentAxisKeys) {
     const value = candidate[axis];
-    if (value && rule.allowed[axis].includes(value)) next[axis] = value;
+    if (!value) continue;
+    if (rule.allowed[axis].includes(value)) {
+      next[axis] = value;
+      continue;
+    }
+
+    adjustments.push({
+      axis,
+      requested: value,
+      resolved: next[axis],
+      reason: axes[axis].some((option) => option.id === value)
+        ? "not-allowed-by-aesthetic"
+        : "unknown-option",
+    });
   }
 
-  return next;
+  return {
+    requested,
+    resolved: next,
+    valid: adjustments.length === 0,
+    adjustments,
+  };
+}
+
+export function normalizeSelection(candidate: Partial<Selection>): Selection {
+  return resolveSelection(candidate).resolved;
 }
 
 export function randomCompatibleSelection(

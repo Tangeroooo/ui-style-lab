@@ -15,6 +15,7 @@ import {
   presets,
   randomCompatibleSelection,
   recommendedSelection,
+  resolveSelection,
 } from "../app/style-data.ts";
 import { hasStyleEvidence } from "../app/style-references.ts";
 
@@ -64,6 +65,25 @@ test("invalid candidates fall back to the governing aesthetic defaults", () => {
   assert.equal(normalized.koType, "gowun");
   assert.equal(normalized.fontMode, "koUnified");
   assert.equal(normalized.palette, "noir");
+});
+
+test("selection resolution explains every compatibility fallback", () => {
+  const resolution = resolveSelection({
+    aesthetic: "luxury",
+    surface: "glass",
+    palette: "primary",
+  });
+
+  assert.equal(resolution.valid, false);
+  assert.equal(resolution.resolved.surface, "paper");
+  assert.equal(resolution.resolved.palette, "noir");
+  assert.deepEqual(
+    resolution.adjustments.map(({ axis, reason }) => ({ axis, reason })),
+    [
+      { axis: "surface", reason: "not-allowed-by-aesthetic" },
+      { axis: "palette", reason: "not-allowed-by-aesthetic" },
+    ],
+  );
 });
 
 test("bilingual randomization preserves the selected type binding", () => {

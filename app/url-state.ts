@@ -1,17 +1,17 @@
 import {
-  axes,
   axisKeys,
   combinationCount,
   defaultSelection,
-  normalizeSelection,
-  recommendedSelection,
-  resolveAestheticId,
+  resolveSelection,
+  type AxisKey,
   type Language,
   type Selection,
+  type SelectionResolution,
 } from "./style-data.ts";
 
 export type KoreanCopyMode = "only" | "mixed";
 export type ExperienceView = "lab" | "reference";
+export type ExperienceStateSource = "query" | "legacy-hash" | "none";
 
 export type ExperienceState = {
   selection: Selection;
@@ -20,11 +20,20 @@ export type ExperienceState = {
   view: ExperienceView;
 };
 
+export type ExperienceUrlState = ExperienceState & {
+  capture?: boolean;
+  strict?: boolean;
+};
+
 export type ParsedExperienceState = {
   selection: Selection | null;
+  resolution: SelectionResolution | null;
   language: Language | null;
   copyMode: KoreanCopyMode | null;
   view: ExperienceView | null;
+  capture: boolean | null;
+  strict: boolean | null;
+  source: ExperienceStateSource;
 };
 
 const koreanFirstAxisKeys = [
@@ -63,36 +72,66 @@ export function usesBilingualCopy(language: Language, copyMode: KoreanCopyMode) 
   return language === "ko" && copyMode === "mixed";
 }
 
-export function parseExperienceHash(hash: string): ParsedExperienceState {
-  const params = new URLSearchParams(hash.replace(/^#/, ""));
-  const requestedAesthetic = params.get("aesthetic");
-  const resolvedAesthetic = requestedAesthetic ? resolveAestheticId(requestedAesthetic) : null;
-  const aesthetic = resolvedAesthetic && axes.aesthetic.some((option) => option.id === resolvedAesthetic)
-    ? resolvedAesthetic
-    : defaultSelection.aesthetic;
-  const next = recommendedSelection(aesthetic);
-  let matched = Boolean(requestedAesthetic);
+function readBoolean(params: URLSearchParams, key: string) {
+  if (!params.has(key)) return null;
+  const value = params.get(key);
+  if (value === "1" || value === "true") return true;
+  if (value === "0" || value === "false") return false;
+  return null;
+}
+
+function parseExperienceParams(
+  params: URLSearchParams,
+  source: Exclude<ExperienceStateSource, "none">,
+): ParsedExperienceState {
+  const candidate: Partial<Record<AxisKey, string>> = {};
+  let matchedSelection = false;
 
   for (const axis of axisKeys) {
     const value = params.get(axis);
-    if (value && axes[axis].some((option) => option.id === value)) {
-      next[axis] = value;
-      matched = true;
+    if (value) {
+      candidate[axis] = value;
+      matchedSelection = true;
     }
   }
 
+  const resolution = matchedSelection ? resolveSelection(candidate) : null;
   const language = params.get("language");
   const copyMode = params.get("copyMode");
   const view = params.get("view");
+  const capture = readBoolean(params, "capture");
+  const strict = readBoolean(params, "strict");
+  const matchedState = matchedSelection
+    || params.has("language")
+    || params.has("copyMode")
+    || params.has("view")
+    || params.has("capture")
+    || params.has("strict");
 
   return {
-    selection: matched ? normalizeSelection(next) : null,
+    selection: resolution?.resolved ?? null,
+    resolution,
     language: language === "en" || language === "ko" ? language : null,
     copyMode: copyMode === "only" || copyMode === "mixed" ? copyMode : null,
     view: view === "lab" || view === "reference" ? view : null,
+    capture,
+    strict,
+    source: matchedState ? source : "none",
   };
 }
 
+/** Parse the pre-v1 hash transport. New links must use the query transport. */
+export function parseExperienceHash(hash: string): ParsedExperienceState {
+  return parseExperienceParams(new URLSearchParams(hash.replace(/^#/, "")), "legacy-hash");
+}
+
+/** Query state is canonical; a legacy state hash is read only when no query state exists. */
+export function parseExperienceLocation(search: string, hash: string): ParsedExperienceState {
+  const fromQuery = parseExperienceParams(new URLSearchParams(search.replace(/^\?/, "")), "query");
+  return fromQuery.source === "query" ? fromQuery : parseExperienceHash(hash);
+}
+
+/** Kept for backwards-compatible tests and external links. */
 export function serializeExperienceHash(state: ExperienceState): string {
   return new URLSearchParams({
     ...state.selection,
@@ -102,8 +141,33 @@ export function serializeExperienceHash(state: ExperienceState): string {
   }).toString();
 }
 
-export function createExperienceUrl(href: string, state: ExperienceState, view: ExperienceView): string {
+export function serializeExperienceQuery(state: ExperienceUrlState): string {
+  const params = new URLSearchParams();
+  for (const axis of axisKeys) params.set(axis, state.selection[axis]);
+  params.set("language", state.language);
+  params.set("copyMode", state.copyMode);
+  params.set("view", state.view);
+  if (state.capture) params.set("capture", "1");
+  if (state.strict) params.set("strict", "1");
+  return params.toString();
+}
+
+export function createExperienceUrl(
+  href: string,
+  state: ExperienceState,
+  view: ExperienceView,
+): string {
   const url = new URL(href);
-  url.hash = serializeExperienceHash({ ...state, view });
+  url.search = serializeExperienceQuery({
+    ...state,
+    view,
+    capture: view === "reference",
+    strict: view === "reference",
+  });
+  url.hash = "";
   return url.toString();
+}
+
+export function defaultExperienceResolution() {
+  return resolveSelection(defaultSelection);
 }

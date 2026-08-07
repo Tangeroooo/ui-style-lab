@@ -7,7 +7,9 @@ import {
   experienceCombinationCount,
   getVisibleAxisKeys,
   parseExperienceHash,
+  parseExperienceLocation,
   serializeExperienceHash,
+  serializeExperienceQuery,
   usesBilingualCopy,
 } from "../app/url-state.ts";
 
@@ -80,5 +82,59 @@ test("reference sharing creates a canvas-only URL without mutating the source UR
   assert.match(result, /view=reference/);
   assert.match(result, /language=ko/);
   assert.match(result, /copyMode=only/);
+  assert.match(result, /capture=1/);
+  assert.match(result, /strict=1/);
+  assert.equal(new URL(result).hash, "");
   assert.equal(source, "https://example.com/ui-style-lab/#live-site");
+});
+
+test("canonical query state round-trips independently of anchors", () => {
+  const query = serializeExperienceQuery({
+    selection: defaultSelection,
+    language: "en",
+    copyMode: "mixed",
+    view: "reference",
+    capture: true,
+    strict: true,
+  });
+  const parsed = parseExperienceLocation(`?${query}`, "#live-site");
+
+  assert.equal(parsed.source, "query");
+  assert.deepEqual(parsed.selection, defaultSelection);
+  assert.equal(parsed.capture, true);
+  assert.equal(parsed.strict, true);
+  assert.equal(parsed.resolution?.valid, true);
+});
+
+test("query state takes precedence while legacy hash state remains readable", () => {
+  const parsed = parseExperienceLocation(
+    "?aesthetic=minimal&surface=flat&view=lab",
+    "#aesthetic=terminal&surface=flat&view=reference",
+  );
+  const legacy = parseExperienceLocation("", "#aesthetic=fiori&surface=flat");
+
+  assert.equal(parsed.source, "query");
+  assert.equal(parsed.selection?.aesthetic, "minimal");
+  assert.equal(parsed.view, "lab");
+  assert.equal(legacy.source, "legacy-hash");
+  assert.equal(legacy.selection?.aesthetic, "sapHorizon");
+  assert.equal(legacy.resolution?.adjustments[0]?.reason, "legacy-alias");
+});
+
+test("strict parsing reports unknown and incompatible requested values", () => {
+  const parsed = parseExperienceLocation(
+    "?aesthetic=luxury&surface=glass&palette=not-a-palette&strict=1",
+    "",
+  );
+
+  assert.equal(parsed.selection?.surface, "paper");
+  assert.equal(parsed.selection?.palette, "noir");
+  assert.equal(parsed.resolution?.valid, false);
+  assert.deepEqual(
+    parsed.resolution?.adjustments.map(({ axis, reason }) => ({ axis, reason })),
+    [
+      { axis: "surface", reason: "not-allowed-by-aesthetic" },
+      { axis: "palette", reason: "unknown-option" },
+    ],
+  );
 });

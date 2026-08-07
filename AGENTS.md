@@ -19,7 +19,7 @@ app/style-data.ts
   axes
     → aestheticRules.defaults / aestheticRules.allowed
     → normalizeSelection() / isOptionAllowed()
-    → presets / randomize / URL hash
+    → presets / randomize / canonical URL query
     → data-* attributes in StyleLab.tsx
     → selectors and tokens in style-lab.css
 
@@ -30,13 +30,18 @@ app/style-references.ts
 
 app/url-state.ts
   language / copyMode / view / selection
-    → share URL round-trip
+    → query URL round-trip / legacy hash migration
+
+app/agent-contract.ts
+  axes / rules / presets / evidence
+    → public agent catalog / rendered resolution report
 ```
 
 - option ID, compatibility, 기본값, 조합 수의 source of truth는 `app/style-data.ts`다.
 - UI에서 별도의 compatibility 조건을 hard-code하지 않는다.
 - `normalizeSelection()`을 우회해 state를 적용하지 않는다.
-- 기존 URL hash key를 rename하거나 삭제하지 않는다. 필요한 경우 새 key를 추가하고 누락된 값은 aesthetic default로 보완한다.
+- 새 URL은 query parameter를 canonical transport로 사용한다. 기존 state hash key는 read-only migration input으로 유지하고 누락된 값은 aesthetic default로 보완한다.
+- Agent catalog는 full Cartesian product를 나열하지 않는다. `axes + aestheticRules + presets + review packs`로 재현 가능하게 유지한다.
 
 ## 3. 기존 layer에 option을 추가할 때
 
@@ -85,7 +90,7 @@ app/url-state.ts
 6. 모든 preset selection에 값 추가
 7. `StyleLab.tsx`의 `data-*` attribute와 필요한 render logic 추가
 8. `style-lab.css`에 실제 full-page implementation 추가
-9. URL hash의 이전 버전이 `normalizeSelection()`으로 migration되는지 확인
+9. canonical query가 round-trip되고 URL hash의 이전 버전이 `resolveSelection()`으로 migration되는지 확인
 10. test와 documentation, validated combination count 갱신
 
 ## 5. Typography 규칙
@@ -146,6 +151,7 @@ sum(
 - language control은 header navigation과 combination mixer에서 분리된 floating control로 유지한다. randomize, share, canvas/preset jump는 별도의 quick-action group으로 유지하되 desktop에서는 우측 mixer 바로 아래에 간격을 두고 정렬해 관련 조작이 한 attention zone에 머물게 한다. narrow viewport에서는 bottom mixer 위로 이동해 겹침을 피한다.
 - whole-page preset을 적용해 live canvas로 이동한 뒤 긴 역방향 scroll을 강제하지 않는다. contextual canvas/preset jump처럼 keyboard-accessible한 원터치 왕복 동선을 유지한다.
 - reference share URL은 `view=reference`를 포함하고 mixer/preset 없이 live canvas만 렌더링해야 한다.
+- reference share URL은 `capture=1&strict=1`을 포함한다. document는 fonts와 두 animation frame이 안정된 뒤 `data-agent-ready="true"`를 노출하고, `#ui-style-lab-state`에 requested/resolved/adjustments를 기록한다.
 - disabled option에는 `disabled`, reason text, accessible title을 유지한다.
 - icon-only navigation에는 `aria-label`과 visually hidden text를 유지한다.
 - language switch는 `<html lang>`과 sample canvas의 `lang`을 함께 갱신한다.
@@ -157,6 +163,7 @@ sum(
 - `app/style-references.ts`: aesthetic·surface·layout의 reference URL, 근거 수준, 구현 claim, 검토일
 - `app/StyleLab.tsx`: state, URL, bilingual content, semantic markup, chart composition
 - `app/url-state.ts`: language, content mode, share view, URL serialization
+- `app/agent-contract.ts`: static catalog, review pack, rendered agent-state schema
 - `app/style-lab.css`: design tokens, axis selectors, responsive behavior
 - `README*.md`: public product and contributor documentation
 - `tests/`: data invariants and rendered product contract
@@ -184,4 +191,4 @@ git diff --check
 - structural layout이 dedicated semantic renderer를 사용하며 table/form/list landmark가 유지되는지 검사
 - Korean `split`과 `koUnified`에서 Latin/Hangul font binding이 각각 의도대로 동작하는지 확인
 
-`main`에 push하면 GitHub Pages가 자동 배포된다. 배포 후 live page의 count, language default, URL hash, console error를 확인한다.
+`main`에 push하면 GitHub Pages가 자동 배포된다. 배포 후 live page의 count, language default, canonical query·legacy hash migration, agent assets, console error를 확인한다.

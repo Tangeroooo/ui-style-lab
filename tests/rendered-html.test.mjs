@@ -43,7 +43,20 @@ test("server-renders the UI Style Lab product", async () => {
   assert.match(html, /Jump to curated presets/);
   assert.match(html, /lucide-shuffle/);
   assert.match(html, /lucide-share/);
+  assert.match(html, /id="ui-style-lab-state"/);
+  assert.match(html, /data-agent-ready="false"/);
+  assert.match(html, /data-agent-valid="true"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
+});
+
+test("the long option list scrolls independently from its evidence dock", () => {
+  const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+
+  assert.match(source, /className="popover-scroll"[^]*className="popover-options"[^]*className="evidence-card"/);
+  assert.match(css, /\.mixer-popover \{[^}]*display: flex;[^}]*flex-direction: column;[^}]*overflow: hidden;/);
+  assert.match(css, /\.popover-scroll \{[^}]*min-height:0;[^}]*overflow-y:auto;/);
+  assert.match(css, /\.evidence-card \{[^}]*flex:0 0 auto;/);
 });
 
 test("the live-canvas CTA follows the validated count and uses a full button treatment", () => {
