@@ -509,6 +509,30 @@ function FieldDataCharts({ selection, language, copyMode }: { selection: Selecti
   );
 }
 
+const liquidGlassWarpMap = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+  <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="warp-x" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#ff0000" />
+        <stop offset=".05" stop-color="#990000" />
+        <stop offset=".5" stop-color="#800000" />
+        <stop offset=".95" stop-color="#4d0000" />
+        <stop offset="1" stop-color="#000000" />
+      </linearGradient>
+      <linearGradient id="warp-y" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#0000ff" />
+        <stop offset=".05" stop-color="#000099" />
+        <stop offset=".5" stop-color="#000080" />
+        <stop offset=".95" stop-color="#00004d" />
+        <stop offset="1" stop-color="#000000" />
+      </linearGradient>
+    </defs>
+    <rect width="400" height="400" fill="#000000" />
+    <rect width="400" height="400" fill="url(#warp-x)" />
+    <rect width="400" height="400" fill="url(#warp-y)" style="mix-blend-mode:screen" />
+  </svg>
+`)}`;
+
 function FieldNotesSite({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
   const t = sampleCopy[language];
   const bilingual = usesBilingualCopy(language, copyMode);
@@ -550,15 +574,27 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
     >
       <svg className="liquid-glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
         <defs>
-          <filter id="ui-liquid-glass-refraction" x="-18%" y="-28%" width="136%" height="156%" colorInterpolationFilters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves={2} seed={17} stitchTiles="stitch" result="liquid-noise" />
-            <feGaussianBlur in="liquid-noise" stdDeviation="1.15" result="liquid-field" />
-            <feDisplacementMap in="SourceGraphic" in2="liquid-field" scale={44} xChannelSelector="R" yChannelSelector="B" result="refracted-glass" />
-            <feSpecularLighting in="liquid-field" surfaceScale={3.5} specularConstant={0.62} specularExponent={24} lightingColor="#ffffff" result="liquid-specular">
-              <feDistantLight azimuth={225} elevation={58} />
+          <filter id="ui-liquid-glass-refraction" x="-16%" y="-34%" width="132%" height="168%" colorInterpolationFilters="sRGB">
+            <feImage href={liquidGlassWarpMap} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="liquid-warp-map" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.003 0.009" numOctaves={2} seed={17} stitchTiles="stitch" result="liquid-ripple-noise" />
+            <feGaussianBlur in="liquid-ripple-noise" stdDeviation="0.35" result="liquid-ripple-map" />
+            <feDisplacementMap in="SourceGraphic" in2="liquid-ripple-map" scale={7} xChannelSelector="R" yChannelSelector="B" result="rippled-glass" />
+            <feDisplacementMap in="rippled-glass" in2="liquid-warp-map" scale={34} xChannelSelector="R" yChannelSelector="B" result="edge-refracted-glass" />
+            <feColorMatrix in="edge-refracted-glass" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .18 0" result="liquid-red" />
+            <feOffset in="liquid-red" dx="1.2" dy="0.2" result="liquid-red-shift" />
+            <feColorMatrix in="edge-refracted-glass" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 .12 0" result="liquid-green" />
+            <feOffset in="liquid-green" dx="0" dy="-0.7" result="liquid-green-shift" />
+            <feColorMatrix in="edge-refracted-glass" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 .2 0" result="liquid-blue" />
+            <feOffset in="liquid-blue" dx="-1.2" dy="0.2" result="liquid-blue-shift" />
+            <feBlend in="liquid-red-shift" in2="liquid-green-shift" mode="screen" result="liquid-rg" />
+            <feBlend in="liquid-rg" in2="liquid-blue-shift" mode="screen" result="liquid-chromatic-edge" />
+            <feBlend in="edge-refracted-glass" in2="liquid-chromatic-edge" mode="screen" result="liquid-optics" />
+            <feSpecularLighting in="liquid-ripple-map" surfaceScale={2.4} specularConstant={0.38} specularExponent={30} lightingColor="#ffffff" result="liquid-specular">
+              <feDistantLight azimuth={225} elevation={62} />
             </feSpecularLighting>
             <feComposite in="liquid-specular" in2="SourceAlpha" operator="in" result="clipped-specular" />
-            <feBlend in="refracted-glass" in2="clipped-specular" mode="screen" />
+            <feBlend in="liquid-optics" in2="clipped-specular" mode="screen" result="lit-liquid-glass" />
+            <feComposite in="lit-liquid-glass" in2="SourceAlpha" operator="in" />
           </filter>
         </defs>
       </svg>

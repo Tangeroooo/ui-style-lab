@@ -160,9 +160,14 @@ test("Apple Liquid Glass is a governing aesthetic, not a blanket translucent con
   const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
   assert.deepEqual(aestheticRules.appleLiquid.allowed.surface, ["liquid"]);
   assert.deepEqual(aestheticRules.appleLiquidDark.allowed.surface, ["liquid"]);
-  assert.match(source, /feDisplacementMap[^>]+scale=\{44\}/);
+  assert.match(source, /feImage[^>]+href=\{liquidGlassWarpMap\}/);
+  assert.match(source, /feDisplacementMap[^>]+scale=\{7\}/);
+  assert.match(source, /feDisplacementMap[^>]+scale=\{34\}/);
+  assert.match(source, /feColorMatrix/);
+  assert.match(source, /feOffset/);
   assert.match(source, /feSpecularLighting/);
-  assert.match(css, /appleLiquid[^\n]+filter:url\(#ui-liquid-glass-refraction\)/);
+  assert.match(css, /appleLiquid[^\n]+backdrop-filter:url\("#ui-liquid-glass-refraction"\)/);
+  assert.match(css, /appleLiquid[^\n]+backdrop-filter:blur\(14px\) contrast\(\.84\) saturate\(1\.28\)/);
   assert.match(css, /appleLiquid[^\n]+rack-cell[^\n]+backdrop-filter:none/);
 });
 
