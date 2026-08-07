@@ -157,10 +157,20 @@ test("official dark variants preserve their parent geometry and lock native dark
 
 test("Apple Liquid Glass is a governing aesthetic, not a blanket translucent content surface", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
   assert.deepEqual(aestheticRules.appleLiquid.allowed.surface, ["liquid"]);
   assert.deepEqual(aestheticRules.appleLiquidDark.allowed.surface, ["liquid"]);
-  assert.match(css, /appleLiquid[^\n]+sample-nav[^\n]+backdrop-filter:blur\(28px\)/);
+  assert.match(source, /feDisplacementMap[^>]+scale=\{44\}/);
+  assert.match(source, /feSpecularLighting/);
+  assert.match(css, /appleLiquid[^\n]+filter:url\(#ui-liquid-glass-refraction\)/);
   assert.match(css, /appleLiquid[^\n]+rack-cell[^\n]+backdrop-filter:none/);
+});
+
+test("Glassmorphism stays a frosted surface rather than reusing Apple refraction", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.match(css, /data-surface="glass"[^\n]+site-solid\) 30%,transparent/);
+  assert.match(css, /data-surface="glass"[^\n]+sample-surface[^\n]+blur\(16px\) saturate\(1\.18\)/);
+  assert.match(css, /data-surface="glass"[^\n]+sample-noise[^\n]+radial-gradient/);
 });
 
 test("dot matrix texture is opt-in rather than a global canvas default", () => {

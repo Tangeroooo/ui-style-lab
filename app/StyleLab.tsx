@@ -548,6 +548,20 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
       data-motion={selection.motion}
       aria-label={`${localizedAesthetic}, ${localizedSurface} full-page interface example`}
     >
+      <svg className="liquid-glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="ui-liquid-glass-refraction" x="-18%" y="-28%" width="136%" height="156%" colorInterpolationFilters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves={2} seed={17} stitchTiles="stitch" result="liquid-noise" />
+            <feGaussianBlur in="liquid-noise" stdDeviation="1.15" result="liquid-field" />
+            <feDisplacementMap in="SourceGraphic" in2="liquid-field" scale={44} xChannelSelector="R" yChannelSelector="B" result="refracted-glass" />
+            <feSpecularLighting in="liquid-field" surfaceScale={3.5} specularConstant={0.62} specularExponent={24} lightingColor="#ffffff" result="liquid-specular">
+              <feDistantLight azimuth={225} elevation={58} />
+            </feSpecularLighting>
+            <feComposite in="liquid-specular" in2="SourceAlpha" operator="in" result="clipped-specular" />
+            <feBlend in="refracted-glass" in2="clipped-specular" mode="screen" />
+          </filter>
+        </defs>
+      </svg>
       <div className="sample-noise" aria-hidden="true" />
       <header className="sample-nav sample-surface">
         <a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")} className="sample-brand" aria-label={language === "ko" ? "현장 기록 홈" : "Field Notes home"}><span className="sample-mark"><i /><i /><i /></span><b lang={microLanguage}>{micro.brand}</b></a>

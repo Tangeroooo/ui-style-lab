@@ -57,7 +57,8 @@ app/url-state.ts
 - 특정 제품 screenshot, proprietary asset, logo, illustration을 복제하지 않는다. 이 repository의 동일한 `Field Notes` content와 Lucide icon, Recharts data component로 원칙만 재구성한다.
 - Design System의 domain pattern이 핵심이라면 현재 sample content로 정직하게 검증 가능한지 먼저 판단한다. 예를 들어 commerce admin이나 government form 전용 system은 일반 field-journal page에서 시각 정체성을 충분히 보여주기 어려울 수 있다.
 - curated collection이나 `awesome-*` 목록은 discovery index로만 사용한다. 기초 미학 승격 여부는 각 system의 공식 primary documentation에서 page-level color role, material, navigation, component, density 원칙을 다시 검증한다.
-- Apple Liquid Glass처럼 material 이름과 governing system 이름이 겹치는 경우 surface와 aesthetic을 분리한다. Apple aesthetic에서는 glass를 navigation/control의 functional layer에 제한하고 content layer 전체에 blanket blur를 적용하지 않는다.
+- Apple Liquid Glass처럼 material 이름과 governing system 이름이 겹치는 경우 surface와 aesthetic을 분리한다. Apple aesthetic에서는 glass를 navigation/control의 functional layer에 제한하고 content layer 전체에 blanket blur를 적용하지 않는다. 실제 구현에는 SVG `feDisplacementMap` 기반 refraction과 비대칭 specular rim을 유지하고, SVG backdrop filter를 지원하지 않는 browser에는 layered blur fallback을 제공한다.
+- 범용 Glassmorphism surface는 refraction을 흉내 내지 않는다. 반투명 tint, 10–20px backdrop blur, 얇은 밝은 border, soft shadow와 배경의 다채로운 color field로 frosted layer separation을 표현한다.
 - native default를 `aestheticRules.defaults`에 먼저 정의하고, 변형 palette/surface는 공식 원칙을 해치지 않는 최소 범위만 `allowed`에 추가한다.
 - 공식 dark theme가 semantic token과 component state 수준에서 문서화된 system은 별도 `*Dark` aesthetic으로 모델링한다. light/dark pair는 geometry, layout, navigation, typography, motion allowlist를 공유하고 palette만 native dark token으로 제한한다.
 - 단순히 background를 검게 만든 변형이나 역사적 미학의 임의 dark version은 추가하지 않는다. Terminal·Cyberpunk처럼 원래 dark-native인 aesthetic도 중복 dark 항목을 만들지 않는다.
