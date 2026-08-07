@@ -39,7 +39,7 @@ test("every aesthetic defines a valid default and allowed set for every dependen
 });
 
 test("all curated presets are already normalized and compatible", () => {
-  assert.equal(presets.length, 33);
+  assert.equal(presets.length, 41);
   for (const preset of presets) {
     assert.deepEqual(normalizeSelection(preset.selection), preset.selection, preset.id);
   }
@@ -74,13 +74,13 @@ test("bilingual randomization preserves the selected type binding", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 1_240_016);
+  assert.equal(combinationCount(), 1_249_232);
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  const additions = ["bauhaus", "artDeco", "scandinavian", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark"];
-  assert.equal(axes.aesthetic.length, 23);
+  const additions = ["bauhaus", "artDeco", "scandinavian", "appleLiquid", "appleLiquidDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark"];
+  assert.equal(axes.aesthetic.length, 31);
   for (const id of additions) {
     assert.ok(axes.aesthetic.some((option) => option.id === id), id);
     assert.match(css, new RegExp(`data-aesthetic=["']${id}["']`), id);
@@ -92,7 +92,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
   const additions = {
     surface: ["skeuo", "acrylic", "eink"],
     layout: ["masonry", "dashboard", "masterDetail"],
-    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark"],
+    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "appleSystem", "appleSystemDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "materialDynamic", "materialDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark"],
   };
 
   for (const [axis, ids] of Object.entries(additions)) {
@@ -108,13 +108,21 @@ test("new dependent options are implemented and conservatively enabled", () => {
 
 test("company design systems keep native defaults", () => {
   assert.deepEqual(
-    ["material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark"].map((id) => ({
+    ["appleLiquid", "appleLiquidDark", "atlassian", "atlassianDark", "primer", "primerDark", "fiori", "fioriDark", "material3", "material3Dark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark"].map((id) => ({
       id,
       surface: aestheticRules[id].defaults.surface,
       layout: aestheticRules[id].defaults.layout,
       palette: aestheticRules[id].defaults.palette,
     })),
     [
+      { id: "appleLiquid", surface: "liquid", layout: "landing", palette: "appleSystem" },
+      { id: "appleLiquidDark", surface: "liquid", layout: "landing", palette: "appleSystemDark" },
+      { id: "atlassian", surface: "flat", layout: "dashboard", palette: "atlassian" },
+      { id: "atlassianDark", surface: "flat", layout: "dashboard", palette: "atlassianDark" },
+      { id: "primer", surface: "flat", layout: "dense", palette: "primer" },
+      { id: "primerDark", surface: "flat", layout: "dense", palette: "primerDark" },
+      { id: "fiori", surface: "flat", layout: "masterDetail", palette: "fiori" },
+      { id: "fioriDark", surface: "flat", layout: "masterDetail", palette: "fioriDark" },
       { id: "material3", surface: "material", layout: "cards", palette: "materialDynamic" },
       { id: "material3Dark", surface: "material", layout: "cards", palette: "materialDark" },
       { id: "fluent2", surface: "flat", layout: "masterDetail", palette: "fluent" },
@@ -129,6 +137,10 @@ test("company design systems keep native defaults", () => {
 
 test("official dark variants preserve their parent geometry and lock native dark tokens", () => {
   const pairs = [
+    ["appleLiquid", "appleLiquidDark", "appleSystemDark"],
+    ["atlassian", "atlassianDark", "atlassianDark"],
+    ["primer", "primerDark", "primerDark"],
+    ["fiori", "fioriDark", "fioriDark"],
     ["material3", "material3Dark", "materialDark"],
     ["fluent2", "fluent2Dark", "fluentDark"],
     ["carbon", "carbonDark", "carbonDark"],
@@ -141,6 +153,14 @@ test("official dark variants preserve their parent geometry and lock native dark
     }
     assert.deepEqual(aestheticRules[dark].allowed.palette, [palette]);
   }
+});
+
+test("Apple Liquid Glass is a governing aesthetic, not a blanket translucent content surface", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.deepEqual(aestheticRules.appleLiquid.allowed.surface, ["liquid"]);
+  assert.deepEqual(aestheticRules.appleLiquidDark.allowed.surface, ["liquid"]);
+  assert.match(css, /appleLiquid[^\n]+sample-nav[^\n]+backdrop-filter:blur\(28px\)/);
+  assert.match(css, /appleLiquid[^\n]+rack-cell[^\n]+backdrop-filter:none/);
 });
 
 test("dot matrix texture is opt-in rather than a global canvas default", () => {
