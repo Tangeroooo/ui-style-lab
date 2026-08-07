@@ -71,7 +71,7 @@ const labCopy = {
     title: ["Mix design languages.", "See the whole system."],
     intro: "Choose eight coordinated layers and watch the same interface transform instantly—from typography and charts to navigation and page rhythm.",
     introOnly: "Choose eight coordinated layers and watch the same interface transform instantly—from typography and charts to navigation and page rhythm.",
-    explore: "Explore the live combination below",
+    explore: "View live canvas",
     count: "validated combinations",
     mixer: "Design combination mixer",
     random: "Create a random compatible combination",
@@ -123,7 +123,7 @@ const labCopy = {
     title: ["디자인 언어를 조합하고", "전체 시스템을 확인하세요."],
     intro: "서로 호환되는 디자인 층위를 선택하면 같은 UI가 즉시 달라집니다. 영문·한글 서체 조합과 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
     introOnly: "서로 호환되는 여덟 개의 층위를 선택하면 같은 UI가 즉시 달라집니다. 한글 서체와 차트부터 내비게이션, 페이지 리듬까지 한 화면에서 비교하세요.",
-    explore: "아래에서 실제 조합 살펴보기",
+    explore: "실제 조합 바로 보기",
     count: "검증된 조합",
     mixer: "디자인 조합 믹서",
     random: "호환되는 무작위 조합 만들기",
@@ -947,7 +947,7 @@ export function StyleLab() {
       <section className="intro" id="top">
         <div className="intro-kicker"><span>{t.introKicker}</span><i />2026</div>
         <h1>{t.title[0]}<br /><em>{t.title[1]}</em></h1>
-        <div className="intro-side"><p>{language === "ko" && copyMode === "only" ? t.introOnly : t.intro}</p><a className="explore-cta" href="#live-site"><span aria-hidden="true"><ArrowDown /></span><b>{t.explore}</b></a><div className="intro-count"><strong>{experienceCombinationCount(language, copyMode).toLocaleString("en-US")}</strong><span>{t.count}</span></div></div>
+        <div className="intro-side"><p>{language === "ko" && copyMode === "only" ? t.introOnly : t.intro}</p><div className="intro-count"><strong>{experienceCombinationCount(language, copyMode).toLocaleString("en-US")}</strong><span>{t.count}</span></div><a className="explore-cta" href="#live-site"><b>{t.explore}</b><span aria-hidden="true"><ArrowDown /></span></a></div>
       </section>
 
       <div className="mixer-anchor" id="mixer">

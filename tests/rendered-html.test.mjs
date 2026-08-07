@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 async function render() {
@@ -43,4 +44,15 @@ test("server-renders the UI Style Lab product", async () => {
   assert.match(html, /lucide-shuffle/);
   assert.match(html, /lucide-share/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
+});
+
+test("the live-canvas CTA follows the validated count and uses a full button treatment", () => {
+  const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.match(source, /className="intro-count"[^]*className="explore-cta"/);
+  assert.match(source, /explore: "View live canvas"/);
+  assert.match(source, /explore: "실제 조합 바로 보기"/);
+  assert.match(css, /\.explore-cta \{[^}]*display:flex;[^}]*min-height:56px;[^}]*width:100%;[^}]*background:var\(--lab-blue\)/);
+  assert.match(css, /\.explore-cta:focus-visible/);
+  assert.match(css, /\.intro-side \{ display:grid;grid-template-columns:minmax\(0,1fr\) minmax\(220px,\.7fr\)/);
 });
