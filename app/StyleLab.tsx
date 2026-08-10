@@ -36,6 +36,7 @@ import {
   axisMeta,
   defaultSelection,
   getOption,
+  getOptionConstraint,
   getOptionNote,
   isOptionAllowed,
   normalizeSelection,
@@ -48,6 +49,7 @@ import {
   type Selection,
   type SelectionResolution,
 } from "./style-data";
+import { getFontStylesheets, getRequiredFontFamilies } from "./font-data";
 import { getStyleEvidence } from "./style-references";
 import { buildAgentState } from "./agent-contract";
 import {
@@ -430,6 +432,8 @@ const presetLabelsEn: Record<string, string> = {
   "citrus-split": "Energetic commerce",
   "skeuo-utility": "A desktop tool rebuilt with tactile controls",
   "eink-fieldbook": "Field records on low-chroma digital paper",
+  "recursive-signal": "A digital field signal animated through variable type axes",
+  "kakao-screen-pair": "Role-based Korean typography with separate display and body faces",
 };
 
 const seasonalWalks = [
@@ -734,6 +738,12 @@ function FieldNotesSite({ selection, language, copyMode }: { selection: Selectio
   );
 }
 
+function FontResourceLinks({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
+  return getFontStylesheets(selection, language, copyMode).map((href) => (
+    <link key={href} rel="stylesheet" href={href} data-ui-style-font="true" />
+  ));
+}
+
 export function StyleLab() {
   const [selection, setSelection] = useState<Selection>(defaultSelection);
   const [resolution, setResolution] = useState<SelectionResolution>(defaultExperienceResolution);
@@ -849,6 +859,21 @@ export function StyleLab() {
     let cancelled = false;
 
     async function settleDocument() {
+      const links = Array.from(document.querySelectorAll<HTMLLinkElement>('link[data-ui-style-font="true"]'));
+      await Promise.all(links.map((link) => {
+        if (link.sheet) return Promise.resolve();
+        return new Promise<void>((resolve) => {
+          const finish = () => resolve();
+          link.addEventListener("load", finish, { once: true });
+          link.addEventListener("error", finish, { once: true });
+          window.setTimeout(finish, 5000);
+        });
+      }));
+      if (document.fonts?.load) {
+        await Promise.allSettled(getRequiredFontFamilies(selection, language, copyMode).map((family) => (
+          document.fonts.load(`400 16px "${family}"`)
+        )));
+      }
       if (document.fonts?.ready) await document.fonts.ready;
       await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
       await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
@@ -1016,6 +1041,7 @@ export function StyleLab() {
         data-agent-valid={resolution.valid}
         data-capture={capture}
       >
+        <FontResourceLinks selection={selection} language={language} copyMode={copyMode} />
         <AgentStateScript payload={agentState} />
         <FieldNotesSite selection={selection} language={language} copyMode={copyMode} />
       </main>
@@ -1030,6 +1056,7 @@ export function StyleLab() {
       data-agent-valid={resolution.valid}
       data-capture={capture}
     >
+      <FontResourceLinks selection={selection} language={language} copyMode={copyMode} />
       <AgentStateScript payload={agentState} />
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label={t.home}><span>UI</span><b>STYLE LAB</b></a>
@@ -1076,10 +1103,13 @@ export function StyleLab() {
                   {axes[activeAxis].map((option) => {
                     const selected = selection[activeAxis] === option.id;
                     const allowed = isOptionAllowed(selection, activeAxis, option.id);
+                    const constraint = getOptionConstraint(selection, activeAxis, option.id);
                     const name = language === "en" ? option.en : option.ko;
-                    const note = allowed ? getOptionNote(activeAxis, option.id, language) : t.incompatible(aestheticName);
+                    const note = allowed
+                      ? getOptionNote(activeAxis, option.id, language)
+                      : constraint?.message[language] ?? t.incompatible(aestheticName);
                     return (
-                      <button type="button" data-option={option.id} className={`${selected ? "selected" : ""}${allowed ? "" : " incompatible"}`} disabled={!allowed} key={option.id} onClick={() => update(activeAxis, option.id)} title={allowed ? note : t.unavailable(aestheticName)}>
+                      <button type="button" data-option={option.id} className={`${selected ? "selected" : ""}${allowed ? "" : " incompatible"}`} disabled={!allowed} key={option.id} onClick={() => update(activeAxis, option.id)} title={allowed ? note : constraint?.message[language] ?? t.unavailable(aestheticName)}>
                         <i /><span><b>{name}</b><small>{language === "ko" ? `${option.en} · ` : ""}{note}</small>{(activeAxis === "type" || activeAxis === "koType") && <span className="font-sample" lang={activeAxis === "koType" ? "ko" : "en"}>{activeAxis === "koType" ? "가나다 Aa 27" : "Aa Rr 27"}</span>}</span><em aria-hidden="true">{selected ? <Check /> : allowed ? <Circle /> : <X />}</em>
                       </button>
                     );

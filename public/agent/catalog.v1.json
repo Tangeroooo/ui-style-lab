@@ -66,14 +66,20 @@
           ],
           "type": [
             "grotesk",
-            "humanist"
+            "humanist",
+            "accessible"
           ],
           "koType": [
             "plex",
             "pretendard",
             "suit",
             "noto",
-            "spoqa"
+            "spoqa",
+            "wanted",
+            "lineSeed",
+            "nanumSquare",
+            "koddi",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -145,7 +151,10 @@
             "spoqa",
             "nanum",
             "coding",
-            "blackhan"
+            "blackhan",
+            "wanted",
+            "nanumSquare",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -212,7 +221,9 @@
             "pretendard",
             "suit",
             "noto",
-            "blackhan"
+            "blackhan",
+            "wanted",
+            "nanumSquare"
           ],
           "fontMode": [
             "split",
@@ -329,7 +340,8 @@
           ],
           "type": [
             "grotesk",
-            "humanist"
+            "humanist",
+            "accessible"
           ],
           "koType": [
             "plex",
@@ -338,7 +350,11 @@
             "noto",
             "spoqa",
             "nanum",
-            "gowun"
+            "gowun",
+            "wanted",
+            "lineSeed",
+            "koddi",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -405,7 +421,10 @@
             "noto",
             "nanum",
             "coding",
-            "blackhan"
+            "blackhan",
+            "wanted",
+            "nanumSquare",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -464,7 +483,8 @@
           ],
           "type": [
             "grotesk",
-            "serif"
+            "serif",
+            "accessible"
           ],
           "koType": [
             "plex",
@@ -473,7 +493,10 @@
             "noto",
             "spoqa",
             "nanum",
-            "gowun"
+            "gowun",
+            "wanted",
+            "nanumSquare",
+            "koddi"
           ],
           "fontMode": [
             "split",
@@ -538,7 +561,10 @@
             "suit",
             "nanum",
             "jua",
-            "blackhan"
+            "blackhan",
+            "lineSeed",
+            "nanumSquare",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -599,7 +625,8 @@
             "grotesk",
             "mono",
             "rounded",
-            "pixel"
+            "pixel",
+            "recursive"
           ],
           "koType": [
             "plex",
@@ -608,7 +635,11 @@
             "nanum",
             "jua",
             "coding",
-            "blackhan"
+            "blackhan",
+            "lineSeed",
+            "nanumSquare",
+            "d2",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -667,7 +698,8 @@
             "grotesk",
             "mono",
             "condensed",
-            "pixel"
+            "pixel",
+            "recursive"
           ],
           "koType": [
             "plex",
@@ -676,7 +708,9 @@
             "noto",
             "nanum",
             "coding",
-            "blackhan"
+            "blackhan",
+            "nanumSquare",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -741,7 +775,10 @@
             "spoqa",
             "nanum",
             "gowun",
-            "jua"
+            "jua",
+            "lineSeed",
+            "nanumSquare",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -791,12 +828,14 @@
           ],
           "type": [
             "mono",
-            "pixel"
+            "pixel",
+            "recursive"
           ],
           "koType": [
             "nanum",
             "coding",
-            "blackhan"
+            "blackhan",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -856,7 +895,9 @@
             "noto",
             "spoqa",
             "nanum",
-            "gowun"
+            "gowun",
+            "wanted",
+            "nanumSquare"
           ],
           "fontMode": [
             "split",
@@ -912,7 +953,8 @@
           "type": [
             "humanist",
             "serif",
-            "rounded"
+            "rounded",
+            "accessible"
           ],
           "koType": [
             "plex",
@@ -922,7 +964,12 @@
             "spoqa",
             "nanum",
             "gowun",
-            "jua"
+            "jua",
+            "wanted",
+            "lineSeed",
+            "nanumSquare",
+            "koddi",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -981,7 +1028,8 @@
           "type": [
             "serif",
             "mono",
-            "pixel"
+            "pixel",
+            "recursive"
           ],
           "koType": [
             "pretendard",
@@ -989,7 +1037,8 @@
             "nanum",
             "jua",
             "coding",
-            "blackhan"
+            "blackhan",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -1050,7 +1099,9 @@
             "pretendard",
             "suit",
             "noto",
-            "spoqa"
+            "spoqa",
+            "wanted",
+            "nanumSquare"
           ],
           "fontMode": [
             "split",
@@ -1111,7 +1162,9 @@
             "pretendard",
             "suit",
             "noto",
-            "spoqa"
+            "spoqa",
+            "wanted",
+            "nanumSquare"
           ],
           "fontMode": [
             "split",
@@ -1172,7 +1225,9 @@
             "pretendard",
             "suit",
             "noto",
-            "coding"
+            "coding",
+            "nanumSquare",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -1233,7 +1288,9 @@
             "pretendard",
             "suit",
             "noto",
-            "coding"
+            "coding",
+            "nanumSquare",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -1810,7 +1867,9 @@
             "suit",
             "noto",
             "spoqa",
-            "jua"
+            "jua",
+            "lineSeed",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -1875,7 +1934,9 @@
             "suit",
             "noto",
             "spoqa",
-            "jua"
+            "jua",
+            "lineSeed",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -2063,7 +2124,10 @@
             "suit",
             "noto",
             "spoqa",
-            "nanum"
+            "nanum",
+            "wanted",
+            "nanumSquare",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -2137,7 +2201,10 @@
             "suit",
             "noto",
             "spoqa",
-            "nanum"
+            "nanum",
+            "wanted",
+            "nanumSquare",
+            "kakaoPair"
           ],
           "fontMode": [
             "split",
@@ -2198,7 +2265,8 @@
             "pretendard",
             "suit",
             "noto",
-            "coding"
+            "coding",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -2264,7 +2332,8 @@
             "pretendard",
             "suit",
             "noto",
-            "coding"
+            "coding",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -2330,7 +2399,11 @@
             "noto",
             "spoqa",
             "nanum",
-            "coding"
+            "coding",
+            "wanted",
+            "nanumSquare",
+            "d2",
+            "koddi"
           ],
           "fontMode": [
             "split",
@@ -2401,7 +2474,11 @@
             "noto",
             "spoqa",
             "nanum",
-            "coding"
+            "coding",
+            "wanted",
+            "nanumSquare",
+            "d2",
+            "koddi"
           ],
           "fontMode": [
             "split",
@@ -2453,13 +2530,17 @@
           ],
           "type": [
             "grotesk",
-            "mono"
+            "mono",
+            "recursive"
           ],
           "koType": [
             "pretendard",
             "suit",
             "noto",
-            "coding"
+            "coding",
+            "wanted",
+            "nanumSquare",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -2516,13 +2597,17 @@
           "type": [
             "grotesk",
             "mono",
-            "pixel"
+            "pixel",
+            "recursive"
           ],
           "koType": [
             "pretendard",
             "suit",
             "noto",
-            "coding"
+            "coding",
+            "lineSeed",
+            "nanumSquare",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -2580,13 +2665,17 @@
           "type": [
             "grotesk",
             "mono",
-            "pixel"
+            "pixel",
+            "recursive"
           ],
           "koType": [
             "pretendard",
             "suit",
             "noto",
-            "coding"
+            "coding",
+            "lineSeed",
+            "nanumSquare",
+            "d2"
           ],
           "fontMode": [
             "split",
@@ -2648,7 +2737,9 @@
             "pretendard",
             "suit",
             "noto",
-            "spoqa"
+            "spoqa",
+            "wanted",
+            "nanumSquare"
           ],
           "fontMode": [
             "split",
@@ -2708,7 +2799,9 @@
             "pretendard",
             "suit",
             "noto",
-            "spoqa"
+            "spoqa",
+            "wanted",
+            "nanumSquare"
           ],
           "fontMode": [
             "split",
@@ -2725,7 +2818,25 @@
           ]
         }
       }
-    }
+    },
+    "crossAxisConstraints": [
+      {
+        "id": "kakao-screen-pair-requires-script-pairing",
+        "when": {
+          "koType": "kakaoPair"
+        },
+        "requires": {
+          "fontMode": [
+            "split"
+          ]
+        },
+        "fallbackAxis": "koType",
+        "message": {
+          "en": "Kakao Screen Pair is available only with Script Pairing.",
+          "ko": "카카오 화면용 페어는 스크립트 페어링에서만 사용할 수 있습니다."
+        }
+      }
+    ]
   },
   "axes": [
     {
@@ -3220,51 +3331,63 @@
       "options": [
         {
           "id": "grotesk",
-          "ko": "네오 그로테스크",
-          "en": "Neo-grotesk",
-          "note": "중립적이고 정돈된 sans"
+          "ko": "Inter · 네오 그로테스크",
+          "en": "Inter · Neo-grotesk",
+          "note": "중립적이고 정돈된 variable sans"
         },
         {
           "id": "humanist",
-          "ko": "휴머니스트 산스",
-          "en": "Humanist Sans",
-          "note": "친근하고 읽기 쉬운 sans"
+          "ko": "Source Sans 3 · 휴머니스트",
+          "en": "Source Sans 3 · Humanist",
+          "note": "친근하고 읽기 쉬운 humanist sans"
         },
         {
           "id": "serif",
-          "ko": "에디토리얼 세리프",
-          "en": "Editorial Serif",
-          "note": "대조가 큰 고전적 serif"
+          "ko": "Source Serif 4 · 에디토리얼",
+          "en": "Source Serif 4 · Editorial",
+          "note": "optical size를 지원하는 editorial serif"
         },
         {
           "id": "mono",
-          "ko": "모노스페이스",
-          "en": "Monospace",
-          "note": "기술적이고 구조적인 rhythm"
+          "ko": "JetBrains Mono",
+          "en": "JetBrains Mono",
+          "note": "기술적이고 구조적인 coding rhythm"
         },
         {
           "id": "rounded",
-          "ko": "라운디드 산스",
-          "en": "Rounded Sans",
-          "note": "부드럽고 playful한 인상"
+          "ko": "Nunito · 라운디드",
+          "en": "Nunito · Rounded",
+          "note": "부드럽고 playful한 rounded sans"
         },
         {
           "id": "condensed",
-          "ko": "콘덴스드 디스플레이",
-          "en": "Condensed Display",
-          "note": "좁고 강한 headline"
+          "ko": "Barlow Condensed",
+          "en": "Barlow Condensed",
+          "note": "좁고 강한 display sans"
         },
         {
           "id": "slab",
-          "ko": "슬랩 세리프",
-          "en": "Slab Serif",
-          "note": "굵은 획과 editorial 힘"
+          "ko": "Roboto Slab",
+          "en": "Roboto Slab",
+          "note": "굵은 획과 editorial 힘을 가진 slab serif"
         },
         {
           "id": "pixel",
-          "ko": "픽셀 타입",
-          "en": "Pixel Type",
-          "note": "초기 digital display 분위기"
+          "ko": "Pixelify Sans",
+          "en": "Pixelify Sans",
+          "note": "초기 digital display를 재해석한 pixel font"
+        },
+        {
+          "id": "accessible",
+          "ko": "Atkinson Hyperlegible Next",
+          "en": "Atkinson Hyperlegible Next",
+          "note": "저시력 사용자의 글자 판별성을 우선한 sans"
+        },
+        {
+          "id": "recursive",
+          "ko": "Recursive Variable",
+          "en": "Recursive Variable",
+          "note": "CASL·MONO·slant 축을 가진 variable font"
         }
       ]
     },
@@ -3334,6 +3457,42 @@
           "ko": "검은고딕",
           "en": "Black Han Sans",
           "note": "굵고 압축적인 headline 고딕"
+        },
+        {
+          "id": "wanted",
+          "ko": "원티드 산스",
+          "en": "Wanted Sans",
+          "note": "현대 product UI와 다국어 조판을 위한 variable 고딕"
+        },
+        {
+          "id": "lineSeed",
+          "ko": "LINE Seed Sans KR",
+          "en": "LINE Seed Sans KR",
+          "note": "밝고 친근한 화면용 한글 sans"
+        },
+        {
+          "id": "nanumSquare",
+          "ko": "나눔스퀘어 네오",
+          "en": "NanumSquare Neo",
+          "note": "기하학적 비례와 선명한 display 리듬의 고딕"
+        },
+        {
+          "id": "d2",
+          "ko": "D2Coding",
+          "en": "D2Coding",
+          "note": "개발 화면에 최적화된 한글 monospace"
+        },
+        {
+          "id": "koddi",
+          "ko": "코디 온고딕",
+          "en": "KoddiUD OnGothic",
+          "note": "한국장애인개발원의 universal-design 고딕"
+        },
+        {
+          "id": "kakaoPair",
+          "ko": "카카오 화면용 페어",
+          "en": "Kakao Screen Pair",
+          "note": "본문은 Kakao Small Sans, display는 Kakao Big Sans를 사용하는 역할 기반 pairing"
         }
       ]
     },
@@ -3689,6 +3848,190 @@
       ]
     }
   ],
+  "typographyResources": {
+    "latin": {
+      "grotesk": {
+        "family": "Inter",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
+        "source": "https://rsms.me/inter/",
+        "license": "SIL Open Font License 1.1",
+        "role": "Neutral neo-grotesk UI"
+      },
+      "humanist": {
+        "family": "Source Sans 3",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&display=swap",
+        "source": "https://github.com/adobe-fonts/source-sans",
+        "license": "SIL Open Font License 1.1",
+        "role": "Humanist interface and reading text"
+      },
+      "serif": {
+        "family": "Source Serif 4",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap",
+        "source": "https://github.com/adobe-fonts/source-serif",
+        "license": "SIL Open Font License 1.1",
+        "role": "Optical-size editorial serif"
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap",
+        "source": "https://www.jetbrains.com/lp/mono/",
+        "license": "SIL Open Font License 1.1",
+        "role": "Technical monospace"
+      },
+      "rounded": {
+        "family": "Nunito",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap",
+        "source": "https://github.com/googlefonts/nunito",
+        "license": "SIL Open Font License 1.1",
+        "role": "Rounded friendly sans"
+      },
+      "condensed": {
+        "family": "Barlow Condensed",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&display=swap",
+        "source": "https://github.com/jpt/barlow",
+        "license": "SIL Open Font License 1.1",
+        "role": "Condensed display sans"
+      },
+      "slab": {
+        "family": "Roboto Slab",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800&display=swap",
+        "source": "https://github.com/googlefonts/robotoslab",
+        "license": "Apache License 2.0",
+        "role": "Contemporary slab serif"
+      },
+      "pixel": {
+        "family": "Pixelify Sans",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap",
+        "source": "https://github.com/eifetx/Pixelify-Sans",
+        "license": "SIL Open Font License 1.1",
+        "role": "Pixel display face"
+      },
+      "accessible": {
+        "family": "Atkinson Hyperlegible Next",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700;800&display=swap",
+        "source": "https://www.brailleinstitute.org/freefont/",
+        "license": "SIL Open Font License 1.1",
+        "role": "Low-vision legibility"
+      },
+      "recursive": {
+        "family": "Recursive",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Recursive:CASL,CRSV,MONO,slnt,wght@0..1,0..1,0..1,-15..0,300..1000&display=swap",
+        "source": "https://www.recursive.design/",
+        "license": "SIL Open Font License 1.1",
+        "role": "Variable-axis display and code typography"
+      }
+    },
+    "korean": {
+      "plex": {
+        "family": "IBM Plex Sans KR",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
+        "source": "https://github.com/IBM/plex",
+        "license": "SIL Open Font License 1.1",
+        "role": "Structured Korean grotesk"
+      },
+      "pretendard": {
+        "family": "Pretendard Variable",
+        "stylesheet": "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css",
+        "source": "https://github.com/orioncactus/pretendard",
+        "license": "SIL Open Font License 1.1",
+        "role": "Korean system-UI replacement"
+      },
+      "suit": {
+        "family": "SUIT Variable",
+        "stylesheet": "https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css",
+        "source": "https://github.com/sun-typeface/SUIT",
+        "license": "SIL Open Font License 1.1",
+        "role": "Korean interface text"
+      },
+      "noto": {
+        "family": "Noto Sans KR",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap",
+        "source": "https://notofonts.github.io/noto-docs/",
+        "license": "SIL Open Font License 1.1",
+        "role": "Broad Korean glyph coverage"
+      },
+      "spoqa": {
+        "family": "Spoqa Han Sans Neo",
+        "stylesheet": "https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css",
+        "source": "https://github.com/spoqa/spoqa-han-sans",
+        "license": "SIL Open Font License 1.1",
+        "role": "Numeral-rich Korean product UI"
+      },
+      "nanum": {
+        "family": "Nanum Gothic",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap",
+        "source": "https://hangeul.naver.com/font",
+        "license": "SIL Open Font License 1.1",
+        "role": "Familiar Korean web body"
+      },
+      "gowun": {
+        "family": "Gowun Dodum",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap",
+        "source": "https://github.com/yangheeryu/Gowun-Dodum",
+        "license": "SIL Open Font License 1.1",
+        "role": "Soft Korean reading face"
+      },
+      "jua": {
+        "family": "Jua",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Jua&display=swap",
+        "source": "https://fonts.google.com/specimen/Jua",
+        "license": "SIL Open Font License 1.1",
+        "role": "Rounded Korean display"
+      },
+      "coding": {
+        "family": "Nanum Gothic Coding",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap",
+        "source": "https://github.com/naver/nanumfont",
+        "license": "SIL Open Font License 1.1",
+        "role": "Legacy Korean coding face"
+      },
+      "blackhan": {
+        "family": "Black Han Sans",
+        "stylesheet": "https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap",
+        "source": "https://github.com/zesstype/Black-Han-Sans",
+        "license": "SIL Open Font License 1.1",
+        "role": "Compressed Korean display"
+      },
+      "wanted": {
+        "family": "Wanted Sans Variable",
+        "stylesheet": "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.css",
+        "source": "https://github.com/wanteddev/wanted-sans",
+        "license": "SIL Open Font License 1.1",
+        "role": "Contemporary Korean product UI"
+      },
+      "lineSeed": {
+        "family": "LINE Seed Sans KR",
+        "source": "https://seed.line.me/index_kr.html",
+        "license": "SIL Open Font License 1.1",
+        "role": "Friendly Korean screen sans"
+      },
+      "nanumSquare": {
+        "family": "NanumSquare Neo",
+        "source": "https://hangeul.naver.com/font",
+        "license": "SIL Open Font License 1.1",
+        "role": "Geometric Korean UI and display"
+      },
+      "d2": {
+        "family": "D2Coding",
+        "source": "https://github.com/naver/d2codingfont",
+        "license": "SIL Open Font License 1.1",
+        "role": "Korean development monospace"
+      },
+      "koddi": {
+        "family": "KoddiUD OnGothic Regular",
+        "stylesheet": "https://fontsapi.zeoseven.com/584/main/result.css",
+        "source": "https://gongu.copyright.or.kr/gongu/wrt/wrt/view.do?wrtSn=13371556",
+        "license": "Korea Open Government License Type 1",
+        "role": "Universal-design Korean sans"
+      },
+      "kakaoPair": {
+        "family": "Kakao Small Sans",
+        "source": "https://github.com/kakao/kakao-font",
+        "license": "SIL Open Font License 1.1",
+        "role": "Kakao Small Sans body with Kakao Big Sans display"
+      }
+    }
+  },
   "presets": [
     {
       "id": "glass-bento",
@@ -4715,6 +5058,42 @@
         "palette": "mono",
         "motion": "quiet"
       }
+    },
+    {
+      "id": "recursive-signal",
+      "name": "Recursive Signal",
+      "label": "variable axis가 움직이는 digital field signal",
+      "category": "Motion",
+      "selection": {
+        "aesthetic": "y2k",
+        "surface": "chrome",
+        "layout": "poster",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "recursive",
+        "koType": "lineSeed",
+        "fontMode": "split",
+        "palette": "aurora",
+        "motion": "kinetic"
+      }
+    },
+    {
+      "id": "kakao-screen-pair",
+      "name": "Kakao Screen Pair",
+      "label": "큰 제목과 본문 역할을 분리한 한국어 화면용 pairing",
+      "category": "Typography",
+      "selection": {
+        "aesthetic": "minimal",
+        "surface": "flat",
+        "layout": "landing",
+        "nav": "top",
+        "navStyle": "text",
+        "type": "grotesk",
+        "koType": "kakaoPair",
+        "fontMode": "split",
+        "palette": "pureWhite",
+        "motion": "subtle"
+      }
     }
   ],
   "reviewPacks": [
@@ -4757,7 +5136,8 @@
         "supporting-workspace",
         "operations-table",
         "guided-wizard",
-        "spring-canvas"
+        "spring-canvas",
+        "recursive-signal"
       ]
     },
     {
@@ -5285,9 +5665,9 @@
     }
   },
   "validatedCombinationCounts": {
-    "english": 100608,
-    "koreanOnly": 245992,
-    "koreanEnglish": 897688
+    "english": 113668,
+    "koreanOnly": 365416,
+    "koreanEnglish": 1449524
   },
   "notes": [
     "The catalog intentionally publishes rules and curated presets, not the full Cartesian product.",

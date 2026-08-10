@@ -40,7 +40,8 @@
         "supporting-workspace",
         "operations-table",
         "guided-wizard",
-        "spring-canvas"
+        "spring-canvas",
+        "recursive-signal"
       ]
     },
     {

@@ -17,13 +17,13 @@ UI Style Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하고 �
 | 구성 | 14 | Landing, Bento, Feed, Supporting Pane, Data Table, Wizard, Dashboard, Master–detail 등 |
 | 메뉴 위치 | 2 | 상단 또는 좌측 rail |
 | 메뉴 표현 | 3 | 텍스트, 아이콘, 아이콘 + 텍스트 |
-| 한글 서체 | 10 | IBM Plex Sans KR, 프리텐다드, 수트, Noto Sans KR, 스포카 한 산스 네오, 나눔고딕, 고운 돋움, 주아, 나눔고딕 코딩, 검은고딕 |
-| 영문 서체 | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
+| 한글 서체 | 16 | 기존 10종 + 원티드 산스, LINE Seed Sans KR, 나눔스퀘어 네오, D2Coding, 코디 온고딕, 역할 기반 카카오 화면용 페어 |
+| 영문 서체 | 10 | 구체적인 category 대표 8종 + Atkinson Hyperlegible Next, Recursive Variable |
 | 서체 적용 | 2 | 언어별 서체를 분리하거나 한글 서체 하나로 모든 문자를 표현 |
 | 색상 | 46 | 4색 Enterprise Rail family, Pure White와 Atlassian, Primer, SAP Horizon/Quartz/Belize, Material, MUI, Fluent, Carbon, shadcn/ui, Zag, Tamagui, Nebular token family 포함 |
 | 움직임 | 6 | Quiet, subtle, kinetic, productive, staged, spring physics |
 
-화면에서 실제로 구분되는 조합은 English **100,608개**, 한국어 only **245,992개**, 한국어 + English **897,688개**입니다. 수가 줄어든 것은 의도적입니다. 렌더링은 가능해도 governing aesthetic의 문법과 충돌하던 조합을 compatibility 감사에서 제거했습니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체는 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 비활성화 상태로 보여줍니다.
+화면에서 실제로 구분되는 조합은 English **113,668개**, 한국어 only **365,416개**, 한국어 + English **1,449,524개**입니다. global Cartesian product가 아니라 compatibility rule을 통과한 결과만 셉니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체와 이 모드에서 성립하지 않는 카카오 역할 기반 pairing은 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 이유와 함께 비활성화합니다.
 
 넓은 조사 목록에서는 다음 기준으로 실제 선택지를 선별했습니다.
 
@@ -69,7 +69,11 @@ Material 3은 Material 1·2를 내부에 포함하는 superset이 아니라 Mate
 
 각 한글 서체에는 display 크기, line-height, letter-spacing용 layout-fit token을 따로 두어 서체를 바꿔도 의도한 2행 구조와 콘텐츠 높이가 유지되도록 했습니다. 새 공유 URL은 query parameter가 canonical 형식이며, 기존 hash-state URL도 읽은 뒤 안전한 기본값을 보완해 새 형식으로 migration합니다.
 
-추가한 UI 서체는 공식 webfont 배포처를 기준으로 선정했습니다: [Pretendard](https://github.com/orioncactus/pretendard), [SUIT](https://github.com/sun-typeface/SUIT), [Noto](https://notofonts.github.io/noto-docs/website/use/), [Spoqa Han Sans Neo](https://github.com/spoqa/spoqa-han-sans), [Google Fonts + Korean](https://googlefonts.github.io/korean/).
+영문 category는 더 이상 운영체제별 generic stack에 기대지 않습니다. 각각 Inter, Source Sans 3, Source Serif 4, JetBrains Mono, Nunito, Barlow Condensed, Roboto Slab, Pixelify Sans로 고정했습니다. Atkinson Hyperlegible Next는 글자 판별성을 우선하는 접근성 선택지이고, Recursive는 호환되는 digital aesthetic에서만 활성화되며 kinetic/spring mode에서는 공식 variable axis를 typography motion으로 사용합니다.
+
+한글 후보는 [원티드 산스](https://github.com/wanteddev/wanted-sans), [LINE Seed Sans KR](https://seed.line.me/index_kr.html), [나눔스퀘어 네오](https://hangeul.naver.com/font), [D2Coding](https://github.com/naver/d2codingfont), [코디 온고딕](https://gongu.copyright.or.kr/gongu/wrt/wrt/view.do?wrtSn=13371556), [카카오 서체](https://github.com/kakao/kakao-font)를 추가했습니다. `카카오 화면용 페어`는 display에 Kakao Big Sans, 본문·UI에 Kakao Small Sans를 쓰므로 `스크립트 페어링`에서만 사용할 수 있고 `한글 서체 통합`에서는 비활성화됩니다. 기존 URL의 `coding`은 계속 나눔고딕 코딩을 뜻하며 D2Coding은 별도 선택지입니다.
+
+`app/font-data.ts`가 family, 공식 출처, license와 stylesheet의 source of truth입니다. English에서는 선택한 영문 1종, 한국어 only에서는 한글 1종, mixed `Script Pairing`에서만 한글+영문을 선택형으로 load합니다. Agent-ready 상태는 활성 stylesheet와 실제 family load, 두 animation frame이 안정된 뒤에만 설정됩니다. LINE Seed regular/bold WOFF2는 공식 package 그대로 bundle하고 [`public/fonts/README.md`](./public/fonts/README.md)에 attribution을 기록했습니다.
 
 ## 공유 방식
 

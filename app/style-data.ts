@@ -106,14 +106,16 @@ export const axes: Record<AxisKey, Option[]> = {
     { id: "both", ko: "아이콘 + 텍스트", en: "Icon + Text", note: "symbol과 label을 함께 제공하는 메뉴" },
   ],
   type: [
-    { id: "grotesk", ko: "네오 그로테스크", en: "Neo-grotesk", note: "중립적이고 정돈된 sans" },
-    { id: "humanist", ko: "휴머니스트 산스", en: "Humanist Sans", note: "친근하고 읽기 쉬운 sans" },
-    { id: "serif", ko: "에디토리얼 세리프", en: "Editorial Serif", note: "대조가 큰 고전적 serif" },
-    { id: "mono", ko: "모노스페이스", en: "Monospace", note: "기술적이고 구조적인 rhythm" },
-    { id: "rounded", ko: "라운디드 산스", en: "Rounded Sans", note: "부드럽고 playful한 인상" },
-    { id: "condensed", ko: "콘덴스드 디스플레이", en: "Condensed Display", note: "좁고 강한 headline" },
-    { id: "slab", ko: "슬랩 세리프", en: "Slab Serif", note: "굵은 획과 editorial 힘" },
-    { id: "pixel", ko: "픽셀 타입", en: "Pixel Type", note: "초기 digital display 분위기" },
+    { id: "grotesk", ko: "Inter · 네오 그로테스크", en: "Inter · Neo-grotesk", note: "중립적이고 정돈된 variable sans" },
+    { id: "humanist", ko: "Source Sans 3 · 휴머니스트", en: "Source Sans 3 · Humanist", note: "친근하고 읽기 쉬운 humanist sans" },
+    { id: "serif", ko: "Source Serif 4 · 에디토리얼", en: "Source Serif 4 · Editorial", note: "optical size를 지원하는 editorial serif" },
+    { id: "mono", ko: "JetBrains Mono", en: "JetBrains Mono", note: "기술적이고 구조적인 coding rhythm" },
+    { id: "rounded", ko: "Nunito · 라운디드", en: "Nunito · Rounded", note: "부드럽고 playful한 rounded sans" },
+    { id: "condensed", ko: "Barlow Condensed", en: "Barlow Condensed", note: "좁고 강한 display sans" },
+    { id: "slab", ko: "Roboto Slab", en: "Roboto Slab", note: "굵은 획과 editorial 힘을 가진 slab serif" },
+    { id: "pixel", ko: "Pixelify Sans", en: "Pixelify Sans", note: "초기 digital display를 재해석한 pixel font" },
+    { id: "accessible", ko: "Atkinson Hyperlegible Next", en: "Atkinson Hyperlegible Next", note: "저시력 사용자의 글자 판별성을 우선한 sans" },
+    { id: "recursive", ko: "Recursive Variable", en: "Recursive Variable", note: "CASL·MONO·slant 축을 가진 variable font" },
   ],
   koType: [
     { id: "plex", ko: "IBM 플렉스 산스 KR", en: "IBM Plex Sans KR", note: "중립적이고 구조적인 현대 고딕" },
@@ -126,6 +128,12 @@ export const axes: Record<AxisKey, Option[]> = {
     { id: "jua", ko: "주아 라운드", en: "Jua Rounded", note: "둥글고 친근한 display 고딕" },
     { id: "coding", ko: "나눔고딕 코딩", en: "Nanum Gothic Coding", note: "한글과 Latin 폭을 정돈한 coding 고딕" },
     { id: "blackhan", ko: "검은고딕", en: "Black Han Sans", note: "굵고 압축적인 headline 고딕" },
+    { id: "wanted", ko: "원티드 산스", en: "Wanted Sans", note: "현대 product UI와 다국어 조판을 위한 variable 고딕" },
+    { id: "lineSeed", ko: "LINE Seed Sans KR", en: "LINE Seed Sans KR", note: "밝고 친근한 화면용 한글 sans" },
+    { id: "nanumSquare", ko: "나눔스퀘어 네오", en: "NanumSquare Neo", note: "기하학적 비례와 선명한 display 리듬의 고딕" },
+    { id: "d2", ko: "D2Coding", en: "D2Coding", note: "개발 화면에 최적화된 한글 monospace" },
+    { id: "koddi", ko: "코디 온고딕", en: "KoddiUD OnGothic", note: "한국장애인개발원의 universal-design 고딕" },
+    { id: "kakaoPair", ko: "카카오 화면용 페어", en: "Kakao Screen Pair", note: "본문은 Kakao Small Sans, display는 Kakao Big Sans를 사용하는 역할 기반 pairing" },
   ],
   fontMode: [
     { id: "split", ko: "스크립트 페어링", en: "Script Pairing", note: "Latin은 영문 서체, 한글은 한글 서체로 분리" },
@@ -223,7 +231,8 @@ export type AestheticRule = {
 export type ResolutionReason =
   | "legacy-alias"
   | "unknown-option"
-  | "not-allowed-by-aesthetic";
+  | "not-allowed-by-aesthetic"
+  | "cross-axis-constraint";
 
 export type ResolutionAdjustment = {
   axis: AxisKey;
@@ -249,6 +258,27 @@ export const dependentAxisKeys: DependentAxis[] = [
   "fontMode",
   "palette",
   "motion",
+];
+
+export type CrossAxisConstraint = {
+  id: string;
+  when: Partial<Record<DependentAxis, string>>;
+  requires: Partial<Record<DependentAxis, readonly string[]>>;
+  fallbackAxis: DependentAxis;
+  message: { en: string; ko: string };
+};
+
+export const crossAxisConstraints: CrossAxisConstraint[] = [
+  {
+    id: "kakao-screen-pair-requires-script-pairing",
+    when: { koType: "kakaoPair" },
+    requires: { fontMode: ["split"] },
+    fallbackAxis: "koType",
+    message: {
+      en: "Kakao Screen Pair is available only with Script Pairing.",
+      ko: "카카오 화면용 페어는 스크립트 페어링에서만 사용할 수 있습니다.",
+    },
+  },
 ];
 
 /**
@@ -860,6 +890,51 @@ export const aestheticRules: Record<string, AestheticRule> = {
   },
 };
 
+function allowOptions(
+  aestheticIds: readonly string[],
+  axis: DependentAxis,
+  optionIds: readonly string[],
+) {
+  for (const aestheticId of aestheticIds) {
+    const allowed = aestheticRules[aestheticId]?.allowed[axis];
+    if (!allowed) continue;
+    for (const optionId of optionIds) {
+      if (!allowed.includes(optionId)) allowed.push(optionId);
+    }
+  }
+}
+
+// Additional typefaces are enabled only where their visual role remains
+// consistent with the governing aesthetic. Official design-system faces stay
+// constrained to their documented defaults instead of becoming generic skins.
+allowOptions(["minimal", "scandinavian", "editorial", "organic"], "type", ["accessible"]);
+allowOptions(["y2k", "cyberpunk", "terminal", "vaporwave", "zag", "tamagui", "tamaguiDark"], "type", ["recursive"]);
+
+allowOptions([
+  "minimal", "swiss", "bauhaus", "scandinavian", "brutalist", "editorial", "luxury", "organic",
+  "atlassian", "atlassianDark", "fluent2", "fluent2Dark", "shadcn", "shadcnDark", "zag",
+  "nebular", "nebularDark",
+], "koType", ["wanted"]);
+allowOptions([
+  "minimal", "scandinavian", "memphis", "y2k", "frutiger", "organic", "material3", "material3Dark",
+  "tamagui", "tamaguiDark",
+], "koType", ["lineSeed"]);
+allowOptions([
+  "minimal", "swiss", "bauhaus", "brutalist", "editorial", "memphis", "y2k", "cyberpunk", "frutiger",
+  "luxury", "organic", "atlassian", "atlassianDark", "primer", "primerDark", "fluent2", "fluent2Dark",
+  "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark",
+], "koType", ["nanumSquare"]);
+allowOptions(
+  Object.keys(aestheticRules).filter((aestheticId) => aestheticRules[aestheticId].allowed.koType.includes("coding")),
+  "koType",
+  ["d2"],
+);
+allowOptions(["minimal", "scandinavian", "editorial", "organic", "shadcn", "shadcnDark"], "koType", ["koddi"]);
+allowOptions([
+  "minimal", "scandinavian", "memphis", "y2k", "frutiger", "organic", "material3", "material3Dark",
+  "fluent2", "fluent2Dark",
+], "koType", ["kakaoPair"]);
+
 export type Preset = {
   id: string;
   name: string;
@@ -926,6 +1001,8 @@ export const presets: Preset[] = [
   { id: "citrus-split", name: "Citrus Split", label: "energetic commerce", category: "Expressive", selection: { aesthetic: "swiss", surface: "flat", layout: "split", nav: "top", navStyle: "text", type: "condensed", koType: "blackhan", fontMode: "split", palette: "citrus", motion: "subtle" } },
   { id: "skeuo-utility", name: "Skeuo Utility", label: "촉각적 control로 되살린 desktop tool", category: "Retro", selection: { aesthetic: "y2k", surface: "skeuo", layout: "dashboard", nav: "left", navStyle: "both", type: "rounded", koType: "jua", fontMode: "split", palette: "aqua", motion: "subtle" } },
   { id: "eink-fieldbook", name: "E-ink Fieldbook", label: "저채도 digital paper로 읽는 현장 기록", category: "Editorial", selection: { aesthetic: "editorial", surface: "eink", layout: "masterDetail", nav: "top", navStyle: "text", type: "serif", koType: "gowun", fontMode: "split", palette: "mono", motion: "quiet" } },
+  { id: "recursive-signal", name: "Recursive Signal", label: "variable axis가 움직이는 digital field signal", category: "Motion", selection: { aesthetic: "y2k", surface: "chrome", layout: "poster", nav: "top", navStyle: "both", type: "recursive", koType: "lineSeed", fontMode: "split", palette: "aurora", motion: "kinetic" } },
+  { id: "kakao-screen-pair", name: "Kakao Screen Pair", label: "큰 제목과 본문 역할을 분리한 한국어 화면용 pairing", category: "Typography", selection: { aesthetic: "minimal", surface: "flat", layout: "landing", nav: "top", navStyle: "text", type: "grotesk", koType: "kakaoPair", fontMode: "split", palette: "pureWhite", motion: "subtle" } },
 ];
 
 const optionNotesEn: Record<AxisKey, Record<string, string>> = {
@@ -1013,14 +1090,16 @@ const optionNotesEn: Record<AxisKey, Record<string, string>> = {
     both: "Symbols and labels shown together",
   },
   type: {
-    grotesk: "Neutral, structured sans-serif",
-    humanist: "Warm and highly readable sans-serif",
-    serif: "High-contrast editorial serif",
-    mono: "Technical and systematic rhythm",
-    rounded: "Soft and playful letterforms",
-    condensed: "Narrow, forceful display type",
-    slab: "Heavy strokes with editorial weight",
-    pixel: "Early digital-display character",
+    grotesk: "Inter as a neutral, structured neo-grotesk",
+    humanist: "Source Sans 3 as a warm, highly readable humanist sans",
+    serif: "Source Serif 4 with optical sizes for editorial reading",
+    mono: "JetBrains Mono for a technical, systematic rhythm",
+    rounded: "Nunito's soft and playful rounded letterforms",
+    condensed: "Barlow Condensed for narrow, forceful display type",
+    slab: "Roboto Slab's heavy strokes and editorial weight",
+    pixel: "Pixelify Sans for an early digital-display character",
+    accessible: "Atkinson Hyperlegible Next prioritizes character differentiation for low vision",
+    recursive: "Recursive exposes CASL, MONO, slant, and weight variable axes",
   },
   koType: {
     plex: "Neutral, structured Korean grotesk",
@@ -1033,6 +1112,12 @@ const optionNotesEn: Record<AxisKey, Record<string, string>> = {
     jua: "Friendly rounded Korean display face",
     coding: "Monospaced rhythm for Hangul and Latin",
     blackhan: "Heavy, condensed Korean headline face",
+    wanted: "A contemporary variable Korean sans for product interfaces",
+    lineSeed: "A bright, friendly Korean screen sans from LINE",
+    nanumSquare: "Geometric Korean proportions with a crisp display rhythm",
+    d2: "A Korean development monospace with distinct programming glyphs",
+    koddi: "A universal-design Korean sans published by KODDI",
+    kakaoPair: "Kakao Small Sans for body text paired with Kakao Big Sans for display roles",
   },
   fontMode: {
     split: "Use the Latin face for Latin and the Korean face for Hangul",
@@ -1128,9 +1213,31 @@ export function recommendedSelection(aesthetic: string): Selection {
   return { aesthetic: validAesthetic, ...getAestheticRule(validAesthetic).defaults };
 }
 
+function constraintMatches(selection: Partial<Selection>, constraint: CrossAxisConstraint) {
+  return Object.entries(constraint.when).every(([axis, value]) => selection[axis as AxisKey] === value);
+}
+
+function constraintIsSatisfied(selection: Partial<Selection>, constraint: CrossAxisConstraint) {
+  if (!constraintMatches(selection, constraint)) return true;
+  return Object.entries(constraint.requires).every(([axis, values]) => {
+    const value = selection[axis as AxisKey];
+    return value !== undefined && values.includes(value);
+  });
+}
+
+export function getOptionConstraint(
+  selection: Selection,
+  axis: AxisKey,
+  optionId: string,
+) {
+  const proposed = { ...selection, [axis]: optionId };
+  return crossAxisConstraints.find((constraint) => !constraintIsSatisfied(proposed, constraint));
+}
+
 export function isOptionAllowed(selection: Selection, axis: AxisKey, optionId: string) {
   if (axis === "aesthetic") return axes.aesthetic.some((option) => option.id === optionId);
-  return getAestheticRule(selection.aesthetic).allowed[axis].includes(optionId);
+  return getAestheticRule(selection.aesthetic).allowed[axis].includes(optionId)
+    && !getOptionConstraint(selection, axis, optionId);
 }
 
 export function resolveSelection(
@@ -1182,6 +1289,20 @@ export function resolveSelection(
     });
   }
 
+  for (const constraint of crossAxisConstraints) {
+    if (constraintIsSatisfied(next, constraint)) continue;
+    const axis = constraint.fallbackAxis;
+    const requestedValue = next[axis];
+    const resolvedValue = rule.defaults[axis];
+    next[axis] = resolvedValue;
+    adjustments.push({
+      axis,
+      requested: requestedValue,
+      resolved: resolvedValue,
+      reason: "cross-axis-constraint",
+    });
+  }
+
   return {
     requested,
     resolved: next,
@@ -1221,7 +1342,28 @@ export function randomCompatibleSelection(
     next[axis] = options[Math.floor(random() * options.length)] ?? next[axis];
   }
 
-  return next;
+  return normalizeSelection(next);
+}
+
+function constraintCanBeCompleted(
+  partial: Partial<Selection>,
+  rule: AestheticRule,
+  constraint: CrossAxisConstraint,
+) {
+  for (const [axisKey, trigger] of Object.entries(constraint.when)) {
+    const axis = axisKey as DependentAxis;
+    const current = partial[axis];
+    if (current !== undefined && current !== trigger) return true;
+    if (current === undefined && rule.allowed[axis].some((value) => value !== trigger)) return true;
+  }
+
+  return Object.entries(constraint.requires).every(([axisKey, requiredValues]) => {
+    const axis = axisKey as DependentAxis;
+    const current = partial[axis];
+    return current !== undefined
+      ? requiredValues.includes(current)
+      : rule.allowed[axis].some((value) => requiredValues.includes(value));
+  });
 }
 
 export function combinationCount(
@@ -1237,9 +1379,29 @@ export function combinationCount(
       return value !== undefined && !rule.allowed[axis].includes(value);
     });
     if (fixedValueIsInvalid) return total;
-    return total + countedAxes.reduce(
-      (count, axis) => count * (fixedValues[axis] === undefined ? rule.allowed[axis].length : 1),
-      1,
-    );
+
+    const constrainedAxes = new Set<DependentAxis>();
+    for (const constraint of crossAxisConstraints) {
+      for (const axis of [...Object.keys(constraint.when), ...Object.keys(constraint.requires)]) {
+        if (countedAxes.includes(axis as DependentAxis)) constrainedAxes.add(axis as DependentAxis);
+      }
+    }
+    const enumeratedAxes = countedAxes.filter((axis) => constrainedAxes.has(axis) && fixedValues[axis] === undefined);
+    const independentCount = countedAxes
+      .filter((axis) => !constrainedAxes.has(axis))
+      .reduce((count, axis) => count * (fixedValues[axis] === undefined ? rule.allowed[axis].length : 1), 1);
+
+    function countConstrained(index: number, partial: Partial<Selection>): number {
+      if (index === enumeratedAxes.length) {
+        return crossAxisConstraints.every((constraint) => constraintCanBeCompleted(partial, rule, constraint)) ? 1 : 0;
+      }
+      const axis = enumeratedAxes[index];
+      return rule.allowed[axis].reduce(
+        (count, value) => count + countConstrained(index + 1, { ...partial, [axis]: value }),
+        0,
+      );
+    }
+
+    return total + independentCount * countConstrained(0, { ...fixedValues, aesthetic: aesthetic.id });
   }, 0);
 }

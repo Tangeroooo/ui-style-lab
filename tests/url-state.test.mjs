@@ -45,9 +45,9 @@ test("companion English copy appears only in the Korean + English mode", () => {
 });
 
 test("each content mode reports only visually distinct combinations", () => {
-  assert.equal(experienceCombinationCount("en", "mixed"), 100_608);
-  assert.equal(experienceCombinationCount("ko", "only"), 245_992);
-  assert.equal(experienceCombinationCount("ko", "mixed"), 897_688);
+  assert.equal(experienceCombinationCount("en", "mixed"), 113_668);
+  assert.equal(experienceCombinationCount("ko", "only"), 365_416);
+  assert.equal(experienceCombinationCount("ko", "mixed"), 1_449_524);
 });
 
 test("legacy Fiori hashes migrate to the matching Horizon aesthetics", () => {

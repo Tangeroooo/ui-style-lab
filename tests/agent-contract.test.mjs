@@ -13,7 +13,8 @@ test("the agent catalog publishes rules, evidence, presets, and bounded review p
   assert.equal(catalog.transport.canonical, "query");
   assert.equal(catalog.compatibility.governingAxis, "aesthetic");
   assert.equal(catalog.axes.length, 10);
-  assert.equal(catalog.presets.length, 57);
+  assert.equal(catalog.presets.length, 59);
+  assert.equal(catalog.compatibility.crossAxisConstraints[0].id, "kakao-screen-pair-requires-script-pairing");
   assert.ok(catalog.evidence.aesthetic.minimal);
   assert.ok(reviewPacks.every((pack) => pack.presetIds.length > 0));
   assert.equal("combinations" in catalog, false);

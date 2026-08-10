@@ -3,12 +3,14 @@ import {
   axes,
   axisKeys,
   axisMeta,
+  crossAxisConstraints,
   legacyAestheticAliases,
   presets,
   type Language,
   type SelectionResolution,
 } from "./style-data.ts";
 import { styleEvidenceRegistries } from "./style-references.ts";
+import { koreanFontResources, latinFontResources } from "./font-data.ts";
 import {
   createExperienceUrl,
   experienceCombinationCount,
@@ -82,12 +84,17 @@ export function buildAgentCatalog() {
       fallback: "Unknown or incompatible values resolve to that aesthetic's native defaults.",
       aliases: legacyAestheticAliases,
       rules: aestheticRules,
+      crossAxisConstraints,
     },
     axes: axisKeys.map((axis) => ({
       id: axis,
       label: axisMeta[axis],
       options: axes[axis],
     })),
+    typographyResources: {
+      latin: latinFontResources,
+      korean: koreanFontResources,
+    },
     presets,
     reviewPacks,
     evidence: styleEvidenceRegistries,

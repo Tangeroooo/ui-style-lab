@@ -7,6 +7,7 @@ import {
   axes,
   axisKeys,
   combinationCount,
+  crossAxisConstraints,
   defaultSelection,
   dependentAxisKeys,
   getAestheticRule,
@@ -18,6 +19,7 @@ import {
   resolveSelection,
 } from "../app/style-data.ts";
 import { hasStyleEvidence } from "../app/style-references.ts";
+import { getFontStylesheets, getRequiredFontFamilies } from "../app/font-data.ts";
 
 test("every aesthetic defines a valid default and allowed set for every dependent axis", () => {
   for (const aesthetic of axes.aesthetic) {
@@ -46,7 +48,7 @@ test("the initial canvas is the curated minimal recommendation", () => {
 });
 
 test("all curated presets are already normalized and compatible", () => {
-  assert.equal(presets.length, 57);
+  assert.equal(presets.length, 59);
   for (const preset of presets) {
     assert.deepEqual(normalizeSelection(preset.selection), preset.selection, preset.id);
   }
@@ -100,7 +102,20 @@ test("bilingual randomization preserves the selected type binding", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 1_303_392);
+  assert.equal(combinationCount(), 2_149_112);
+});
+
+test("role-based Korean pairs are constrained to Script Pairing everywhere", () => {
+  const base = recommendedSelection("minimal");
+  const paired = { ...base, koType: "kakaoPair", fontMode: "split" };
+
+  assert.equal(crossAxisConstraints[0].id, "kakao-screen-pair-requires-script-pairing");
+  assert.equal(isOptionAllowed(paired, "fontMode", "split"), true);
+  assert.equal(isOptionAllowed(paired, "fontMode", "koUnified"), false);
+
+  const resolution = resolveSelection({ ...paired, fontMode: "koUnified" });
+  assert.equal(resolution.resolved.koType, base.koType);
+  assert.ok(resolution.adjustments.some(({ reason }) => reason === "cross-axis-constraint"));
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
@@ -271,10 +286,37 @@ test("dot matrix texture is opt-in rather than a global canvas default", () => {
 
 test("Korean typography options remain sans, gothic, or coding-oriented", () => {
   const prohibited = /myeongjo|명조|serif/i;
-  assert.equal(axes.koType.length, 10);
+  assert.equal(axes.koType.length, 16);
   for (const option of axes.koType) {
     assert.doesNotMatch(`${option.id} ${option.ko} ${option.en} ${option.note}`, prohibited);
   }
+});
+
+test("Latin categories resolve to concrete families and new fonts have conservative compatibility", () => {
+  const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
+  assert.equal(axes.type.length, 10);
+  for (const id of ["grotesk", "humanist", "serif", "mono", "rounded", "condensed", "slab", "pixel", "accessible", "recursive"]) {
+    assert.match(css, new RegExp(`data-type=["']${id}["']`), id);
+  }
+  for (const id of ["wanted", "lineSeed", "nanumSquare", "d2", "koddi", "kakaoPair"]) {
+    const enabledBy = axes.aesthetic.filter((aesthetic) => aestheticRules[aesthetic.id].allowed.koType.includes(id));
+    assert.ok(enabledBy.length > 0, id);
+    assert.ok(enabledBy.length < axes.aesthetic.length, id);
+  }
+});
+
+test("font resources load only for the visible script binding", () => {
+  const selection = { ...recommendedSelection("minimal"), type: "recursive", koType: "kakaoPair", fontMode: "split" };
+  const english = getFontStylesheets(selection, "en", "mixed");
+  const mixed = getFontStylesheets(selection, "ko", "mixed");
+  const koreanOnly = getFontStylesheets(selection, "ko", "only");
+
+  assert.equal(english.length, 1);
+  assert.match(english[0], /Recursive/);
+  assert.equal(mixed.length, 1);
+  assert.match(mixed[0], /Recursive/);
+  assert.equal(koreanOnly.length, 0);
+  assert.deepEqual(getRequiredFontFamilies(selection, "ko", "mixed"), ["Kakao Small Sans", "Kakao Big Sans", "Recursive"]);
 });
 
 test("every Korean type option has a full-canvas CSS implementation", () => {

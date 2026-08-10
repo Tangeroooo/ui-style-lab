@@ -17,13 +17,13 @@ English is the default interface language. The right-side floating control stack
 | Layout | 14 | Landing, Bento, Feed, Supporting Pane, Data Table, Wizard, Dashboard, Master–detail, and more |
 | Navigation position | 2 | Top or left rail |
 | Menu style | 3 | Text, icon, or icon + text |
-| Korean type | 10 | IBM Plex Sans KR, Pretendard, SUIT, Noto Sans KR, Spoqa Han Sans Neo, Nanum Gothic, Gowun Dodum, Jua, Nanum Gothic Coding, Black Han Sans |
-| Latin type | 8 | Grotesk, humanist, serif, mono, rounded, condensed, slab, pixel |
+| Korean type | 16 | Adds Wanted Sans, LINE Seed Sans KR, NanumSquare Neo, D2Coding, KoddiUD OnGothic, and the role-based Kakao Screen Pair |
+| Latin type | 10 | Eight concrete category representatives plus Atkinson Hyperlegible Next and Recursive Variable |
 | Type binding | 2 | Pair Latin and Korean faces by script, or use the selected Korean face for both scripts |
 | Palette | 46 | Includes a four-color Enterprise Rail family, Pure White, and native Atlassian, Primer, SAP Horizon/Quartz/Belize, Material, MUI, Fluent, Carbon, shadcn/ui, Zag, Tamagui, and Nebular token families |
 | Motion | 6 | Quiet, subtle, kinetic, productive, staged, and spring physics |
 
-The lab exposes a different number of visually distinct combinations for each content mode: **100,608** in English, **245,992** in Korean-only, and **897,688** in Korean + English. The lower count is intentional: the compatibility audit removed combinations that rendered but contradicted their governing aesthetic. Latin type is not counted when Korean Unified makes it visually irrelevant. Incompatible values remain visible but disabled.
+The lab exposes a different number of visually distinct combinations for each content mode: **113,668** in English, **365,416** in Korean-only, and **1,449,524** in Korean + English. The count is compatibility-aware rather than a global Cartesian product. Latin type is not counted when Korean Unified makes it visually irrelevant, and the role-based Kakao pair is excluded from that unified branch. Incompatible values remain visible but disabled with a reason.
 
 The added options were deliberately curated from the broader research list:
 
@@ -73,7 +73,11 @@ Typography controls follow the content mode so irrelevant axes do not create dup
 
 Every Korean face has layout-fit tokens for display size, line height, and tracking so the intended two-line hierarchy survives different Hangul metrics. Canonical shared URLs now use query parameters; existing hash-state links remain readable and migrate to the current contract with safe defaults.
 
-The additional UI fonts come from their official webfont projects: [Pretendard](https://github.com/orioncactus/pretendard), [SUIT](https://github.com/sun-typeface/SUIT), [Noto](https://notofonts.github.io/noto-docs/website/use/), [Spoqa Han Sans Neo](https://github.com/spoqa/spoqa-han-sans), and [Google Fonts + Korean](https://googlefonts.github.io/korean/).
+The Latin categories now resolve to concrete, reproducible families instead of platform-dependent generic stacks: Inter, Source Sans 3, Source Serif 4, JetBrains Mono, Nunito, Barlow Condensed, Roboto Slab, and Pixelify Sans. Atkinson Hyperlegible Next is a conservative accessibility option, while Recursive is enabled only for compatible digital aesthetics; in kinetic or spring modes its documented variable axes provide the typographic motion.
+
+The expanded Korean set adds [Wanted Sans](https://github.com/wanteddev/wanted-sans), [LINE Seed Sans KR](https://seed.line.me/index_kr.html), [NanumSquare Neo](https://hangeul.naver.com/font), [D2Coding](https://github.com/naver/d2codingfont), [KoddiUD OnGothic](https://gongu.copyright.or.kr/gongu/wrt/wrt/view.do?wrtSn=13371556), and [Kakao fonts](https://github.com/kakao/kakao-font). `Kakao Screen Pair` deliberately binds Kakao Big Sans to display roles and Kakao Small Sans to body/UI roles, so it is available only under `Script Pairing`; selecting `Korean Unified` disables it. The existing `coding` ID remains Nanum Gothic Coding for URL compatibility, with D2Coding added as a distinct option.
+
+`app/font-data.ts` is the font manifest for family names, official sources, licenses, and stylesheets. The page loads only the selected script resources: one Latin face in English, one Korean face in Korean-only, and Korean plus Latin only for mixed `Script Pairing`. Agent readiness waits for the active stylesheets, requested families, and two animation frames. LINE Seed's regular and bold WOFF2 files are bundled from the official package with attribution in [`public/fonts/README.md`](./public/fonts/README.md); other resources remain remotely hosted by their publishers or documented distributors.
 
 ## Sharing
 

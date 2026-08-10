@@ -1,7 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Gothic+Coding:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;600;700&display=swap");
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
-@import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css");
-@import url("https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css");
+@font-face { font-family:"LINE Seed Sans KR";src:url("/fonts/line-seed/LINESeedKR-Regular.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap; }
+@font-face { font-family:"LINE Seed Sans KR";src:url("/fonts/line-seed/LINESeedKR-Bold.woff2") format("woff2");font-style:normal;font-weight:700;font-display:swap; }
+@font-face { font-family:"NanumSquare Neo";src:url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap; }
+@font-face { font-family:"NanumSquare Neo";src:url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff2") format("woff2");font-style:normal;font-weight:700;font-display:swap; }
+@font-face { font-family:"D2Coding";src:url("https://cdn.jsdelivr.net/gh/naver/d2codingfont@VER1.3.3/fonts/ttf/D2Coding-Regular.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap; }
+@font-face { font-family:"D2Coding";src:url("https://cdn.jsdelivr.net/gh/naver/d2codingfont@VER1.3.3/fonts/ttf/D2Coding-Bold.ttf") format("truetype");font-style:normal;font-weight:700;font-display:swap; }
+@font-face { font-family:"Kakao Big Sans";src:url("https://cdn.jsdelivr.net/gh/kakao/kakao-font@a1786bb0b7b21a8273e42fdd94d94eed09b34fce/Kakao-Big-Sans/fonts/KakaoBigSans-Regular.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap; }
+@font-face { font-family:"Kakao Big Sans";src:url("https://cdn.jsdelivr.net/gh/kakao/kakao-font@a1786bb0b7b21a8273e42fdd94d94eed09b34fce/Kakao-Big-Sans/fonts/KakaoBigSans-Bold.ttf") format("truetype");font-style:normal;font-weight:700;font-display:swap; }
+@font-face { font-family:"Kakao Small Sans";src:url("https://cdn.jsdelivr.net/gh/kakao/kakao-font@a1786bb0b7b21a8273e42fdd94d94eed09b34fce/Kakao-Small-Sans/fonts/KakaoSmallSans-Regular.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap; }
+@font-face { font-family:"Kakao Small Sans";src:url("https://cdn.jsdelivr.net/gh/kakao/kakao-font@a1786bb0b7b21a8273e42fdd94d94eed09b34fce/Kakao-Small-Sans/fonts/KakaoSmallSans-Bold.ttf") format("truetype");font-style:normal;font-weight:700;font-display:swap; }
 
 /* UI Style Lab shell ------------------------------------------------------ */
 
@@ -322,14 +328,16 @@
 .evidence-card>a>b { font-size:11px; }.evidence-card>a>small { grid-column:1;color:#aaa69d;font:8px ui-monospace,monospace; }.evidence-card>a>em { display:inline-flex;grid-row:1/3;grid-column:2;align-items:center;gap:4px;color:#91a7ff;font:9px ui-monospace,monospace;font-style:normal;text-transform:uppercase; }.evidence-card svg { width:11px;height:11px; }
 
 [data-capture="true"] *,[data-capture="true"] *::before,[data-capture="true"] *::after { scroll-behavior:auto!important;animation:none!important;transition:none!important;caret-color:transparent!important; }
-.mixer-popover[data-axis="type"] [data-option="grotesk"] .font-sample { font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-.mixer-popover[data-axis="type"] [data-option="humanist"] .font-sample { font-family:"Trebuchet MS",Candara,sans-serif; }
-.mixer-popover[data-axis="type"] [data-option="serif"] .font-sample { font-family:Georgia,"Times New Roman",serif; }
-.mixer-popover[data-axis="type"] [data-option="mono"] .font-sample { font-family:"SFMono-Regular",Consolas,monospace; }
-.mixer-popover[data-axis="type"] [data-option="rounded"] .font-sample { font-family:ui-rounded,"Arial Rounded MT Bold",sans-serif; }
-.mixer-popover[data-axis="type"] [data-option="condensed"] .font-sample { font-family:"Arial Narrow",Impact,sans-serif; }
-.mixer-popover[data-axis="type"] [data-option="slab"] .font-sample { font-family:Rockwell,Georgia,serif; }
-.mixer-popover[data-axis="type"] [data-option="pixel"] .font-sample { font-family:Monaco,"Lucida Console",monospace; }
+.mixer-popover[data-axis="type"] [data-option="grotesk"] .font-sample { font-family:Inter,ui-sans-serif,sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="humanist"] .font-sample { font-family:"Source Sans 3",sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="serif"] .font-sample { font-family:"Source Serif 4",serif; }
+.mixer-popover[data-axis="type"] [data-option="mono"] .font-sample { font-family:"JetBrains Mono",monospace; }
+.mixer-popover[data-axis="type"] [data-option="rounded"] .font-sample { font-family:Nunito,ui-rounded,sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="condensed"] .font-sample { font-family:"Barlow Condensed",sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="slab"] .font-sample { font-family:"Roboto Slab",serif; }
+.mixer-popover[data-axis="type"] [data-option="pixel"] .font-sample { font-family:"Pixelify Sans",monospace; }
+.mixer-popover[data-axis="type"] [data-option="accessible"] .font-sample { font-family:"Atkinson Hyperlegible Next",sans-serif; }
+.mixer-popover[data-axis="type"] [data-option="recursive"] .font-sample { font-family:Recursive,sans-serif;font-variation-settings:"CASL" .7,"MONO" .2,"slnt" -6; }
 .mixer-popover[data-axis="koType"] [data-option="plex"] .font-sample { font-family:"IBM Plex Sans KR",sans-serif; }
 .mixer-popover[data-axis="koType"] [data-option="pretendard"] .font-sample { font-family:"Pretendard Variable",Pretendard,sans-serif; }
 .mixer-popover[data-axis="koType"] [data-option="suit"] .font-sample { font-family:"SUIT Variable",SUIT,sans-serif; }
@@ -340,6 +348,12 @@
 .mixer-popover[data-axis="koType"] [data-option="jua"] .font-sample { font-family:"Jua",sans-serif; }
 .mixer-popover[data-axis="koType"] [data-option="coding"] .font-sample { font-family:"Nanum Gothic Coding",monospace; }
 .mixer-popover[data-axis="koType"] [data-option="blackhan"] .font-sample { font-family:"Black Han Sans",sans-serif; }
+.mixer-popover[data-axis="koType"] [data-option="wanted"] .font-sample { font-family:"Wanted Sans Variable",sans-serif; }
+.mixer-popover[data-axis="koType"] [data-option="lineSeed"] .font-sample { font-family:"LINE Seed Sans KR",sans-serif; }
+.mixer-popover[data-axis="koType"] [data-option="nanumSquare"] .font-sample { font-family:"NanumSquare Neo",sans-serif; }
+.mixer-popover[data-axis="koType"] [data-option="d2"] .font-sample { font-family:D2Coding,monospace; }
+.mixer-popover[data-axis="koType"] [data-option="koddi"] .font-sample { font-family:"KoddiUD OnGothic Regular",sans-serif; }
+.mixer-popover[data-axis="koType"] [data-option="kakaoPair"] .font-sample { font-family:"Kakao Big Sans",sans-serif; }
 
 .canvas-label {
   display: flex;
@@ -699,16 +713,18 @@
 
 /* Typography axis -------------------------------------------------------- */
 
-.live-site[data-type="grotesk"] { --site-latin-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--site-latin-display:var(--site-latin-font); }
-.live-site[data-type="humanist"] { --site-latin-font:"Trebuchet MS",Candara,sans-serif;--site-latin-display:var(--site-latin-font); }
-.live-site[data-type="serif"] { --site-latin-font:Georgia,"Times New Roman",serif;--site-latin-display:var(--site-latin-font); }
-.live-site[data-type="mono"] { --site-latin-font:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--site-latin-display:var(--site-latin-font); }
-.live-site[data-type="rounded"] { --site-latin-font:ui-rounded,"Arial Rounded MT Bold","Trebuchet MS",sans-serif;--site-latin-display:var(--site-latin-font); }
-.live-site[data-type="condensed"] { --site-latin-font:"Arial Narrow",Impact,Haettenschweiler,sans-serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="grotesk"] { --site-latin-font:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="humanist"] { --site-latin-font:"Source Sans 3","Trebuchet MS",sans-serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="serif"] { --site-latin-font:"Source Serif 4",Georgia,serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="mono"] { --site-latin-font:"JetBrains Mono","SFMono-Regular",Consolas,monospace;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="rounded"] { --site-latin-font:Nunito,ui-rounded,"Arial Rounded MT Bold",sans-serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="condensed"] { --site-latin-font:"Barlow Condensed","Arial Narrow",sans-serif;--site-latin-display:var(--site-latin-font); }
 .live-site[data-type="condensed"] h2,.live-site[data-type="condensed"] h3,.live-site[data-type="condensed"] h4 { text-transform:uppercase;letter-spacing:-.035em; }
-.live-site[data-type="slab"] { --site-latin-font:Rockwell,"Roboto Slab",Georgia,serif;--site-latin-display:var(--site-latin-font); }
-.live-site[data-type="pixel"] { --site-latin-font:Monaco,"Lucida Console",monospace;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="slab"] { --site-latin-font:"Roboto Slab",Rockwell,Georgia,serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="pixel"] { --site-latin-font:"Pixelify Sans",Monaco,monospace;--site-latin-display:var(--site-latin-font); }
 .live-site[data-type="pixel"] * { border-radius:0!important; }
+.live-site[data-type="accessible"] { --site-latin-font:"Atkinson Hyperlegible Next",Arial,sans-serif;--site-latin-display:var(--site-latin-font); }
+.live-site[data-type="recursive"] { --site-latin-font:Recursive,ui-sans-serif,sans-serif;--site-latin-display:var(--site-latin-font);font-variation-settings:"CASL" .15,"CRSV" 0,"MONO" 0,"slnt" 0; }
 
 .live-site[data-ko-type="plex"] { --site-ko-font:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--site-ko-display:var(--site-ko-font); }
 .live-site[data-ko-type="pretendard"] { --site-ko-font:"Pretendard Variable",Pretendard,"Noto Sans KR",sans-serif;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(42px,10.5cqi,152px); }
@@ -720,6 +736,12 @@
 .live-site[data-ko-type="jua"] { --site-ko-font:"Jua","NanumSquareRound","Apple SD Gothic Neo","Noto Sans KR",sans-serif;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(42px,9.8cqi,140px);--site-ko-display-line:1.08;--site-ko-tracking:-.035em; }
 .live-site[data-ko-type="coding"] { --site-ko-font:"Nanum Gothic Coding","D2Coding","Noto Sans Mono CJK KR",monospace;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(40px,9.25cqi,132px);--site-ko-display-line:1.12;--site-ko-tracking:-.045em; }
 .live-site[data-ko-type="blackhan"] { --site-ko-font:"Black Han Sans","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(40px,8.9cqi,126px);--site-ko-display-line:1.12;--site-ko-tracking:-.025em; }
+.live-site[data-ko-type="wanted"] { --site-ko-font:"Wanted Sans Variable","Apple SD Gothic Neo","Noto Sans KR",sans-serif;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(42px,10.3cqi,148px);--site-ko-display-line:1.03;--site-ko-tracking:-.055em; }
+.live-site[data-ko-type="lineSeed"] { --site-ko-font:"LINE Seed Sans KR","Apple SD Gothic Neo","Noto Sans KR",sans-serif;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(42px,10cqi,144px);--site-ko-display-line:1.06;--site-ko-tracking:-.045em; }
+.live-site[data-ko-type="nanumSquare"] { --site-ko-font:"NanumSquare Neo","Apple SD Gothic Neo","Noto Sans KR",sans-serif;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(42px,10.1cqi,145px);--site-ko-display-line:1.06;--site-ko-tracking:-.05em; }
+.live-site[data-ko-type="d2"] { --site-ko-font:D2Coding,"Noto Sans Mono CJK KR",monospace;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(40px,9.15cqi,130px);--site-ko-display-line:1.12;--site-ko-tracking:-.045em; }
+.live-site[data-ko-type="koddi"] { --site-ko-font:"KoddiUD OnGothic Regular","Noto Sans KR",sans-serif;--site-ko-display:var(--site-ko-font);--site-ko-hero-size:clamp(42px,10.1cqi,145px);--site-ko-display-line:1.08;--site-ko-tracking:-.04em; }
+.live-site[data-ko-type="kakaoPair"] { --site-ko-font:"Kakao Small Sans","Noto Sans KR",sans-serif;--site-ko-display:"Kakao Big Sans","Kakao Small Sans","Noto Sans KR",sans-serif;--site-ko-hero-size:clamp(40px,9.55cqi,137px);--site-ko-display-line:1.04;--site-ko-tracking:-.045em; }
 
 .live-site[data-language="ko"] { --site-font:var(--site-ko-font);--site-display:var(--site-ko-display); }
 .live-site[data-language="ko"][data-copy-mode="mixed"][data-font-mode="split"] [lang="en"] { font-family:var(--site-latin-font)!important; }
@@ -1210,11 +1232,16 @@
 .live-site[data-motion="kinetic"] .orbit-one { animation:site-orbit 13s linear infinite; }
 .live-site[data-motion="kinetic"] .guide-card:hover { transform:translate(-3px,-10px) rotate(-.6deg) scale(1.01); }
 .live-site[data-motion="kinetic"] .sample-nav-cta:hover,.live-site[data-motion="kinetic"] .hero-actions button:hover { transform:translateY(-3px) rotate(-1deg); }
+.live-site[data-type="recursive"]:is([data-motion="kinetic"],[data-motion="spring"]) :is(.sample-hero h2,.story-lead,.guide-copy h4) { animation:recursive-axis-shift 4.8s ease-in-out infinite alternate; }
 
 @keyframes site-pulse { to { transform:scale(1.1) translate(-3%,4%); } }
 @keyframes site-orbit { to { transform:rotate(360deg); } }
 @keyframes site-stage-in { from { opacity:0;transform:translateY(24px); } }
 @keyframes site-spring-settle { from { opacity:.2;transform:scale(.92) translateY(26px); } 72% { transform:scale(1.015) translateY(-3px); } }
+@keyframes recursive-axis-shift {
+  from { font-variation-settings:"CASL" .08,"CRSV" 0,"MONO" 0,"slnt" 0; }
+  to { font-variation-settings:"CASL" .9,"CRSV" .5,"MONO" .18,"slnt" -8; }
+}
 
 @media (prefers-reduced-motion:reduce) {
   .live-site * { scroll-behavior:auto!important;transition:none!important;animation:none!important; }

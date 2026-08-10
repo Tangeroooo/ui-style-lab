@@ -109,6 +109,9 @@ app/agent-contract.ts
 - 한글 명조체 계열은 추가하지 않는다. Editorial/Luxury aesthetic에서도 한글은 검증된 gothic/dotum 계열을 사용한다.
 - 새 Korean font는 Hangul coverage, Latin coverage, webfont loading, fallback stack, weight availability를 확인한다.
 - 새 Korean font는 `--site-ko-hero-size`, `--site-ko-display-line`, `--site-ko-tracking`을 실제 glyph metric에 맞게 조정한다. headline의 의도한 행 수와 container overflow를 함께 확인한다.
+- font family, stylesheet, 공식 source와 license metadata는 `app/font-data.ts`에서 관리한다. 모든 font를 global `@import`로 load하지 말고 현재 language·copy mode·binding에서 실제로 쓰는 resource만 `getFontStylesheets()`로 load한다.
+- 하나의 option이 display/body처럼 여러 family를 역할별로 묶으면 `koUnified` 같은 binding과의 의미 충돌을 검토한다. 충돌은 UI 조건문이 아니라 `app/style-data.ts`의 `crossAxisConstraints`에 기록하고 disabled reason, URL resolution, randomize, combination count에서 공유한다.
+- 기존 option ID를 다른 family로 조용히 재해석하지 않는다. URL compatibility가 필요한 기존 ID는 유지하고 새 family는 별도 stable ID로 추가한다.
 - 특정 aesthetic이 강제로 `--site-display`를 덮어써 typography axis를 무력화하지 않도록 한다. aesthetic identity는 recommended default와 allowed set으로 유지한다.
 
 ## 6. Validated combination count
@@ -123,6 +126,7 @@ sum(
 ```
 
 - 계산은 반드시 `combinationCount(activeAxes, fixedValues)`를 사용한다. Korean + English는 `split` branch에서는 `type`을 포함하고 `koUnified` branch에서는 제외한 뒤 두 branch를 합산한다.
+- `crossAxisConstraints`에 의해 성립하지 않는 branch는 조합 수에서 제외한다. 숨겨진 axis는 무조건 곱하지 않고 현재 visible/fixed axis 조건에서 유효한 completion이 존재하는지 계산한다.
 - English, Korean only, Korean + English는 보이는 typography axis가 다르므로 각 mode의 distinct count를 별도로 검증한다.
 - 새 option이 일부 aesthetic에만 허용되면 해당 미학의 product만 증가해야 한다.
 - 다음 위치의 숫자가 서로 같아야 한다.
@@ -160,6 +164,7 @@ sum(
 ## 9. 변경 경계
 
 - `app/style-data.ts`: option, compatibility, preset, count
+- `app/font-data.ts`: font family, conditional stylesheet, source, license와 readiness family
 - `app/style-references.ts`: aesthetic·surface·layout의 reference URL, 근거 수준, 구현 claim, 검토일
 - `app/StyleLab.tsx`: state, URL, bilingual content, semantic markup, chart composition
 - `app/url-state.ts`: language, content mode, share view, URL serialization
