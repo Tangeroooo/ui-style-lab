@@ -20,6 +20,7 @@ import {
 
 export const agentSchemaVersion = "1.0.0";
 export const canonicalLabUrl = "https://tangeroooo.github.io/ui-style-lab/";
+const evidenceAxes = ["aesthetic", "surface", "layout"] as const;
 
 export const reviewPacks = [
   {
@@ -141,7 +142,7 @@ export function buildAgentState({ state, resolution, ready, capture, strict }: A
       return [axis, option ? { id: option.id, ko: option.ko, en: option.en, note: option.note } : null];
     })),
     selectedEvidence: Object.fromEntries(
-      ["aesthetic", "surface", "layout"].map((axis) => [
+      evidenceAxes.map((axis) => [
         axis,
         styleEvidenceRegistries[axis]?.[resolution.resolved[axis]],
       ]),

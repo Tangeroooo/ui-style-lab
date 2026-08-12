@@ -223,10 +223,10 @@ export const defaultSelection: Selection = {
   motion: "quiet",
 };
 
-export type AestheticRule = {
-  defaults: Record<DependentAxis, string>;
-  allowed: Record<DependentAxis, string[]>;
-};
+export type AestheticRule = Readonly<{
+  defaults: Readonly<Record<DependentAxis, string>>;
+  allowed: Readonly<Record<DependentAxis, readonly string[]>>;
+}>;
 
 export type ResolutionReason =
   | "legacy-alias"
@@ -268,7 +268,7 @@ export type CrossAxisConstraint = {
   message: { en: string; ko: string };
 };
 
-export const crossAxisConstraints: CrossAxisConstraint[] = [
+export const crossAxisConstraints = [
   {
     id: "kakao-screen-pair-requires-script-pairing",
     when: { koType: "kakaoPair" },
@@ -279,13 +279,13 @@ export const crossAxisConstraints: CrossAxisConstraint[] = [
       ko: "카카오 화면용 페어는 스크립트 페어링에서만 사용할 수 있습니다.",
     },
   },
-];
+] as const satisfies readonly CrossAxisConstraint[];
 
 /**
  * Aesthetic is the governing layer. Each rule keeps the identity of the
  * selected movement intact while still leaving room for meaningful variants.
  */
-export const aestheticRules: Record<string, AestheticRule> = {
+const baseAestheticRules = {
   minimal: {
     defaults: { surface: "flat", layout: "landing", nav: "top", navStyle: "text", type: "grotesk", koType: "plex", fontMode: "split", palette: "pureWhite", motion: "quiet" },
     allowed: {
@@ -888,52 +888,53 @@ export const aestheticRules: Record<string, AestheticRule> = {
       motion: ["quiet", "subtle", "productive", "staged"],
     },
   },
-};
+} satisfies Record<string, AestheticRule>;
 
-function allowOptions(
-  aestheticIds: readonly string[],
-  axis: DependentAxis,
-  optionIds: readonly string[],
-) {
-  for (const aestheticId of aestheticIds) {
-    const allowed = aestheticRules[aestheticId]?.allowed[axis];
-    if (!allowed) continue;
-    for (const optionId of optionIds) {
-      if (!allowed.includes(optionId)) allowed.push(optionId);
-    }
-  }
-}
+type AestheticId = keyof typeof baseAestheticRules;
+type AestheticExtension = {
+  aesthetics: readonly AestheticId[];
+  axis: DependentAxis;
+  options: readonly string[];
+};
 
 // Additional typefaces are enabled only where their visual role remains
 // consistent with the governing aesthetic. Official design-system faces stay
 // constrained to their documented defaults instead of becoming generic skins.
-allowOptions(["minimal", "scandinavian", "editorial", "organic"], "type", ["accessible"]);
-allowOptions(["y2k", "cyberpunk", "terminal", "vaporwave", "zag", "tamagui", "tamaguiDark"], "type", ["recursive"]);
+const aestheticExtensions: readonly AestheticExtension[] = [
+  { aesthetics: ["minimal", "scandinavian", "editorial", "organic"], axis: "type", options: ["accessible"] },
+  { aesthetics: ["y2k", "cyberpunk", "terminal", "vaporwave", "zag", "tamagui", "tamaguiDark"], axis: "type", options: ["recursive"] },
+  { aesthetics: ["minimal", "swiss", "bauhaus", "scandinavian", "brutalist", "editorial", "luxury", "organic", "atlassian", "atlassianDark", "fluent2", "fluent2Dark", "shadcn", "shadcnDark", "zag", "nebular", "nebularDark"], axis: "koType", options: ["wanted"] },
+  { aesthetics: ["minimal", "scandinavian", "memphis", "y2k", "frutiger", "organic", "material3", "material3Dark", "tamagui", "tamaguiDark"], axis: "koType", options: ["lineSeed"] },
+  { aesthetics: ["minimal", "swiss", "bauhaus", "brutalist", "editorial", "memphis", "y2k", "cyberpunk", "frutiger", "luxury", "organic", "atlassian", "atlassianDark", "primer", "primerDark", "fluent2", "fluent2Dark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"], axis: "koType", options: ["nanumSquare"] },
+  { aesthetics: (Object.keys(baseAestheticRules) as AestheticId[]).filter((aestheticId) => baseAestheticRules[aestheticId].allowed.koType.includes("coding")), axis: "koType", options: ["d2"] },
+  { aesthetics: ["minimal", "scandinavian", "editorial", "organic", "shadcn", "shadcnDark"], axis: "koType", options: ["koddi"] },
+  { aesthetics: ["minimal", "scandinavian", "memphis", "y2k", "frutiger", "organic", "material3", "material3Dark", "fluent2", "fluent2Dark"], axis: "koType", options: ["kakaoPair"] },
+];
 
-allowOptions([
-  "minimal", "swiss", "bauhaus", "scandinavian", "brutalist", "editorial", "luxury", "organic",
-  "atlassian", "atlassianDark", "fluent2", "fluent2Dark", "shadcn", "shadcnDark", "zag",
-  "nebular", "nebularDark",
-], "koType", ["wanted"]);
-allowOptions([
-  "minimal", "scandinavian", "memphis", "y2k", "frutiger", "organic", "material3", "material3Dark",
-  "tamagui", "tamaguiDark",
-], "koType", ["lineSeed"]);
-allowOptions([
-  "minimal", "swiss", "bauhaus", "brutalist", "editorial", "memphis", "y2k", "cyberpunk", "frutiger",
-  "luxury", "organic", "atlassian", "atlassianDark", "primer", "primerDark", "fluent2", "fluent2Dark",
-  "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark",
-], "koType", ["nanumSquare"]);
-allowOptions(
-  Object.keys(aestheticRules).filter((aestheticId) => aestheticRules[aestheticId].allowed.koType.includes("coding")),
-  "koType",
-  ["d2"],
-);
-allowOptions(["minimal", "scandinavian", "editorial", "organic", "shadcn", "shadcnDark"], "koType", ["koddi"]);
-allowOptions([
-  "minimal", "scandinavian", "memphis", "y2k", "frutiger", "organic", "material3", "material3Dark",
-  "fluent2", "fluent2Dark",
-], "koType", ["kakaoPair"]);
+function buildAestheticRules(): Readonly<Record<AestheticId, AestheticRule>> {
+  const extensionMap = new Map<string, Set<string>>();
+  for (const extension of aestheticExtensions) {
+    for (const aestheticId of extension.aesthetics) {
+      const key = `${aestheticId}:${extension.axis}`;
+      const options = extensionMap.get(key) ?? new Set<string>();
+      for (const option of extension.options) options.add(option);
+      extensionMap.set(key, options);
+    }
+  }
+
+  return Object.freeze(Object.fromEntries((Object.entries(baseAestheticRules) as [AestheticId, AestheticRule][]).map(([id, rule]) => [
+    id,
+    Object.freeze({
+      defaults: Object.freeze({ ...rule.defaults }),
+      allowed: Object.freeze(Object.fromEntries(dependentAxisKeys.map((axis) => [
+        axis,
+        Object.freeze([...rule.allowed[axis], ...(extensionMap.get(`${id}:${axis}`) ?? [])]),
+      ])) as Record<DependentAxis, readonly string[]>),
+    }),
+  ])) as Record<AestheticId, AestheticRule>);
+}
+
+export const aestheticRules: Readonly<Record<string, AestheticRule>> = buildAestheticRules();
 
 export type Preset = {
   id: string;
@@ -1289,8 +1290,13 @@ export function resolveSelection(
     });
   }
 
-  for (const constraint of crossAxisConstraints) {
-    if (constraintIsSatisfied(next, constraint)) continue;
+  const visitedConstraintStates = new Set<string>();
+  for (let attempt = 0; attempt < crossAxisConstraints.length * dependentAxisKeys.length; attempt += 1) {
+    const constraint = crossAxisConstraints.find((candidate) => !constraintIsSatisfied(next, candidate));
+    if (!constraint) break;
+    const signature = dependentAxisKeys.map((axis) => next[axis]).join("\u0000");
+    if (visitedConstraintStates.has(signature)) break;
+    visitedConstraintStates.add(signature);
     const axis = constraint.fallbackAxis;
     const requestedValue = next[axis];
     const resolvedValue = rule.defaults[axis];
@@ -1345,25 +1351,50 @@ export function randomCompatibleSelection(
   return normalizeSelection(next);
 }
 
-function constraintCanBeCompleted(
+function constrainedAxesFor(activeAxes: readonly DependentAxis[]) {
+  return new Set<DependentAxis>(crossAxisConstraints.flatMap((constraint) => (
+    [...Object.keys(constraint.when), ...Object.keys(constraint.requires)]
+      .filter((axis): axis is DependentAxis => activeAxes.includes(axis as DependentAxis))
+  )));
+}
+
+function hasConstraintCompletion(
   partial: Partial<Selection>,
   rule: AestheticRule,
-  constraint: CrossAxisConstraint,
-) {
-  for (const [axisKey, trigger] of Object.entries(constraint.when)) {
-    const axis = axisKey as DependentAxis;
-    const current = partial[axis];
-    if (current !== undefined && current !== trigger) return true;
-    if (current === undefined && rule.allowed[axis].some((value) => value !== trigger)) return true;
+  axesToAssign: readonly DependentAxis[],
+  index = 0,
+): boolean {
+  if (index === axesToAssign.length) {
+    return crossAxisConstraints.every((constraint) => constraintIsSatisfied(partial, constraint));
   }
+  const axis = axesToAssign[index];
+  if (partial[axis] !== undefined) return hasConstraintCompletion(partial, rule, axesToAssign, index + 1);
+  return rule.allowed[axis].some((value) => (
+    hasConstraintCompletion({ ...partial, [axis]: value }, rule, axesToAssign, index + 1)
+  ));
+}
 
-  return Object.entries(constraint.requires).every(([axisKey, requiredValues]) => {
-    const axis = axisKey as DependentAxis;
-    const current = partial[axis];
-    return current !== undefined
-      ? requiredValues.includes(current)
-      : rule.allowed[axis].some((value) => requiredValues.includes(value));
-  });
+/**
+ * Count globally valid completions for a partial selection. Constraints are
+ * evaluated together against the same completed assignment, so overlapping or
+ * contradictory future rules cannot be counted independently.
+ */
+function countConstraintCompletions(
+  partial: Partial<Selection>,
+  rule: AestheticRule,
+  axesToAssign: readonly DependentAxis[],
+  index = 0,
+): number {
+  if (index === axesToAssign.length) {
+    const unresolvedConstraintAxes = [...constrainedAxesFor(dependentAxisKeys)]
+      .filter((axis) => partial[axis] === undefined);
+    return hasConstraintCompletion(partial, rule, unresolvedConstraintAxes) ? 1 : 0;
+  }
+  const axis = axesToAssign[index];
+  return rule.allowed[axis].reduce(
+    (count, value) => count + countConstraintCompletions({ ...partial, [axis]: value }, rule, axesToAssign, index + 1),
+    0,
+  );
 }
 
 export function combinationCount(
@@ -1380,28 +1411,16 @@ export function combinationCount(
     });
     if (fixedValueIsInvalid) return total;
 
-    const constrainedAxes = new Set<DependentAxis>();
-    for (const constraint of crossAxisConstraints) {
-      for (const axis of [...Object.keys(constraint.when), ...Object.keys(constraint.requires)]) {
-        if (countedAxes.includes(axis as DependentAxis)) constrainedAxes.add(axis as DependentAxis);
-      }
-    }
+    const constrainedAxes = constrainedAxesFor(countedAxes);
     const enumeratedAxes = countedAxes.filter((axis) => constrainedAxes.has(axis) && fixedValues[axis] === undefined);
     const independentCount = countedAxes
       .filter((axis) => !constrainedAxes.has(axis))
       .reduce((count, axis) => count * (fixedValues[axis] === undefined ? rule.allowed[axis].length : 1), 1);
 
-    function countConstrained(index: number, partial: Partial<Selection>): number {
-      if (index === enumeratedAxes.length) {
-        return crossAxisConstraints.every((constraint) => constraintCanBeCompleted(partial, rule, constraint)) ? 1 : 0;
-      }
-      const axis = enumeratedAxes[index];
-      return rule.allowed[axis].reduce(
-        (count, value) => count + countConstrained(index + 1, { ...partial, [axis]: value }),
-        0,
-      );
-    }
-
-    return total + independentCount * countConstrained(0, { ...fixedValues, aesthetic: aesthetic.id });
+    return total + independentCount * countConstraintCompletions(
+      { ...fixedValues, aesthetic: aesthetic.id },
+      rule,
+      enumeratedAxes,
+    );
   }, 0);
 }

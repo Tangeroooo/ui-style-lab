@@ -101,8 +101,10 @@ npm run dev
 
 ```bash
 npm run lint
+npm run typecheck
 npm test
 npm run build:pages
+npm run test:e2e
 ```
 
 `main` branch에 push하면 GitHub Pages workflow가 실행됩니다. 새 선택지나 층위를 추가하기 전에는 [AGENTS.md](./AGENTS.md)의 compatibility 및 검증 규칙을 확인하세요.
@@ -110,12 +112,16 @@ npm run build:pages
 ## 주요 파일
 
 ```text
-app/StyleLab.tsx     mixer, bilingual sample site, Recharts
+app/StyleLabRoot.tsx URL·readiness·언어·선택 orchestration
+app/canvas/          bilingual sample site와 lazy Recharts
+app/lab/             mixer·preset·history 등 lab 전용 UI
+app/styles/          lab 전용 progressive UI style
 app/agent-contract.ts machine-readable catalog와 rendered state contract
 app/style-data.ts    axes, compatibility rules, presets, combination count
 app/style-lab.css    layered visual tokens and implementations
 app/url-state.ts     language, content mode, reference view, URL state
 public/              llms.txt, agent guide, catalog, review packs
+tests/e2e/           Playwright visual·accessibility review packs
 AGENTS.md             확장 및 검증 규칙
 ```
 

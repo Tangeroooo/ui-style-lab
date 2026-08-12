@@ -52,8 +52,14 @@ test("server-renders the UI Style Lab product", async () => {
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
+test("the embedded canvas does not create a nested main landmark", () => {
+  const source = readFileSync(new URL("../app/canvas/FieldNotesSite.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(source, /<main\b/);
+  assert.doesNotMatch(source, /<h1\b/);
+});
+
 test("the long option list scrolls independently from its evidence dock", () => {
-  const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
+  const source = readFileSync(new URL("../app/lab/LabExperience.tsx", import.meta.url), "utf8");
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
 
   assert.match(source, /className="popover-scroll"[^]*className="popover-options"[^]*className="evidence-card"/);
@@ -63,11 +69,12 @@ test("the long option list scrolls independently from its evidence dock", () => 
 });
 
 test("the live-canvas CTA follows the validated count and uses a full button treatment", () => {
-  const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
+  const source = readFileSync(new URL("../app/lab/LabExperience.tsx", import.meta.url), "utf8");
+  const copy = readFileSync(new URL("../app/lab/lab-copy.ts", import.meta.url), "utf8");
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
   assert.match(source, /className="intro-count"[^]*className="explore-cta"/);
-  assert.match(source, /explore: "View live canvas"/);
-  assert.match(source, /explore: "실제 조합 바로 보기"/);
+  assert.match(copy, /explore: "View live canvas"/);
+  assert.match(copy, /explore: "실제 조합 바로 보기"/);
   assert.match(css, /\.explore-cta \{[^}]*display:flex;[^}]*min-height:56px;[^}]*width:100%;[^}]*background:var\(--lab-blue\)/);
   assert.match(css, /\.explore-cta:focus-visible/);
   assert.match(css, /\.intro-side \{ display:grid;grid-template-columns:minmax\(0,1fr\) minmax\(220px,\.7fr\)/);

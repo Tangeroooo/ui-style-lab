@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./style-lab.css";
+import "./styles/lab-progressive.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tangerooo.github.io/ui-style-lab/"),

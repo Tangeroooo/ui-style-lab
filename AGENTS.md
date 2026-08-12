@@ -20,12 +20,12 @@ app/style-data.ts
     → aestheticRules.defaults / aestheticRules.allowed
     → normalizeSelection() / isOptionAllowed()
     → presets / randomize / canonical URL query
-    → data-* attributes in StyleLab.tsx
+    → data-* attributes in canvas/FieldNotesSite.tsx
     → selectors and tokens in style-lab.css
 
 app/style-references.ts
   aesthetic / surface / layout evidence
-    → selected-option reference card in StyleLab.tsx
+    → selected-option reference card in lab/LabExperience.tsx
     → evidence completeness invariant in tests
 
 app/url-state.ts
@@ -88,7 +88,7 @@ app/agent-contract.ts
 4. `dependentAxisKeys`에 추가 (`aesthetic` 제외)
 5. 모든 aesthetic의 `defaults`와 `allowed`에 추가
 6. 모든 preset selection에 값 추가
-7. `StyleLab.tsx`의 `data-*` attribute와 필요한 render logic 추가
+7. `canvas/FieldNotesSite.tsx`의 `data-*` attribute와 필요한 render logic 추가
 8. `style-lab.css`에 실제 full-page implementation 추가
 9. canonical query가 round-trip되고 URL hash의 이전 버전이 `resolveSelection()`으로 migration되는지 확인
 10. test와 documentation, validated combination count 갱신
@@ -140,7 +140,7 @@ sum(
 ## 7. Visual implementation 규칙
 
 - 작은 thumbnail이나 한 개 component만 바꾸지 말고 navigation, hero, component rack, charts, content section, footer까지 동일한 design language가 이어지는지 본다.
-- `Masonry`, `Dashboard`, `Master–detail`, `Feed`, `Supporting Pane`, `Data Table`, `Wizard`처럼 DOM 의미와 flow가 다른 layout은 CSS 재배치만으로 구현하지 않는다. `StyleLab.tsx`의 dedicated semantic renderer와 responsive fallback을 함께 제공한다.
+- `Masonry`, `Dashboard`, `Master–detail`, `Feed`, `Supporting Pane`, `Data Table`, `Wizard`처럼 DOM 의미와 flow가 다른 layout은 CSS 재배치만으로 구현하지 않는다. `canvas/FieldNotesSite.tsx`의 dedicated semantic renderer와 responsive fallback을 함께 제공한다.
 - user-provided reference screenshot이나 다른 제작자의 component composition을 복제하거나 asset으로 재사용하지 않는다.
 - chart는 Recharts의 실제 data component를 유지한다. decorative path로 chart를 흉내 내지 않는다.
 - palette는 contrast를 보존해야 하며 text와 surface가 같은 명도에 묻히지 않게 한다.
@@ -166,7 +166,10 @@ sum(
 - `app/style-data.ts`: option, compatibility, preset, count
 - `app/font-data.ts`: font family, conditional stylesheet, source, license와 readiness family
 - `app/style-references.ts`: aesthetic·surface·layout의 reference URL, 근거 수준, 구현 claim, 검토일
-- `app/StyleLab.tsx`: state, URL, bilingual content, semantic markup, chart composition
+- `app/StyleLabRoot.tsx`: URL, readiness, language, view와 selection history orchestration
+- `app/canvas/FieldNotesSite.tsx`: bilingual content와 semantic layout composition
+- `app/canvas/DataCharts.tsx`: lazy-loaded Recharts data visualization
+- `app/lab/`: mixer, preset gallery, share/language popover와 history controls
 - `app/url-state.ts`: language, content mode, share view, URL serialization
 - `app/agent-contract.ts`: static catalog, review pack, rendered agent-state schema
 - `app/style-lab.css`: design tokens, axis selectors, responsive behavior
@@ -181,8 +184,10 @@ sum(
 
 ```bash
 npm run lint
+npm run typecheck
 npm test
 npm run build:pages
+npm run test:e2e
 git diff --check
 ```
 

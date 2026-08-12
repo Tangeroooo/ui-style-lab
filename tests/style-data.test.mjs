@@ -22,11 +22,16 @@ import { hasStyleEvidence } from "../app/style-references.ts";
 import { getFontStylesheets, getRequiredFontFamilies } from "../app/font-data.ts";
 
 test("every aesthetic defines a valid default and allowed set for every dependent axis", () => {
+  assert.equal(Object.isFrozen(aestheticRules), true);
   for (const aesthetic of axes.aesthetic) {
     const rule = aestheticRules[aesthetic.id];
     assert.ok(rule, `missing rule for ${aesthetic.id}`);
+    assert.equal(Object.isFrozen(rule), true, `${aesthetic.id} rule must be immutable`);
+    assert.equal(Object.isFrozen(rule.defaults), true, `${aesthetic.id} defaults must be immutable`);
+    assert.equal(Object.isFrozen(rule.allowed), true, `${aesthetic.id} allowed map must be immutable`);
 
     for (const axis of dependentAxisKeys) {
+      assert.equal(Object.isFrozen(rule.allowed[axis]), true, `${aesthetic.id}.${axis} allowlist must be immutable`);
       assert.ok(rule.allowed[axis].length > 0, `${aesthetic.id}.${axis} has no allowed values`);
       assert.ok(
         rule.allowed[axis].includes(rule.defaults[axis]),
@@ -116,6 +121,20 @@ test("role-based Korean pairs are constrained to Script Pairing everywhere", () 
   const resolution = resolveSelection({ ...paired, fontMode: "koUnified" });
   assert.equal(resolution.resolved.koType, base.koType);
   assert.ok(resolution.adjustments.some(({ reason }) => reason === "cross-axis-constraint"));
+
+  const koreanTypes = getAestheticRule("minimal").allowed.koType.length;
+  assert.equal(
+    combinationCount(["aesthetic", "koType"], { aesthetic: "minimal", fontMode: "split" }),
+    koreanTypes,
+  );
+  assert.equal(
+    combinationCount(["aesthetic", "koType"], { aesthetic: "minimal", fontMode: "koUnified" }),
+    koreanTypes - 1,
+  );
+  assert.equal(
+    combinationCount(["aesthetic"], { aesthetic: "minimal", koType: "kakaoPair", fontMode: "koUnified" }),
+    0,
+  );
 });
 
 test("new lineage and company aesthetics have full-page implementations", () => {
@@ -248,7 +267,7 @@ test("SAP Fiori generations and accessibility themes remain separately governed"
 
 test("Apple Liquid Glass aesthetics and the Liquid Glass surface are fully removed", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
+  const source = readFileSync(new URL("../app/canvas/FieldNotesSite.tsx", import.meta.url), "utf8");
   assert.equal(axes.aesthetic.some((option) => option.id.startsWith("appleLiquid")), false);
   assert.equal(axes.surface.some((option) => option.id === "liquid"), false);
   assert.equal(axes.palette.some((option) => option.id.startsWith("appleSystem")), false);
@@ -378,7 +397,8 @@ test("every aesthetic, surface, and layout exposes an auditable reference", () =
 });
 
 test("structural layouts use dedicated semantic renderers", () => {
-  const source = readFileSync(new URL("../app/StyleLab.tsx", import.meta.url), "utf8");
+  const source = readFileSync(new URL("../app/canvas/FieldNotesSite.tsx", import.meta.url), "utf8");
+  const charts = readFileSync(new URL("../app/canvas/DataCharts.tsx", import.meta.url), "utf8");
   assert.match(source, /masonry-workbench/);
   assert.match(source, /dashboard-workbench/);
   assert.match(source, /master-detail-workbench/);
@@ -387,5 +407,5 @@ test("structural layouts use dedicated semantic renderers", () => {
   assert.match(source, /wizard-workbench/);
   assert.match(source, /Guided task flow/);
   assert.match(source, /<ol>/);
-  assert.match(source, /ResponsiveContainer/);
+  assert.match(charts, /ResponsiveContainer/);
 });

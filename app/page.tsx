@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { StyleLab } from "./StyleLab";
+import { StyleLabRoot } from "./StyleLabRoot";
 
 export const metadata: Metadata = {
   title: "UI Style Lab — Explore UI design combinations",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <StyleLab />;
+  return <StyleLabRoot />;
 }

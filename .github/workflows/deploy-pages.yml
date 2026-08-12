@@ -25,6 +25,12 @@ jobs:
           cache: npm
       - name: Install
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Quality checks
+        run: npm run lint && npm run typecheck && npm test
+      - name: Install visual test browser
+        run: npx playwright install --with-deps chromium
+      - name: Visual and accessibility review packs
+        run: npm run test:e2e
       - name: Build static site
         run: npm run build:pages
       - name: Publish static branch

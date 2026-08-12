@@ -124,8 +124,10 @@ Validation:
 
 ```bash
 npm run lint
+npm run typecheck
 npm test
 npm run build:pages
+npm run test:e2e
 ```
 
 Pushing `main` triggers the GitHub Pages workflow in `.github/workflows/deploy-pages.yml`.
@@ -134,15 +136,20 @@ Pushing `main` triggers the GitHub Pages workflow in `.github/workflows/deploy-p
 
 ```text
 app/
-  StyleLab.tsx       mixer, bilingual sample site, Recharts visualizations
+  StyleLabRoot.tsx   URL, readiness, language, and selection orchestration
+  canvas/            bilingual sample site and lazy Recharts visualizations
+  lab/               mixer, presets, history, and lab-only controls
+  styles/            progressively loaded lab-only UI styles
   agent-contract.ts  machine-readable catalog and rendered state contract
   style-data.ts      axes, aesthetic compatibility rules, presets, count
   style-lab.css      layered tokens and full-page visual implementations
   url-state.ts       language, content mode, share view, URL round-trip
 tests/
   agent-contract.test.mjs
+  e2e/               Playwright visual and accessibility review packs
   rendered-html.test.mjs
   style-data.test.mjs
+  visual-snapshots/  representative desktop and mobile baselines
 AGENTS.md             contribution rules for extending the design layers
 static-main.tsx       GitHub Pages client entry
 vite.pages.config.ts  static Pages build configuration
