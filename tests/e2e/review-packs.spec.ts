@@ -10,6 +10,8 @@ const referenceCases = [
   {
     name: "neo-brutal-mobile",
     viewport: { width: 390, height: 844 },
+    // Black Han Sans rasterizes slightly differently on macOS and Linux.
+    maxDiffPixelRatio: 0.025,
     query: "aesthetic=brutalist&surface=flat&layout=landing&nav=left&navStyle=both&type=condensed&koType=blackhan&fontMode=koUnified&palette=primary&motion=kinetic&language=ko&copyMode=mixed",
   },
   {
@@ -44,7 +46,12 @@ for (const reviewCase of referenceCases) {
       id,
       targets: nodes.map((node) => node.target),
     }))).toEqual([]);
-    await expect(page).toHaveScreenshot(`${reviewCase.name}.png`, { fullPage: false });
+    await expect(page).toHaveScreenshot(
+      `${reviewCase.name}.png`,
+      "maxDiffPixelRatio" in reviewCase
+        ? { fullPage: false, maxDiffPixelRatio: reviewCase.maxDiffPixelRatio }
+        : { fullPage: false },
+    );
   });
 }
 
