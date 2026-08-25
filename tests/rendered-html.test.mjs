@@ -29,13 +29,13 @@ test("server-renders the UI Style Lab product", async () => {
   assert.match(html, /FIELD NOTES/);
   assert.match(html, /Seasonal field walks/);
   assert.match(html, /FULL-PAGE LIVE CANVAS/);
-  assert.match(html, /CURATED STARTING POINTS<!-- --> · <!-- -->59/);
+  assert.match(html, /CURATED STARTING POINTS<!-- --> · <!-- -->62/);
   assert.match(html, /Primary action/);
   assert.match(html, /Navigation/);
   assert.match(html, /Latin Type/);
   assert.doesNotMatch(html, /Korean Type/);
   assert.doesNotMatch(html, /Type Binding/);
-  assert.match(html, /113,668/);
+  assert.match(html, /118,372/);
   assert.match(html, /lucide-languages/);
   assert.match(html, /floating-language/);
   assert.match(html, /floating-utilities/);

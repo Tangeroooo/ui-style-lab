@@ -1,6 +1,6 @@
 # UI Style Lab
 
-UI Style Lab renders a full-page interface or a 20-component workbench through compatible combinations of aesthetic, surface, layout, navigation, typography, palette, and motion layers.
+UI Style Lab renders a full-page interface or a 48-component workbench through compatible combinations of aesthetic, surface, layout, navigation, typography, palette, and motion layers.
 
 No package installation, MCP server, login, or API key is required.
 

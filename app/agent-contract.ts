@@ -45,7 +45,7 @@ export const reviewPacks = [
     name: "Historical and retro lineages",
     purpose: "Review historical graphic lineages and retrospective digital aesthetics.",
     presetIds: presets
-      .filter((preset) => ["Lineage", "Modernist", "Retro"].includes(preset.category))
+      .filter((preset) => ["Lineage", "Modernist", "Retro", "Futurist"].includes(preset.category))
       .map((preset) => preset.id),
   },
   {

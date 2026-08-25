@@ -14,7 +14,7 @@ export type StyleEvidence = {
   checkedAt: string;
 };
 
-const checkedAt = "2026-08-07";
+const checkedAt = "2026-08-25";
 
 function evidence(
   kind: EvidenceKind,
@@ -38,6 +38,9 @@ const aesthetic: Record<string, StyleEvidence> = {
   cyberpunk: evidence("community-term", "CARI · Cyberpunk", "https://cari.institute/aesthetics/cyberpunk", "A retrospective visual category; treated as an aesthetic rather than a formal design system."),
   frutiger: evidence("community-term", "CARI · Frutiger Aero", "https://cari.institute/aesthetics/frutiger-aero", "A retrospective name for glossy nature-and-technology optimism."),
   terminal: evidence("documented-pattern", "IBM Carbon · Code", "https://carbondesignsystem.com/components/code/usage/", "Monospaced, text-first command and code presentation."),
+  retroGui: evidence("official-system", "Microsoft Learn · Border Style", "https://learn.microsoft.com/en-us/previous-versions/windows/desktop/bb226804(v=vs.85)", "Classic desktop controls distinguish raised and pressed states through reversed highlight and shadow borders."),
+  pixelUi: evidence("institutional-history", "Whitney Museum · Histories of the Digital Now", "https://whitney.org/essays/histories-of-the-digital-now", "Bitmapped displays expose pixels as addressable visual units; this implementation makes that constrained grid an explicit full-page grammar."),
+  retroFuture: evidence("institutional-history", "Smithsonian Magazine · Googie: Architecture of the Space Age", "https://www.smithsonianmag.com/history/googie-architecture-of-the-space-age-122837470/", "Postwar space-age futurism uses dramatic angles, plastic and steel, neon, and optimistic technological imagery."),
   luxury: evidence("documented-pattern", "Nielsen Norman Group · Visual hierarchy", "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/", "A curated combination of sparse hierarchy, display type, and restrained metallic accent."),
   organic: evidence("documented-pattern", "Terrapin · 14 Patterns of Biophilic Design", "https://www.terrapinbrightgreen.com/reports/14-patterns/", "Natural color, biomorphic form, and biophilic visual references."),
   vaporwave: evidence("community-term", "CARI · Vaporwave", "https://cari.institute/aesthetics/vaporwave", "A retrospective internet aesthetic, not an interface standard."),

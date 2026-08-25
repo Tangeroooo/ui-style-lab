@@ -53,7 +53,7 @@ test("the initial canvas is the curated minimal recommendation", () => {
 });
 
 test("all curated presets are already normalized and compatible", () => {
-  assert.equal(presets.length, 59);
+  assert.equal(presets.length, 62);
   for (const preset of presets) {
     assert.deepEqual(normalizeSelection(preset.selection), preset.selection, preset.id);
   }
@@ -107,7 +107,7 @@ test("bilingual randomization preserves the selected type binding", () => {
 });
 
 test("the raw compatibility model retains every stored axis", () => {
-  assert.equal(combinationCount(), 2_149_112);
+  assert.equal(combinationCount(), 2_192_888);
 });
 
 test("role-based Korean pairs are constrained to Script Pairing everywhere", () => {
@@ -139,8 +139,8 @@ test("role-based Korean pairs are constrained to Script Pairing everywhere", () 
 
 test("new lineage and company aesthetics have full-page implementations", () => {
   const css = readFileSync(new URL("../app/style-lab.css", import.meta.url), "utf8");
-  const additions = ["bauhaus", "artDeco", "scandinavian", "atlassian", "atlassianDark", "primer", "primerDark", "sapHorizon", "sapHorizonDark", "sapHorizonHcb", "sapHorizonHcw", "sapQuartz", "sapQuartzDark", "sapQuartzHcb", "sapQuartzHcw", "sapBelize", "material3", "material3Dark", "mui", "muiDark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"];
-  assert.equal(axes.aesthetic.length, 43);
+  const additions = ["bauhaus", "artDeco", "scandinavian", "retroGui", "pixelUi", "retroFuture", "atlassian", "atlassianDark", "primer", "primerDark", "sapHorizon", "sapHorizonDark", "sapHorizonHcb", "sapHorizonHcw", "sapQuartz", "sapQuartzDark", "sapQuartzHcb", "sapQuartzHcw", "sapBelize", "material3", "material3Dark", "mui", "muiDark", "fluent2", "fluent2Dark", "carbon", "carbonDark", "shadcn", "shadcnDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"];
+  assert.equal(axes.aesthetic.length, 46);
   for (const id of additions) {
     assert.ok(axes.aesthetic.some((option) => option.id === id), id);
     assert.match(css, new RegExp(`data-aesthetic=["']${id}["']`), id);
@@ -152,7 +152,7 @@ test("new dependent options are implemented and conservatively enabled", () => {
   const additions = {
     surface: ["skeuo", "acrylic", "eink"],
     layout: ["masonry", "dashboard", "masterDetail", "feed", "supportingPane", "table", "wizard"],
-    palette: ["pureWhite", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "atlassian", "atlassianDark", "primer", "primerDark", "sapHorizon", "sapHorizonDark", "sapHorizonHcb", "sapHorizonHcw", "sapQuartz", "sapQuartzDark", "sapQuartzHcb", "sapQuartzHcw", "sapBelize", "materialDynamic", "materialDark", "mui", "muiDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"],
+    palette: ["pureWhite", "classicSystem", "arcade", "spaceAge", "enterpriseNavy", "enterpriseEvergreen", "enterpriseBurgundy", "enterpriseGraphite", "bauhaus", "deco", "nordic", "atlassian", "atlassianDark", "primer", "primerDark", "sapHorizon", "sapHorizonDark", "sapHorizonHcb", "sapHorizonHcw", "sapQuartz", "sapQuartzDark", "sapQuartzHcb", "sapQuartzHcw", "sapBelize", "materialDynamic", "materialDark", "mui", "muiDark", "fluent", "fluentDark", "carbon", "carbonDark", "zincDark", "zag", "tamagui", "tamaguiDark", "nebular", "nebularDark"],
     motion: ["productive", "staged", "spring"],
   };
 

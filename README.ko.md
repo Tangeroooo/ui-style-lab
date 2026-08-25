@@ -4,7 +4,7 @@
 
 [라이브 사이트](https://tangeroooo.github.io/ui-style-lab/) · [저장소](https://github.com/Tangeroooo/ui-style-lab)
 
-UI Style Lab은 UI 디자인 언어를 전체 페이지와 재사용 가능한 component 단위로 조합하고 비교하는 bilingual interactive reference입니다. 기본 `Page Lab`은 모든 선택을 동일한 `Field Notes` 사이트에 적용하고, 별도 `Component Lab`은 같은 조합을 20개 interactive component와 주요 상태에 이어서 적용합니다.
+UI Style Lab은 UI 디자인 언어를 전체 페이지와 재사용 가능한 component 단위로 조합하고 비교하는 bilingual interactive reference입니다. 기본 `Page Lab`은 모든 선택을 동일한 `Field Notes` 사이트에 적용하고, 별도 `Component Lab`은 같은 조합을 48개 interactive component와 주요 상태에 이어서 적용합니다.
 
 상단의 `PAGE LAB`과 `COMPONENT LAB`은 서로 독립된 최상위 메뉴입니다. 기본 화면은 계속 Page Lab이며, 메뉴를 이동해도 aesthetic, surface, layout, navigation, typography, palette, motion 선택이 그대로 유지됩니다.
 
@@ -14,7 +14,7 @@ UI Style Lab은 UI 디자인 언어를 전체 페이지와 재사용 가능한 c
 
 | 층위 | 선택지 수 | 역할 |
 | --- | ---: | --- |
-| 기초 미학 | 43 | 역사 계보, 선별한 기업 system, 공식 dark variant, MUI와 SAP 접근성 theme을 포함해 전체 시각 문법을 지배 |
+| 기초 미학 | 46 | 역사 계보, 선별한 기업 system, 공식 dark variant, MUI와 SAP 접근성 theme을 포함해 전체 시각 문법을 지배 |
 | 표면 | 11 | Flat, Skeuomorphism, Glass, Acrylic, Neumorphism, Elevated Paper, E-ink Paper 등 |
 | 구성 | 14 | Landing, Bento, Feed, Supporting Pane, Data Table, Wizard, Dashboard, Master–detail 등 |
 | 메뉴 위치 | 2 | 상단 또는 좌측 rail |
@@ -22,14 +22,14 @@ UI Style Lab은 UI 디자인 언어를 전체 페이지와 재사용 가능한 c
 | 한글 서체 | 16 | 기존 10종 + 원티드 산스, LINE Seed Sans KR, 나눔스퀘어 네오, D2Coding, 코디 온고딕, 역할 기반 카카오 화면용 페어 |
 | 영문 서체 | 10 | 구체적인 category 대표 8종 + Atkinson Hyperlegible Next, Recursive Variable |
 | 서체 적용 | 2 | 언어별 서체를 분리하거나 한글 서체 하나로 모든 문자를 표현 |
-| 색상 | 46 | 4색 Enterprise Rail family, Pure White와 Atlassian, Primer, SAP Horizon/Quartz/Belize, Material, MUI, Fluent, Carbon, shadcn/ui, Zag, Tamagui, Nebular token family 포함 |
+| 색상 | 49 | Classic System, Arcade, Space Age, 4색 Enterprise Rail family, Pure White와 Atlassian, Primer, SAP Horizon/Quartz/Belize, Material, MUI, Fluent, Carbon, shadcn/ui, Zag, Tamagui, Nebular token family 포함 |
 | 움직임 | 6 | Quiet, subtle, kinetic, productive, staged, spring physics |
 
-화면에서 실제로 구분되는 조합은 English **113,668개**, 한국어 only **365,416개**, 한국어 + English **1,449,524개**입니다. global Cartesian product가 아니라 compatibility rule을 통과한 결과만 셉니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체와 이 모드에서 성립하지 않는 카카오 역할 기반 pairing은 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 이유와 함께 비활성화합니다.
+화면에서 실제로 구분되는 조합은 English **118,372개**, 한국어 only **371,944개**, 한국어 + English **1,477,940개**입니다. global Cartesian product가 아니라 compatibility rule을 통과한 결과만 셉니다. `한글 서체 통합`에서 결과에 영향을 주지 않는 영문 서체와 이 모드에서 성립하지 않는 카카오 역할 기반 pairing은 중복 조합으로 세지 않습니다. 호환되지 않는 선택지는 숨기지 않고 이유와 함께 비활성화합니다.
 
 넓은 조사 목록에서는 다음 기준으로 실제 선택지를 선별했습니다.
 
-- 역사 기초 미학: `Bauhaus`, `Art Deco`, `Scandinavian`. 단순 palette가 아니라 페이지 geometry, hierarchy, component, chart, navigation까지 달라집니다.
+- 역사 기초 미학: `Bauhaus`, `Art Deco`, `Scandinavian`, `Classic Desktop GUI`, `Pixel UI`, `Space-age Retrofuturism`. Retro를 하나로 뭉치지 않았습니다. Classic Desktop GUI는 dense desktop metaphor와 raised/sunken control 문법, Pixel UI는 저해상도 grid·hard edge·제한 palette, Space-age Retrofuturism은 mid-century Googie geometry와 기술 낙관주의를 각각 페이지 전체에 적용합니다. 단순 palette가 아니라 page geometry, hierarchy, component, chart, navigation까지 달라집니다. 근거: [Microsoft border-style guidance](https://learn.microsoft.com/en-us/previous-versions/windows/desktop/bb226804(v=vs.85)), [Whitney Museum의 bitmap pixel 역사](https://whitney.org/essays/histories-of-the-digital-now), [Smithsonian의 Googie 계보](https://www.smithsonianmag.com/history/googie-architecture-of-the-space-age-122837470/).
 - 기업·library system: `Atlassian Design System`, `GitHub Primer`, `SAP Fiori`, `Material 3`, `MUI Material UI`, `Fluent 2`, `IBM Carbon`, `shadcn/ui`, `Tamagui`, `Nebular Eva`와 문서화된 dark variant. native default는 공식 semantic color, material, shape, component, density, navigation 원칙을 기준으로 했습니다. `shadcn/ui`는 Open Code distribution model이고 Tamagui는 configurable cross-platform style/UI system이지만, 제품 UI를 지배하는 일관된 convention이 있어 기초 미학에 포함했습니다. 공식 자료: [Atlassian foundations](https://atlassian.design/foundations), [Primer foundations](https://primer.style/product/getting-started/foundations/), [SAP Fiori](https://experience.sap.com/fiori-design-web/sap-fiori/), [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3), [MUI Material UI](https://mui.com/material-ui/), [Fluent 2 token](https://fluent2.microsoft.design/design-tokens), [Carbon theme](https://carbondesignsystem.com/elements/themes/code/), [shadcn/ui](https://ui.shadcn.com/docs), [Tamagui theme](https://tamagui.dev/docs/core/theme), [Nebular Eva theme](https://akveo.github.io/nebular/docs/design-system/design-system-theme/).
   - SAP Fiori는 하나의 visual skin이 아니라 상위 design system으로 다룹니다. `Morning/Evening Horizon`, Horizon 고대비 2종, `Quartz Light/Dark`, Quartz 고대비 2종, legacy `Belize`는 component geometry, shell, focus, border와 color token이 함께 달라지므로 각각 독립 기초 미학입니다. `Horizon Set`, `Quartz Set`, `Quartz Auto`는 화면 결과가 아니라 runtime selector이므로 선택지와 조합 수에 포함하지 않습니다. 공식 자료: [Fundamental Styles theme 목록](https://github.com/SAP/fundamental-styles#-theming), [SAP theming guideline](https://experience.sap.com/fiori-design-web/theming/), [SAP theming base content](https://github.com/SAP/theming-base-content).
   - Primer의 link, selected control, active navigation, focus는 blue `accent` role입니다. Green은 primary button과 positive/success state에만 사용해 눈에 띄되 페이지 전체 accent가 되지 않도록 했습니다. 참고: [Primer color usage](https://primer.style/product/getting-started/foundations/color-usage/), [Primer color primitives](https://primer.style/product/primitives/color/).

@@ -55,6 +55,30 @@ for (const reviewCase of referenceCases) {
   });
 }
 
+test("retro families preserve their own grammar without horizontal overflow", async ({ page }) => {
+  const retroCases = [
+    "aesthetic=retroGui&surface=flat&layout=dashboard&nav=top&navStyle=both&type=pixel&koType=coding&fontMode=split&palette=classicSystem&motion=quiet&language=en&copyMode=mixed",
+    "aesthetic=pixelUi&surface=flat&layout=bento&nav=left&navStyle=icon&type=pixel&koType=coding&fontMode=koUnified&palette=arcade&motion=staged&language=ko&copyMode=only",
+    "aesthetic=retroFuture&surface=chrome&layout=poster&nav=top&navStyle=both&type=rounded&koType=jua&fontMode=split&palette=spaceAge&motion=staged&language=en&copyMode=mixed",
+  ];
+
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport);
+    for (const query of retroCases) {
+      await openReadyReference(page, query);
+      const geometry = await page.evaluate(() => ({
+        viewport: window.innerWidth,
+        documentWidth: document.documentElement.scrollWidth,
+        bodyWidth: document.body.scrollWidth,
+      }));
+      expect(geometry.documentWidth).toBeLessThanOrEqual(geometry.viewport + 1);
+      expect(geometry.bodyWidth).toBeLessThanOrEqual(geometry.viewport + 1);
+      await expect(page.locator(".sample-hero")).toBeVisible();
+      await expect(page.locator(".sample-guides")).toBeVisible();
+    }
+  }
+});
+
 test("mobile floating dock keeps evidence visible and restores focus", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/?view=lab&language=en&copyMode=mixed");
@@ -94,7 +118,7 @@ test("component lab deep link exposes interactive specimens without changing the
   await expect(page.locator(".lab-shell")).toHaveAttribute("data-section", "components");
   await expect(page.getByRole("button", { name: /COMPONENT LAB/ })).toHaveAttribute("aria-current", "page");
   await expect(page.locator("#component-detail-title")).toContainText("Dialog");
-  await expect(page.locator(".component-catalog-card")).toHaveCount(20);
+  await expect(page.locator(".component-catalog-card")).toHaveCount(48);
   await expect(page.locator('[data-agent-pending="true"]')).toHaveCount(0);
   await expect(page.locator("main")).toHaveCount(1);
   await expect(page.locator("h1")).toHaveCount(1);

@@ -1,6 +1,6 @@
 # Design Reference Audit
 
-Last reviewed: 2026-08-07
+Last reviewed: 2026-08-25
 
 ## Decision model
 
@@ -32,6 +32,8 @@ The governing aesthetic defines the visual grammar. A dependent option remains v
 | Feed / Supporting pane | Primarily CSS reshaping | Dedicated repeated feed records and explicit primary/supporting regions |
 | Data table | Cards were styled to look like rows | Uses semantic `table`, `caption`, column headers, row headers, and status cells |
 | Wizard | Cards were numbered with pseudo-elements | Uses a real ordered progress list and form with back/continue actions |
+| Retro classification | Old desktop GUI, pixel art, Y2K, Vaporwave, and retrofuturism could be collapsed into one vague `Retro` label | Added three governing branches: Classic Desktop GUI for desktop metaphor and bevel states, Pixel UI for low-resolution grid constraints, and Space-age Retrofuturism for mid-century Googie geometry. Existing Y2K and Vaporwave stay distinct |
+| Component coverage | Twenty specimens left common product patterns unrepresented | Expanded Component Lab to 48 semantic specimens across actions, forms, navigation, feedback, data display, and overlays; each uses real HTML controls rather than decorative mockups |
 | Evidence | Sources lived only in README prose | Every aesthetic, surface, and layout has a typed evidence record and a selected-option source card |
 
 ## Evidence levels

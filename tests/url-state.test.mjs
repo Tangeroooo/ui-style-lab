@@ -45,9 +45,9 @@ test("companion English copy appears only in the Korean + English mode", () => {
 });
 
 test("each content mode reports only visually distinct combinations", () => {
-  assert.equal(experienceCombinationCount("en", "mixed"), 113_668);
-  assert.equal(experienceCombinationCount("ko", "only"), 365_416);
-  assert.equal(experienceCombinationCount("ko", "mixed"), 1_449_524);
+  assert.equal(experienceCombinationCount("en", "mixed"), 118_372);
+  assert.equal(experienceCombinationCount("ko", "only"), 371_944);
+  assert.equal(experienceCombinationCount("ko", "mixed"), 1_477_940);
 });
 
 test("legacy Fiori hashes migrate to the matching Horizon aesthetics", () => {
@@ -132,7 +132,7 @@ test("component lab deep links round-trip without changing design combination co
   assert.equal(parsed.section, "components");
   assert.equal(parsed.component, "table");
   assert.deepEqual(parsed.selection, defaultSelection);
-  assert.equal(experienceCombinationCount("en", "mixed"), 113_668);
+  assert.equal(experienceCombinationCount("en", "mixed"), 118_372);
 });
 
 test("query state takes precedence while legacy hash state remains readable", () => {

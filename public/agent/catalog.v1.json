@@ -851,6 +851,190 @@
           ]
         }
       },
+      "retroGui": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "dashboard",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "grotesk",
+          "koType": "nanum",
+          "fontMode": "split",
+          "palette": "classicSystem",
+          "motion": "quiet"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "skeuo"
+          ],
+          "layout": [
+            "cards",
+            "dense",
+            "dashboard",
+            "masterDetail",
+            "table",
+            "wizard"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "text",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono",
+            "pixel"
+          ],
+          "koType": [
+            "nanum",
+            "coding",
+            "d2",
+            "d2"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "classicSystem",
+            "mono"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "productive"
+          ]
+        }
+      },
+      "pixelUi": {
+        "defaults": {
+          "surface": "flat",
+          "layout": "bento",
+          "nav": "left",
+          "navStyle": "icon",
+          "type": "pixel",
+          "koType": "coding",
+          "fontMode": "koUnified",
+          "palette": "arcade",
+          "motion": "staged"
+        },
+        "allowed": {
+          "surface": [
+            "flat"
+          ],
+          "layout": [
+            "landing",
+            "bento",
+            "cards",
+            "dense",
+            "dashboard",
+            "poster"
+          ],
+          "nav": [
+            "top",
+            "left"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "mono",
+            "pixel"
+          ],
+          "koType": [
+            "coding",
+            "d2",
+            "blackhan",
+            "d2"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "arcade",
+            "primary",
+            "candy",
+            "forest"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "kinetic",
+            "staged"
+          ]
+        }
+      },
+      "retroFuture": {
+        "defaults": {
+          "surface": "chrome",
+          "layout": "poster",
+          "nav": "top",
+          "navStyle": "both",
+          "type": "rounded",
+          "koType": "jua",
+          "fontMode": "split",
+          "palette": "spaceAge",
+          "motion": "staged"
+        },
+        "allowed": {
+          "surface": [
+            "flat",
+            "material",
+            "chrome",
+            "glossy"
+          ],
+          "layout": [
+            "landing",
+            "cards",
+            "split",
+            "dashboard",
+            "poster",
+            "supportingPane"
+          ],
+          "nav": [
+            "top"
+          ],
+          "navStyle": [
+            "icon",
+            "both"
+          ],
+          "type": [
+            "grotesk",
+            "mono",
+            "rounded",
+            "condensed"
+          ],
+          "koType": [
+            "plex",
+            "suit",
+            "jua",
+            "coding",
+            "d2"
+          ],
+          "fontMode": [
+            "split",
+            "koUnified"
+          ],
+          "palette": [
+            "spaceAge",
+            "deco",
+            "aqua",
+            "noir"
+          ],
+          "motion": [
+            "quiet",
+            "subtle",
+            "kinetic",
+            "staged"
+          ]
+        }
+      },
       "luxury": {
         "defaults": {
           "surface": "paper",
@@ -2919,6 +3103,24 @@
           "note": "monospace와 phosphor display"
         },
         {
+          "id": "retroGui",
+          "ko": "클래식 데스크톱 GUI",
+          "en": "Classic Desktop GUI",
+          "note": "1990년대 desktop metaphor, bevel과 dense dialog"
+        },
+        {
+          "id": "pixelUi",
+          "ko": "픽셀 UI",
+          "en": "Pixel UI",
+          "note": "저해상도 grid, 제한된 색과 hard-edged control"
+        },
+        {
+          "id": "retroFuture",
+          "ko": "스페이스 에이지 레트로퓨처리즘",
+          "en": "Space-age Retrofuturism",
+          "note": "mid-century가 상상한 우주 시대의 낙관적 미래"
+        },
+        {
           "id": "luxury",
           "ko": "럭셔리 미니멀",
           "en": "Luxury Minimalism",
@@ -3613,6 +3815,24 @@
           "ko": "아쿠아",
           "en": "Aqua",
           "note": "sky, water, clean green"
+        },
+        {
+          "id": "classicSystem",
+          "ko": "클래식 시스템",
+          "en": "Classic System",
+          "note": "teal desktop, silver window와 navy title bar"
+        },
+        {
+          "id": "arcade",
+          "ko": "아케이드 16",
+          "en": "Arcade 16",
+          "note": "near-black canvas와 제한된 16-bit signal color"
+        },
+        {
+          "id": "spaceAge",
+          "ko": "스페이스 에이지",
+          "en": "Space Age",
+          "note": "warm ivory, signal orange, cobalt와 technical black"
         },
         {
           "id": "bentoPastel",
@@ -4772,6 +4992,60 @@
       }
     },
     {
+      "id": "classic-desktop",
+      "name": "Classic Desktop",
+      "label": "beveled windows와 dense utility dialog",
+      "category": "Retro",
+      "selection": {
+        "aesthetic": "retroGui",
+        "surface": "flat",
+        "layout": "dashboard",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "grotesk",
+        "koType": "nanum",
+        "fontMode": "split",
+        "palette": "classicSystem",
+        "motion": "quiet"
+      }
+    },
+    {
+      "id": "pixel-field",
+      "name": "Pixel Field",
+      "label": "16-bit grid로 재구성한 field interface",
+      "category": "Retro",
+      "selection": {
+        "aesthetic": "pixelUi",
+        "surface": "flat",
+        "layout": "bento",
+        "nav": "left",
+        "navStyle": "icon",
+        "type": "pixel",
+        "koType": "coding",
+        "fontMode": "koUnified",
+        "palette": "arcade",
+        "motion": "staged"
+      }
+    },
+    {
+      "id": "space-age-atlas",
+      "name": "Space-age Atlas",
+      "label": "mid-century 우주 낙관주의와 technical instrument",
+      "category": "Futurist",
+      "selection": {
+        "aesthetic": "retroFuture",
+        "surface": "chrome",
+        "layout": "poster",
+        "nav": "top",
+        "navStyle": "both",
+        "type": "rounded",
+        "koType": "jua",
+        "fontMode": "split",
+        "palette": "spaceAge",
+        "motion": "staged"
+      }
+    },
+    {
       "id": "paper-report",
       "name": "Paper Report",
       "label": "printed annual report",
@@ -5140,6 +5414,53 @@
         ]
       },
       {
+        "id": "split-button",
+        "category": "actions",
+        "en": "Split Button",
+        "ko": "분할 버튼",
+        "description": {
+          "en": "A default action paired with a menu of alternatives.",
+          "ko": "기본 동작과 대안 메뉴를 하나의 control로 묶습니다."
+        },
+        "states": [
+          "default",
+          "hover",
+          "focus",
+          "disabled"
+        ]
+      },
+      {
+        "id": "toolbar",
+        "category": "actions",
+        "en": "Toolbar",
+        "ko": "도구 모음",
+        "description": {
+          "en": "Frequent commands grouped for direct access.",
+          "ko": "자주 쓰는 명령을 즉시 실행할 수 있게 묶습니다."
+        },
+        "states": [
+          "default",
+          "active",
+          "disabled"
+        ]
+      },
+      {
+        "id": "link",
+        "category": "actions",
+        "en": "Link",
+        "ko": "링크",
+        "description": {
+          "en": "Inline and standalone navigation actions.",
+          "ko": "문장 안과 독립 영역에서 이동 동작을 제공합니다."
+        },
+        "states": [
+          "default",
+          "hover",
+          "focus",
+          "disabled"
+        ]
+      },
+      {
         "id": "input",
         "category": "forms",
         "en": "Input",
@@ -5235,6 +5556,117 @@
         ]
       },
       {
+        "id": "combobox",
+        "category": "forms",
+        "en": "Combobox",
+        "ko": "콤보박스",
+        "description": {
+          "en": "Searchable text input with suggested values.",
+          "ko": "입력과 추천 선택지를 결합한 검색형 field입니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "selected",
+          "disabled"
+        ]
+      },
+      {
+        "id": "search-field",
+        "category": "forms",
+        "en": "Search Field",
+        "ko": "검색창",
+        "description": {
+          "en": "Query input with clear and submit affordances.",
+          "ko": "검색어 입력·초기화·실행 동작을 함께 제공합니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "loading",
+          "disabled"
+        ]
+      },
+      {
+        "id": "number-input",
+        "category": "forms",
+        "en": "Number Input",
+        "ko": "숫자 입력",
+        "description": {
+          "en": "A numeric field with increment and decrement controls.",
+          "ko": "증가·감소 control이 있는 숫자 입력입니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "error",
+          "disabled"
+        ]
+      },
+      {
+        "id": "date-input",
+        "category": "forms",
+        "en": "Date Input",
+        "ko": "날짜 입력",
+        "description": {
+          "en": "Native calendar-aware date selection.",
+          "ko": "달력 입력을 지원하는 날짜 선택 field입니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "error",
+          "disabled"
+        ]
+      },
+      {
+        "id": "file-upload",
+        "category": "forms",
+        "en": "File Upload",
+        "ko": "파일 업로드",
+        "description": {
+          "en": "A labelled file picker with accepted-format guidance.",
+          "ko": "허용 형식 안내와 함께 파일을 선택합니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "selected",
+          "disabled"
+        ]
+      },
+      {
+        "id": "segmented-control",
+        "category": "forms",
+        "en": "Segmented Control",
+        "ko": "세그먼트 선택",
+        "description": {
+          "en": "A compact single-choice set for peer modes.",
+          "ko": "동등한 mode 중 하나를 고르는 compact control입니다."
+        },
+        "states": [
+          "default",
+          "selected",
+          "focus",
+          "disabled"
+        ]
+      },
+      {
+        "id": "color-input",
+        "category": "forms",
+        "en": "Color Input",
+        "ko": "색상 입력",
+        "description": {
+          "en": "Native color selection with a readable value.",
+          "ko": "색상 선택과 읽을 수 있는 값을 함께 보여줍니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "disabled"
+        ]
+      },
+      {
         "id": "tabs",
         "category": "navigation",
         "en": "Tabs",
@@ -5282,6 +5714,81 @@
         ]
       },
       {
+        "id": "navigation-menu",
+        "category": "navigation",
+        "en": "Navigation Menu",
+        "ko": "내비게이션 메뉴",
+        "description": {
+          "en": "Primary destinations with a visible current location.",
+          "ko": "주요 목적지와 현재 위치를 함께 표시합니다."
+        },
+        "states": [
+          "default",
+          "active",
+          "focus"
+        ]
+      },
+      {
+        "id": "sidebar-menu",
+        "category": "navigation",
+        "en": "Sidebar Menu",
+        "ko": "사이드바 메뉴",
+        "description": {
+          "en": "Vertical destinations for application workspaces.",
+          "ko": "application workspace의 목적지를 세로로 구성합니다."
+        },
+        "states": [
+          "default",
+          "active",
+          "focus"
+        ]
+      },
+      {
+        "id": "stepper",
+        "category": "navigation",
+        "en": "Stepper",
+        "ko": "단계 표시",
+        "description": {
+          "en": "Progress and position in a sequential task.",
+          "ko": "순차 작업의 진행도와 현재 위치를 표시합니다."
+        },
+        "states": [
+          "default",
+          "active",
+          "selected"
+        ]
+      },
+      {
+        "id": "tree-view",
+        "category": "navigation",
+        "en": "Tree View",
+        "ko": "트리 보기",
+        "description": {
+          "en": "Expandable navigation through nested resources.",
+          "ko": "중첩된 resource를 펼쳐 탐색합니다."
+        },
+        "states": [
+          "default",
+          "selected",
+          "focus"
+        ]
+      },
+      {
+        "id": "command-menu",
+        "category": "navigation",
+        "en": "Command Menu",
+        "ko": "명령 메뉴",
+        "description": {
+          "en": "Keyboard-oriented discovery of destinations and actions.",
+          "ko": "키보드 중심으로 목적지와 명령을 찾습니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "selected"
+        ]
+      },
+      {
         "id": "alert",
         "category": "feedback",
         "en": "Alert",
@@ -5316,6 +5823,62 @@
         "description": {
           "en": "Determinate and indeterminate loading feedback.",
           "ko": "진행 정도가 있거나 없는 loading 상태입니다."
+        },
+        "states": [
+          "default",
+          "loading"
+        ]
+      },
+      {
+        "id": "banner",
+        "category": "feedback",
+        "en": "Banner",
+        "ko": "배너",
+        "description": {
+          "en": "Page-level information with a clear next action.",
+          "ko": "페이지 수준의 안내와 다음 동작을 제공합니다."
+        },
+        "states": [
+          "default",
+          "error"
+        ]
+      },
+      {
+        "id": "tooltip",
+        "category": "feedback",
+        "en": "Tooltip",
+        "ko": "툴팁",
+        "description": {
+          "en": "Short supporting text for a focused control.",
+          "ko": "focus된 control에 짧은 보조 설명을 제공합니다."
+        },
+        "states": [
+          "default",
+          "hover",
+          "focus"
+        ]
+      },
+      {
+        "id": "empty-state",
+        "category": "feedback",
+        "en": "Empty State",
+        "ko": "빈 상태",
+        "description": {
+          "en": "Explains an absent result and offers recovery.",
+          "ko": "결과가 없는 이유와 다음 동작을 안내합니다."
+        },
+        "states": [
+          "default"
+        ]
+      },
+      {
+        "id": "spinner",
+        "category": "feedback",
+        "en": "Spinner",
+        "ko": "로딩 표시",
+        "description": {
+          "en": "Compact indeterminate progress feedback.",
+          "ko": "완료 시점을 알 수 없는 진행 상태를 작게 표시합니다."
         },
         "states": [
           "default",
@@ -5367,6 +5930,92 @@
         ]
       },
       {
+        "id": "list",
+        "category": "data-display",
+        "en": "List",
+        "ko": "목록",
+        "description": {
+          "en": "Repeated records with metadata and actions.",
+          "ko": "metadata와 동작을 가진 반복 record입니다."
+        },
+        "states": [
+          "default",
+          "selected",
+          "hover"
+        ]
+      },
+      {
+        "id": "description-list",
+        "category": "data-display",
+        "en": "Description List",
+        "ko": "설명 목록",
+        "description": {
+          "en": "Term–value pairs for compact metadata.",
+          "ko": "compact metadata를 용어–값 쌍으로 보여줍니다."
+        },
+        "states": [
+          "default"
+        ]
+      },
+      {
+        "id": "stat-card",
+        "category": "data-display",
+        "en": "Stat Card",
+        "ko": "통계 카드",
+        "description": {
+          "en": "A primary metric, trend, and comparison context.",
+          "ko": "핵심 수치와 변화량, 비교 맥락을 요약합니다."
+        },
+        "states": [
+          "default",
+          "hover"
+        ]
+      },
+      {
+        "id": "accordion",
+        "category": "data-display",
+        "en": "Accordion",
+        "ko": "아코디언",
+        "description": {
+          "en": "Progressive disclosure for related content sections.",
+          "ko": "연관 내용을 단계적으로 펼쳐 보여줍니다."
+        },
+        "states": [
+          "default",
+          "selected",
+          "focus"
+        ]
+      },
+      {
+        "id": "timeline",
+        "category": "data-display",
+        "en": "Timeline",
+        "ko": "타임라인",
+        "description": {
+          "en": "Ordered events with time and status context.",
+          "ko": "시간과 상태 맥락을 가진 사건의 순서를 표시합니다."
+        },
+        "states": [
+          "default",
+          "selected"
+        ]
+      },
+      {
+        "id": "calendar",
+        "category": "data-display",
+        "en": "Calendar",
+        "ko": "달력",
+        "description": {
+          "en": "A month grid with selected and unavailable dates.",
+          "ko": "선택일과 사용 불가 날짜가 있는 월간 grid입니다."
+        },
+        "states": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      {
         "id": "dialog",
         "category": "overlays",
         "en": "Dialog",
@@ -5406,6 +6055,51 @@
         "states": [
           "default",
           "focus"
+        ]
+      },
+      {
+        "id": "context-menu",
+        "category": "overlays",
+        "en": "Context Menu",
+        "ko": "문맥 메뉴",
+        "description": {
+          "en": "Commands positioned beside the invoking target.",
+          "ko": "호출한 대상 옆에 관련 명령을 표시합니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "disabled"
+        ]
+      },
+      {
+        "id": "hover-card",
+        "category": "overlays",
+        "en": "Hover Card",
+        "ko": "호버 카드",
+        "description": {
+          "en": "A rich preview attached to a referenced item.",
+          "ko": "참조한 항목에 연결된 풍부한 미리보기입니다."
+        },
+        "states": [
+          "default",
+          "hover",
+          "focus"
+        ]
+      },
+      {
+        "id": "command-palette",
+        "category": "overlays",
+        "en": "Command Palette",
+        "ko": "명령 팔레트",
+        "description": {
+          "en": "A searchable modal for global commands.",
+          "ko": "전역 명령을 검색하는 modal interface입니다."
+        },
+        "states": [
+          "default",
+          "focus",
+          "selected"
         ]
       }
     ],
@@ -5465,9 +6159,13 @@
         "deco-night",
         "nordic-field",
         "y2k-chrome",
+        "cyber-hud",
         "sap-belize-legacy",
         "frutiger-gloss",
         "terminal-green",
+        "classic-desktop",
+        "pixel-field",
+        "space-age-atlas",
         "vapor-grid",
         "skeuo-utility"
       ]
@@ -5502,301 +6200,322 @@
         "source": "Nielsen Norman Group · Visual hierarchy",
         "url": "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/",
         "claim": "Restraint, hierarchy, and whitespace—not a surface effect.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "swiss": {
         "kind": "institutional-history",
         "source": "MoMA · International Typographic Style",
         "url": "https://www.moma.org/collection/terms/international-typographic-style",
         "claim": "Grid-led, objective typography and asymmetric order.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "bauhaus": {
         "kind": "institutional-history",
         "source": "MoMA · Bauhaus",
         "url": "https://www.moma.org/artists/716",
         "claim": "Functional geometry and reduction of applied ornament.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "artDeco": {
         "kind": "institutional-history",
         "source": "V&A · Art Deco",
         "url": "https://www.vam.ac.uk/articles/an-introduction-to-art-deco",
         "claim": "Symmetry, geometry, luxury materials, and ornament.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "scandinavian": {
         "kind": "institutional-history",
         "source": "Encyclopaedia Britannica · Scandinavian design",
         "url": "https://www.britannica.com/art/Scandinavian-design",
         "claim": "Functional clarity, lightness, and natural materials.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "brutalist": {
         "kind": "community-term",
         "source": "Brutalist Websites · Guidelines",
         "url": "https://brutalistwebsites.com/",
         "claim": "The lab implements the contemporary neo-brutalist border and offset-shadow branch.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "editorial": {
         "kind": "documented-pattern",
         "source": "Nielsen Norman Group · Typography terms",
         "url": "https://www.nngroup.com/articles/typography-terms-ux/",
         "claim": "Reading hierarchy, columns, captions, and pull quotes.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "memphis": {
         "kind": "institutional-history",
         "source": "V&A · Memphis Group",
         "url": "https://www.vam.ac.uk/articles/memphis-design",
         "claim": "Playful geometry, pattern, and high-chroma color.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "y2k": {
         "kind": "documented-pattern",
         "source": "Web Design Museum · Y2K",
         "url": "https://www.webdesignmuseum.org/exhibitions/y2k-aesthetic-in-web-design",
         "claim": "Period web references for chrome, translucency, and techno optimism.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "cyberpunk": {
         "kind": "community-term",
         "source": "CARI · Cyberpunk",
         "url": "https://cari.institute/aesthetics/cyberpunk",
         "claim": "A retrospective visual category; treated as an aesthetic rather than a formal design system.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "frutiger": {
         "kind": "community-term",
         "source": "CARI · Frutiger Aero",
         "url": "https://cari.institute/aesthetics/frutiger-aero",
         "claim": "A retrospective name for glossy nature-and-technology optimism.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "terminal": {
         "kind": "documented-pattern",
         "source": "IBM Carbon · Code",
         "url": "https://carbondesignsystem.com/components/code/usage/",
         "claim": "Monospaced, text-first command and code presentation.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
+      },
+      "retroGui": {
+        "kind": "official-system",
+        "source": "Microsoft Learn · Border Style",
+        "url": "https://learn.microsoft.com/en-us/previous-versions/windows/desktop/bb226804(v=vs.85)",
+        "claim": "Classic desktop controls distinguish raised and pressed states through reversed highlight and shadow borders.",
+        "checkedAt": "2026-08-25"
+      },
+      "pixelUi": {
+        "kind": "institutional-history",
+        "source": "Whitney Museum · Histories of the Digital Now",
+        "url": "https://whitney.org/essays/histories-of-the-digital-now",
+        "claim": "Bitmapped displays expose pixels as addressable visual units; this implementation makes that constrained grid an explicit full-page grammar.",
+        "checkedAt": "2026-08-25"
+      },
+      "retroFuture": {
+        "kind": "institutional-history",
+        "source": "Smithsonian Magazine · Googie: Architecture of the Space Age",
+        "url": "https://www.smithsonianmag.com/history/googie-architecture-of-the-space-age-122837470/",
+        "claim": "Postwar space-age futurism uses dramatic angles, plastic and steel, neon, and optimistic technological imagery.",
+        "checkedAt": "2026-08-25"
       },
       "luxury": {
         "kind": "documented-pattern",
         "source": "Nielsen Norman Group · Visual hierarchy",
         "url": "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/",
         "claim": "A curated combination of sparse hierarchy, display type, and restrained metallic accent.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "organic": {
         "kind": "documented-pattern",
         "source": "Terrapin · 14 Patterns of Biophilic Design",
         "url": "https://www.terrapinbrightgreen.com/reports/14-patterns/",
         "claim": "Natural color, biomorphic form, and biophilic visual references.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "vaporwave": {
         "kind": "community-term",
         "source": "CARI · Vaporwave",
         "url": "https://cari.institute/aesthetics/vaporwave",
         "claim": "A retrospective internet aesthetic, not an interface standard.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "atlassian": {
         "kind": "official-system",
         "source": "Atlassian Design System · Foundations",
         "url": "https://atlassian.design/foundations",
         "claim": "Semantic tokens, accessible states, and product workflow conventions.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "atlassianDark": {
         "kind": "official-system",
         "source": "Atlassian Design System · Color",
         "url": "https://atlassian.design/foundations/color",
         "claim": "Official dark semantic token roles.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "primer": {
         "kind": "official-system",
         "source": "Primer · Foundations",
         "url": "https://primer.style/product/getting-started/foundations/",
         "claim": "GitHub product foundations, density, and semantic color roles.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "primerDark": {
         "kind": "official-system",
         "source": "Primer · Color modes",
         "url": "https://primer.style/product/primitives/color/",
         "claim": "Primer dark color primitives and semantic roles.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapHorizon": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Morning Horizon is a distinct SAP visual theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapHorizonDark": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Evening Horizon is the official dark Horizon theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapHorizonHcb": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Horizon High Contrast Black is a separate accessibility theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapHorizonHcw": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Horizon High Contrast White is a separate accessibility theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapQuartz": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Quartz Light maps to the sap_fiori_3 theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapQuartzDark": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Quartz Dark maps to sap_fiori_3_dark.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapQuartzHcb": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Quartz High Contrast Black is a separate accessibility theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapQuartzHcw": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Quartz High Contrast White is a separate accessibility theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "sapBelize": {
         "kind": "official-system",
         "source": "SAP Fundamental Styles · Themes",
         "url": "https://github.com/SAP/fundamental-styles#-theming",
         "claim": "Belize is retained as the documented legacy theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "material3": {
         "kind": "official-system",
         "source": "Google · Material Design 3",
         "url": "https://m3.material.io/",
         "claim": "Google's current tonal color, shape, component, elevation, and motion system.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "material3Dark": {
         "kind": "official-system",
         "source": "Android Developers · Material 3",
         "url": "https://developer.android.com/develop/ui/compose/designsystems/material3",
         "claim": "Material 3 dark roles use the same system with dark color and tonal elevation.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "mui": {
         "kind": "official-system",
         "source": "MUI · Material UI",
         "url": "https://mui.com/material-ui/",
         "claim": "The MUI React component library currently implements Material Design 2.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "muiDark": {
         "kind": "official-system",
         "source": "MUI · Dark mode",
         "url": "https://mui.com/material-ui/customization/dark-mode/",
         "claim": "MUI's documented dark palette and paper defaults.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "fluent2": {
         "kind": "official-system",
         "source": "Microsoft · Fluent 2",
         "url": "https://fluent2.microsoft.design/",
         "claim": "Microsoft's tokenized, adaptive interface system.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "fluent2Dark": {
         "kind": "official-system",
         "source": "Microsoft · Fluent 2 color",
         "url": "https://fluent2.microsoft.design/color",
         "claim": "Fluent dark alias tokens and accessible foreground roles.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "carbon": {
         "kind": "official-system",
         "source": "IBM · Carbon Design System",
         "url": "https://carbondesignsystem.com/",
         "claim": "IBM's 2x Grid, data density, typography, and component conventions.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "carbonDark": {
         "kind": "official-system",
         "source": "IBM Carbon · Themes",
         "url": "https://carbondesignsystem.com/elements/themes/overview/",
         "claim": "Gray 100 is an official Carbon theme.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "shadcn": {
         "kind": "official-system",
         "source": "shadcn/ui · Theming",
         "url": "https://ui.shadcn.com/docs/theming",
         "claim": "Open-code component defaults using semantic CSS variables.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "shadcnDark": {
         "kind": "official-system",
         "source": "shadcn/ui · Dark mode",
         "url": "https://ui.shadcn.com/docs/dark-mode",
         "claim": "Documented dark semantic token mode.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "zag": {
         "kind": "official-system",
         "source": "Zag · Introduction",
         "url": "https://zagjs.com/overview/introduction",
         "claim": "The core is headless and unstyled; this option explicitly models only the docs showcase.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "tamagui": {
         "kind": "official-system",
         "source": "Tamagui · Theme",
         "url": "https://tamagui.dev/docs/core/theme",
         "claim": "Cross-platform token scales and nested themes.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "tamaguiDark": {
         "kind": "official-system",
         "source": "Tamagui · Theme",
         "url": "https://tamagui.dev/docs/core/theme",
         "claim": "A documented nested dark theme branch.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "nebular": {
         "kind": "official-system",
         "source": "Nebular · Eva theme",
         "url": "https://akveo.github.io/nebular/docs/design-system/design-system-theme/",
         "claim": "Eva semantic color and component theme roles.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "nebularDark": {
         "kind": "official-system",
         "source": "Nebular · Eva theme",
         "url": "https://akveo.github.io/nebular/docs/design-system/design-system-theme/",
         "claim": "Eva dark basic colors with semantic states.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       }
     },
     "surface": {
@@ -5805,77 +6524,77 @@
         "source": "Microsoft Design · Flat principles",
         "url": "https://learn.microsoft.com/en-us/windows/apps/design/",
         "claim": "No simulated depth; hierarchy is carried by color, type, and spacing.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "skeuo": {
         "kind": "documented-pattern",
         "source": "Figma · Skeuomorphism",
         "url": "https://www.figma.com/resource-library/what-is-skeuomorphism/",
         "claim": "Physical visual and functional cues, not merely gradients.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "glass": {
         "kind": "documented-pattern",
         "source": "Interaction Design Foundation · Glassmorphism",
         "url": "https://www.interaction-design.org/literature/topics/glassmorphism",
         "claim": "Translucent panels, backdrop blur, light borders, and visible background context.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "acrylic": {
         "kind": "official-system",
         "source": "Microsoft Fluent 2 · Material",
         "url": "https://fluent2.microsoft.design/material",
         "claim": "A transient frosted material with backdrop sampling and luminosity.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "neumo": {
         "kind": "documented-pattern",
         "source": "Interaction Design Foundation · Neumorphism",
         "url": "https://www.interaction-design.org/literature/topics/neumorphism",
         "claim": "Low-contrast extrusion using paired light and dark shadows.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "clay": {
         "kind": "community-term",
         "source": "Claymorphism",
         "url": "https://claymorphism.com/",
         "claim": "A community-defined inflated, rounded 3D surface style.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "material": {
         "kind": "documented-pattern",
         "source": "Material Design · Elevation",
         "url": "https://m3.material.io/styles/elevation/overview",
         "claim": "Generic elevated paper is kept separate from the Google Material aesthetic.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "chrome": {
         "kind": "documented-pattern",
         "source": "Web Design Museum · Y2K",
         "url": "https://www.webdesignmuseum.org/exhibitions/y2k-aesthetic-in-web-design",
         "claim": "Specular metallic bands and reflective chrome are period surface references.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "paper": {
         "kind": "documented-pattern",
         "source": "MDN · CSS backgrounds",
         "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background",
         "claim": "A tactile print simulation implemented with directional fiber, not a global dot grid.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "eink": {
         "kind": "official-system",
         "source": "W3C · Reduced motion",
         "url": "https://www.w3.org/WAI/WCAG22/Techniques/css/C39",
         "claim": "Low-chroma paper presentation with quiet motion and explicit contrast.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "glossy": {
         "kind": "documented-pattern",
         "source": "Web Design Museum · Web 2.0",
         "url": "https://www.webdesignmuseum.org/exhibitions/web-design-in-the-2000s",
         "claim": "Rounded gel controls, gradients, and strong specular highlights.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       }
     },
     "layout": {
@@ -5884,105 +6603,105 @@
         "source": "Nielsen Norman Group · Scrolling and attention",
         "url": "https://www.nngroup.com/articles/scrolling-and-attention/",
         "claim": "A guided long-scroll narrative from value proposition to action.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "bento": {
         "kind": "documented-pattern",
         "source": "Web Design Museum · Bento Grid",
         "url": "https://www.webdesignmuseum.org/styles/bento-grid",
         "claim": "Mixed-size rectangular modules; a layout, not a governing aesthetic.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "cards": {
         "kind": "official-system",
         "source": "Material Design · Cards",
         "url": "https://m3.material.io/components/cards/overview",
         "claim": "Independent grouped containers with clear boundaries.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "masonry": {
         "kind": "documented-pattern",
         "source": "MDN · Masonry layout",
         "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Masonry_layout",
         "claim": "Variable-height items fill vertical gaps; the lab uses a column fallback because native masonry is not Baseline.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "editorial": {
         "kind": "documented-pattern",
         "source": "Nielsen Norman Group · Typography",
         "url": "https://www.nngroup.com/articles/typography-terms-ux/",
         "claim": "Headline, body, captions, columns, and reading measure establish the grid.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "split": {
         "kind": "documented-pattern",
         "source": "MDN · CSS Grid layout",
         "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
         "claim": "Two simultaneous, balanced grid regions with distinct roles.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "dense": {
         "kind": "official-system",
         "source": "IBM Carbon · 2x Grid",
         "url": "https://carbondesignsystem.com/elements/2x-grid/overview/",
         "claim": "Compact spacing and explicit alignment increase information density.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "dashboard": {
         "kind": "official-system",
         "source": "IBM Carbon · Data visualization",
         "url": "https://carbondesignsystem.com/data-visualization/getting-started/",
         "claim": "KPIs, filters, charts, and status tables form a task-oriented data workspace.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "masterDetail": {
         "kind": "official-system",
         "source": "Material Design 3 · Canonical layouts",
         "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
         "claim": "A documented adaptive page-level layout pattern.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "poster": {
         "kind": "documented-pattern",
         "source": "Web Design Museum · Brutalism",
         "url": "https://www.webdesignmuseum.org/styles/brutalism",
         "claim": "Broken-grid overlap and asymmetric visual hierarchy.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "feed": {
         "kind": "official-system",
         "source": "Material Design 3 · Canonical layouts",
         "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
         "claim": "A documented adaptive page-level layout pattern.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "supportingPane": {
         "kind": "official-system",
         "source": "Material Design 3 · Canonical layouts",
         "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
         "claim": "A documented adaptive page-level layout pattern.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "table": {
         "kind": "official-system",
         "source": "IBM Carbon · Data table",
         "url": "https://carbondesignsystem.com/components/data-table/usage/",
         "claim": "Semantic rows and columns for comparison, sorting, and scanning.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       },
       "wizard": {
         "kind": "official-system",
         "source": "IBM Carbon · Progress indicator",
         "url": "https://carbondesignsystem.com/components/progress-indicator/usage/",
         "claim": "A sequential task with explicit current, completed, and upcoming steps.",
-        "checkedAt": "2026-08-07"
+        "checkedAt": "2026-08-25"
       }
     }
   },
   "validatedCombinationCounts": {
-    "english": 113668,
-    "koreanOnly": 365416,
-    "koreanEnglish": 1449524
+    "english": 118372,
+    "koreanOnly": 371944,
+    "koreanEnglish": 1477940
   },
   "notes": [
     "The catalog intentionally publishes rules and curated presets, not the full Cartesian product.",
