@@ -111,3 +111,42 @@ test("component lab deep link exposes interactive specimens without changing the
   await expect(page.locator(".lab-shell")).toHaveAttribute("data-section", "page");
   await expect(page.locator("#live-site")).toBeVisible();
 });
+
+test("component lab stays full-width when the selected page navigation is left-aligned", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const leftNavigationCases = [
+    "aesthetic=bauhaus&surface=flat&layout=bento&nav=left&navStyle=both&type=grotesk&koType=plex&fontMode=split&palette=bauhaus&motion=subtle",
+    "aesthetic=brutalist&surface=flat&layout=feed&nav=left&navStyle=both&type=condensed&koType=blackhan&fontMode=koUnified&palette=primary&motion=kinetic",
+    "aesthetic=terminal&surface=flat&layout=table&nav=left&navStyle=both&type=pixel&koType=coding&fontMode=koUnified&palette=forest&motion=quiet",
+    "aesthetic=shadcn&surface=flat&layout=dashboard&nav=left&navStyle=both&type=grotesk&koType=pretendard&fontMode=split&palette=pureWhite&motion=subtle",
+    "aesthetic=cyberpunk&surface=glass&layout=table&nav=left&navStyle=both&type=mono&koType=coding&fontMode=split&palette=aurora&motion=kinetic",
+  ] as const;
+
+  for (const query of leftNavigationCases) {
+    await page.goto(`/?${query}&language=ko&copyMode=mixed&view=lab&section=components&component=button`);
+    const componentLab = page.locator(".component-lab-site");
+    await expect(componentLab).toBeVisible();
+
+    const geometry = await page.evaluate(() => {
+      const root = document.querySelector<HTMLElement>(".component-lab-site")!;
+      const inner = document.querySelector<HTMLElement>(".component-lab-inner")!;
+      const cards = [...document.querySelectorAll<HTMLElement>(".component-catalog-card")];
+      const states = [...document.querySelectorAll<HTMLElement>(".component-state-card")];
+      return {
+        display: getComputedStyle(root).display,
+        columns: getComputedStyle(root).gridTemplateColumns,
+        innerWidth: inner.getBoundingClientRect().width,
+        firstCardWidth: cards[0].getBoundingClientRect().width,
+        documentOverflow: document.documentElement.scrollWidth - window.innerWidth,
+        contentOverflow: Math.max(0, ...[...cards, ...states].map((element) => element.scrollWidth - element.clientWidth)),
+      };
+    });
+
+    expect(geometry.display).toBe("block");
+    expect(geometry.columns).toBe("none");
+    expect(geometry.innerWidth).toBeGreaterThan(1_200);
+    expect(geometry.firstCardWidth).toBeGreaterThan(300);
+    expect(geometry.documentOverflow).toBeLessThanOrEqual(0);
+    expect(geometry.contentOverflow).toBeLessThanOrEqual(0);
+  }
+});

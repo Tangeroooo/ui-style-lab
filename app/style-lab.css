@@ -380,7 +380,7 @@
 /* Component Lab --------------------------------------------------------- */
 
 .component-lab-loading { min-height:100vh;background:#e8e3d6; }
-.component-lab-site[data-nav="left"] { display:block; }
+.live-site.component-lab-site[data-nav="left"] { display:block;grid-template-columns:none; }
 .component-lab-inner { width:min(1540px,calc(100% - clamp(30px,5vw,90px)));margin:0 auto;padding:clamp(70px,8vw,120px) 0 clamp(100px,12vw,180px); }
 .component-lab-heading { display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);align-items:end;gap:clamp(40px,8vw,130px);padding-bottom:clamp(65px,8vw,120px);border-bottom:1px solid var(--site-line); }
 .component-lab-heading>div>span,.component-detail>header>div>span,.component-catalog>header>div>span { color:var(--site-muted);font:8px/1 ui-monospace,monospace;letter-spacing:.11em; }
