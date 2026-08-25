@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewPacks": [
+    {
+      "id": "official-systems",
+      "name": "Official design systems",
+      "purpose": "Compare documented company systems without losing each system's native defaults.",
+      "presetIds": [
+        "atlassian-work",
+        "atlassian-night",
+        "primer-repository",
+        "primer-night",
+        "sap-horizon-morning",
+        "sap-horizon-evening",
+        "sap-quartz-light",
+        "sap-quartz-dark",
+        "material-you",
+        "material-night",
+        "mui-dashboard",
+        "mui-dashboard-dark",
+        "fluent-focus",
+        "fluent-night",
+        "carbon-operations",
+        "carbon-night",
+        "shadcn-neutral",
+        "shadcn-night",
+        "zag-statecharts",
+        "tamagui-adaptive",
+        "tamagui-night",
+        "nebular-eva",
+        "nebular-night"
+      ]
+    },
+    {
+      "id": "layout-and-motion",
+      "name": "Layout and motion",
+      "purpose": "Compare structural page patterns and interaction pacing on the same content.",
+      "presetIds": [
+        "adaptive-feed",
+        "supporting-workspace",
+        "operations-table",
+        "guided-wizard",
+        "spring-canvas",
+        "recursive-signal"
+      ]
+    },
+    {
+      "id": "lineage-and-retro",
+      "name": "Historical and retro lineages",
+      "purpose": "Review historical graphic lineages and retrospective digital aesthetics.",
+      "presetIds": [
+        "swiss-flat",
+        "bauhaus-function",
+        "deco-night",
+        "nordic-field",
+        "y2k-chrome",
+        "cyber-hud",
+        "sap-belize-legacy",
+        "frutiger-gloss",
+        "terminal-green",
+        "classic-desktop",
+        "pixel-field",
+        "space-age-atlas",
+        "vapor-grid",
+        "skeuo-utility"
+      ]
+    },
+    {
+      "id": "accessibility-and-dark",
+      "name": "Accessibility and dark themes",
+      "purpose": "Review official high-contrast and dark-theme branches as separate governing aesthetics.",
+      "presetIds": [
+        "deco-night",
+        "atlassian-night",
+        "primer-night",
+        "sap-horizon-hcb",
+        "sap-horizon-hcw",
+        "sap-quartz-dark",
+        "sap-quartz-hcb",
+        "sap-quartz-hcw",
+        "material-night",
+        "mui-dashboard-dark",
+        "fluent-night",
+        "carbon-night",
+        "shadcn-night",
+        "tamagui-night",
+        "nebular-night"
+      ]
+    }
+  ]
+}

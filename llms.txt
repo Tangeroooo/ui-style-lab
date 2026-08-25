@@ -1,0 +1,15 @@
+# UI Style Lab
+
+UI Style Lab renders a full-page interface or a 48-component workbench through compatible combinations of aesthetic, surface, layout, navigation, typography, palette, and motion layers.
+
+No package installation, MCP server, login, or API key is required.
+
+- Agent guide: https://tangeroooo.github.io/ui-style-lab/agent-guide.md
+- Machine-readable catalog: https://tangeroooo.github.io/ui-style-lab/agent/catalog.v1.json
+- Curated review packs: https://tangeroooo.github.io/ui-style-lab/agent/review-packs.v1.json
+- Interactive lab: https://tangeroooo.github.io/ui-style-lab/
+- Source: https://github.com/Tangeroooo/ui-style-lab
+
+Use canonical query parameters for new links. Hash-based state is legacy input only.
+For deterministic browser capture, request `view=reference&capture=1&strict=1`, wait for `[data-agent-ready="true"]`, then read `#ui-style-lab-state` before taking a screenshot.
+For a component reference, also request `section=components&component={id}` using an ID from `catalog.v1.json`.
