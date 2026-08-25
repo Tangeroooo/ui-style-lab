@@ -61,6 +61,8 @@ test("language, content mode, view, and selection round-trip through the share h
     language: "ko",
     copyMode: "mixed",
     view: "reference",
+    section: "components",
+    component: "dialog",
   });
   const parsed = parseExperienceHash(`#${hash}`);
 
@@ -68,6 +70,8 @@ test("language, content mode, view, and selection round-trip through the share h
   assert.equal(parsed.language, "ko");
   assert.equal(parsed.copyMode, "mixed");
   assert.equal(parsed.view, "reference");
+  assert.equal(parsed.section, "components");
+  assert.equal(parsed.component, "dialog");
 });
 
 test("reference sharing creates a canvas-only URL without mutating the source URL", () => {
@@ -77,11 +81,15 @@ test("reference sharing creates a canvas-only URL without mutating the source UR
     language: "ko",
     copyMode: "only",
     view: "lab",
+    section: "components",
+    component: "button",
   }, "reference");
 
   assert.match(result, /view=reference/);
   assert.match(result, /language=ko/);
   assert.match(result, /copyMode=only/);
+  assert.match(result, /section=components/);
+  assert.match(result, /component=button/);
   assert.match(result, /capture=1/);
   assert.match(result, /strict=1/);
   assert.equal(new URL(result).hash, "");
@@ -94,6 +102,8 @@ test("canonical query state round-trips independently of anchors", () => {
     language: "en",
     copyMode: "mixed",
     view: "reference",
+    section: "page",
+    component: "button",
     capture: true,
     strict: true,
   });
@@ -103,7 +113,26 @@ test("canonical query state round-trips independently of anchors", () => {
   assert.deepEqual(parsed.selection, defaultSelection);
   assert.equal(parsed.capture, true);
   assert.equal(parsed.strict, true);
+  assert.equal(parsed.section, null);
+  assert.equal(parsed.component, null);
   assert.equal(parsed.resolution?.valid, true);
+});
+
+test("component lab deep links round-trip without changing design combination counts", () => {
+  const query = serializeExperienceQuery({
+    selection: defaultSelection,
+    language: "en",
+    copyMode: "mixed",
+    view: "lab",
+    section: "components",
+    component: "table",
+  });
+  const parsed = parseExperienceLocation(`?${query}`, "");
+
+  assert.equal(parsed.section, "components");
+  assert.equal(parsed.component, "table");
+  assert.deepEqual(parsed.selection, defaultSelection);
+  assert.equal(experienceCombinationCount("en", "mixed"), 113_668);
 });
 
 test("query state takes precedence while legacy hash state remains readable", () => {

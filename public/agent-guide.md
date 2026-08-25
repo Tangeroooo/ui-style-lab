@@ -1,6 +1,6 @@
 # UI Style Lab agent guide
 
-UI Style Lab is a static, installation-free design reference. It lets an agent compare full-page UI combinations while preserving the selected governing aesthetic.
+UI Style Lab is a static, installation-free design reference. It lets an agent compare full-page UI combinations in `Page Lab` or inspect reusable controls and states in the independent `Component Lab`, while preserving the selected governing aesthetic.
 
 ## Recommended workflow
 
@@ -10,7 +10,7 @@ UI Style Lab is a static, installation-free design reference. It lets an agent c
 4. Add `view=reference&capture=1&strict=1` for a clean, deterministic canvas.
 5. In a browser, wait for `[data-agent-ready="true"]`.
 6. Read the JSON in `#ui-style-lab-state`. Continue only when `valid` is `true`; otherwise inspect `adjustments` and retry with the reported `resolved` values.
-7. Capture or compare the rendered page.
+7. Capture or compare the rendered page or component specimen.
 
 No `npm install`, MCP server, login, API key, or runtime SDK is required for this workflow.
 
@@ -40,6 +40,14 @@ https://tangeroooo.github.io/ui-style-lab/?aesthetic=minimal&surface=flat&layout
 ```
 
 All selection keys are stable IDs. New links should include the complete resolved state for reproducible review.
+
+To inspect a component, add `section=components&component={id}`. For example:
+
+```text
+https://tangeroooo.github.io/ui-style-lab/?aesthetic=minimal&surface=flat&layout=cards&nav=top&navStyle=text&type=grotesk&koType=plex&fontMode=split&palette=pureWhite&motion=quiet&language=en&copyMode=mixed&section=components&component=button&view=reference&capture=1&strict=1
+```
+
+The catalog's `componentLab.components` list is the source of valid component IDs and documented states. Components are review targets rather than compatibility axes, so they do not multiply `validatedCombinationCounts`.
 
 ## Comparing several combinations
 

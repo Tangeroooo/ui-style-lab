@@ -22,6 +22,8 @@ test("server-renders the UI Style Lab product", async () => {
   const html = await response.text();
   assert.match(html, /<title>UI Style Lab/);
   assert.match(html, /STYLE LAB/);
+  assert.match(html, /PAGE LAB/);
+  assert.match(html, /COMPONENT LAB/);
   assert.doesNotMatch(html, /UI Language Lab|LANGUAGE LAB/);
   assert.match(html, /LIVE COMBINATION/);
   assert.match(html, /FIELD NOTES/);
@@ -50,6 +52,18 @@ test("server-renders the UI Style Lab product", async () => {
   assert.match(html, /data-agent-ready="false"/);
   assert.match(html, /data-agent-valid="true"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
+});
+
+test("component lab is an independent section that shares the selection model", () => {
+  const root = readFileSync(new URL("../app/StyleLabRoot.tsx", import.meta.url), "utf8");
+  const lab = readFileSync(new URL("../app/lab/LabExperience.tsx", import.meta.url), "utf8");
+  const componentData = readFileSync(new URL("../app/component-lab/component-data.ts", import.meta.url), "utf8");
+
+  assert.match(root, /section === "components" \? componentCanvas : pageCanvas/);
+  assert.match(lab, /PAGE LAB[^]*COMPONENT LAB/);
+  assert.match(lab, /section === "page" && <PresetGallery/);
+  assert.match(componentData, /defaultComponentId: ComponentId = "button"/);
+  assert.doesNotMatch(componentData, /AxisKey|combinationCount/);
 });
 
 test("the embedded canvas does not create a nested main landmark", () => {

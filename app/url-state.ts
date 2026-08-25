@@ -8,9 +8,15 @@ import {
   type Selection,
   type SelectionResolution,
 } from "./style-data.ts";
+import {
+  defaultComponentId,
+  isComponentId,
+  type ComponentId,
+} from "./component-lab/component-data.ts";
 
 export type KoreanCopyMode = "only" | "mixed";
 export type ExperienceView = "lab" | "reference";
+export type ExperienceSection = "page" | "components";
 export type ExperienceStateSource = "query" | "legacy-hash" | "none";
 
 export type ExperienceState = {
@@ -18,6 +24,8 @@ export type ExperienceState = {
   language: Language;
   copyMode: KoreanCopyMode;
   view: ExperienceView;
+  section: ExperienceSection;
+  component: ComponentId;
 };
 
 export type ExperienceUrlState = ExperienceState & {
@@ -31,6 +39,8 @@ export type ParsedExperienceState = {
   language: Language | null;
   copyMode: KoreanCopyMode | null;
   view: ExperienceView | null;
+  section: ExperienceSection | null;
+  component: ComponentId | null;
   capture: boolean | null;
   strict: boolean | null;
   source: ExperienceStateSource;
@@ -99,12 +109,16 @@ function parseExperienceParams(
   const language = params.get("language");
   const copyMode = params.get("copyMode");
   const view = params.get("view");
+  const section = params.get("section");
+  const component = params.get("component");
   const capture = readBoolean(params, "capture");
   const strict = readBoolean(params, "strict");
   const matchedState = matchedSelection
     || params.has("language")
     || params.has("copyMode")
     || params.has("view")
+    || params.has("section")
+    || params.has("component")
     || params.has("capture")
     || params.has("strict");
 
@@ -114,6 +128,8 @@ function parseExperienceParams(
     language: language === "en" || language === "ko" ? language : null,
     copyMode: copyMode === "only" || copyMode === "mixed" ? copyMode : null,
     view: view === "lab" || view === "reference" ? view : null,
+    section: section === "page" || section === "components" ? section : null,
+    component: isComponentId(component) ? component : null,
     capture,
     strict,
     source: matchedState ? source : "none",
@@ -133,20 +149,30 @@ export function parseExperienceLocation(search: string, hash: string): ParsedExp
 
 /** Kept for backwards-compatible tests and external links. */
 export function serializeExperienceHash(state: ExperienceState): string {
+  const section = state.section ?? "page";
+  const component = state.component ?? defaultComponentId;
   return new URLSearchParams({
     ...state.selection,
     language: state.language,
     copyMode: state.copyMode,
     view: state.view,
+    section,
+    component,
   }).toString();
 }
 
 export function serializeExperienceQuery(state: ExperienceUrlState): string {
+  const section = state.section ?? "page";
+  const component = state.component ?? defaultComponentId;
   const params = new URLSearchParams();
   for (const axis of axisKeys) params.set(axis, state.selection[axis]);
   params.set("language", state.language);
   params.set("copyMode", state.copyMode);
   params.set("view", state.view);
+  if (section !== "page") params.set("section", section);
+  if (section === "components" || component !== defaultComponentId) {
+    params.set("component", component);
+  }
   if (state.capture) params.set("capture", "1");
   if (state.strict) params.set("strict", "1");
   return params.toString();

@@ -87,3 +87,27 @@ test("lab view passes the critical accessibility smoke test", async ({ page }) =
   expect(results.violations.map(({ id, nodes }) => ({ id, targets: nodes.map((node) => node.target) }))).toEqual([]);
 
 });
+
+test("component lab deep link exposes interactive specimens without changing the page lab default", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/?section=components&component=dialog&view=lab&language=en&copyMode=mixed");
+  await expect(page.locator(".lab-shell")).toHaveAttribute("data-section", "components");
+  await expect(page.getByRole("button", { name: /COMPONENT LAB/ })).toHaveAttribute("aria-current", "page");
+  await expect(page.locator("#component-detail-title")).toContainText("Dialog");
+  await expect(page.locator(".component-catalog-card")).toHaveCount(20);
+  await expect(page.locator('[data-agent-pending="true"]')).toHaveCount(0);
+  await expect(page.locator("main")).toHaveCount(1);
+  await expect(page.locator("h1")).toHaveCount(1);
+
+  const results = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .analyze();
+  expect(results.violations.map(({ id, nodes }) => ({
+    id,
+    targets: nodes.map((node) => node.target),
+  }))).toEqual([]);
+
+  await page.getByRole("button", { name: "PAGE LAB" }).click();
+  await expect(page.locator(".lab-shell")).toHaveAttribute("data-section", "page");
+  await expect(page.locator("#live-site")).toBeVisible();
+});

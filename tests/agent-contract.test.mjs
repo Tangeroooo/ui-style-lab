@@ -14,6 +14,8 @@ test("the agent catalog publishes rules, evidence, presets, and bounded review p
   assert.equal(catalog.compatibility.governingAxis, "aesthetic");
   assert.equal(catalog.axes.length, 10);
   assert.equal(catalog.presets.length, 59);
+  assert.equal(catalog.componentLab.components.length, 20);
+  assert.equal(catalog.componentLab.defaultSection, "page");
   assert.equal(catalog.compatibility.crossAxisConstraints[0].id, "kakao-screen-pair-requires-script-pairing");
   assert.ok(catalog.evidence.aesthetic.minimal);
   assert.ok(reviewPacks.every((pack) => pack.presetIds.length > 0));
@@ -28,6 +30,8 @@ test("rendered agent state exposes requested, resolved, adjustments, and referen
       language: "en",
       copyMode: "mixed",
       view: "reference",
+      section: "components",
+      component: "dialog",
     },
     resolution,
     ready: true,
@@ -41,6 +45,8 @@ test("rendered agent state exposes requested, resolved, adjustments, and referen
   assert.equal(payload.adjustments[0].reason, "not-allowed-by-aesthetic");
   assert.match(payload.referenceUrl, /view=reference/);
   assert.match(payload.referenceUrl, /capture=1/);
+  assert.equal(payload.mode.section, "components");
+  assert.equal(payload.mode.component, "dialog");
 });
 
 test("generated installation-free assets match the source contract", () => {

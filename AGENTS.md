@@ -35,6 +35,10 @@ app/url-state.ts
 app/agent-contract.ts
   axes / rules / presets / evidence
     → public agent catalog / rendered resolution report
+
+app/component-lab/component-data.ts
+  serializable component metadata / states / categories
+    → Component Lab catalog / URL deep link / agent catalog
 ```
 
 - option ID, compatibility, 기본값, 조합 수의 source of truth는 `app/style-data.ts`다.
@@ -42,6 +46,7 @@ app/agent-contract.ts
 - `normalizeSelection()`을 우회해 state를 적용하지 않는다.
 - 새 URL은 query parameter를 canonical transport로 사용한다. 기존 state hash key는 read-only migration input으로 유지하고 누락된 값은 aesthetic default로 보완한다.
 - Agent catalog는 full Cartesian product를 나열하지 않는다. `axes + aestheticRules + presets + review packs`로 재현 가능하게 유지한다.
+- `Page Lab`과 `Component Lab`은 같은 `Selection`을 공유하지만 서로 독립된 presentation section이다. Component나 component state를 `AxisKey`에 넣거나 검증된 조합 수에 곱하지 않는다.
 
 ## 3. 기존 layer에 option을 추가할 때
 
@@ -147,6 +152,9 @@ sum(
 - global canvas texture를 기본값으로 두지 않는다. dot matrix, paper grain, scanline, grid는 해당 surface/aesthetic의 문법일 때만 명시적으로 opt-in하고, high-density mobile display에서 pattern이 과장되지 않는지 확인한다.
 - desktop, tablet, mobile에서 horizontal overflow가 없어야 한다.
 - motion은 `prefers-reduced-motion`과 `quiet` mode를 존중한다.
+- Component Lab의 specimen은 정적인 그림이 아니라 semantic button, form control, table, dialog 등 실제 요소로 구현한다. 강제 hover/focus 상태는 visual fixture임을 `data-preview-state`로 분리하고 실제 keyboard interaction도 별도로 검증한다.
+- Component metadata는 `app/component-lab/component-data.ts`에 serializable하게 유지하고 React renderer와 CSS 구현을 registry data에 섞지 않는다.
+- Component Lab의 `section`과 `component` URL state는 selection history와 분리한다. Lab 메뉴 이동은 design Undo/Redo 기록을 오염시키지 않는다.
 
 ## 8. Interaction과 accessibility
 

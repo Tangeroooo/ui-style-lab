@@ -11,6 +11,7 @@ import {
 } from "./style-data.ts";
 import { styleEvidenceRegistries } from "./style-references.ts";
 import { koreanFontResources, latinFontResources } from "./font-data.ts";
+import { componentCatalog, componentCategories } from "./component-lab/component-data.ts";
 import {
   createExperienceUrl,
   experienceCombinationCount,
@@ -73,7 +74,7 @@ export function buildAgentCatalog() {
     transport: {
       canonical: "query",
       legacyReadOnly: "hash",
-      queryTemplate: `${canonicalLabUrl}?aesthetic={id}&surface={id}&layout={id}&nav={id}&navStyle={id}&type={id}&koType={id}&fontMode={id}&palette={id}&motion={id}&language={en|ko}&copyMode={only|mixed}&view={lab|reference}&capture=1&strict=1`,
+      queryTemplate: `${canonicalLabUrl}?aesthetic={id}&surface={id}&layout={id}&nav={id}&navStyle={id}&type={id}&koType={id}&fontMode={id}&palette={id}&motion={id}&language={en|ko}&copyMode={only|mixed}&section={page|components}&component={id}&view={lab|reference}&capture=1&strict=1`,
       flags: {
         strict: "Preserve invalid requested values in the URL and report every resolver adjustment.",
         capture: "Disable non-essential motion and expose a deterministic readiness marker.",
@@ -97,6 +98,12 @@ export function buildAgentCatalog() {
       korean: koreanFontResources,
     },
     presets,
+    componentLab: {
+      defaultSection: "page",
+      categories: componentCategories,
+      components: componentCatalog,
+      countPolicy: "Components and states are presentation targets; they do not multiply validated design combination counts.",
+    },
     reviewPacks,
     evidence: styleEvidenceRegistries,
     validatedCombinationCounts: {
@@ -134,6 +141,8 @@ export function buildAgentState({ state, resolution, ready, capture, strict }: A
       language,
       copyMode,
       view: state.view,
+      section: state.section,
+      component: state.component,
       capture,
       strict,
     },

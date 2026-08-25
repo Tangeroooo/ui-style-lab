@@ -4,7 +4,9 @@
 
 [라이브 사이트](https://tangeroooo.github.io/ui-style-lab/) · [저장소](https://github.com/Tangeroooo/ui-style-lab)
 
-UI Style Lab은 UI 디자인 언어를 전체 페이지 단위로 조합하고 비교하는 bilingual interactive reference입니다. 모든 선택을 동일한 `Field Notes` 사이트에 적용하기 때문에 layout, navigation, component, typography, 실제 chart와 콘텐츠 리듬을 같은 조건에서 비교할 수 있습니다.
+UI Style Lab은 UI 디자인 언어를 전체 페이지와 재사용 가능한 component 단위로 조합하고 비교하는 bilingual interactive reference입니다. 기본 `Page Lab`은 모든 선택을 동일한 `Field Notes` 사이트에 적용하고, 별도 `Component Lab`은 같은 조합을 20개 interactive component와 주요 상태에 이어서 적용합니다.
+
+상단의 `PAGE LAB`과 `COMPONENT LAB`은 서로 독립된 최상위 메뉴입니다. 기본 화면은 계속 Page Lab이며, 메뉴를 이동해도 aesthetic, surface, layout, navigation, typography, palette, motion 선택이 그대로 유지됩니다.
 
 기본 언어는 English입니다. 데스크톱에서는 우측 floating stack의 프리셋·무작위·공유 바로 아래에서 `English`, `한국어 only`, `한국어 + English`를 선택할 수 있습니다.
 
@@ -80,7 +82,9 @@ Material 3은 Material 1·2를 내부에 포함하는 superset이 아니라 Mate
 - `실험실 링크`: mixer, preset과 현재 canvas를 함께 공유합니다.
 - `레퍼런스 화면`: 선택한 live canvas만 표시합니다. 에이전트 prompt, 디자인 brief, handoff용 reference로 전달하기 좋습니다.
 
-두 링크 모두 디자인 조합, 언어, 한국어 콘텐츠 모드와 서체 적용 방식을 canonical query parameter로 저장합니다. 레퍼런스 링크에는 deterministic capture를 위한 `capture=1`과 호환성 보정 보고를 위한 `strict=1`도 포함됩니다.
+두 링크 모두 디자인 조합, 언어, 한국어 콘텐츠 모드, 서체 적용 방식, 활성 Lab 메뉴와 선택한 component를 canonical query parameter로 저장합니다. Component Lab deep link는 `section=components&component={id}`를 사용합니다. 레퍼런스 링크에는 deterministic capture를 위한 `capture=1`과 호환성 보정 보고를 위한 `strict=1`도 포함됩니다.
+
+Component와 상태는 디자인 layer가 아니라 관찰 대상이므로 검증된 디자인 조합 수에는 곱하지 않습니다.
 
 ## 설치 없는 Agent 지원
 
@@ -114,6 +118,7 @@ npm run test:e2e
 ```text
 app/StyleLabRoot.tsx URL·readiness·언어·선택 orchestration
 app/canvas/          bilingual sample site와 lazy Recharts
+app/component-lab/   재사용 component catalog, 상태 matrix, specimen
 app/lab/             mixer·preset·history 등 lab 전용 UI
 app/styles/          lab 전용 progressive UI style
 app/agent-contract.ts machine-readable catalog와 rendered state contract

@@ -4,7 +4,9 @@
 
 [Live site](https://tangeroooo.github.io/ui-style-lab/) · [Repository](https://github.com/Tangeroooo/ui-style-lab)
 
-UI Style Lab is an interactive, bilingual reference for composing complete interface systems. It applies every selection to the same full-page `Field Notes` site so that layout, navigation, components, typography, real charts, and content rhythm can be compared under consistent conditions.
+UI Style Lab is an interactive, bilingual reference for composing complete interface systems. `Page Lab` applies every selection to the same full-page `Field Notes` site, while the separate `Component Lab` carries the same selection into 20 reusable, interactive component specimens and their important states.
+
+The top-level `PAGE LAB` and `COMPONENT LAB` menu keeps the two tasks independent without fragmenting the design model. Page Lab remains the default. Switching sections preserves the current aesthetic, surface, layout, navigation, typography, palette, and motion selection.
 
 English is the default interface language. The right-side floating control stack offers `English`, `한국어 only`, and `한국어 + English` immediately below the preset, randomize, and share actions on desktop.
 
@@ -86,7 +88,9 @@ The Share menu creates two state-complete URLs:
 - `Lab link`: mixer, presets, and the selected canvas.
 - `Reference view`: the live canvas only, suitable for agent prompts, design briefs, and handoff.
 
-Both links preserve the aesthetic combination, language, Korean content mode, and typography binding as canonical query parameters. Reference links also enable deterministic `capture=1` and compatibility-reporting `strict=1` modes.
+Both links preserve the aesthetic combination, language, Korean content mode, typography binding, active Lab section, and selected component as canonical query parameters. A Component Lab deep link uses `section=components&component={id}`. Reference links also enable deterministic `capture=1` and compatibility-reporting `strict=1` modes.
+
+Components and their states are presentation targets, not compatibility axes, so they do not multiply the validated design-combination count.
 
 ## Agent access without installation
 
@@ -138,6 +142,7 @@ Pushing `main` triggers the GitHub Pages workflow in `.github/workflows/deploy-p
 app/
   StyleLabRoot.tsx   URL, readiness, language, and selection orchestration
   canvas/            bilingual sample site and lazy Recharts visualizations
+  component-lab/     reusable component catalog, state matrix, and specimens
   lab/               mixer, presets, history, and lab-only controls
   styles/            progressively loaded lab-only UI styles
   agent-contract.ts  machine-readable catalog and rendered state contract
