@@ -248,11 +248,14 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
     setAgentReady(false);
   }, []);
 
-  useEffect(() => {
-    if (ready && view === "reference" && window.parent !== window) {
-      window.parent.postMessage({ type: "ui-style-lab-scene", scene }, window.location.origin);
-    }
-  }, [ready, scene, view]);
+  const selectScene = useCallback((next: SceneId) => {
+    setScene(next);
+    if (window.parent !== window) window.parent.postMessage({ type: "ui-style-lab-scene", scene: next }, window.location.origin);
+  }, []);
+  const selectComponent = useCallback((next: ComponentId) => {
+    setSelectedComponent(next);
+    if (window.parent !== window) window.parent.postMessage({ type: "ui-style-lab-component", component: next }, window.location.origin);
+  }, []);
 
   const agentState = buildAgentState({
     state: { selection, language, copyMode, view, section, scene, component: selectedComponent },
@@ -269,11 +272,11 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
         language={language}
         copyMode={copyMode}
         selectedComponent={selectedComponent}
-        onSelectComponent={setSelectedComponent}
+        onSelectComponent={selectComponent}
       />
     </Suspense>
   );
-  const sceneCanvas = <Suspense fallback={<section data-agent-pending="true" />}><SceneLab selection={selection} language={language} copyMode={copyMode} scene={scene} onSceneChange={setScene} /></Suspense>;
+  const sceneCanvas = <Suspense fallback={<section data-agent-pending="true" />}><SceneLab selection={selection} language={language} copyMode={copyMode} scene={scene} onSceneChange={selectScene} /></Suspense>;
   const canvas = section === "scenes" ? sceneCanvas : section === "components" ? componentCanvas : pageCanvas;
 
   return (
@@ -295,8 +298,9 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
             resolutionValid={resolution.valid}
             capture={capture}
             section={section}
-            onSceneChange={setScene}
+            onSceneChange={selectScene}
             scene={scene}
+            onComponentChange={selectComponent}
             selectedComponent={selectedComponent}
             canvas={canvas}
             canUndo={history.canUndo}

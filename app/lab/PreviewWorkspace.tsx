@@ -1,10 +1,11 @@
+import { isComponentId, type ComponentId } from "../component-lab/component-data";
 import { isSceneId, type SceneId } from "../scenes/scene-data";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Columns2, Maximize2, Monitor, Smartphone, Tablet, X } from "lucide-react";
 import { aestheticRules, axes, normalizeSelection, recommendedSelection } from "../style-data";
 import { serializeExperienceQuery, type ExperienceState } from "../url-state";
 
-export function PreviewWorkspace({ state, children, onSceneChange }: { state: ExperienceState; children: ReactNode; onSceneChange: (scene: SceneId) => void }) {
+export function PreviewWorkspace({ state, children, onSceneChange, onComponentChange }: { state: ExperienceState; children: ReactNode; onSceneChange: (scene: SceneId) => void; onComponentChange: (component: ComponentId) => void }) {
   const [size, setSize] = useState("fluid");
   const [compare, setCompare] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -24,10 +25,11 @@ export function PreviewWorkspace({ state, children, onSceneChange }: { state: Ex
     const receive = (event: MessageEvent) => {
       if (event.origin !== window.location.origin || ![left.current?.contentWindow, right.current?.contentWindow].includes(event.source as Window)) return;
       if (event.data?.type === "ui-style-lab-scene" && isSceneId(event.data.scene)) onSceneChange(event.data.scene);
+      if (event.data?.type === "ui-style-lab-component" && isComponentId(event.data.component)) onComponentChange(event.data.component);
     };
     window.addEventListener("message", receive);
     return () => window.removeEventListener("message", receive);
-  }, [onSceneChange]);
+  }, [onSceneChange, onComponentChange]);
   useEffect(() => {
     if (!compare) return;
     const a = left.current?.contentWindow;

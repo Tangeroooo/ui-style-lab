@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { PageWorkbenches, RouteExplorer, RoutePlanner } from "./PageWorkbenches";
 
 import {
@@ -198,6 +199,7 @@ export function AgentStateScript({ payload }: { payload: ReturnType<typeof build
 }
 
 export function FieldNotesSite({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
+  const [plannedRoute, setPlannedRoute] = useState("");
   const t = sampleCopy[language];
   const bilingual = usesBilingualCopy(language, copyMode);
   const microLanguage = language === "ko" && copyMode === "only" ? "ko" : "en";
@@ -274,8 +276,8 @@ export function FieldNotesSite({ selection, language, copyMode }: { selection: S
           </div>
         </section>
 
-        <RouteExplorer language={language} copyMode={copyMode} onPlan={() => document.getElementById("sample-route")?.scrollIntoView({ behavior: "auto" })} />
-        <RoutePlanner language={language} copyMode={copyMode} />
+        <RouteExplorer language={language} copyMode={copyMode} onPlan={(id) => { setPlannedRoute(id); requestAnimationFrame(() => document.getElementById("sample-route")?.scrollIntoView({ behavior: "auto" })); }} />
+        <RoutePlanner key={plannedRoute} initialRouteId={plannedRoute} language={language} copyMode={copyMode} />
         </>}
       </div>
 

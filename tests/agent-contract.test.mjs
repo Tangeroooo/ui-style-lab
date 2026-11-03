@@ -24,7 +24,7 @@ test("the agent catalog publishes rules, evidence, presets, and bounded review p
 });
 
 test("every catalog entry has a dedicated semantic specimen renderer", () => {
-  const source = readFileSync(new URL("../app/component-lab/ComponentLabSite.tsx", import.meta.url), "utf8");
+  const source = ["ComponentLabSite", "InteractiveSpecimens"].map((name) => readFileSync(new URL(`../app/component-lab/${name}.tsx`, import.meta.url), "utf8")).join("\n");
   for (const component of componentCatalog) {
     assert.match(source, new RegExp(`case ["']${component.id}["']:`), component.id);
   }

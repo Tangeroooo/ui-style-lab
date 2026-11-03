@@ -65,6 +65,7 @@ type LabExperienceProps = {
   selectedComponent: ComponentId;
   scene: SceneId;
   onSceneChange: (scene: SceneId) => void;
+  onComponentChange: (component: ComponentId) => void;
   canvas: ReactNode;
   canUndo: boolean;
   canRedo: boolean;
@@ -140,6 +141,7 @@ export function LabExperience({
   selectedComponent,
   scene,
   onSceneChange,
+  onComponentChange,
   canvas,
   canUndo,
   canRedo,
@@ -169,7 +171,7 @@ export function LabExperience({
     [selection],
   );
   const visibleAxisKeys = useMemo(
-    () => getVisibleAxisKeys(language, copyMode, selection.fontMode).filter((axis) => section !== "scenes" || !["layout", "nav", "navStyle"].includes(axis)),
+    () => getVisibleAxisKeys(language, copyMode, selection.fontMode).filter((axis) => section === "page" || !["layout", "nav", "navStyle"].includes(axis)),
     [copyMode, language, section, selection.fontMode],
   );
 
@@ -304,7 +306,12 @@ export function LabExperience({
     const targetId = section !== "components"
       ? lowerSectionVisible ? "design-preview" : "presets"
       : lowerSectionVisible ? "component-lab" : "component-catalog";
-    document.getElementById(targetId)?.scrollIntoView({ behavior: selection.motion === "quiet" ? "auto" : "smooth" });
+    const local = document.getElementById(targetId);
+    if (local) local.scrollIntoView({ behavior: "auto" });
+    else {
+      document.getElementById("design-preview")?.scrollIntoView({ behavior: "auto" });
+      document.querySelectorAll<HTMLIFrameElement>(".preview-frame iframe").forEach((frame) => frame.contentDocument?.getElementById(targetId)?.scrollIntoView({ behavior: "auto" }));
+    }
     closeAxis();
     closeShare();
   }
@@ -469,7 +476,7 @@ export function LabExperience({
 
       <div className="canvas-label"><span>{section === "scenes" ? language === "ko" ? "장면 작업대" : "Scene studio" : section === "page" ? t.canvas : language === "ko" ? "컴포넌트 작업대" : "Component workbench"}</span><b>{visibleAxisKeys.map((axis) => language === "en" ? getOption(axis, selection[axis]).en : getOption(axis, selection[axis]).ko).join(" × ")}</b></div>
       {section === "scenes" && <div className="studio-starts"><span>{language === "ko" ? "추천 스타일" : "START WITH"}</span>{["minimal", "atlassian", "brutalist"].map((id) => <button type="button" key={id} aria-pressed={selection.aesthetic === id} onClick={() => onApplySelection(recommendedSelection(id))}>{getOption("aesthetic", id)[language]}</button>)}</div>}
-      <PreviewWorkspace onSceneChange={onSceneChange} state={{ selection, language, copyMode, view: "lab", section, scene, component: selectedComponent }}>{canvas}</PreviewWorkspace>
+      <PreviewWorkspace onComponentChange={onComponentChange} onSceneChange={onSceneChange} state={{ selection, language, copyMode, view: "lab", section, scene, component: selectedComponent }}>{canvas}</PreviewWorkspace>
       {section !== "components" && <PresetGallery language={language} onChoosePreset={choosePreset} />}
       <details className="studio-guide"><summary><BookOpenText aria-hidden="true" />{t.agentGuideTitle}</summary><p>{t.agentGuideBody}</p><a href="agent-guide.md" target="_blank" rel="noreferrer">{t.agentGuideLink}<ExternalLink aria-hidden="true" /></a><p>{experienceCombinationCount(language, copyMode).toLocaleString("en-US")} {t.count}</p></details>
       <footer className="lab-footer"><div className="wordmark"><span>UI</span><b>STYLE LAB</b></div><p>{t.footer}</p><a href="#top">{t.back}<ArrowUp aria-hidden="true" /></a></footer>
