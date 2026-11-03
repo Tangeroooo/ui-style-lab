@@ -3,6 +3,27 @@ import { expect, test } from '@playwright/test';
 import { axes, aestheticRules, recommendedSelection } from '../../app/style-data';
 import { componentCatalog } from '../../app/component-lab/component-data';
 
+test('Pure White keeps its colors when glass is applied in every section', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  for (const section of ['scenes', 'components', 'page']) {
+    const params = new URLSearchParams({ ...recommendedSelection('minimal'), palette:'pureWhite', layout:'cards', section, component:'tabs', scene:'team', language:'ko', copyMode:'only', capture:'1' });
+    const colors = [];
+    for (const surface of ['flat', 'glass']) {
+      params.set('surface', surface);
+      await page.goto(`/?${params}`);
+      const canvas = page.locator('.live-site');
+      await expect(canvas).toHaveAttribute('data-palette', 'pureWhite');
+      await expect(canvas).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+      colors.push(await canvas.evaluate(el => {
+        const style = getComputedStyle(el);
+        return ['--site-bg', '--site-ink', '--site-accent', '--site-accent-2', '--site-accent-3'].map(token => style.getPropertyValue(token).trim());
+      }));
+    }
+    expect(colors[1], `${section}: glass must preserve the selected palette`).toEqual(colors[0]);
+  }
+  await expect(page).toHaveScreenshot('pure-white-glass-page.png', { fullPage: false });
+});
+
 for (const width of [390, 1280]) {
   test(`every native page fits at ${width}px`, async ({ page }) => {
     test.setTimeout(180000);
