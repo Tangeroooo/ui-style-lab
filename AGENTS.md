@@ -46,7 +46,7 @@ app/component-lab/component-data.ts
 - `normalizeSelection()`을 우회해 state를 적용하지 않는다.
 - 새 URL은 query parameter를 canonical transport로 사용한다. 기존 state hash key는 read-only migration input으로 유지하고 누락된 값은 aesthetic default로 보완한다.
 - Agent catalog는 full Cartesian product를 나열하지 않는다. `axes + aestheticRules + presets + review packs`로 재현 가능하게 유지한다.
-- `Page Lab`과 `Component Lab`은 같은 `Selection`을 공유하지만 서로 독립된 presentation section이다. Component나 component state를 `AxisKey`에 넣거나 검증된 조합 수에 곱하지 않는다.
+- `Scenes`, `Page Lab`, `Component Lab`은 같은 `Selection`을 공유하지만 서로 독립된 presentation section이다. Component나 component state를 `AxisKey`에 넣거나 검증된 조합 수에 곱하지 않는다.
 
 ## 3. 기존 layer에 option을 추가할 때
 
@@ -160,7 +160,7 @@ sum(
 
 - option dialog는 outside click과 `Escape`로 닫혀야 한다.
 - language menu와 share dialog도 outside click과 `Escape`로 닫혀야 한다.
-- language control은 header navigation과 combination mixer에서 분리된 floating control로 유지한다. randomize, share, canvas/preset jump는 별도의 quick-action group으로 유지하되 desktop에서는 우측 mixer 바로 아래에 간격을 두고 정렬해 관련 조작이 한 attention zone에 머물게 한다. narrow viewport에서는 bottom mixer 위로 이동해 겹침을 피한다.
+- language control은 header navigation과 combination mixer에서 분리된 control로 유지한다. 데스크톱은 예시 화면을 가리지 않는 우측 전용 rail을 확보하고, 모바일은 접을 수 있는 하단 dock을 사용한다. randomize, share, canvas/preset jump는 별도의 quick-action group으로 유지하되 desktop에서는 우측 mixer 바로 아래에 간격을 두고 정렬해 관련 조작이 한 attention zone에 머물게 한다. narrow viewport에서는 bottom mixer 위로 이동해 겹침을 피한다.
 - whole-page preset을 적용해 live canvas로 이동한 뒤 긴 역방향 scroll을 강제하지 않는다. contextual canvas/preset jump처럼 keyboard-accessible한 원터치 왕복 동선을 유지한다.
 - reference share URL은 `view=reference`를 포함하고 mixer/preset 없이 live canvas만 렌더링해야 한다.
 - reference share URL은 `capture=1&strict=1`을 포함한다. document는 fonts와 두 animation frame이 안정된 뒤 `data-agent-ready="true"`를 노출하고, `#ui-style-lab-state`에 requested/resolved/adjustments를 기록한다.
@@ -210,3 +210,13 @@ git diff --check
 - Korean `split`과 `koUnified`에서 Latin/Hangul font binding이 각각 의도대로 동작하는지 확인
 
 `main`에 push하면 GitHub Pages가 자동 배포된다. 배포 후 live page의 count, language default, canonical query·legacy hash migration, agent assets, console error를 확인한다.
+
+## 11. Scenes와 페이지 작업 흐름
+
+- 새 방문은 Scenes, 기존 section 없는 query/hash 링크는 Page Lab이다. scene은 URL presentation state이고 design history나 조합 수에 포함하지 않는다.
+- `app/scenes/scene-data.ts`는 장면 메타데이터, `SceneLab.tsx`는 다섯 인터랙티브 장면을 담당한다.
+- `app/canvas/field-data.ts`의 예시 데이터와 `AnalyticsPanel.tsx`를 Scenes와 Page Lab에서 공유한다. 그래프 곡선은 aesthetic에 따라 바꾸지 않는다.
+- `PageWorkbenches.tsx`의 검색·목록·상세·표·계획 흐름은 실제 state로 동작한다. 대시보드·목록·단계형 화면에 마케팅 히어로와 에세이를 끼워 넣지 않는다.
+- `PreviewWorkspace.tsx`는 실제 iframe viewport와 비교를 제공한다. reference/thumbnail iframe은 localStorage의 사용자 선택을 저장하지 않는다.
+- `app/styles/studio.css`는 studio와 새 장면의 레이아웃을 담당하고 기존 aesthetic token을 상속한다.
+- `tests/e2e/studio.spec.ts`의 동작·접근성·모바일 테스트와 기존 검증을 함께 통과한다.

@@ -4,9 +4,20 @@
 
 [라이브 사이트](https://tangeroooo.github.io/ui-style-lab/) · [저장소](https://github.com/Tangeroooo/ui-style-lab)
 
-UI Style Lab은 UI 디자인 언어를 전체 페이지와 재사용 가능한 component 단위로 조합하고 비교하는 bilingual interactive reference입니다. 기본 `Page Lab`은 모든 선택을 동일한 `Field Notes` 사이트에 적용하고, 별도 `Component Lab`은 같은 조합을 48개 interactive component와 주요 상태에 이어서 적용합니다.
+UI Style Lab은 장면, 전체 페이지, 개별 컴포넌트에서 디자인 언어를 비교하는 인터랙티브 레퍼런스입니다. 새 방문은 **Scenes**로 시작합니다. 팀 초대, 파일 업로드, 분석, 예약, 설정의 다섯 장면을 직접 조작할 수 있습니다. **Page Lab**은 용도별 전체 페이지, **Component Lab**은 48개 부품과 상태 비교를 제공합니다.
 
-상단의 `PAGE LAB`과 `COMPONENT LAB`은 서로 독립된 최상위 메뉴입니다. 기본 화면은 계속 Page Lab이며, 메뉴를 이동해도 aesthetic, surface, layout, navigation, typography, palette, motion 선택이 그대로 유지됩니다.
+세 메뉴는 같은 디자인 조합을 공유합니다. 기존의 section 없는 query/hash 링크는 Page Lab으로 열립니다. 장면 링크는 `section=scenes&scene=team|upload|analytics|booking|settings`이며 조합 수를 늘리는 디자인 축이 아닙니다.
+
+## 새 작업대
+
+- 데스크톱 조절 패널은 별도 공간을 사용하고, 모바일 패널은 접을 수 있습니다.
+- 전체·태블릿 768px·모바일 390px를 실제 반응형 화면으로 확인합니다. 크게 보기는 Escape와 키보드 포커스 처리를 지원합니다.
+- 비교 화면은 동일한 장면 또는 페이지 유형을 두 스타일로 표시하고 스크롤을 동기화합니다. 각 화면의 데이터 조작은 독립적입니다.
+- 프리셋은 실제 페이지를 축소해서 보여주며, 가까이 있는 미리보기만 실행합니다. 미리보기는 사용자의 저장된 설정을 덮어쓰지 않습니다.
+- 대시보드는 분석으로 시작하고, 목록·표·단계형 폼은 별도 작업 흐름을 사용합니다. 랜딩·에디토리얼에는 경로 탐색과 계획을 문맥에 맞게 배치했습니다.
+- 기간 변경, 검색·정렬·필터, 경로 상세와 목록 복귀, 입력 검증·검토·완료가 동작합니다. 차트·지표는 같은 예시 데이터를 사용합니다.
+
+초대와 예약은 시뮬레이션이며 설정은 새로고침하면 초기화됩니다. 파일 업로드는 이름과 크기만 처리하고 파일 내용을 읽거나 전송하지 않습니다. Stageshow의 구도·위계·인과관계 원칙을 참고했으며 해당 kit나 타사 제품 에셋은 복사하지 않았습니다.
 
 기본 언어는 English입니다. 데스크톱에서는 우측 floating stack의 프리셋·무작위·공유 바로 아래에서 `English`, `한국어 only`, `한국어 + English`를 선택할 수 있습니다.
 

@@ -1,3 +1,4 @@
+import { isSceneId, type SceneId } from "./scenes/scene-data.ts";
 import {
   axisKeys,
   combinationCount,
@@ -16,7 +17,7 @@ import {
 
 export type KoreanCopyMode = "only" | "mixed";
 export type ExperienceView = "lab" | "reference";
-export type ExperienceSection = "page" | "components";
+export type ExperienceSection = "page" | "components" | "scenes";
 export type ExperienceStateSource = "query" | "legacy-hash" | "none";
 
 export type ExperienceState = {
@@ -26,6 +27,7 @@ export type ExperienceState = {
   view: ExperienceView;
   section: ExperienceSection;
   component: ComponentId;
+  scene?: SceneId;
 };
 
 export type ExperienceUrlState = ExperienceState & {
@@ -41,6 +43,7 @@ export type ParsedExperienceState = {
   view: ExperienceView | null;
   section: ExperienceSection | null;
   component: ComponentId | null;
+  scene: SceneId | null;
   capture: boolean | null;
   strict: boolean | null;
   source: ExperienceStateSource;
@@ -111,6 +114,7 @@ function parseExperienceParams(
   const view = params.get("view");
   const section = params.get("section");
   const component = params.get("component");
+  const scene = params.get("scene");
   const capture = readBoolean(params, "capture");
   const strict = readBoolean(params, "strict");
   const matchedState = matchedSelection
@@ -119,6 +123,7 @@ function parseExperienceParams(
     || params.has("view")
     || params.has("section")
     || params.has("component")
+    || params.has("scene")
     || params.has("capture")
     || params.has("strict");
 
@@ -128,8 +133,9 @@ function parseExperienceParams(
     language: language === "en" || language === "ko" ? language : null,
     copyMode: copyMode === "only" || copyMode === "mixed" ? copyMode : null,
     view: view === "lab" || view === "reference" ? view : null,
-    section: section === "page" || section === "components" ? section : null,
+    section: section === "page" || section === "components" || section === "scenes" ? section : null,
     component: isComponentId(component) ? component : null,
+    scene: isSceneId(scene) ? scene : null,
     capture,
     strict,
     source: matchedState ? source : "none",
@@ -158,6 +164,7 @@ export function serializeExperienceHash(state: ExperienceState): string {
     view: state.view,
     section,
     component,
+    ...(state.scene ? { scene: state.scene } : {}),
   }).toString();
 }
 
@@ -173,6 +180,7 @@ export function serializeExperienceQuery(state: ExperienceUrlState): string {
   if (section === "components" || component !== defaultComponentId) {
     params.set("component", component);
   }
+  if (state.scene) params.set("scene", state.scene);
   if (state.capture) params.set("capture", "1");
   if (state.strict) params.set("strict", "1");
   return params.toString();

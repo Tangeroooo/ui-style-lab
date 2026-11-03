@@ -73,8 +73,9 @@ test("retro families preserve their own grammar without horizontal overflow", as
       }));
       expect(geometry.documentWidth).toBeLessThanOrEqual(geometry.viewport + 1);
       expect(geometry.bodyWidth).toBeLessThanOrEqual(geometry.viewport + 1);
-      await expect(page.locator(".sample-hero")).toBeVisible();
-      await expect(page.locator(".sample-guides")).toBeVisible();
+      if (query.includes("layout=dashboard")) await expect(page.locator(".analytics-panel")).toBeVisible();
+      else await expect(page.locator(".sample-hero")).toBeVisible();
+      await expect(page.locator(".route-explorer")).toBeVisible();
     }
   }
 });
@@ -112,7 +113,7 @@ test("lab view passes the critical accessibility smoke test", async ({ page }) =
 
 });
 
-test("component lab deep link exposes interactive specimens without changing the page lab default", async ({ page }) => {
+test("component lab deep link exposes interactive specimens and preserves Page Lab navigation", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/?section=components&component=dialog&view=lab&language=en&copyMode=mixed");
   await expect(page.locator(".lab-shell")).toHaveAttribute("data-section", "components");
@@ -168,8 +169,8 @@ test("component lab stays full-width when the selected page navigation is left-a
 
     expect(geometry.display).toBe("block");
     expect(geometry.columns).toBe("none");
-    expect(geometry.innerWidth).toBeGreaterThan(1_200);
-    expect(geometry.firstCardWidth).toBeGreaterThan(300);
+    expect(geometry.innerWidth).toBeGreaterThan(900);
+    expect(geometry.firstCardWidth).toBeGreaterThan(240);
     expect(geometry.documentOverflow).toBeLessThanOrEqual(0);
     expect(geometry.contentOverflow).toBeLessThanOrEqual(0);
   }

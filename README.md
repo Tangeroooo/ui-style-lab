@@ -4,9 +4,20 @@
 
 [Live site](https://tangeroooo.github.io/ui-style-lab/) · [Repository](https://github.com/Tangeroooo/ui-style-lab)
 
-UI Style Lab is an interactive, bilingual reference for composing complete interface systems. `Page Lab` applies every selection to the same full-page `Field Notes` site, while the separate `Component Lab` carries the same selection into 48 reusable, interactive component specimens and their important states.
+UI Style Lab is an interactive, bilingual reference for complete interface systems. Fresh visits open **Scenes**: five working compositions for team access, file upload, analytics, booking, and preferences. **Page Lab** shows the same design language in complete, task-specific pages. **Component Lab** keeps 48 individual specimens and visual state comparisons.
 
-The top-level `PAGE LAB` and `COMPONENT LAB` menu keeps the two tasks independent without fragmenting the design model. Page Lab remains the default. Switching sections preserves the current aesthetic, surface, layout, navigation, typography, palette, and motion selection.
+Sections share the same compatible design selection. Existing query/hash links without a section continue to open Page Lab. New scene links use `section=scenes&scene=team|upload|analytics|booking|settings`; these are presentation targets, not extra design axes.
+
+## The studio
+
+- A reserved desktop control column and collapsible mobile dock keep the preview unobstructed.
+- Fit, 768px tablet, and 390px phone previews use real responsive viewports. Expand supports Escape and contains keyboard focus.
+- Compare uses the same scene or page type in two design languages, with linked scrolling. Only aesthetics compatible with the current page layout are offered. Each frame starts from the same sample data; interactions are independent.
+- Preset thumbnails render the actual pages, mounted only near the viewport. Reference frames never overwrite the host's saved preferences.
+- Dashboard pages begin with analytics; lists, tables, and guided forms have dedicated task flows. Landing/editorial pages retain their narrative, with contextual route search and planning instead of an isolated component rack.
+- Shared sample data drives charts, totals, comparisons, filters, and route details. Chart geometry stays linear across aesthetics. Accessible chart tables, empty results, validation, back navigation, and confirmation are included.
+
+Scenes run locally in the browser. Invitations and reservations are simulations, settings reset on reload, and file uploads process metadata only: file contents are never read or transmitted. Stageshow's framing, hierarchy, and cause-and-effect principles informed the compositions; its kit and third-party product assets were not copied.
 
 English is the default interface language. The right-side floating control stack offers `English`, `한국어 only`, and `한국어 + English` immediately below the preset, randomize, and share actions on desktop.
 

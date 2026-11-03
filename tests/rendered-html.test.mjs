@@ -27,11 +27,12 @@ test("server-renders the UI Style Lab product", async () => {
   assert.doesNotMatch(html, /UI Language Lab|LANGUAGE LAB/);
   assert.match(html, /LIVE COMBINATION/);
   assert.match(html, /FIELD NOTES/);
-  assert.match(html, /Seasonal field walks/);
-  assert.match(html, /FULL-PAGE LIVE CANVAS/);
+  assert.match(html, /SCENES/);
+  assert.match(html, /Good work\. Together\./);
+  assert.match(html, /Scene studio/);
   assert.match(html, /CURATED STARTING POINTS<!-- --> · <!-- -->62/);
-  assert.match(html, /Primary action/);
-  assert.match(html, /Navigation/);
+  assert.match(html, /Invite member/);
+  assert.match(html, /Palette/);
   assert.match(html, /Latin Type/);
   assert.doesNotMatch(html, /Korean Type/);
   assert.doesNotMatch(html, /Type Binding/);
@@ -61,7 +62,7 @@ test("component lab is an independent section that shares the selection model", 
 
   assert.match(root, /section === "components" \? componentCanvas : pageCanvas/);
   assert.match(lab, /PAGE LAB[^]*COMPONENT LAB/);
-  assert.match(lab, /section === "page" && <PresetGallery/);
+  assert.match(lab, /section !== "components" && <PresetGallery/);
   assert.match(componentData, /defaultComponentId: ComponentId = "button"/);
   assert.doesNotMatch(componentData, /AxisKey|combinationCount/);
 });

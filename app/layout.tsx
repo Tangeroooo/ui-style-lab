@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./style-lab.css";
 import "./styles/lab-progressive.css";
+import "./styles/studio.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tangerooo.github.io/ui-style-lab/"),
+  metadataBase: new URL("https://tangeroooo.github.io/ui-style-lab/"),
   title: "UI Style Lab",
   description:
     "Mix complete interface systems across English, Korean-only, and Korean + English typography modes, then share an agent-ready reference view.",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     title: "UI Style Lab",
     description: "One interface, many design languages. Explore up to 1,477,940 reference-audited full-page combinations.",
     type: "website",
-    url: "https://tangerooo.github.io/ui-style-lab/",
+    url: "https://tangeroooo.github.io/ui-style-lab/",
     images: [{ url: "/ui-style-lab/og.png", width: 1732, height: 908, alt: "UI Style Lab — the same component kit in Glass, Brutal, Editorial, and Terminal styles" }],
   },
   twitter: {

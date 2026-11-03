@@ -1,6 +1,6 @@
 # UI Style Lab agent guide
 
-UI Style Lab is a static, installation-free design reference. It lets an agent compare full-page UI combinations in `Page Lab` or inspect reusable controls and states in the independent `Component Lab`, while preserving the selected governing aesthetic.
+UI Style Lab is a static, installation-free design reference. Fresh visits open Scenes, five interactive compositions. Scene references use `section=scenes&scene=team|upload|analytics|booking|settings`. It also lets an agent compare full-page UI combinations in `Page Lab` or inspect reusable controls and states in the independent `Component Lab`, while preserving the selected governing aesthetic.
 
 ## Recommended workflow
 
@@ -64,3 +64,5 @@ The evidence registry currently covers the `aesthetic`, `surface`, and `layout` 
 ## Legacy links
 
 Existing `#aesthetic=...` links remain readable and are migrated in the browser. They are not the canonical transport and should not be emitted by new agent workflows.
+
+Scene references preserve their `scene` parameter in both Lab and Reference links. Scene IDs do not multiply design combination counts. All actions use fictional, browser-local demo data; no invitations, reservations, file uploads, or account changes are sent to a service.

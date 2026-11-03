@@ -1,16 +1,13 @@
 "use client";
 
-import { lazy, Suspense } from "react";
+import { PageWorkbenches, RouteExplorer, RoutePlanner } from "./PageWorkbenches";
 
 import {
   ArrowDown,
   ArrowUpRight,
   BookOpenText,
-  Check,
   Map,
   MapPinned,
-  MoreHorizontal,
-  Search,
 } from "lucide-react";
 import {
   getOption,
@@ -23,9 +20,6 @@ import {
   usesBilingualCopy,
   type KoreanCopyMode,
 } from "../url-state";
-
-const FieldDataCharts = lazy(() => import("./DataCharts").then((module) => ({ default: module.FieldDataCharts })));
-const DashboardAreaChart = lazy(() => import("./DataCharts").then((module) => ({ default: module.DashboardAreaChart })));
 
 const sampleCopy = {
   en: {
@@ -193,30 +187,6 @@ const sampleMicrocopy = {
   },
 } as const;
 
-const guideStories = [
-  {
-    number: "01",
-    region: "JEJU · VOLCANIC COAST",
-    title: { en: "An edge shaped by wind", ko: "바람이 만든 가장자리" },
-    copy: { en: "Two days following the island’s pace between black basalt and low stone walls.", ko: "검은 현무암과 낮은 돌담 사이, 섬의 속도를 따라 걷는 이틀의 기록." },
-    tone: "ember",
-  },
-  {
-    number: "02",
-    region: "GANGWON · PINE FOREST",
-    title: { en: "The direction of an old forest", ko: "오래된 숲의 방향" },
-    copy: { en: "A small guide to the ridge and pines before the early mist clears.", ko: "이른 안개가 걷히기 전 시작하는 능선과 소나무 숲의 작은 안내서." },
-    tone: "moss",
-  },
-  {
-    number: "03",
-    region: "TONGYEONG · ISLAND PATH",
-    title: { en: "An afternoon between islands", ko: "섬과 섬 사이의 오후" },
-    copy: { en: "Ferry times, tides, and one slowly unfolding day along the southern sea.", ko: "배 시간과 물때, 천천히 이어지는 남쪽 바다의 하루를 채집했습니다." },
-    tone: "tide",
-  },
-] as const;
-
 function EnglishCompanion({ children, visible }: { children: string; visible: boolean }) {
   if (!visible) return null;
   return <span className="english-companion" lang="en">{children}</span>;
@@ -225,73 +195,6 @@ function EnglishCompanion({ children, visible }: { children: string; visible: bo
 export function AgentStateScript({ payload }: { payload: ReturnType<typeof buildAgentState> }) {
   const json = JSON.stringify(payload).replaceAll("<", "\\u003c");
   return <script id="ui-style-lab-state" type="application/json" dangerouslySetInnerHTML={{ __html: json }} />;
-}
-
-function LayoutShowcase({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
-  const t = sampleCopy[language];
-  const bilingual = usesBilingualCopy(language, copyMode);
-  const items = [
-    { number: "01", metric: "42.7 km", title: t.index[0], meta: language === "ko" ? "해안 경로 · 6시간" : "Coastal route · 6 hours" },
-    { number: "02", metric: "12", title: t.index[1], meta: language === "ko" ? "지역 기록 · 업데이트됨" : "Local dispatches · updated" },
-    { number: "03", metric: "04", title: t.index[2], meta: language === "ko" ? "계절별 관찰" : "Seasonal observations" },
-    { number: "04", metric: "18%", title: t.collecting, meta: language === "ko" ? "이번 주 증가" : "Growth this week" },
-    { number: "05", metric: "07", title: t.guideTitle, meta: language === "ko" ? "현재 열람 가능" : "Available now" },
-    { number: "06", metric: "86", title: t.routeTitle.join(" "), meta: language === "ko" ? "추천 경로 점수" : "Route confidence" },
-  ];
-
-  if (selection.layout === "masonry") {
-    return (
-      <section className="layout-showcase masonry-workbench" aria-label={language === "ko" ? "실제 메이슨리 구성" : "True masonry composition"}>
-        {items.map((item, index) => <article className="sample-surface" key={item.number} data-height={(index % 3) + 1}><span>{item.number}</span><strong>{item.metric}</strong><h3>{item.title}</h3><p>{item.meta}</p></article>)}
-      </section>
-    );
-  }
-
-  if (selection.layout === "dashboard") {
-    return (
-      <section className="layout-showcase dashboard-workbench" aria-label={language === "ko" ? "데이터 대시보드 구성" : "Data dashboard composition"}>
-        <header><div><span>LIVE OVERVIEW</span><h3>{language === "ko" ? "현장 운영 대시보드" : "Field operations dashboard"}</h3></div><button type="button">{language === "ko" ? "기간 설정" : "Set range"}</button></header>
-        <div className="dashboard-kpis">{items.slice(0, 4).map((item) => <article className="sample-surface" key={item.number}><span>{item.number}</span><strong>{item.metric}</strong><p>{item.title}</p></article>)}</div>
-        <article className="dashboard-chart sample-surface"><div><span>WEEKLY SIGNAL</span><h4>{language === "ko" ? "걷기 기록 추이" : "Walking record trend"}</h4></div><Suspense fallback={<div className="chart-skeleton" data-agent-pending="true" aria-hidden="true" />}><DashboardAreaChart animate={selection.motion !== "quiet"} /></Suspense></article>
-        <div className="dashboard-status sample-surface">{items.slice(0, 4).map((item, index) => <div key={item.number}><i data-state={index === 2 ? "watch" : "ready"} /><span>{item.title}</span><b>{index === 2 ? "WATCH" : "READY"}</b></div>)}</div>
-      </section>
-    );
-  }
-
-  if (selection.layout === "masterDetail") {
-    return (
-      <section className="layout-showcase master-detail-workbench sample-surface" aria-label={language === "ko" ? "목록과 상세 패널" : "List and detail panes"}>
-        <div className="master-list" role="list"><header><span>FIELD INDEX</span><b>{language === "ko" ? "경로 목록" : "Route list"}</b></header>{items.slice(0, 4).map((item, index) => <button type="button" className={index === 0 ? "selected" : ""} aria-current={index === 0 ? "true" : undefined} key={item.number}><span>{item.number}</span><b>{item.title}</b><small>{item.meta}</small></button>)}</div>
-        <article className="detail-pane"><span>{items[0].meta}</span><h3>{items[0].title}</h3><strong>{items[0].metric}</strong><p>{t.storyLead}<EnglishCompanion visible={bilingual}>{sampleCopy.en.storyLead}</EnglishCompanion></p><div><button type="button">{t.read}</button><button type="button">{t.plan}</button></div></article>
-      </section>
-    );
-  }
-
-  if (selection.layout === "feed") {
-    return <section className="layout-showcase feed-workbench" aria-label={language === "ko" ? "콘텐츠 피드" : "Content feed"}>{items.map((item) => <article className="sample-surface" key={item.number}><span>{item.number}</span><div><small>{item.meta}</small><h3>{item.title}</h3></div><strong>{item.metric}</strong></article>)}</section>;
-  }
-
-  if (selection.layout === "supportingPane") {
-    return <section className="layout-showcase supporting-workbench" aria-label={language === "ko" ? "주요·보조 패널 구성" : "Primary and supporting panes"}><article className="sample-surface"><span>PRIMARY PANE</span><h3>{t.storyTitle.join(" ")}</h3><p>{t.storyLead}<EnglishCompanion visible={bilingual}>{sampleCopy.en.storyLead}</EnglishCompanion></p><button type="button">{t.read}</button></article><aside className="sample-surface"><span>SUPPORTING PANE</span><h4>{t.guideTitle}</h4>{items.slice(0, 3).map((item) => <div key={item.number}><b>{item.number}</b><p>{item.title}</p></div>)}</aside></section>;
-  }
-
-  if (selection.layout === "table") {
-    return (
-      <section className="layout-showcase table-workbench sample-surface" aria-label={language === "ko" ? "운영 데이터 테이블" : "Operations data table"}><header><div><span>ROUTE DATA</span><h3>{language === "ko" ? "현장 기록 비교" : "Compare field records"}</h3></div><button type="button">{language === "ko" ? "필터" : "Filter"}</button></header><div className="table-scroll"><table><caption>{language === "ko" ? "경로 상태와 지표" : "Route status and metrics"}</caption><thead><tr><th scope="col">ID</th><th scope="col">{language === "ko" ? "기록" : "Record"}</th><th scope="col">{language === "ko" ? "상태" : "Status"}</th><th scope="col">{language === "ko" ? "지표" : "Metric"}</th></tr></thead><tbody>{items.map((item, index) => <tr key={item.number}><td>{item.number}</td><th scope="row">{item.title}<small>{item.meta}</small></th><td><i data-state={index === 2 ? "watch" : "ready"} />{index === 2 ? "Watch" : "Ready"}</td><td>{item.metric}</td></tr>)}</tbody></table></div></section>
-    );
-  }
-
-  if (selection.layout === "wizard") {
-    const steps = language === "ko" ? ["지역 선택", "속도 설정", "경로 확인", "기록 시작"] : ["Choose region", "Set pace", "Review route", "Start journal"];
-    return <section className="layout-showcase wizard-workbench sample-surface" aria-label={language === "ko" ? "단계별 작업 흐름" : "Guided task flow"}><ol>{steps.map((step, index) => <li className={index === 0 ? "current" : ""} key={step}><i>{index === 0 ? <Check aria-hidden="true" /> : index + 1}</i><span>{step}</span><small>{index === 0 ? (language === "ko" ? "현재 단계" : "Current") : (language === "ko" ? "예정" : "Upcoming")}</small></li>)}</ol><form onSubmit={(event) => event.preventDefault()}><span>STEP 01 / 04</span><h3>{steps[0]}</h3><p>{language === "ko" ? "걷고 싶은 지역과 풍경을 먼저 선택하세요." : "Begin by choosing the landscape you want to walk through."}</p><label>{t.destination}<input value={t.destinationValue} readOnly /></label><div><button type="button">{language === "ko" ? "이전" : "Back"}</button><button type="submit">{language === "ko" ? "다음 단계" : "Continue"}</button></div></form></section>;
-  }
-
-  return (
-    <section className="sample-index" aria-label={t.indexAria}>
-      {items.slice(0, 3).map((item, index) => <div key={item.number}><span>{item.number}</span><strong>{item.metric.replace(" km", "")}<small>{index === 0 ? "km" : index === 1 ? "stories" : "ways"}</small></strong><p>{item.title}<EnglishCompanion visible={bilingual}>{sampleCopy.en.index[index]}</EnglishCompanion></p></div>)}
-      <div className="index-note"><span>NOW COLLECTING</span><p>{t.collecting}<EnglishCompanion visible={bilingual}>{sampleCopy.en.collecting}</EnglishCompanion></p><a href="#sample-route">{t.contribute}<ArrowUpRight aria-hidden="true" /></a></div>
-    </section>
-  );
 }
 
 export function FieldNotesSite({ selection, language, copyMode }: { selection: Selection; language: Language; copyMode: KoreanCopyMode }) {
@@ -303,7 +206,8 @@ export function FieldNotesSite({ selection, language, copyMode }: { selection: S
   const surface = getOption("surface", selection.surface);
   const localizedAesthetic = language === "en" ? aesthetic.en : aesthetic.ko;
   const localizedSurface = language === "en" ? surface.en : surface.ko;
-  const navItems = [
+  const operational = ["dashboard", "masterDetail", "supportingPane", "table", "wizard", "feed", "masonry", "dense"].includes(selection.layout);
+  const navItems = operational ? (selection.layout === "wizard" ? [{ href: "#sample-route", Icon: MapPinned, label: language === "ko" ? "계획하기" : "Plan a walk" }] : [{ href: "#live-site", Icon: BookOpenText, label: language === "ko" ? "개요" : "Overview" }, { href: "#sample-guides", Icon: Map, label: language === "ko" ? "경로" : "Routes" }, { href: "#sample-route", Icon: MapPinned, label: language === "ko" ? "계획하기" : "Plan a walk" }]) : [
     { href: "#sample-story", Icon: BookOpenText, label: t.nav[0] },
     { href: "#sample-guides", Icon: Map, label: t.nav[1] },
     { href: "#sample-route", Icon: MapPinned, label: t.nav[2] },
@@ -324,6 +228,7 @@ export function FieldNotesSite({ selection, language, copyMode }: { selection: S
       data-aesthetic={selection.aesthetic}
       data-surface={selection.surface}
       data-layout={selection.layout}
+      data-operational={operational}
       data-nav={selection.nav}
       data-nav-style={selection.navStyle}
       data-type={selection.type}
@@ -339,16 +244,17 @@ export function FieldNotesSite({ selection, language, copyMode }: { selection: S
         <nav aria-label={t.navAria}>
           {navItems.map((item) => <a href={item.href} onClick={(event) => scrollWithinCanvas(event, item.href.slice(1))} aria-label={item.label} key={item.href}><span className="nav-icon" aria-hidden="true"><item.Icon /></span><span className="nav-text">{item.label}</span></a>)}
         </nav>
-        <button type="button" className="sample-nav-cta">{t.plan} <span aria-hidden="true"><ArrowUpRight /></span></button>
+        <button type="button" onClick={() => document.getElementById("sample-route")?.scrollIntoView({ behavior: "auto" })} className="sample-nav-cta">{t.plan} <span aria-hidden="true"><ArrowUpRight /></span></button>
       </header>
 
       <div className="sample-main">
+        {operational ? <PageWorkbenches selection={selection} language={language} copyMode={copyMode} /> : <>
         <section className="sample-hero">
           <div className="hero-copy">
             <div className="sample-eyebrow"><span lang={microLanguage}>{micro.edition}</span><i /><span lang={microLanguage}>{micro.coordinates}</span></div>
             <h2><span>{t.hero[0]}</span><em lang={bilingual ? "en" : undefined}>{bilingual ? sampleCopy.en.hero[1] : t.hero[1]}</em></h2>
             <p>{t.heroBody}<EnglishCompanion visible={bilingual}>{sampleCopy.en.heroBody}</EnglishCompanion></p>
-            <div className="hero-actions"><button type="button">{t.explore} <span aria-hidden="true"><ArrowUpRight /></span></button><a href="#sample-story" onClick={(event) => scrollWithinCanvas(event, "sample-story")}><i aria-hidden="true"><ArrowDown /></i> {t.read}</a></div>
+            <div className="hero-actions"><button type="button" onClick={() => document.getElementById("sample-guides")?.scrollIntoView({ behavior: "auto" })}>{t.explore} <span aria-hidden="true"><ArrowUpRight /></span></button><a href="#sample-story" onClick={(event) => scrollWithinCanvas(event, "sample-story")}><i aria-hidden="true"><ArrowDown /></i> {t.read}</a></div>
           </div>
 
           <div className="hero-landscape sample-surface" aria-label={t.artAria}>
@@ -359,28 +265,6 @@ export function FieldNotesSite({ selection, language, copyMode }: { selection: S
           </div>
         </section>
 
-        <section className="component-rack" aria-label={t.componentsAria}>
-          <article className="rack-cell sample-surface button-cell"><span lang={microLanguage}>{micro.componentLabels[0]}</span><div><button type="button" lang={microLanguage}>{micro.primary}</button><button type="button" lang={microLanguage}>{micro.secondary}</button><button type="button" aria-label={t.more}><MoreHorizontal aria-hidden="true" /></button></div></article>
-          <article className="rack-cell sample-surface input-cell"><span lang={microLanguage}>{micro.componentLabels[1]}</span><label><small>{t.destination}</small><input value={t.destinationValue} readOnly aria-label={t.destinationAria} /><b aria-hidden="true"><Search /></b></label></article>
-          <article className="rack-cell sample-surface tag-cell"><span lang={microLanguage}>{micro.componentLabels[2]}</span><div><button type="button" className="selected">{t.allRoutes}</button><button type="button">{t.coast}</button><button type="button">{t.forest}</button></div></article>
-          <article className="rack-cell sample-surface progress-cell"><span lang={microLanguage}>{micro.componentLabels[3]}</span><div><b>{t.fieldLog}</b><em lang="en">72%</em></div><i><b /></i></article>
-          <article className="rack-cell sample-surface toggle-cell"><span lang={microLanguage}>{micro.componentLabels[4]}</span><div><i /><b>{t.trailOpen}</b><button type="button" aria-label={t.trailAria}><em /></button></div></article>
-        </section>
-
-        <LayoutShowcase selection={selection} language={language} copyMode={copyMode} />
-
-        <Suspense fallback={<section className="sample-data chart-loading" data-agent-pending="true" aria-busy="true" aria-label={language === "ko" ? "차트 불러오는 중" : "Loading charts"} />}>
-          <FieldDataCharts
-            selection={selection}
-            copy={t.charts}
-            microcopy={micro}
-            microLanguage={microLanguage}
-            bilingual={bilingual}
-            englishTitle={sampleCopy.en.charts.title[1]}
-            englishIntro={sampleCopy.en.charts.intro}
-          />
-        </Suspense>
-
         <section className="sample-story" id="sample-story">
           <div className="story-heading"><span lang={microLanguage}>{micro.essay}</span><h3>{t.storyTitle[0]}<br /><em className={bilingual ? "english-display-line" : undefined} lang={bilingual ? "en" : undefined}>{bilingual ? sampleCopy.en.storyTitle[1] : t.storyTitle[1]}</em></h3></div>
           <div className="story-body">
@@ -390,31 +274,15 @@ export function FieldNotesSite({ selection, language, copyMode }: { selection: S
           </div>
         </section>
 
-        <section className="sample-guides" id="sample-guides">
-          <header><div><span lang={microLanguage}>{micro.guides}</span><h3>{t.guideTitle}{bilingual && <span className="english-display-line" lang="en">{sampleCopy.en.guideTitle}</span>}</h3></div><p>{t.guideIntro}<EnglishCompanion visible={bilingual}>{sampleCopy.en.guideIntro}</EnglishCompanion></p></header>
-          <div className="guide-grid">
-            {guideStories.map((story, index) => {
-              const title = story.title[language];
-              return (
-                <article className={`guide-card sample-surface ${story.tone}`} key={story.number}>
-                  <div className="guide-art" aria-hidden="true"><i /><i /><i /><span>{story.number}</span></div>
-                  <div className="guide-copy"><span lang={microLanguage}>{micro.regions[index]}</span><h4>{title}{bilingual && <span className="english-display-line" lang="en">{story.title.en}</span>}</h4><p>{story.copy[language]}<EnglishCompanion visible={bilingual}>{story.copy.en}</EnglishCompanion></p><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")} aria-label={`${t.openGuide}: ${title}`}>{t.openGuide} <ArrowUpRight aria-hidden="true" /></a></div>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className="sample-route sample-surface" id="sample-route">
-          <div className="route-map" aria-hidden="true" lang={microLanguage}><i className="route-line line-a" /><i className="route-line line-b" /><i className="route-line line-c" /><b className="route-point point-a">{micro.routePoints[0]}</b><b className="route-point point-b">{micro.routePoints[1]}</b><b className="route-point point-c">{micro.routePoints[2]}</b><span className="route-coordinate">{micro.routeCoordinates[0]}<br />{micro.routeCoordinates[1]}</span></div>
-          <div className="route-copy"><span lang={microLanguage}>{micro.makeItYours}</span><h3>{t.routeTitle[0]}<br /><span className={bilingual ? "english-display-line" : undefined} lang={bilingual ? "en" : undefined}>{bilingual ? sampleCopy.en.routeTitle[1] : t.routeTitle[1]}</span></h3><p>{t.routeBody}<EnglishCompanion visible={bilingual}>{sampleCopy.en.routeBody}</EnglishCompanion></p><button type="button">{t.routeButton} <b aria-hidden="true"><ArrowUpRight /></b></button></div>
-        </section>
+        <RouteExplorer language={language} copyMode={copyMode} onPlan={() => document.getElementById("sample-route")?.scrollIntoView({ behavior: "auto" })} />
+        <RoutePlanner language={language} copyMode={copyMode} />
+        </>}
       </div>
 
       <footer className="sample-footer">
         <div className="sample-brand"><span className="sample-mark"><i /><i /><i /></span><b lang={microLanguage}>{micro.brand}</b></div>
         <p>{t.footer[0]}<br />{t.footer[1]}<EnglishCompanion visible={bilingual}>{sampleCopy.en.footer.join(" ")}</EnglishCompanion></p>
-        <div><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{micro.instagram}</a><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{t.archive}</a><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{t.contact}</a></div>
+        <div><a href="#live-site" onClick={(event) => scrollWithinCanvas(event, "live-site")}>{language === "ko" ? "맨 위로" : "Back to top"}</a><a href="#sample-route" onClick={(event) => scrollWithinCanvas(event, "sample-route")}>{t.plan}</a></div>
         <span lang={microLanguage}>{micro.copyright}</span>
       </footer>
     </section>
