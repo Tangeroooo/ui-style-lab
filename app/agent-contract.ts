@@ -1,3 +1,4 @@
+import { scenes } from "./scenes/scene-data.ts";
 import {
   aestheticRules,
   axes,
@@ -74,7 +75,7 @@ export function buildAgentCatalog() {
     transport: {
       canonical: "query",
       legacyReadOnly: "hash",
-      queryTemplate: `${canonicalLabUrl}?aesthetic={id}&surface={id}&layout={id}&nav={id}&navStyle={id}&type={id}&koType={id}&fontMode={id}&palette={id}&motion={id}&language={en|ko}&copyMode={only|mixed}&section={page|components}&component={id}&view={lab|reference}&capture=1&strict=1`,
+      queryTemplate: `${canonicalLabUrl}?aesthetic={id}&surface={id}&layout={id}&nav={id}&navStyle={id}&type={id}&koType={id}&fontMode={id}&palette={id}&motion={id}&language={en|ko}&copyMode={only|mixed}&section={scenes|page|components}&scene={id}&component={id}&view={lab|reference}&capture=1&strict=1`,
       flags: {
         strict: "Preserve invalid requested values in the URL and report every resolver adjustment.",
         capture: "Disable non-essential motion and expose a deterministic readiness marker.",
@@ -98,6 +99,7 @@ export function buildAgentCatalog() {
       korean: koreanFontResources,
     },
     presets,
+    scenes: { defaultSection: "scenes", items: scenes, countPolicy: "Scenes do not multiply design combinations." },
     componentLab: {
       defaultSection: "page",
       categories: componentCategories,
@@ -142,6 +144,7 @@ export function buildAgentState({ state, resolution, ready, capture, strict }: A
       copyMode,
       view: state.view,
       section: state.section,
+      scene: state.scene,
       component: state.component,
       capture,
       strict,

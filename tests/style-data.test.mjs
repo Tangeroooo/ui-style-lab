@@ -398,14 +398,13 @@ test("every aesthetic, surface, and layout exposes an auditable reference", () =
 
 test("structural layouts use dedicated semantic renderers", () => {
   const source = readFileSync(new URL("../app/canvas/FieldNotesSite.tsx", import.meta.url), "utf8");
-  const charts = readFileSync(new URL("../app/canvas/DataCharts.tsx", import.meta.url), "utf8");
-  assert.match(source, /masonry-workbench/);
-  assert.match(source, /dashboard-workbench/);
-  assert.match(source, /master-detail-workbench/);
-  assert.match(source, /<table>/);
-  assert.match(source, /Operations data table/);
-  assert.match(source, /wizard-workbench/);
-  assert.match(source, /Guided task flow/);
-  assert.match(source, /<ol>/);
+  const workbenches = readFileSync(new URL("../app/canvas/PageWorkbenches.tsx", import.meta.url), "utf8");
+  const charts = readFileSync(new URL("../app/canvas/AnalyticsPanel.tsx", import.meta.url), "utf8");
+  assert.match(source, /operational \? <PageWorkbenches/);
+  assert.match(workbenches, /<table>/);
+  assert.match(workbenches, /<caption>/);
+  assert.match(workbenches, /<ol className="planner-steps">/);
+  assert.match(workbenches, /<form/);
   assert.match(charts, /ResponsiveContainer/);
+  assert.match(charts, /type="linear"/);
 });

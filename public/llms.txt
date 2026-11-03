@@ -13,3 +13,5 @@ No package installation, MCP server, login, or API key is required.
 Use canonical query parameters for new links. Hash-based state is legacy input only.
 For deterministic browser capture, request `view=reference&capture=1&strict=1`, wait for `[data-agent-ready="true"]`, then read `#ui-style-lab-state` before taking a screenshot.
 For a component reference, also request `section=components&component={id}` using an ID from `catalog.v1.json`.
+
+For a composed scene, use `section=scenes&scene={team|upload|analytics|booking|settings}`. Existing unsectioned reference links remain Page Lab links.

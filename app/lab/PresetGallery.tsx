@@ -1,3 +1,4 @@
+import { LivePresetPreview } from "./LivePresetPreview";
 import { useDeferredValue, useMemo, useState } from "react";
 import { ArrowUpRight, Search } from "lucide-react";
 
@@ -83,9 +84,7 @@ export function PresetGallery({ language, onChoosePreset }: PresetGalleryProps) 
         <div className="preset-grid">
           {visiblePresets.map((preset, index) => (
             <button className="preset-card" type="button" key={preset.id} onClick={() => onChoosePreset(preset.selection)}>
-              <div className="preset-mini" data-aesthetic={preset.selection.aesthetic} data-surface={preset.selection.surface} data-layout={preset.selection.layout} data-palette={preset.selection.palette}>
-                <span className="mini-nav"><i /><b /><b /></span><span className="mini-hero"><strong /><em /></span><span className="mini-grid"><i /><i /><i /></span>
-              </div>
+              <LivePresetPreview selection={preset.selection} />
               <div className="preset-copy"><span>{(index + 1).toString().padStart(2, "0")} · {preset.category}</span><h3>{preset.name}</h3><p>{language === "en" ? presetLabelsEn[preset.id] : preset.label}</p></div>
               <span className="preset-arrow" aria-hidden="true"><ArrowUpRight /></span>
             </button>

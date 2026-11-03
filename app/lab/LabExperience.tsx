@@ -1,3 +1,5 @@
+import { PreviewWorkspace } from "./PreviewWorkspace";
+import { scenes, type SceneId } from "../scenes/scene-data";
 import {
   useCallback,
   useEffect,
@@ -61,6 +63,9 @@ type LabExperienceProps = {
   capture: boolean;
   section: ExperienceSection;
   selectedComponent: ComponentId;
+  scene: SceneId;
+  onSceneChange: (scene: SceneId) => void;
+  onComponentChange: (component: ComponentId) => void;
   canvas: ReactNode;
   canUndo: boolean;
   canRedo: boolean;
@@ -134,6 +139,9 @@ export function LabExperience({
   capture,
   section,
   selectedComponent,
+  scene,
+  onSceneChange,
+  onComponentChange,
   canvas,
   canUndo,
   canRedo,
@@ -143,6 +151,7 @@ export function LabExperience({
   onLanguageChange,
   onSectionChange,
 }: LabExperienceProps) {
+  const [controlsOpen, setControlsOpen] = useState(true);
   const [activeAxis, setActiveAxis] = useState<AxisKey | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
@@ -162,8 +171,8 @@ export function LabExperience({
     [selection],
   );
   const visibleAxisKeys = useMemo(
-    () => getVisibleAxisKeys(language, copyMode, selection.fontMode),
-    [copyMode, language, selection.fontMode],
+    () => getVisibleAxisKeys(language, copyMode, selection.fontMode).filter((axis) => section === "page" || !["layout", "nav", "navStyle"].includes(axis)),
+    [copyMode, language, section, selection.fontMode],
   );
 
   const closeAxis = useCallback(() => setActiveAxis(null), []);
@@ -214,7 +223,7 @@ export function LabExperience({
   }, [closeLanguage, languageOpen]);
 
   useEffect(() => {
-    const lowerSection = document.getElementById(section === "page" ? "presets" : "component-catalog");
+    const lowerSection = document.getElementById(section === "components" ? "component-catalog" : "presets");
     if (!lowerSection) return;
     const observer = new IntersectionObserver(
       ([entry]) => setLowerSectionVisible(entry.isIntersecting),
@@ -268,7 +277,7 @@ export function LabExperience({
   async function share(targetView: ExperienceView) {
     const url = createExperienceUrl(
       window.location.href,
-      { selection, language, copyMode, view: "lab", section, component: selectedComponent },
+      { selection, language, copyMode, view: "lab", section, scene, component: selectedComponent },
       targetView,
     );
     try {
@@ -290,14 +299,19 @@ export function LabExperience({
   function choosePreset(nextSelection: Selection) {
     onApplySelection(normalizeSelection(nextSelection));
     closeAxis();
-    document.getElementById("live-site")?.scrollIntoView({ behavior: selection.motion === "quiet" ? "auto" : "smooth" });
+    document.getElementById("design-preview")?.scrollIntoView({ behavior: selection.motion === "quiet" ? "auto" : "smooth" });
   }
 
   function jumpBetweenCanvasAndPresets() {
-    const targetId = section === "page"
-      ? lowerSectionVisible ? "live-site" : "presets"
+    const targetId = section !== "components"
+      ? lowerSectionVisible ? "design-preview" : "presets"
       : lowerSectionVisible ? "component-lab" : "component-catalog";
-    document.getElementById(targetId)?.scrollIntoView({ behavior: selection.motion === "quiet" ? "auto" : "smooth" });
+    const local = document.getElementById(targetId);
+    if (local) local.scrollIntoView({ behavior: "auto" });
+    else {
+      document.getElementById("design-preview")?.scrollIntoView({ behavior: "auto" });
+      document.querySelectorAll<HTMLIFrameElement>(".preview-frame iframe").forEach((frame) => frame.contentDocument?.getElementById(targetId)?.scrollIntoView({ behavior: "auto" }));
+    }
     closeAxis();
     closeShare();
   }
@@ -341,10 +355,12 @@ export function LabExperience({
       data-agent-valid={resolutionValid}
       data-capture={capture}
       data-section={section}
+      data-controls-open={controlsOpen}
     >
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label={t.home}><span>UI</span><b>STYLE LAB</b></a>
         <nav className="primary-lab-nav" aria-label={language === "ko" ? "실험실 메뉴" : "Lab sections"}>
+          <button type="button" aria-current={section === "scenes" ? "page" : undefined} onClick={() => chooseSection("scenes")}>SCENES</button>
           <button type="button" aria-current={section === "page" ? "page" : undefined} onClick={() => chooseSection("page")}>PAGE LAB</button>
           <button type="button" aria-current={section === "components" ? "page" : undefined} onClick={() => chooseSection("components")}>COMPONENT LAB <span>{componentCatalog.length}</span></button>
         </nav>
@@ -353,21 +369,14 @@ export function LabExperience({
         </div>
       </header>
 
-      <section className={`intro ${section === "components" ? "component-intro" : ""}`} id="top">
-        <div className="intro-kicker"><span>{section === "page" ? t.introKicker : "COMPONENT LAB · ADVANCED"}</span><i />2026</div>
-        <h1>{section === "page" ? t.title[0] : language === "ko" ? "재사용 가능한 UI를" : "Reusable UI,"}<br /><em>{section === "page" ? t.title[1] : language === "ko" ? "조합으로 검증하세요." : "under every style."}</em></h1>
-        <div className="intro-side">
-          <p>{section === "page" ? language === "ko" && copyMode === "only" ? t.introOnly : t.intro : language === "ko" ? "같은 layer 조합을 버튼, 입력, 탐색, 피드백, 데이터, 오버레이까지 이어서 살펴보세요. 각 항목은 실제로 조작할 수 있고 주요 상태를 한 화면에서 비교할 수 있습니다." : "Carry the same layer combination into actions, forms, navigation, feedback, data display, and overlays. Interact with each specimen and compare its important states side by side."}</p>
-          <div className="intro-count"><strong>{section === "page" ? experienceCombinationCount(language, copyMode).toLocaleString("en-US") : componentCatalog.length}</strong><span>{section === "page" ? t.count : language === "ko" ? "재사용 가능한 컴포넌트" : "reusable components"}</span></div>
-          <a className="explore-cta" href={section === "page" ? "#live-site" : "#component-lab"}><b>{section === "page" ? t.explore : language === "ko" ? "컴포넌트 상태 살펴보기" : "Explore component states"}</b><span aria-hidden="true"><ArrowDown /></span></a>
-          <aside className="agent-guide-note">
-            <span className="agent-guide-icon" aria-hidden="true"><BookOpenText /></span>
-            <div><small>{t.agentGuideKicker}</small><b>{t.agentGuideTitle}</b><p>{t.agentGuideBody}</p></div>
-            <a href="agent-guide.md" target="_blank" rel="noreferrer">{t.agentGuideLink}<ExternalLink aria-hidden="true" /></a>
-          </aside>
-        </div>
+      <section className="intro studio-intro" id="top">
+        <div className="intro-kicker"><span>{language === "ko" ? "디자인을 직접 경험하세요" : "DESIGN, IN CONTEXT"}</span><i />2026</div>
+        <h1>{section === "scenes" ? language === "ko" ? "작은 장면, 완성된 경험." : "Small scenes. Whole experiences." : section === "page" ? language === "ko" ? "하나의 스타일, 전체 페이지." : "One language. Every page." : language === "ko" ? "디테일에서 시작하는 디자인." : "Good design is in the details."}</h1>
+        <div className="intro-side"><p>{section === "scenes" ? language === "ko" ? "장면을 고르고 직접 조작하세요. 같은 경험이 다른 디자인 언어를 만나면 어떻게 달라지는지 확인해 보세요." : "Choose a scene. Make something happen. Discover how a different design language changes the same experience." : section === "page" ? language === "ko" ? "소개부터 탐색, 분석과 계획까지. 실제 페이지의 흐름 속에서 디자인을 확인하세요." : "From first impression to the next action. Explore a design language across a complete page." : language === "ko" ? "기본 요소의 형태와 상태를 비교하고 실제로 조작해 보세요." : "Inspect the shape, states, and behavior of the individual parts."}</p>
+        <div className="intro-count"><strong>{section === "components" ? componentCatalog.length : section === "scenes" ? scenes.length : experienceCombinationCount(language, copyMode).toLocaleString("en-US")}</strong><span>{section === "components" ? "COMPONENTS" : section === "scenes" ? "INTERACTIVE SCENES" : t.count}</span></div>
+        <a className="explore-cta" href="#design-preview">{language === "ko" ? "미리보기로 이동" : "Explore the preview"}<ArrowDown aria-hidden="true" /></a></div>
       </section>
-
+      <button className="controls-toggle" type="button" aria-expanded={controlsOpen} aria-controls="mixer" onClick={() => { setControlsOpen(!controlsOpen); closeAxis(); closeShare(); closeLanguage(); }}>{language === "ko" ? controlsOpen ? "조절 패널 접기" : "스타일 조절" : controlsOpen ? "Hide controls" : "Style controls"}<ChevronDown aria-hidden="true" /></button>
       <div className="mixer-anchor" id="mixer">
         <section className="floating-mixer" aria-label={t.mixer} ref={mixerRef}>
           <div className="mixer-status"><span className="status-dot" /><div><small>LIVE COMBINATION</small><b>{currentPreset?.name ?? "Custom mix"}</b></div></div>
@@ -465,9 +474,11 @@ export function LabExperience({
         </div>
       </div>
 
-      <div className="canvas-label"><span>{section === "page" ? t.canvas : language === "ko" ? "컴포넌트 작업대" : "Component workbench"}</span><b>{visibleAxisKeys.map((axis) => language === "en" ? getOption(axis, selection[axis]).en : getOption(axis, selection[axis]).ko).join(" × ")}</b></div>
-      {canvas}
-      {section === "page" && <PresetGallery language={language} onChoosePreset={choosePreset} />}
+      <div className="canvas-label"><span>{section === "scenes" ? language === "ko" ? "장면 작업대" : "Scene studio" : section === "page" ? t.canvas : language === "ko" ? "컴포넌트 작업대" : "Component workbench"}</span><b>{visibleAxisKeys.map((axis) => language === "en" ? getOption(axis, selection[axis]).en : getOption(axis, selection[axis]).ko).join(" × ")}</b></div>
+      {section === "scenes" && <div className="studio-starts"><span>{language === "ko" ? "추천 스타일" : "START WITH"}</span>{["minimal", "atlassian", "brutalist"].map((id) => <button type="button" key={id} aria-pressed={selection.aesthetic === id} onClick={() => onApplySelection(recommendedSelection(id))}>{getOption("aesthetic", id)[language]}</button>)}</div>}
+      <PreviewWorkspace onComponentChange={onComponentChange} onSceneChange={onSceneChange} state={{ selection, language, copyMode, view: "lab", section, scene, component: selectedComponent }}>{canvas}</PreviewWorkspace>
+      {section !== "components" && <PresetGallery language={language} onChoosePreset={choosePreset} />}
+      <details className="studio-guide"><summary><BookOpenText aria-hidden="true" />{t.agentGuideTitle}</summary><p>{t.agentGuideBody}</p><a href="agent-guide.md" target="_blank" rel="noreferrer">{t.agentGuideLink}<ExternalLink aria-hidden="true" /></a><p>{experienceCombinationCount(language, copyMode).toLocaleString("en-US")} {t.count}</p></details>
       <footer className="lab-footer"><div className="wordmark"><span>UI</span><b>STYLE LAB</b></div><p>{t.footer}</p><a href="#top">{t.back}<ArrowUp aria-hidden="true" /></a></footer>
       <div className="toast" aria-live="polite" data-visible={Boolean(notice)}>{notice}</div>
     </main>

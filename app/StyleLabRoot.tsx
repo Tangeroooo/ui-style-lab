@@ -2,6 +2,7 @@
 
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
+import { defaultScene, type SceneId } from "./scenes/scene-data";
 import { getRequiredFontFamilies } from "./font-data";
 import { buildAgentState } from "./agent-contract";
 import {
@@ -33,6 +34,8 @@ const LabExperience = lazy(() => import("./lab/LabExperience").then((module) => 
 const ComponentLabSite = lazy(() => import("./component-lab/ComponentLabSite").then((module) => ({
   default: module.ComponentLabSite,
 })));
+
+const SceneLab = lazy(() => import("./scenes/SceneLab").then((module) => ({ default: module.SceneLab })));
 
 const storageKey = "ui-language-lab-selection";
 const languageKey = "ui-language-lab-language";
@@ -70,8 +73,9 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
   const [language, setLanguage] = useState<Language>("en");
   const [copyMode, setCopyMode] = useState<KoreanCopyMode>("mixed");
   const [view, setView] = useState<ExperienceView>(initialView ?? "lab");
-  const [section, setSection] = useState<ExperienceSection>("page");
+  const [section, setSection] = useState<ExperienceSection>("scenes");
   const [selectedComponent, setSelectedComponent] = useState<ComponentId>(defaultComponentId);
+  const [scene, setScene] = useState<SceneId>(defaultScene);
   const [ready, setReady] = useState(false);
   const [agentReady, setAgentReady] = useState(false);
   const [capture, setCapture] = useState(false);
@@ -106,7 +110,8 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
       if (initialLanguage) setLanguage(initialLanguage);
       if (initialCopyMode) setCopyMode(initialCopyMode);
       if (fromLocation.view) setView(fromLocation.view);
-      if (fromLocation.section) setSection(fromLocation.section);
+      setSection(fromLocation.section ?? (fromLocation.source === "none" ? "scenes" : "page"));
+      if (fromLocation.scene) setScene(fromLocation.scene);
       if (fromLocation.component) setSelectedComponent(fromLocation.component);
       if (fromLocation.capture !== null) setCapture(fromLocation.capture);
       if (fromLocation.strict !== null) setStrict(fromLocation.strict);
@@ -118,15 +123,15 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
   useEffect(() => {
     if (!ready) return;
     try {
-      window.localStorage.setItem(storageKey, JSON.stringify(selection));
+      if (view === "lab" && window.parent === window) window.localStorage.setItem(storageKey, JSON.stringify(selection));
     } catch {
       // Ignore storage failures.
     }
     if (strict && !resolution.valid) return;
-    const query = serializeExperienceQuery({ selection, language, copyMode, view, section, component: selectedComponent, capture, strict });
+    const query = serializeExperienceQuery({ selection, language, copyMode, view, section, scene, component: selectedComponent, capture, strict });
     const anchor = /^#(?:top|mixer|presets|live-site)$/.test(window.location.hash) ? window.location.hash : "";
     window.history.replaceState(null, "", `${window.location.pathname}?${query}${anchor}`);
-  }, [capture, copyMode, language, ready, resolution, section, selectedComponent, selection, strict, view]);
+  }, [capture, copyMode, language, ready, resolution, scene, section, selectedComponent, selection, strict, view]);
 
   useEffect(() => {
     if (!ready) return;
@@ -138,7 +143,8 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
       if (parsed.language) setLanguage(parsed.language);
       if (parsed.copyMode) setCopyMode(parsed.copyMode);
       if (parsed.view) setView(parsed.view);
-      if (parsed.section) setSection(parsed.section);
+      setSection(parsed.section ?? "page");
+      setScene(parsed.scene ?? defaultScene);
       if (parsed.component) setSelectedComponent(parsed.component);
       if (parsed.capture !== null) setCapture(parsed.capture);
       if (parsed.strict !== null) setStrict(parsed.strict);
@@ -187,18 +193,20 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
       for (const timeoutId of timeouts) window.clearTimeout(timeoutId);
       timeouts.clear();
     };
-  }, [capture, copyMode, language, ready, section, selectedComponent, selection, view]);
+  }, [capture, copyMode, language, ready, scene, section, selectedComponent, selection, view]);
 
   useEffect(() => {
     document.documentElement.lang = language;
     if (!ready) return;
     try {
-      window.localStorage.setItem(languageKey, language);
-      window.localStorage.setItem(copyModeKey, copyMode);
+      if (view === "lab" && window.parent === window) {
+        window.localStorage.setItem(languageKey, language);
+        window.localStorage.setItem(copyModeKey, copyMode);
+      }
     } catch {
       // Ignore storage failures.
     }
-  }, [copyMode, language, ready]);
+  }, [copyMode, language, ready, view]);
 
   const applySelection = useCallback((next: Selection) => {
     commit(next);
@@ -240,8 +248,17 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
     setAgentReady(false);
   }, []);
 
+  const selectScene = useCallback((next: SceneId) => {
+    setScene(next);
+    if (window.parent !== window) window.parent.postMessage({ type: "ui-style-lab-scene", scene: next }, window.location.origin);
+  }, []);
+  const selectComponent = useCallback((next: ComponentId) => {
+    setSelectedComponent(next);
+    if (window.parent !== window) window.parent.postMessage({ type: "ui-style-lab-component", component: next }, window.location.origin);
+  }, []);
+
   const agentState = buildAgentState({
-    state: { selection, language, copyMode, view, section, component: selectedComponent },
+    state: { selection, language, copyMode, view, section, scene, component: selectedComponent },
     resolution,
     ready: agentReady,
     capture,
@@ -255,11 +272,12 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
         language={language}
         copyMode={copyMode}
         selectedComponent={selectedComponent}
-        onSelectComponent={setSelectedComponent}
+        onSelectComponent={selectComponent}
       />
     </Suspense>
   );
-  const canvas = section === "components" ? componentCanvas : pageCanvas;
+  const sceneCanvas = <Suspense fallback={<section data-agent-pending="true" />}><SceneLab selection={selection} language={language} copyMode={copyMode} scene={scene} onSceneChange={selectScene} /></Suspense>;
+  const canvas = section === "scenes" ? sceneCanvas : section === "components" ? componentCanvas : pageCanvas;
 
   return (
     <>
@@ -267,7 +285,7 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
       <AgentStateScript payload={agentState} />
       {view === "reference" ? (
         <main className="reference-view" data-agent-ready={agentReady} data-agent-valid={resolution.valid} data-capture={capture}>
-          <h1 className="sr-only">UI Style Lab {section === "components" ? "component" : "page"} reference</h1>
+          <h1 className="sr-only">UI Style Lab {section === "scenes" ? "scene" : section === "components" ? "component" : "page"} reference</h1>
           {canvas}
         </main>
       ) : (
@@ -280,6 +298,9 @@ export function StyleLabRoot({ initialView }: StyleLabRootProps) {
             resolutionValid={resolution.valid}
             capture={capture}
             section={section}
+            onSceneChange={selectScene}
+            scene={scene}
+            onComponentChange={selectComponent}
             selectedComponent={selectedComponent}
             canvas={canvas}
             canUndo={history.canUndo}
